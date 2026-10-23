@@ -444,3 +444,48 @@ body {
   }
   .kmap-item { grid-template-columns: 84px 1fr; }
 }
+
+/* Code blocks: a quiet “cell” panel with a blue spine, not a washed-out box */
+.md-typeset .highlight {
+  background: var(--cell);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--acc);
+  margin: 1.2em 0;
+}
+.md-typeset .highlight pre {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.md-typeset .highlight code {
+  display: block;
+  padding: .95rem 1.1rem;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.md-typeset .highlight .md-clipboard {
+  color: var(--mut);
+  background: color-mix(in srgb, var(--cell) 82%, transparent);
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.md-typeset .highlight .md-clipboard:hover {
+  color: var(--acc);
+}
+
+/* Material's code copy button: keep it quiet */
+.md-typeset .md-code__button {
+  background: transparent;
+  border: 0;
+  color: var(--mut);
+  opacity: .55;
+}
+.md-typeset .md-code__button:hover {
+  background: transparent;
+  color: var(--acc);
+  opacity: 1;
+}
