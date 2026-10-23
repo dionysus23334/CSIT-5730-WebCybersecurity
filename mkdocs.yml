@@ -1,0 +1,80 @@
+site_name: CSIT5730 复习笔记
+site_description: HKUST CSIT5730 Principles of Cybersecurity 复习资料
+site_author: dionysus23334
+site_url: https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/
+repo_url: https://github.com/dionysus23334/CSIT-5730-WebCybersecurity
+repo_name: dionysus23334/CSIT-5730-WebCybersecurity
+edit_uri: edit/main/docs/
+copyright: 个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+nav:
+  - 首页: index.md
+  - 知识大纲: outline.md
+  - 分章复习:
+      - 总目录: review/index.md
+      - 第 1 章 · 导论与古典密码: review/ch1-intro.md
+      - 第 2 章 · 对称密码: review/ch2-symmetric.md
+      - 第 3 章 · 公钥密码: review/ch3-public-key.md
+      - 第 4 章 · 恶意软件与逆向工程: review/ch4-malware-re.md
+      - 第 5 章 · 缓冲区溢出与混淆: review/ch5-buffer-obfuscation.md
+      - 第 6 章 · 软件利用 II 与侧信道: review/ch6-exploit-sidechannel.md
+      - 第 7 章 · 认证与网络安全: review/ch7-auth-network.md
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - fenced_code
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+
+exclude_docs: |
+  .DS_Store
+
+validation:
+  links:
+    absolute_links: ignore
+    unrecognized_links: warn

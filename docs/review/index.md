@@ -4,7 +4,7 @@
 >
 > 每章统一结构：**本章主线 → 知识精讲 → 例题精讲 → 易错点 → 自测（含答案）→ 考前速记卡**。
 >
-> 配套总览：[CSIT5730-知识大纲.md](../CSIT5730-知识大纲.md)
+> 配套总览：[CSIT5730-知识大纲.md](../outline.md)
 
 ---
 
@@ -12,13 +12,13 @@
 
 | 章 | 主题 | 对应课件 | 建议用时 | 文件 |
 |---|---|---|---|---|
-| 1 | 导论与古典密码 | introduction、classic-crypto | 90 min | [第1章](第1章-导论与古典密码.md) |
-| 2 | 对称密码 | Symmetric-Key-Crypto | 160 min | [第2章](第2章-对称密码.md) |
-| 3 | 公钥密码 | public-key-cryptography | 150 min | [第3章](第3章-公钥密码.md) |
-| 4 | 恶意软件与逆向工程 | malware、reverse-engineering | 150 min | [第4章](第4章-恶意软件与逆向工程.md) |
-| 5 | 缓冲区溢出与混淆 | buffer-overflow、obfuscation | 150 min | [第5章](第5章-缓冲区溢出与混淆.md) |
-| 6 | 软件利用 II 与侧信道 | attack2、side-channel | 150 min | [第6章](第6章-软件利用II与侧信道.md) |
-| 7 | 认证与网络安全 | authentication、network-security | 150 min | [第7章](第7章-认证与网络安全.md) |
+| 1 | 导论与古典密码 | introduction、classic-crypto | 90 min | [第1章](ch1-intro.md) |
+| 2 | 对称密码 | Symmetric-Key-Crypto | 160 min | [第2章](ch2-symmetric.md) |
+| 3 | 公钥密码 | public-key-cryptography | 150 min | [第3章](ch3-public-key.md) |
+| 4 | 恶意软件与逆向工程 | malware、reverse-engineering | 150 min | [第4章](ch4-malware-re.md) |
+| 5 | 缓冲区溢出与混淆 | buffer-overflow、obfuscation | 150 min | [第5章](ch5-buffer-obfuscation.md) |
+| 6 | 软件利用 II 与侧信道 | attack2、side-channel | 150 min | [第6章](ch6-exploit-sidechannel.md) |
+| 7 | 认证与网络安全 | authentication、network-security | 150 min | [第7章](ch7-auth-network.md) |
 
 ---
 

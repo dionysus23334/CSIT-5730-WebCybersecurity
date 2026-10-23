@@ -8,3 +8,8 @@ w[0-9]*/
 
 # 部署用的临时 SSH 私钥（绝不上传）
 .deploy_key/
+
+# MkDocs 构建产物与本地虚拟环境
+site/
+.venv-docs/
+.cache/
