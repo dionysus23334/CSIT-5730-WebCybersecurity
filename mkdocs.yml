@@ -72,6 +72,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
+      linenums: true
+      linenums_style: inline
   - pymdownx.inlinehilite
   - pymdownx.arithmatex:
       generic: true

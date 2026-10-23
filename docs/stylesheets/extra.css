@@ -445,47 +445,97 @@ body {
   .kmap-item { grid-template-columns: 84px 1fr; }
 }
 
-/* Code blocks: a quiet “cell” panel with a blue spine, not a washed-out box */
+/* Code blocks: dark slate panel, rounded corners, inline line numbers */
 .md-typeset .highlight {
-  background: var(--cell);
-  border: 1px solid var(--line);
-  border-left: 2px solid var(--acc);
-  margin: 1.2em 0;
+  position: relative;
+  max-width: 100%;
+  margin: 1.25em 0;
+  padding: 5px;
+  background: #0b0f14;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .md-typeset .highlight pre {
-  background: transparent;
-  border: 0;
   margin: 0;
   padding: 0;
+  background: #111827;
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .md-typeset .highlight code {
   display: block;
-  padding: .95rem 1.1rem;
+  padding: 16px 18px;
   background: transparent;
-  color: var(--ink);
+  color: #f8fafc;
+  font-family: var(--mono);
   font-size: 12.5px;
-  line-height: 1.7;
+  line-height: 1.75;
   overflow-x: auto;
+  white-space: pre;
 }
-.md-typeset .highlight .md-clipboard {
-  color: var(--mut);
-  background: color-mix(in srgb, var(--cell) 82%, transparent);
-  border-left: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+.md-typeset .highlight .linenos {
+  display: inline-block;
+  width: 2.1em;
+  margin-right: 1em;
+  color: #64748b;
+  text-align: right;
+  user-select: none;
 }
-.md-typeset .highlight .md-clipboard:hover {
-  color: var(--acc);
+.md-typeset .highlight a {
+  color: inherit;
+  border-bottom: 0;
 }
-
-/* Material's code copy button: keep it quiet */
-.md-typeset .md-code__button {
+.md-typeset .highlight a:hover {
+  color: inherit;
+}
+.md-typeset .highlight .md-code__button {
+  top: 8px;
+  right: 8px;
+  color: #94a3b8;
   background: transparent;
   border: 0;
-  color: var(--mut);
   opacity: .55;
 }
-.md-typeset .md-code__button:hover {
+.md-typeset .highlight .md-code__button:hover {
+  color: #e2e8f0;
   background: transparent;
-  color: var(--acc);
   opacity: 1;
 }
+
+/* Tailwind-ish token colors for the dark panel */
+.md-typeset .highlight .c,
+.md-typeset .highlight .c1,
+.md-typeset .highlight .cm,
+.md-typeset .highlight .cs { color: #64748b; font-style: italic; }
+.md-typeset .highlight .k,
+.md-typeset .highlight .kd,
+.md-typeset .highlight .kn,
+.md-typeset .highlight .kr,
+.md-typeset .highlight .kt { color: #c4b5fd; }
+.md-typeset .highlight .s,
+.md-typeset .highlight .s1,
+.md-typeset .highlight .s2,
+.md-typeset .highlight .sb,
+.md-typeset .highlight .sc,
+.md-typeset .highlight .sd,
+.md-typeset .highlight .se,
+.md-typeset .highlight .sh,
+.md-typeset .highlight .si,
+.md-typeset .highlight .sx { color: #7dd3fc; }
+.md-typeset .highlight .m,
+.md-typeset .highlight .mi,
+.md-typeset .highlight .mf,
+.md-typeset .highlight .mh,
+.md-typeset .highlight .mo { color: #fcd34d; }
+.md-typeset .highlight .nf,
+.md-typeset .highlight .fm { color: #f472b6; }
+.md-typeset .highlight .nb,
+.md-typeset .highlight .bp { color: #6ee7b7; }
+.md-typeset .highlight .o,
+.md-typeset .highlight .ow { color: #f8fafc; }
+.md-typeset .highlight .nt { color: #f472b6; }
+.md-typeset .highlight .na { color: #6ee7b7; }
+
+
