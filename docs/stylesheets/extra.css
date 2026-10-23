@@ -327,3 +327,10 @@ body {
   background: transparent;
   box-shadow: none;
 }
+
+/* Material uses [dir] prefix for blockquote borders; match its specificity */
+[dir="ltr"] .md-typeset blockquote,
+[dir="rtl"] .md-typeset blockquote {
+  border-left: 2px solid var(--acc);
+  border-right: 0;
+}
