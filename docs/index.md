@@ -1,6 +1,7 @@
 # CSIT5730 · 复习笔记
 
 > HKUST **CSIT5730 Principles of Cybersecurity**（2026 Fall）个人复习整理。
+>
 > 非官方资料；课程内容与课件版权归授课教师所有。
 
 ## 从这里开始
@@ -19,6 +20,11 @@
 | 5 | [缓冲区溢出与混淆](review/ch5-buffer-obfuscation.md) | 栈帧、ret 覆盖、NX/canary/ASLR、混淆 |
 | 6 | [软件利用 II 与侧信道](review/ch6-exploit-sidechannel.md) | UAF、格式化字符串、SQLi、时间/缓存/功耗 |
 | 7 | [认证与网络安全](review/ch7-auth-network.md) | 口令与 salt、生物特征、TCP/DNS/ARP |
+
+## 作业解析
+
+- [**HW1 解析**](hw/hw1.md) —— 古典密码、OTP、穷举、CTR、MAC、CBC、RSA、签名、哈希
+- [**HW2 解析**](hw/hw2.md) —— 反汇编、恶意软件检测、格式化字符串、Trusting Trust、缓冲区溢出
 
 ## 怎么用
 

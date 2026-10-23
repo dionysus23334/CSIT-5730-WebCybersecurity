@@ -48,6 +48,10 @@ nav:
       - 第 5 章 · 缓冲区溢出与混淆: review/ch5-buffer-obfuscation.md
       - 第 6 章 · 软件利用 II 与侧信道: review/ch6-exploit-sidechannel.md
       - 第 7 章 · 认证与网络安全: review/ch7-auth-network.md
+  - 作业解析:
+      - 总览: hw/index.md
+      - HW1 · 古典密码到哈希: hw/hw1.md
+      - HW2 · 逆向到缓冲区溢出: hw/hw2.md
 
 plugins:
   - search:

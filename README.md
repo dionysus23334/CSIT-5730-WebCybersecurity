@@ -23,6 +23,11 @@
 | 6 | 软件利用 II 与侧信道 | [第6章](docs/review/ch6-exploit-sidechannel.md) |
 | 7 | 认证与网络安全 | [第7章](docs/review/ch7-auth-network.md) |
 
+### 作业解析
+
+- [HW1 解析](docs/hw/hw1.md)：古典密码、OTP、穷举、CTR、MAC、CBC、RSA、签名、哈希
+- [HW2 解析](docs/hw/hw2.md)：反汇编、恶意软件检测、格式化字符串、Trusting Trust、缓冲区溢出
+
 ## 使用建议
 
 1. 先读知识大纲 §1 建立全局地图；
