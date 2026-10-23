@@ -32,29 +32,36 @@
 
 ## 1. 全局知识地图
 
-```
-安全目标 (CIA)
-├── Confidentiality ── 密码学（古典 → 对称 → 公钥；加密）
-├── Integrity ──────── MAC、哈希、数字签名、证书
-└── Availability ───── DoS / DDoS、蠕虫、资源泄漏
-
-攻击者视角
-├── 漏洞从哪来：设计缺陷 vs 实现缺陷
-├── 攻击面：网络协议栈、软件内存、密码实现、人（密码/钓鱼）
-└── 攻击链：侦察 → 取得入口 → 提权/执行 → 持久化 → 窃密/破坏
-
-防御者视角
-├── security policy（要保护什么性质）
-├── risk assessment（资产、关键性、优先级）
-├── threat model（谁、有什么能力、想偷什么）
-└── 成本收益权衡 + 安全设计原则
-
-技术专题
-├── 密码学：classic → symmetric → public-key → hash
-├── 软件安全：malware / RE / memory corruption / obfuscation
-├── 系统与网络：authentication / protocols / side channel
-└── 新兴：blockchain / AI
-```
+<div class="kmap">
+<div class="kmap-top">安全目标 · CIA</div>
+<div class="kmap-three">
+<div class="kmap-card"><span class="kmap-k">C</span><b>Confidentiality</b><p>密码学：古典 → 对称 → 公钥；加密</p></div>
+<div class="kmap-card"><span class="kmap-k">I</span><b>Integrity</b><p>MAC、哈希、数字签名、证书</p></div>
+<div class="kmap-card"><span class="kmap-k">A</span><b>Availability</b><p>DoS / DDoS、蠕虫、资源泄漏</p></div>
+</div>
+<div class="kmap-split">
+<div class="kmap-panel">
+<div class="kmap-h">攻击者视角</div>
+<div class="kmap-item"><b>漏洞来源</b><span>设计缺陷 vs 实现缺陷</span></div>
+<div class="kmap-item"><b>攻击面</b><span>协议栈、内存、密码实现、人</span></div>
+<div class="kmap-item"><b>攻击链</b><span>侦察 → 入口 → 提权 → 持久化 → 窃密</span></div>
+</div>
+<div class="kmap-panel">
+<div class="kmap-h">防御者视角</div>
+<div class="kmap-item"><b>security policy</b><span>要保护什么性质</span></div>
+<div class="kmap-item"><b>risk assessment</b><span>资产、关键性、优先级</span></div>
+<div class="kmap-item"><b>threat model</b><span>谁、能力、想偷什么</span></div>
+<div class="kmap-item"><b>cost / benefit</b><span>成本收益 + 设计原则</span></div>
+</div>
+</div>
+<div class="kmap-h kmap-h-tech">技术专题</div>
+<div class="kmap-four">
+<div class="kmap-tech"><b>密码学</b><span>classic → symmetric → public-key → hash</span></div>
+<div class="kmap-tech"><b>软件安全</b><span>malware / RE / memory corruption / obfuscation</span></div>
+<div class="kmap-tech"><b>系统与网络</b><span>authentication / protocols / side channel</span></div>
+<div class="kmap-tech"><b>新兴</b><span>blockchain / AI</span></div>
+</div>
+</div>
 
 **各讲与 CIA 的对应关系**
 

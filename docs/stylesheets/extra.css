@@ -334,3 +334,113 @@ body {
   border-left: 2px solid var(--acc);
   border-right: 0;
 }
+
+/* Knowledge map: a small editorial “diagram” instead of an ASCII tree */
+.kmap {
+  border: 1px solid var(--line);
+  padding: 16px;
+  margin: 22px 0;
+}
+.kmap-top {
+  text-align: center;
+  border: 1px solid var(--acc);
+  color: var(--acc);
+  font-family: var(--display);
+  font-size: 17px;
+  letter-spacing: .02em;
+  padding: 8px 10px;
+}
+.kmap-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 14px;
+  border: 1px solid var(--line);
+}
+.kmap-card {
+  padding: 14px 16px;
+  border-right: 1px solid var(--line);
+}
+.kmap-card:last-child { border-right: 0; }
+.kmap-k {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--acc);
+  border: 1px solid var(--acc);
+  padding: 1px 5px;
+  margin-right: 6px;
+}
+.kmap-card b {
+  font-family: var(--display);
+  font-size: 14px;
+}
+.kmap-card p {
+  margin: 8px 0 0;
+  color: var(--mut);
+  font-size: 13px;
+  max-width: none;
+}
+.kmap-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-top: 0;
+}
+.kmap-panel { padding: 14px 16px; }
+.kmap-panel + .kmap-panel { border-left: 1px solid var(--line); }
+.kmap-h {
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--mut);
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+.kmap-item {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 10px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.kmap-item b { font-weight: 500; color: var(--ink); }
+.kmap-item span { color: var(--mut); }
+.kmap-h-tech { margin: 18px 0 8px; }
+.kmap-four {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+}
+.kmap-tech {
+  padding: 12px 14px;
+  border-right: 1px solid var(--line);
+}
+.kmap-tech:last-child { border-right: 0; }
+.kmap-tech b {
+  display: block;
+  font-family: var(--display);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.kmap-tech span {
+  color: var(--mut);
+  font-size: 12px;
+  line-height: 1.5;
+  display: block;
+}
+@media (max-width: 700px) {
+  .kmap-three,
+  .kmap-split,
+  .kmap-four { grid-template-columns: 1fr; }
+  .kmap-card,
+  .kmap-tech {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .kmap-card:last-child,
+  .kmap-tech:last-child { border-bottom: 0; }
+  .kmap-panel + .kmap-panel {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .kmap-item { grid-template-columns: 84px 1fr; }
+}
