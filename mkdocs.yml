@@ -50,8 +50,8 @@ nav:
       - 第 7 章 · 认证与网络安全: review/ch7-auth-network.md
   - 作业解析:
       - 总览: hw/index.md
-      - HW1 · 古典密码到哈希: hw/hw1.md
-      - HW2 · 逆向到缓冲区溢出: hw/hw2.md
+      - 作业一复盘 · 密码学基础: hw/hw1.md
+      - 作业二复盘 · 逆向与内存安全: hw/hw2.md
 
 plugins:
   - search:
