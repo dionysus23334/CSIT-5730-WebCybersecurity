@@ -230,7 +230,7 @@
 - 发送方 → 收件人邮件服务器；再用 POP3/IMAP/HTTP 取信。
 - 命令**人类可读**：
 
-```
+```bash
 telnet server 25
 HELO ca.gov
 MAIL FROM: <arnold@ca.gov>

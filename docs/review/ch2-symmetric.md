@@ -68,7 +68,7 @@
 
 **KSA（密钥调度，初始化）**
 
-```
+```python
 for i = 0..255:
     S[i] = i
     K[i] = key[i mod N]      # N = 密钥字节数，任意长度
@@ -81,7 +81,7 @@ i = j = 0
 
 **PRGA（伪随机数生成）**
 
-```
+```python
 i = (i + 1) mod 256
 j = (j + S[i]) mod 256
 swap(S[i], S[j])

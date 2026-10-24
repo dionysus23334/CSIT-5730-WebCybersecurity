@@ -539,3 +539,25 @@ body {
 .md-typeset .highlight .na { color: #6ee7b7; }
 
 
+
+/* Broader token coverage (C, Python, bash, asm) */
+.md-typeset .highlight .n,
+.md-typeset .highlight .nv,
+.md-typeset .highlight .nn,
+.md-typeset .highlight .ni,
+.md-typeset .highlight .nl { color: #e2e8f0; }
+.md-typeset .highlight .p { color: #94a3b8; }
+.md-typeset .highlight .cp { color: #f472b6; }
+.md-typeset .highlight .kc,
+.md-typeset .highlight .kp { color: #c4b5fd; }
+.md-typeset .highlight .nc,
+.md-typeset .highlight .nd { color: #fcd34d; }
+.md-typeset .highlight .no { color: #fcd34d; }
+.md-typeset .highlight .ne,
+.md-typeset .highlight .err { color: #fca5a5; }
+.md-typeset .highlight .gh,
+.md-typeset .highlight .gu { color: #7dd3fc; }
+.md-typeset .highlight .gp { color: #94a3b8; }
+.md-typeset .highlight .gt { color: #fca5a5; }
+.md-typeset .highlight .gs { font-weight: 600; }
+.md-typeset .highlight .w { color: inherit; }

@@ -129,7 +129,7 @@
 
 **偏移计算（32-bit 简化）**：
 
-```
+```c
 char buf[64];
 偏移(ret) = 64 (buf) + 4 (saved EBP) = 68
 payload = b"A"*68 + p32(target)
@@ -322,7 +322,7 @@ payload = b"A"*68 + p32(target)
 
 **解**：
 
-```
+```c
 x = 0;
 while (1) {
   switch (x) {
