@@ -34,7 +34,7 @@
 | 要素 | 一句话定义 | 被破坏的例子 | 本课程后续对应 |
 |---|---|---|---|
 | **Confidentiality** 机密性 | 未授权者不能读取数据 | 窃听、侧信道、数据泄露、明文存储口令 | 密码学、侧信道 |
-| **Integrity** 完整性 | 数据准确、未被未授权修改 | 篡改转账金额、ECB cut-and-paste、SQL 注入改库 | MAC、签名、哈希 |
+| **Integrity** 完整性 | 数据准确、未被未授权修改 | 篡改转账金额、ECB cut-and-paste、SQL 注入改库 | MAC（Message Authentication Code，消息认证码）、签名、哈希 |
 | **Availability** 可用性 | 授权用户随时可访问 | SYN flood、蠕虫、内存泄漏、勒索软件 | DoS、恶意软件 |
 
 **关键理解**
