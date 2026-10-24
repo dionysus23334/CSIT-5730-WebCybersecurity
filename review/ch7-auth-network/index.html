@@ -1,0 +1,2615 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity 复习资料">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/review/ch7-auth-network/">
+      
+      
+        <link rel="prev" href="../ch6-exploit-sidechannel/">
+      
+      
+        <link rel="next" href="../../hw/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>第 7 章 · 认证与网络安全 - CSIT5730 复习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-header__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 复习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 7 章 · 认证与网络安全
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-nav__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 复习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分章复习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分章复习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 · 导论与古典密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 · 对称密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 · 公钥密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 · 恶意软件与逆向工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 · 软件利用 II 与侧信道
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 本章主线（先记住这三句）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 认证（authentication）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 认证（authentication）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 访问控制的两部分 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 三种认证因子 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 口令（passwords）★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 口令（passwords）★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么口令流行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        密钥 vs 口令（关键计算）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passphrase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        好坏口令与 passphrase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        口令攻击面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        口令存储：哈希 + 盐 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他口令问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-biometrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 生物特征（biometrics）★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 生物特征（biometrics）★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理想属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrollment-vs-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrollment vs Recognition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fraud-vs-insult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误率：fraud vs insult ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生物特征不是万无一失
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 2FA 与“拥有”因子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 网络基础与安全
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 网络基础与安全">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 基本概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 五层协议栈 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 应用层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 传输层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 网络层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 链路层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 按层归纳攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 例题精讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 例题精讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 1：口令熵（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2：加盐（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3eer8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 3：EER（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4syn-flood10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4：SYN flood（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5dns-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 5：DNS 投毒（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6arp-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 6：ARP 投毒（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7nat-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 7：NAT 表（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 易错点（考场最易丢分）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 自测（先做，再看答案）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 自测（先做，再看答案）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 考前速记卡
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业解析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    作业解析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 本章主线（先记住这三句）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 认证（authentication）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 认证（authentication）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 访问控制的两部分 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 三种认证因子 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 口令（passwords）★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 口令（passwords）★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么口令流行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        密钥 vs 口令（关键计算）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passphrase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        好坏口令与 passphrase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        口令攻击面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        口令存储：哈希 + 盐 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        其他口令问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-biometrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 生物特征（biometrics）★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 生物特征（biometrics）★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理想属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrollment-vs-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrollment vs Recognition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fraud-vs-insult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误率：fraud vs insult ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生物特征不是万无一失
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 2FA 与“拥有”因子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 网络基础与安全
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 网络基础与安全">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 基本概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 五层协议栈 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 应用层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 传输层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 网络层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 链路层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 按层归纳攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 例题精讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 例题精讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 1：口令熵（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2：加盐（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3eer8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 3：EER（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4syn-flood10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4：SYN flood（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5dns-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 5：DNS 投毒（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6arp-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 6：ARP 投毒（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7nat-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 7：NAT 表（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 易错点（考场最易丢分）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 自测（先做，再看答案）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 自测（先做，再看答案）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 考前速记卡
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="7">第 7 章 · 认证与网络安全 · 复习资料<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>对应课件</strong>：<code>w7/authentication.pdf</code>、<code>w7/network-security.pdf</code></p>
+<p><strong>建议用时</strong>：第一遍 90 分钟 + 例题 30 分钟 + 自测 30 分钟</p>
+<p><strong>配套</strong>：知识大纲 §2.11、§2.12</p>
+<p><strong>本章权重</strong>：认证因子、口令熵/加盐、生物特征错误率是简答/计算题；网络部分几乎全是“分层 + 协议 + 攻击”的对应关系，适合出综合题。</p>
+</blockquote>
+<hr />
+<h2 id="0">0. 本章主线（先记住这三句）<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>访问控制 = 认证（你是谁）+ 授权（你能做什么）</strong>；认证靠“你知道/你拥有/你是什么”。</li>
+<li><strong>口令的弱点是用户选择</strong>（不是长度本身）；<strong>哈希 + salt</strong> 让离线字典攻击从“一次预计算”变成“每个用户重算”。生物特征难伪造，但<strong>不可撤销</strong>。</li>
+<li><strong>网络是分层、分组交换的协议栈</strong>；每层有自己的地址与协议，也有自己的攻击面：应用层欺骗、传输层 DoS、网络层 IP（Internet Protocol，网际协议）/NAT、链路层 ARP 欺骗。</li>
+</ol>
+<p><strong>本章常见考法</strong></p>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>典型问法</th>
+<th>备考动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概念辨析</td>
+<td>认证 vs 授权；三种因子</td>
+<td>每个因子举 3 个例子</td>
+</tr>
+<tr>
+<td>计算</td>
+<td>口令熵、salt 后的攻击量、EER</td>
+<td>会算 log2、会比较</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>TCP 三次握手、DNS 解析、NAT</td>
+<td>画时序/表格</td>
+</tr>
+<tr>
+<td>攻击</td>
+<td>SYN flood、DNS 投毒、ARP 投毒</td>
+<td>按“层 + 根因 + 防御”记</td>
+</tr>
+<tr>
+<td>设计</td>
+<td>如何设计安全登录/防重放</td>
+<td>组合口令 + salt + 2FA + 限速</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-authentication">1. 认证（authentication）<a class="headerlink" href="#1-authentication" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 访问控制的两部分 ★<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authentication</strong> 认证</td>
+<td>你是不是你说的那个人？</td>
+<td>登录、指纹解锁、证书校验</td>
+</tr>
+<tr>
+<td><strong>Authorization</strong> 授权</td>
+<td>你被允许做这件事吗？</td>
+<td>普通用户不能删库；RBAC/ACL</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>认证可以发生在“人→机”，也可以“机→机”（如 TLS 证书）。</li>
+<li>先认证、后授权；认证失败就不该进入授权判断。</li>
+</ul>
+<h3 id="12">1.2 三种认证因子 ★★<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>因子</th>
+<th>含义</th>
+<th>例子</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Something you know</strong></td>
+<td>你知道的</td>
+<td>口令、PIN、生日、母亲婚前姓、宠物名</td>
+<td>免费、易重置</td>
+<td>弱、可猜、可泄露、可共享</td>
+</tr>
+<tr>
+<td><strong>Something you have</strong></td>
+<td>你拥有的</td>
+<td>智能卡、ATM 卡、令牌、手机、MAC 地址</td>
+<td>需物理持有，难远程复制</td>
+<td>会丢、需发放/管理</td>
+</tr>
+<tr>
+<td><strong>Something you are</strong></td>
+<td>你是什么</td>
+<td>指纹、人脸、声纹、签名、步态</td>
+<td>难伪造、无需记忆</td>
+<td>不可撤销、有错误率、采集需配合</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2FA（双因子）</strong>：三类中任取两类。
+- 例：信用卡 + 签名；ATM 卡 + PIN；口令 + 手机验证码。</p>
+<h3 id="13-passwords">1.3 口令（passwords）★★<a class="headerlink" href="#13-passwords" title="Permanent link">&para;</a></h3>
+<h4 id="_1">为什么口令流行<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>成本</strong>：免费；</li>
+<li><strong>便利</strong>：重置口令比“重新发一个拇指”容易；</li>
+<li>但课件引用：“口令是当今安全工程师面临的最大实践问题之一。”</li>
+</ul>
+<h4 id="vs">密钥 vs 口令（关键计算）<a class="headerlink" href="#vs" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>密钥</th>
+<th>口令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生成方式</td>
+<td>随机</td>
+<td>人选</td>
+</tr>
+<tr>
+<td>64-bit 密钥</td>
+<td>2⁶⁴ 个，攻击者约试 2⁶³</td>
+<td>—</td>
+</tr>
+<tr>
+<td>8 字符、每字符 256 种</td>
+<td>理论 256⁸ = 2⁶⁴</td>
+<td>但用户不随机选 → 实际远小于 2⁶³</td>
+</tr>
+<tr>
+<td>攻击方式</td>
+<td>穷举</td>
+<td><strong>字典攻击</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>字典攻击</strong>：只尝试最可能的候选（字典词、变形、常见组合）。</li>
+<li>例：8 个小写字母 → 26⁸ ≈ 2³⁷·⁶；8 个可打印字符（95 种）→ 95⁸ ≈ 2⁵²·⁶。</li>
+</ul>
+<h4 id="passphrase">好坏口令与 passphrase<a class="headerlink" href="#passphrase" title="Permanent link">&para;</a></h4>
+<p><strong>坏口令</strong>：<code>frank</code>、<code>Fido</code>、<code>Password</code>、<code>incorrect</code>、<code>Pikachu</code>、<code>88195277</code>、<code>AustinStamp</code>。
+<strong>好口令</strong>：<code>jfIej,43j-EmmL+y</code>、<code>09864376537263</code>、<code>0nceuP0nAt1m8</code>、<code>P0kem0n</code>。</p>
+<p><strong>Passphrase（口令短语）</strong>：</p>
+<ul>
+<li>长度 10–30 个字母，暴力破解难；</li>
+<li>若选得好，不会出现在短语/名言字典里；</li>
+<li>结构上比随机串好记。</li>
+</ul>
+<p><strong>课件实验（三组用户）</strong></p>
+<table>
+<thead>
+<tr>
+<th>组</th>
+<th>要求</th>
+<th>被破解比例</th>
+<th>记忆难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>≥6 字符，至少 1 个非字母</td>
+<td>约 <strong>30%</strong></td>
+<td>一般</td>
+</tr>
+<tr>
+<td>B</td>
+<td>基于 passphrase</td>
+<td>约 <strong>10%</strong></td>
+<td>容易</td>
+</tr>
+<tr>
+<td>C</td>
+<td>8 个随机字符</td>
+<td>约 <strong>10%</strong></td>
+<td>难</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>结论：<strong>passphrase 在安全性与可记忆性之间更优</strong>；“加一个特殊字符”式的复杂度要求效果有限。</p>
+</blockquote>
+<h4 id="_2">口令攻击面<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>针对某个账户 / 系统内任意账户 / 任意系统账户；</li>
+<li><strong>DoS</strong>：反复输错锁定账户（想想 ATM 吞卡）；</li>
+<li><strong>离线</strong>：拿到口令哈希文件后字典/暴力攻击；</li>
+<li><strong>在线</strong>：猜测、撞库（credential stuffing）、钓鱼、社会工程、键盘记录；</li>
+<li>错误日志可能包含“近似口令”；默认口令不修改。</li>
+</ul>
+<h4 id="_3">口令存储：哈希 + 盐 ★★<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p><strong>只哈希（不加盐）的问题</strong></p>
+<ol>
+<li>攻击者预计算 <code>h(x)</code>（字典中所有口令）→ 一次预计算，之后比对哈希即可秒破；</li>
+<li>相同口令 → 相同哈希 → 可批量识别。</li>
+</ol>
+<p><strong>加盐（salt）</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>选随机 s；存 (s, y = h(password, s))
+</code></pre></div>
+<ul>
+<li><strong>s 不保密</strong>，可以和 y 一起存；</li>
+<li>验证：用存储的 s 重新计算 <code>h(输入, s)</code>，与 y 比较；</li>
+<li>攻击者必须<strong>为每个用户、每个 salt 重新计算</strong>，预计算表失效；</li>
+<li>代价：离线攻击从 <code>|D|</code> 变成 <code>|D| × 用户数</code>（还要加慢哈希的每次成本）。</li>
+</ul>
+<blockquote>
+<p>现代实践还会用<strong>慢哈希</strong>（bcrypt/scrypt/Argon2）增加单次计算成本；课件未展开，答题可提一句。</p>
+</blockquote>
+<h4 id="_4">其他口令问题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>口令太多 → <strong>重用</strong> → 一处泄露、处处沦陷；</li>
+<li>默认口令不修改；</li>
+<li>社会工程；</li>
+<li>登录口令 vs ATM PIN 混用；</li>
+<li>键盘记录/间谍软件；</li>
+<li>破解工具：L0phtCrack/LC4（Windows）、John the Ripper（Unix）；管理员应主动做弱口令审计。</li>
+</ul>
+<h3 id="14-biometrics">1.4 生物特征（biometrics）★<a class="headerlink" href="#14-biometrics" title="Permanent link">&para;</a></h3>
+<h4 id="_5">理想属性<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>现实</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Universal</strong></td>
+<td>对（几乎）所有人适用</td>
+<td>没有一种特征对所有人适用</td>
+</tr>
+<tr>
+<td><strong>Distinguishing</strong></td>
+<td>能唯一区分</td>
+<td>无法 100% 确定</td>
+</tr>
+<tr>
+<td><strong>Permanent</strong></td>
+<td>终身不变</td>
+<td>只要长期有效即可</td>
+</tr>
+<tr>
+<td><strong>Collectable</strong></td>
+<td>易采集</td>
+<td>取决于用户是否配合</td>
+</tr>
+<tr>
+<td>安全、用户友好</td>
+<td>—</td>
+<td>需权衡</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enrollment-vs-recognition">Enrollment vs Recognition<a class="headerlink" href="#enrollment-vs-recognition" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>要求</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enrollment</strong> 注册</td>
+<td>录入数据库；可慢、可重复测量；必须<strong>非常精确</strong></td>
+<td>注册环节可能是薄弱点（root trust）</td>
+</tr>
+<tr>
+<td><strong>Recognition</strong> 识别</td>
+<td>必须<strong>快速、简单</strong>，同时足够准确</td>
+<td>误拒/误受</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fraud-vs-insult">错误率：fraud vs insult ★★<a class="headerlink" href="#fraud-vs-insult" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Fraud</strong>：攻击者被误认成 Alice（<strong>冒充者被接受</strong>）。</li>
+<li><strong>Insult</strong>：Alice 未被认成 Alice（<strong>本人被拒绝</strong>）。</li>
+<li>两者此消彼长：</li>
+<li>阈值高（99% 匹配）→ fraud 低、insult 高；</li>
+<li>阈值低（30% 匹配）→ fraud 高、insult 低。</li>
+<li><strong>EER（Equal Error Rate）</strong>：fraud = insult 的阈值点；用于比较不同生物特征，越小越好。</li>
+</ul>
+<blockquote>
+<p>⚠ 课件把 fraud 标成 “false negative”、insult 标成 “false positive”，与常规术语相反；<strong>按定义描述记</strong>：冒充者被接受 = fraud，本人被拒 = insult。</p>
+</blockquote>
+<h4 id="_6">生物特征不是万无一失<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>可偷拇指、复印指纹/虹膜、3D 打印面具；</li>
+<li>可攻破软件/数据库/可信基（TCB）；</li>
+<li><strong>无法撤销</strong>“被泄露的指纹”——这是与口令最大的区别（口令可改，指纹不能换）。</li>
+</ul>
+<h3 id="15-2fa">1.5 2FA 与“拥有”因子<a class="headerlink" href="#15-2fa" title="Permanent link">&para;</a></h3>
+<ul>
+<li>2FA：任意两类因子组合。</li>
+<li>“拥有”的例子：车钥匙、笔记本（MAC 地址）、口令生成器、ATM 卡、智能卡。</li>
+<li>注意：短信验证码属于“拥有手机”，但存在 SIM swap/拦截风险（课件未展开）。</li>
+</ul>
+<hr />
+<h2 id="2">2. 网络基础与安全<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 基本概念 ★<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>网络 = 主机（computer/laptop/server/phone）+ 互联的<strong>路由器 mesh</strong>；目的是传数据。</li>
+<li><strong>分组交换 vs 电路交换</strong>：</li>
+<li>电话网是<strong>电路交换</strong>：每次通话建立专用电路，带宽浪费；</li>
+<li>数据网是<strong>分组交换</strong>：数据切成分组、独立传输、无专用电路；带宽效率高，但更复杂。</li>
+<li><strong>协议</strong>：精确规定通信规则；细节在 <strong>RFC</strong>（事实上的 Internet 标准）。</li>
+<li><strong>Stateless vs Stateful</strong>：无状态不“记住”，有状态“记住”；许多安全问题与状态有关（如 DoS 针对有状态协议）。</li>
+</ul>
+<h3 id="22">2.2 五层协议栈 ★★<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>协议例</th>
+<th>作用</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application</strong></td>
+<td>HTTP、FTP、SMTP、DNS</td>
+<td>应用语义</td>
+<td>域名/URL</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>TCP、UDP</td>
+<td>端到端传输</td>
+<td>端口（16 bit）</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>IP、RIP/OSPF/BGP</td>
+<td>路由/寻址</td>
+<td>IP（32 bit）</td>
+</tr>
+<tr>
+<td><strong>Link</strong></td>
+<td>Ethernet、PPP、802.11</td>
+<td>相邻节点传输</td>
+<td>MAC（48 bit）</td>
+</tr>
+<tr>
+<td><strong>Physical</strong></td>
+<td>—</td>
+<td>比特流</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>分层运行</strong></p>
+<ul>
+<li>源端数据沿栈“下行”，每层加头；</li>
+<li>路由器只处理到<strong>网络层</strong>（路由信息在此），再下行转发；</li>
+<li>目的端“上行”到应用层。</li>
+</ul>
+<p><strong>封装</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>应用层： (H, X)
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a>传输层： (H, (H, X))
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a>网络层： (H, (H, (H, X)))
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos">4</span></a>链路层： (H, (H, (H, (H, X))))
+</code></pre></div>
+<ul>
+<li>应用数据在最内层；每层头只被对等层理解。</li>
+</ul>
+<h3 id="23">2.3 应用层 ★<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p><strong>HTTP</strong></p>
+<ul>
+<li>请求/响应；<strong>HTTP 是无状态的</strong>。</li>
+<li>客户端先说，服务器响应（client-server）；P2P 中主机既是 client 又是 server。</li>
+</ul>
+<p><strong>Cookie</strong></p>
+<ul>
+<li>服务器首次下发，浏览器保存并在后续请求带回；</li>
+<li>服务器用 cookie 数据库“记住”你（购物车、推荐、会话）；</li>
+<li><strong>很弱很弱的认证</strong>；</li>
+<li>隐私问题：单个站点可了解你，多个站点联合可了解更多（追踪）。</li>
+</ul>
+<p><strong>SMTP</strong></p>
+<ul>
+<li>发送方 → 收件人邮件服务器；再用 POP3/IMAP/HTTP 取信。</li>
+<li>命令<strong>人类可读</strong>：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>telnet<span class="w"> </span>server<span class="w"> </span><span class="m">25</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos">2</span></a>HELO<span class="w"> </span>ca.gov
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos">3</span></a>MAIL<span class="w"> </span>FROM:<span class="w"> </span>&lt;arnold@ca.gov&gt;
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos">4</span></a>RCPT<span class="w"> </span>TO:<span class="w"> </span>&lt;stamp@cs.sjsu.edu&gt;
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos">5</span></a>DATA
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos">6</span></a>...
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos">7</span></a>.
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos">8</span></a>QUIT
+</code></pre></div>
+<ul>
+<li>⚔ <strong>伪造发件人</strong>：<code>MAIL FROM</code> 可随意写 → 邮件欺骗。</li>
+<li>防御：SPF/DKIM/DMARC、认证（课件未展开，属延伸）。</li>
+</ul>
+<p><strong>DNS</strong></p>
+<ul>
+<li>域名 → IP（<code>cse.ust.hk</code> → <code>143.89.41.177</code>）；分布式数据库。</li>
+<li>解析：root → TLD（.hk/.org/.edu）→ 子域，递归进行。</li>
+<li>全球只有 <strong>13 个 root server 集群</strong> → 事实上的单点故障；针对根服务器的攻击发生过，但未持续足够久。</li>
+<li>⚔ <strong>DNS 缓存投毒</strong>：服务器为性能缓存解析结果；若收到并缓存<strong>假记录</strong>，就把错误 IP 返回给客户端 → 流量被引到攻击者机器。</li>
+<li>防御：DNSSEC、随机化查询 ID/端口、0x20 编码（课件未展开）。</li>
+</ul>
+<h3 id="24">2.4 传输层 ★<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<ul>
+<li>网络层只提供“尽力而为”的不可靠交付；改进服务由主机（传输层）提供。</li>
+<li><strong>TCP</strong>：可靠、按序、流控、面向连接（先联系再发数据；逻辑连接，非物理连接）。</li>
+<li>头部：源/目的端口、序号、确认号、标志位（ACK/SYN/RST…）、窗口、校验和、紧急指针；无选项时 <strong>20 字节</strong>。</li>
+<li><strong>三次握手</strong>：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a>Client → Server: SYN
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a>Server → Client: SYN-ACK
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a>Client → Server: ACK（可带数据）
+</code></pre></div>
+<ul>
+<li>⚔ <strong>SYN flooding</strong>：</li>
+<li>服务器收到 SYN 就记住“半开连接” → 消耗资源（backlog）；</li>
+<li>大量半开连接 → 内存/表耗尽 → 无法服务正常请求；</li>
+<li>根因：<strong>TCP 是有状态的</strong>。</li>
+<li>防御：SYN cookies、限流、防火墙、缩短超时（课件未展开）。</li>
+<li><strong>UDP</strong>：无连接、开销小、不保证可靠/有序。</li>
+</ul>
+<h3 id="25">2.5 网络层 ★<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<ul>
+<li>IP：尽力而为；每台主机、每个路由器都运行 IP；路由器还跑路由协议（RIP/OSPF/BGP）。</li>
+<li>IPv4 地址 <strong>32 bit</strong>，点分十进制（<code>195.72.180.27</code>，每段 0–255）；地址不够用 → 各种扩展技巧；主机 IP 可能变化。</li>
+<li><strong>Socket = IP + 端口</strong>，全球唯一标识一个进程。</li>
+<li>端口 16 bit；&lt;1024 为 well-known（HTTP 80、POP3 110）；&gt;1024 动态。</li>
+<li><strong>NAT</strong>：用一个（或少数）公网 IP + 不同端口映射多个内网主机。</li>
+<li>优点：扩展地址空间；隐式隐藏内网源地址。</li>
+<li>缺点：<strong>DoS 仍可行</strong>；破坏端到端透明性。</li>
+<li>例：内网 <code>192.168.0.12:1025</code> ↔ 公网 <code>11.0.0.1:4000</code>，NAT 表维护映射。</li>
+<li>⚔ <strong>Ping flood / Ping of Death</strong>：滥用 ICMP echo request/reply；大量 ICMP 淹没受害者；攻击前可能先塞满自己的带宽。</li>
+</ul>
+<h3 id="26">2.6 链路层 ★<a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在网卡（NIC）中实现；NIC 半自治、基本不受主机控制；同时实现链路层与物理层。</li>
+<li><strong>MAC 地址</strong>：48 bit，全球唯一；用于在同一链路上转发。</li>
+<li>类比：IP 像家庭住址，MAC 像身份证号。</li>
+<li><strong>ARP</strong>：已知 IP，求对应 MAC；每台主机有 ARP 表/缓存，自动生成，条目约 <strong>20 分钟</strong>过期；ARP <strong>无状态</strong>。</li>
+<li>⚔ <strong>ARP 缓存投毒</strong>：</li>
+<li>攻击者主动发送伪造 ARP reply（“111.111.111.002 的 MAC 是 CC-CC-...”）；</li>
+<li>双方缓存被污染 → 流量经过攻击者 → <strong>中间人</strong>。</li>
+<li>防御：静态 ARP、DAI（动态 ARP 检测）、加密（课件未展开）。</li>
+</ul>
+<h3 id="27">2.7 按层归纳攻击面 ★<a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>攻击</th>
+<th>根因</th>
+<th>防御方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用</td>
+<td>SMTP 伪造</td>
+<td>发件人无认证</td>
+<td>SPF/DKIM/DMARC</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>DNS 投毒</td>
+<td>缓存 + 无签名</td>
+<td>DNSSEC、随机化</td>
+</tr>
+<tr>
+<td>应用</td>
+<td>Cookie 隐私</td>
+<td>跨站追踪</td>
+<td>隐私策略、隔离</td>
+</tr>
+<tr>
+<td>传输</td>
+<td>SYN flood</td>
+<td>TCP 有状态</td>
+<td>SYN cookies、限流</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>IP 欺骗、Ping flood</td>
+<td>无源认证、ICMP 滥用</td>
+<td>入口过滤、限速</td>
+</tr>
+<tr>
+<td>链路</td>
+<td>ARP 投毒</td>
+<td>ARP 无状态、无认证</td>
+<td>静态 ARP、DAI</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 例题精讲<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="18">例 1：口令熵（8 分）<a class="headerlink" href="#18" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：8 字符口令，分别从 26 个小写字母、95 个可打印字符、256 个字节中随机选取，熵各是多少 bit？为什么实际强度远低于此？</p>
+<p><strong>解</strong>：
+- 26⁸：<code>8×log2(26) ≈ 8×4.70 = 37.6 bit</code>
+- 95⁸：<code>8×log2(95) ≈ 8×6.57 = 52.6 bit</code>
+- 256⁸：<code>8×8 = 64 bit</code>
+- 实际用户不随机选，会使用字典词/变形 → 攻击者用字典攻击，实际搜索空间远小于理论值。</p>
+<h3 id="28">例 2：加盐（8 分）<a class="headerlink" href="#28" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：字典大小 10⁸，系统有 10⁴ 个用户。不加盐与加盐（每用户独立 salt）时，攻击者离线破解全部口令各需多少量级？</p>
+<p><strong>解</strong>：
+- 不加盐：预计算 10⁸ 个哈希，所有用户共用 → <strong>10⁸</strong>。
+- 加盐：每个用户、每个 salt 都要重算 → <strong>10⁸ × 10⁴ = 10¹²</strong>。
+- 若再加慢哈希（每次 0.1 秒），成本再乘时间因子。</p>
+<h3 id="3eer8">例 3：EER（8 分）<a class="headerlink" href="#3eer8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：某指纹系统阈值提高后，fraud 降到 1%，insult 升到 10%。解释原因，并说明 EER 的意义。</p>
+<p><strong>解</strong>：
+- 阈值提高 = 更难通过 → 冒充者更难被接受（fraud↓），但合法用户也更容易被拒（insult↑）。
+- 两者随阈值此消彼长；EER 是 fraud=insult 的点，用来横向比较不同生物特征/系统（越小越好）。</p>
+<h3 id="4syn-flood10">例 4：SYN flood（10 分）<a class="headerlink" href="#4syn-flood10" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：描述 SYN flood 的过程，为什么根因是“TCP 有状态”？</p>
+<p><strong>解</strong>：
+1. 攻击者发送大量 SYN（可伪造源 IP）；
+2. 服务器为每个 SYN 分配半开连接（backlog 表项）并回 SYN-ACK；
+3. 攻击者不回 ACK → 表项被占满；
+4. 新合法 SYN 无法入队 → 拒绝服务。
+- 根因：服务器必须<strong>记住</strong>每个半开连接的状态；状态资源有限。
+- 防御：SYN cookies（不保存状态，把信息编码进序列号）、限流、缩短超时。</p>
+<h3 id="5dns-10">例 5：DNS 投毒（10 分）<a class="headerlink" href="#5dns-10" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：攻击者如何让用户访问 <code>www.bank.com</code> 时被导向自己的服务器？</p>
+<p><strong>解</strong>：
+1. 攻击者向递归 DNS 服务器发送伪造的响应（匹配查询 ID/端口），声称 <code>www.bank.com</code> 的 A 记录是攻击者 IP；
+2. 递归服务器把这个假记录<strong>缓存</strong>（TTL 内）；
+3. 之后所有查询该域名的用户都收到假 IP；
+4. 用户连接到攻击者服务器（可做钓鱼/中间人）。
+- 防御：DNSSEC（签名）、随机化查询 ID/端口、限制缓存。</p>
+<h3 id="6arp-10">例 6：ARP 投毒（10 分）<a class="headerlink" href="#6arp-10" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：攻击者如何在同一 LAN 内成为 Alice 与网关之间的中间人？</p>
+<p><strong>解</strong>：
+1. 攻击者向 Alice 发送伪造 ARP reply：“网关 IP 的 MAC 是我的 MAC”；
+2. 向网关发送伪造 ARP reply：“Alice IP 的 MAC 是我的 MAC”；
+3. 双方 ARP 缓存被污染，流量都发给攻击者；
+4. 攻击者转发（或篡改）流量 → 中间人。
+- 根因：ARP 无状态、无认证，收到 reply 就更新缓存。
+- 防御：静态 ARP、DAI、端口安全。</p>
+<h3 id="7nat-8">例 7：NAT 表（8 分）<a class="headerlink" href="#7nat-8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：内网主机 <code>192.168.0.12:1025</code> 访问 <code>12.0.0.1:80</code>，NAT 公网地址 <code>11.0.0.1</code>，映射端口 4000。写出 NAT 前后的源/目的地址。</p>
+<p><strong>解</strong>：
+- 出方向：<code>src=192.168.0.12:1025, dst=12.0.0.1:80</code> → <code>src=11.0.0.1:4000, dst=12.0.0.1:80</code>；
+- NAT 表：<code>4000 ↔ 192.168.0.12:1025</code>；
+- 回方向：<code>src=12.0.0.1:80, dst=11.0.0.1:4000</code> → <code>src=12.0.0.1:80, dst=192.168.0.12:1025</code>。</p>
+<hr />
+<h2 id="4">4. 易错点（考场最易丢分）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>正确</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证 = 授权</td>
+<td>认证确认身份；授权决定权限</td>
+</tr>
+<tr>
+<td>2FA = 两个口令</td>
+<td>必须是<strong>两类不同因子</strong>（知道/拥有/是）</td>
+</tr>
+<tr>
+<td>口令越长一定越强</td>
+<td>用户可预测的选择会毁掉熵；<code>P@ssw0rd!</code> 仍在字典里</td>
+</tr>
+<tr>
+<td>哈希口令就安全</td>
+<td>不加盐可预计算/批量比对；需 salt + 慢哈希</td>
+</tr>
+<tr>
+<td>salt 需要保密</td>
+<td>salt 不需要保密，只需唯一/随机</td>
+</tr>
+<tr>
+<td>生物特征可以“改密码”</td>
+<td>生物特征<strong>不可撤销</strong>；泄露后无法更换</td>
+</tr>
+<tr>
+<td>fraud = 本人被拒</td>
+<td>fraud = 冒充者被接受；insult = 本人被拒（课件标注相反，按定义记）</td>
+</tr>
+<tr>
+<td>TCP 是“真连接”</td>
+<td>只是逻辑连接；底层仍是分组</td>
+</tr>
+<tr>
+<td>UDP 不可靠所以没用</td>
+<td>DNS、视频、游戏等用 UDP 换取低延迟</td>
+</tr>
+<tr>
+<td>NAT 能防 DoS</td>
+<td>NAT 不防 DoS；只扩展地址/隐藏源</td>
+</tr>
+<tr>
+<td>ARP 是三层协议</td>
+<td>ARP 在链路层/网络层之间，用于 IP→MAC</td>
+</tr>
+<tr>
+<td>DNS 只有 13 台物理服务器</td>
+<td>是 13 个 <strong>root server 集群</strong>（anycast 多实例）</td>
+</tr>
+<tr>
+<td>Cookie 是认证机制</td>
+<td>只是状态管理，认证能力很弱</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 自测（先做，再看答案）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>认证与授权的区别？三种认证因子各举三例。</li>
+<li>为什么 64-bit 随机密钥比 8 字符口令强？口令的熵受什么影响？</li>
+<li>什么是字典攻击？为什么它比穷举有效？</li>
+<li>passphrase 相比“复杂口令”有什么优势？课件实验说明了什么？</li>
+<li>不加盐的哈希口令有什么问题？salt 如何解决？salt 要保密吗？</li>
+<li>生物特征的四个理想属性？Enrollment 与 Recognition 的区别？</li>
+<li>fraud 与 insult 分别是什么？EER 的意义？</li>
+<li>为什么生物特征“不可撤销”是根本问题？</li>
+<li>画出五层协议栈，各层举两个协议。</li>
+<li>什么是封装？路由器处理到哪一层？</li>
+<li>HTTP 为什么需要 Cookie？Cookie 的隐私风险？</li>
+<li>SMTP 如何被伪造？DNS 缓存投毒的步骤？</li>
+<li>TCP 三次握手？SYN flood 的根因与防御？</li>
+<li>socket 由什么组成？NAT 的优点与缺点？</li>
+<li>ARP 投毒如何形成中间人？如何缓解？</li>
+</ol>
+<h3 id="_7">答案<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>认证确认“你是谁”，授权决定“你能做什么”。知道：口令/PIN/生日；拥有：智能卡/令牌/手机；是：指纹/人脸/声纹。</li>
+<li>密钥随机生成，熵满；口令由人选，受字典/模式/重用影响，实际熵远低于长度理论值。</li>
+<li>只尝试最可能的候选（字典词、变形）；因为用户选择有规律，命中率高，远优于 2⁶⁴ 穷举。</li>
+<li>更长、易记、不易被字典命中；实验：passphrase 组破解率 10% 且好记，复杂规则组 30%。</li>
+<li>可预计算、相同口令同哈希、批量破解；salt 使每个用户哈希唯一，攻击者必须逐用户重算；salt 不需保密。</li>
+<li>Universal、Distinguishing、Permanent、Collectable（+安全/友好）。Enrollment 是录入（可慢、要精确）；Recognition 是识别（要快、要准）。</li>
+<li>fraud：冒充者被接受；insult：本人被拒。EER 是两者相等点，用于比较系统，越小越好。</li>
+<li>口令泄露可改，指纹/虹膜不能换；一旦泄露终身不可用。</li>
+<li>应用（HTTP/SMTP）、传输（TCP/UDP）、网络（IP/BGP）、链路（Ethernet/ARP）、物理。</li>
+<li>每层加头，应用数据在最内层；路由器处理到网络层。</li>
+<li>HTTP 无状态，Cookie 用于会话/购物车/推荐；跨站追踪、隐私泄露；认证能力弱。</li>
+<li>SMTP 的 MAIL FROM 可任意写；DNS 投毒：伪造响应 → 递归服务器缓存假记录 → 返回错误 IP。</li>
+<li>SYN → SYN-ACK → ACK；服务器为半开连接保存状态，表满即拒绝服务；防御：SYN cookies、限流、缩短超时。</li>
+<li>IP + 端口；NAT 扩展地址、隐藏内网；但破坏端到端、DoS 仍可行。</li>
+<li>伪造 ARP reply 污染双方缓存，流量经攻击者；防御：静态 ARP、DAI、端口安全。</li>
+</ol>
+<hr />
+<h2 id="6">6. 考前速记卡<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访问控制</td>
+<td>认证（你是谁）+ 授权（你能做什么）</td>
+</tr>
+<tr>
+<td>三因子</td>
+<td>know / have / are</td>
+</tr>
+<tr>
+<td>2FA</td>
+<td>任意两类因子</td>
+</tr>
+<tr>
+<td>密钥 vs 口令</td>
+<td>2⁶⁴ vs 用户选择 → 字典攻击</td>
+</tr>
+<tr>
+<td>口令实验</td>
+<td>复杂规则 30%；passphrase 10% 好记；随机 10% 难记</td>
+</tr>
+<tr>
+<td>salt</td>
+<td>随机、不保密、每用户唯一；攻击量 × 用户数</td>
+</tr>
+<tr>
+<td>生物特征</td>
+<td>Universal/Distinguishing/Permanent/Collectable</td>
+</tr>
+<tr>
+<td>fraud/insult</td>
+<td>冒充者被接受 / 本人被拒；EER 相等点</td>
+</tr>
+<tr>
+<td>五层</td>
+<td>应用/传输/网络/链路/物理</td>
+</tr>
+<tr>
+<td>封装</td>
+<td>每层加头，数据在内层</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>无状态；Cookie 补状态；弱认证；隐私</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>明文命令；MAIL FROM 可伪造</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>13 个 root 集群；缓存投毒</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>可靠/有序/流控/有连接；20B 头；三次握手</td>
+</tr>
+<tr>
+<td>SYN flood</td>
+<td>半开连接耗尽 backlog；根因有状态</td>
+</tr>
+<tr>
+<td>IP/socket</td>
+<td>32-bit IP；IP+16-bit 端口</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>地址复用；隐藏内网；不防 DoS</td>
+</tr>
+<tr>
+<td>MAC/ARP</td>
+<td>48-bit MAC；ARP 缓存 ~20 min；可投毒</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../ch6-exploit-sidechannel/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 6 章 · 软件利用 II 与侧信道">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第 6 章 · 软件利用 II 与侧信道
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../hw/" class="md-footer__link md-footer__link--next" aria-label="下一页: 总览">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                总览
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../javascripts/glossary.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

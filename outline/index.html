@@ -1,0 +1,5675 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity 复习资料">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/outline/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../glossary/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>知识大纲 - CSIT5730 复习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#csit5730-principles-of-cybersecurity" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="CSIT5730 复习笔记" class="md-header__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 复习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              知识大纲
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CSIT5730 复习笔记" class="md-nav__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 复习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 课程信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 全局知识地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 分讲大纲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 分讲大纲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w1-a-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W1-A 导论：安全思维（introduction）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W1-A 导论：安全思维（introduction）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-cia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1 安全三要素 CIA ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2 漏洞从哪里来 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3 像攻击者思考 ⚔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4 像防御者思考 🔧 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-saltzer-schroeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5 Saltzer &amp; Schroeder 安全设计原则 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6 课程主题预览（能举例即可）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w1-b-classic-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W1-B 古典密码（classic crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W1-B 古典密码（classic crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 基本语汇与假设 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 简单替换与凯撒密码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 频率分析 ⚔ ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 安全性的操作性定义 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5 一次性密码本 OTP ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226-codebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6 代码本密码（codebook）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w2-symmetric-key-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W2 对称密码（symmetric key crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W2 对称密码（symmetric key crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1 两大分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-a51gsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2 A5/1（GSM）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-rc4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3 RC4 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-feistel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4 Feistel 结构 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5 DES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236-3destriple-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6 3DES（Triple DES）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237-aes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.7 AES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238-teatiny-encryption-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.8 TEA（Tiny Encryption Algorithm）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239-linear-cryptanalysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.9 线性密码分析（linear cryptanalysis）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.10 分组模式 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2311-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.11 完整性：MAC ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.12 量子计算与对称密码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w3-public-key-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W3 公钥密码（public key crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W3 公钥密码（public key crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 核心思想 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 RSA ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-diffie-hellman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 Diffie-Hellman 密钥交换 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 数字签名与不可抵赖 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-pki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 PKI 与证书 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6 哈希函数 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4-a-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W4-A 恶意软件（malware）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W4-A 恶意软件（malware）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1 类型（无严格统一定义）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2 蠕虫案例 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-pe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3 病毒与 PE 文件 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.4 木马与供应链 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.5 勒索软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.6 检测方法 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.7 军备竞赛：加密 / 变形 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4-b-reverse-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W4-B 逆向工程（reverse engineering）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W4-B 逆向工程（reverse engineering）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1 正反向工程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2 工具链与概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3 编译是“单向函数” ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4 反汇编：线性 vs 递归 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5 现代 C/C++ 反编译流水线 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#266" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.6 反编译的实际缺陷 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#267-software-crack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.7 案例：序列号破解（software crack）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#268" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.8 反逆向手段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5-a-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W5-A 缓冲区溢出（buffer overflow）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W5-A 缓冲区溢出（buffer overflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1 漏洞谱系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2 内存布局与栈帧 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.3 两种“越界” ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.4 溢出攻击原理 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.5 不安全 C 库函数 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276-serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.6 利用步骤（serial 案例）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#277" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.7 防御 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5-b-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W5-B 软件混淆（obfuscation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W5-B 软件混淆（obfuscation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1 动机与前提 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2 为什么现有保护不够 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.3 目标与边界 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.4 三类混淆 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.5 混淆效果评估 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.6 为什么“好”的混淆很难设计 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6-a-iisoftware-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W6-A 软件利用 II（software exploitation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W6-A 软件利用 II（software exploitation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.1 内存漏洞地图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.2 堆基础 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#293-use-after-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.3 Use-After-Free ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#294-double-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.4 Double Free ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#295" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.5 格式化字符串 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#296-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.6 SQL 注入 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6-b-side-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W6-B 侧信道（side channel）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W6-B 侧信道（side channel）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.1 三个构成条件 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.2 类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2103-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.3 RSA 时间侧信道 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.4 缓存侧信道 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.5 功耗侧信道 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7-a-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W7-A 认证（authentication）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W7-A 认证（authentication）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.1 访问控制两部分 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.2 三种认证因子 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.3 密码为什么流行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2114-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.4 密钥 vs 口令 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.5 好坏口令与口令短语 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.6 口令攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.7 口令存储：哈希 + 盐 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.8 其他口令问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2119" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.9 生物特征 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7-b-network-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W7-B 网络基础与安全（network security）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W7-B 网络基础与安全（network security）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.1 基础概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.2 五层协议栈 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.3 应用层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.4 传输层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.5 网络层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.6 链路层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.7 按层归纳攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 横向串联
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 横向串联">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 攻击 ↔ 防御 ↔ CIA 对照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 数字速记表 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 易混概念对照 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 术语中英对照
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 自测清单（能不看笔记答出即过关）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自测清单（能不看笔记答出即过关）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w7
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 复习优先级建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分章复习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分章复习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 · 导论与古典密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 · 对称密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 · 公钥密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 · 恶意软件与逆向工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 · 软件利用 II 与侧信道
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业解析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    作业解析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 课程信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 全局知识地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 分讲大纲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 分讲大纲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w1-a-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W1-A 导论：安全思维（introduction）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W1-A 导论：安全思维（introduction）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-cia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1 安全三要素 CIA ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2 漏洞从哪里来 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3 像攻击者思考 ⚔
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4 像防御者思考 🔧 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-saltzer-schroeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5 Saltzer &amp; Schroeder 安全设计原则 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6 课程主题预览（能举例即可）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w1-b-classic-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W1-B 古典密码（classic crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W1-B 古典密码（classic crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 基本语汇与假设 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 简单替换与凯撒密码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 频率分析 ⚔ ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 安全性的操作性定义 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5 一次性密码本 OTP ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226-codebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6 代码本密码（codebook）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w2-symmetric-key-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W2 对称密码（symmetric key crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W2 对称密码（symmetric key crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1 两大分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-a51gsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2 A5/1（GSM）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-rc4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3 RC4 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-feistel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4 Feistel 结构 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5 DES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236-3destriple-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6 3DES（Triple DES）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237-aes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.7 AES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238-teatiny-encryption-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.8 TEA（Tiny Encryption Algorithm）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239-linear-cryptanalysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.9 线性密码分析（linear cryptanalysis）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.10 分组模式 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2311-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.11 完整性：MAC ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.12 量子计算与对称密码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w3-public-key-crypto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W3 公钥密码（public key crypto）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W3 公钥密码（public key crypto）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 核心思想 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 RSA ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-diffie-hellman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 Diffie-Hellman 密钥交换 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 数字签名与不可抵赖 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-pki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 PKI 与证书 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6 哈希函数 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4-a-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W4-A 恶意软件（malware）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W4-A 恶意软件（malware）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1 类型（无严格统一定义）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2 蠕虫案例 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-pe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3 病毒与 PE 文件 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.4 木马与供应链 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.5 勒索软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.6 检测方法 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.7 军备竞赛：加密 / 变形 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4-b-reverse-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W4-B 逆向工程（reverse engineering）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W4-B 逆向工程（reverse engineering）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1 正反向工程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2 工具链与概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3 编译是“单向函数” ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4 反汇编：线性 vs 递归 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5 现代 C/C++ 反编译流水线 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#266" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.6 反编译的实际缺陷 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#267-software-crack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.7 案例：序列号破解（software crack）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#268" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.8 反逆向手段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5-a-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W5-A 缓冲区溢出（buffer overflow）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W5-A 缓冲区溢出（buffer overflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1 漏洞谱系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2 内存布局与栈帧 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.3 两种“越界” ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.4 溢出攻击原理 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.5 不安全 C 库函数 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276-serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.6 利用步骤（serial 案例）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#277" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.7 防御 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5-b-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W5-B 软件混淆（obfuscation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W5-B 软件混淆（obfuscation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1 动机与前提 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2 为什么现有保护不够 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.3 目标与边界 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.4 三类混淆 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.5 混淆效果评估 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.6 为什么“好”的混淆很难设计 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6-a-iisoftware-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W6-A 软件利用 II（software exploitation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W6-A 软件利用 II（software exploitation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.1 内存漏洞地图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.2 堆基础 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#293-use-after-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.3 Use-After-Free ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#294-double-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.4 Double Free ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#295" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.5 格式化字符串 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#296-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.6 SQL 注入 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6-b-side-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W6-B 侧信道（side channel）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W6-B 侧信道（side channel）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.1 三个构成条件 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.2 类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2103-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.3 RSA 时间侧信道 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.4 缓存侧信道 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.5 功耗侧信道 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7-a-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W7-A 认证（authentication）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W7-A 认证（authentication）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.1 访问控制两部分 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.2 三种认证因子 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.3 密码为什么流行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2114-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.4 密钥 vs 口令 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.5 好坏口令与口令短语 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.6 口令攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.7 口令存储：哈希 + 盐 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.8 其他口令问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2119" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.9 生物特征 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7-b-network-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W7-B 网络基础与安全（network security）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W7-B 网络基础与安全（network security）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.1 基础概念 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.2 五层协议栈 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.3 应用层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.4 传输层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.5 网络层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.6 链路层 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.7 按层归纳攻击面 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 横向串联
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 横向串联">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 攻击 ↔ 防御 ↔ CIA 对照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 数字速记表 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 易混概念对照 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 术语中英对照
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 自测清单（能不看笔记答出即过关）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自测清单（能不看笔记答出即过关）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        w7
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 复习优先级建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="csit5730-principles-of-cybersecurity">CSIT5730 Principles of Cybersecurity · 知识大纲<a class="headerlink" href="#csit5730-principles-of-cybersecurity" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>范围</strong>：<code>slides/w1–w7</code> 共 12 份课件（导论、古典密码、对称密码、公钥密码、恶意软件、逆向工程、缓冲区溢出、混淆、软件利用 II、侧信道、认证、网络基础与安全）。</p>
+<p><strong>用法</strong>：先看 §1 建立全局地图 → 按讲看 §2 的细节树 → 考前看 §3 的数字速记与横向对比 → 用 §4 自测。</p>
+<p><strong>标记</strong>：★ 核心机制/高频考点；⚔ 攻击；🔧 防御；⚠ 易混/易错。</p>
+</blockquote>
+<hr />
+<h2 id="0">0. 课程信息<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>课程</td>
+<td>CSIT5730: Principles of Cybersecurity（PG 导论课）</td>
+</tr>
+<tr>
+<td>教师</td>
+<td>Shuai Wang（HKUST CSE）</td>
+</tr>
+<tr>
+<td>评分</td>
+<td>作业 ×3：30%（第 2 次含编程）／期中：20%（10/26，课上）／期末：25%／小组项目：25%</td>
+</tr>
+<tr>
+<td>教材</td>
+<td>可选：<em>Introduction to Computer Security</em>；<em>Information Security: Principles and Practice</em></td>
+</tr>
+<tr>
+<td>主线</td>
+<td>以真实世界问题驱动，训练 <strong>attacker / defender 双向思维</strong>，而非单纯堆砌技术</td>
+</tr>
+</tbody>
+</table>
+<p><strong>全课五块内容</strong>（w1 课件给出的地图）：</p>
+<ol>
+<li>安全基础与定义：CIA、攻击模型</li>
+<li>密码学：古典、对称、公钥、签名、认证、哈希</li>
+<li>软件安全：内存错误、缓冲区溢出、混淆、恶意软件、安全测试</li>
+<li>系统与 Web 安全：认证、访问控制、协议、浏览器安全、侧信道</li>
+<li>新兴平台：区块链/智能合约、AI 安全</li>
+</ol>
+<blockquote>
+<p>注：区块链与 AI 安全只在 w1 导论中作为“领域概览”出现，后续课件未展开；复习时按“了解概念 + 能举例”掌握即可。</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 全局知识地图<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="kmap">
+<div class="kmap-top">安全目标 · CIA</div>
+<div class="kmap-three">
+<div class="kmap-card"><span class="kmap-k">C</span><b>Confidentiality</b><p>密码学：古典 → 对称 → 公钥；加密</p></div>
+<div class="kmap-card"><span class="kmap-k">I</span><b>Integrity</b><p>MAC、哈希、数字签名、证书</p></div>
+<div class="kmap-card"><span class="kmap-k">A</span><b>Availability</b><p>DoS / DDoS、蠕虫、资源泄漏</p></div>
+</div>
+<div class="kmap-split">
+<div class="kmap-panel">
+<div class="kmap-h">攻击者视角</div>
+<div class="kmap-item"><b>漏洞来源</b><span>设计缺陷 vs 实现缺陷</span></div>
+<div class="kmap-item"><b>攻击面</b><span>协议栈、内存、密码实现、人</span></div>
+<div class="kmap-item"><b>攻击链</b><span>侦察 → 入口 → 提权 → 持久化 → 窃密</span></div>
+</div>
+<div class="kmap-panel">
+<div class="kmap-h">防御者视角</div>
+<div class="kmap-item"><b>security policy</b><span>要保护什么性质</span></div>
+<div class="kmap-item"><b>risk assessment</b><span>资产、关键性、优先级</span></div>
+<div class="kmap-item"><b>threat model</b><span>谁、能力、想偷什么</span></div>
+<div class="kmap-item"><b>cost / benefit</b><span>成本收益 + 设计原则</span></div>
+</div>
+</div>
+<div class="kmap-h kmap-h-tech">技术专题</div>
+<div class="kmap-four">
+<div class="kmap-tech"><b>密码学</b><span>classic → symmetric → public-key → hash</span></div>
+<div class="kmap-tech"><b>软件安全</b><span>malware / RE / memory corruption / obfuscation</span></div>
+<div class="kmap-tech"><b>系统与网络</b><span>authentication / protocols / side channel</span></div>
+<div class="kmap-tech"><b>新兴</b><span>blockchain / AI</span></div>
+</div>
+</div>
+
+<p><strong>各讲与 CIA 的对应关系</strong></p>
+<table>
+<thead>
+<tr>
+<th>讲</th>
+<th>主题</th>
+<th>主要对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w1</td>
+<td>导论、安全思维、古典密码</td>
+<td>三者 + 威胁建模</td>
+</tr>
+<tr>
+<td>w2</td>
+<td>对称密码、分组模式、MAC</td>
+<td>C + I</td>
+</tr>
+<tr>
+<td>w3</td>
+<td>公钥、DH、签名、PKI、哈希</td>
+<td>C + I + 认证</td>
+</tr>
+<tr>
+<td>w4</td>
+<td>恶意软件、逆向工程</td>
+<td>A + C/I（窃密）</td>
+</tr>
+<tr>
+<td>w5</td>
+<td>缓冲区溢出、混淆</td>
+<td>C/I + 控制流劫持</td>
+</tr>
+<tr>
+<td>w6</td>
+<td>UAF/双重释放/格式化字符串/SQLi、侧信道</td>
+<td>C/I + 信息泄露</td>
+</tr>
+<tr>
+<td>w7</td>
+<td>认证（密码/生物特征）、网络协议安全</td>
+<td>认证 + A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2">2. 分讲大纲<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="w1-a-introduction">W1-A 导论：安全思维（introduction）<a class="headerlink" href="#w1-a-introduction" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：安全是攻击者与防御者之间无休止的军备竞赛；先学会像攻击者一样找漏洞，再像防御者一样定义策略、评估风险、建立威胁模型。</p>
+<h4 id="211-cia">2.1.1 安全三要素 CIA ★<a class="headerlink" href="#211-cia" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>定义</th>
+<th>典型破坏</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confidentiality</strong> 机密性</td>
+<td>未经授权者不能读取数据</td>
+<td>窃听、侧信道、数据泄露</td>
+</tr>
+<tr>
+<td><strong>Integrity</strong> 完整性</td>
+<td>数据是准确、未被篡改的原始表示</td>
+<td>篡改、MAC 缺失、注入</td>
+</tr>
+<tr>
+<td><strong>Availability</strong> 可用性</td>
+<td>授权用户随时可访问</td>
+<td>DoS、蠕虫、资源耗尽</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>记忆：<strong>CIA</strong> 不是“中央情报局”，任何攻击都可以归到这三类中的一类或多类。后面每一讲都应主动问：<strong>这一攻击破坏的是 C/I/A 中的哪一个？</strong></p>
+</blockquote>
+<h4 id="212">2.1.2 漏洞从哪里来 ★<a class="headerlink" href="#212" title="Permanent link">&para;</a></h4>
+<p><strong>设计层面（design）</strong>
+- 理论上的局限（如 OTP 的密钥分发）
+- 缺少安全特性（如没有认证）
+- 侧信道（实现无关，物理信息泄露）
+- 错误的威胁模型（threat model 假设错）
+- 错误的用户模型（假设用户会怎么做）</p>
+<p><strong>实现层面（implementation）</strong>
+- 编码错误（buffer overflow、UAF…）
+- 硬件错误
+- 被注入的错误（供应链、编译器后门）
+- 未满足规范（failure to meet specifications）</p>
+<p><strong>攻击者获取漏洞的途径</strong>
+1. 挖掘未知漏洞（0-day）——难
+2. 购买 0-day——可以，但贵
+3. 复用已知漏洞——相对容易（补丁未打、老系统）</p>
+<h4 id="213">2.1.3 像攻击者思考 ⚔<a class="headerlink" href="#213" title="Permanent link">&para;</a></h4>
+<ul>
+<li>白帽为什么也要学攻击：先发现才能修复；理解未知威胁；帮厂商造更安全的系统；拿漏洞奖金。</li>
+<li>关键心态：<strong>“这个系统的假设在什么情况下会失效？”</strong></li>
+</ul>
+<h4 id="214">2.1.4 像防御者思考 🔧 ★<a class="headerlink" href="#214" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>要回答的问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security policy</strong></td>
+<td>我要强制什么性质？</td>
+<td>密码只能存在我的手机里；C 代码的数据指针只能访问特定内存区</td>
+</tr>
+<tr>
+<td><strong>Risk assessment</strong></td>
+<td>有哪些资产？多关键？先保护谁？</td>
+<td>网络、服务器、应用、数据中心、数据；按 criticality 排优先级</td>
+</tr>
+<tr>
+<td><strong>Threat model</strong></td>
+<td>谁攻击？有什么能力？想偷什么？</td>
+<td>云平台：服务商可控制一切；同租户共享硬件 → 侧信道</td>
+</tr>
+<tr>
+<td><strong>Cost vs. benefit</strong></td>
+<td>防御代价是否值得？</td>
+<td>在线监控（简单但拖慢性能）vs 离线形式化验证（极难但无运行时开销）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>威胁模型三问是后面所有攻击场景的“前置声明”：<strong>attacker / capability / asset</strong>。考试里凡出现“这个攻击是否可行”，先回到威胁模型。</p>
+</blockquote>
+<h4 id="215-saltzer-schroeder">2.1.5 Saltzer &amp; Schroeder 安全设计原则 ★<a class="headerlink" href="#215-saltzer-schroeder" title="Permanent link">&para;</a></h4>
+<p>课件重点讲了 3 条：</p>
+<ol>
+<li><strong>Open design</strong>（开放设计）vs. security by obscurity：算法公开、只保密密钥。理由：秘密算法一旦暴露就脆弱；秘密从来保不住；开放才能提前发现弱点。</li>
+<li><strong>Economy of mechanism</strong>（机制最小化）：接口清晰、避免全局状态，便于调试、代码审计、静态/动态分析、形式化验证。</li>
+<li><strong>Least privilege</strong>（最小权限）：精确授予程序运行所需的最小能力；实践方法：先什么都不给，再按报错逐步加。</li>
+</ol>
+<blockquote>
+<p>经典完整列表还有：fail-safe defaults、complete mediation、separation of privilege、least common mechanism、psychological acceptability（课件注明“部分原则今天未必适用”，作为课后阅读）。</p>
+</blockquote>
+<h4 id="216">2.1.6 课程主题预览（能举例即可）<a class="headerlink" href="#216" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>逆向工程</strong>：如何破解 Windows 软件的密码保护？</li>
+<li><strong>侧信道</strong>：不能利用软件漏洞时，用执行时间、功耗、电磁、声音、热量、缓存推断秘密。</li>
+<li><strong>区块链</strong>：Bitcoin（交易上链、匿名地址像银行账户）；Ethereum（智能合约 = 链上程序，地址可以是用户或合约）。</li>
+<li><strong>AI 安全</strong>：对抗样本导致分类/目标检测失败。</li>
+</ul>
+<hr />
+<h3 id="w1-b-classic-crypto">W1-B 古典密码（classic crypto）<a class="headerlink" href="#w1-b-classic-crypto" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：古典密码用“手工可算”的方式建立密码学基本语汇；OTP 给出“可证明安全”的极限，但也暴露了密钥分发的根本难题。</p>
+<h4 id="221">2.2.1 基本语汇与假设 ★<a class="headerlink" href="#221" title="Permanent link">&para;</a></h4>
+<ul>
+<li>明文 plaintext → 加密 encryption → 密文 ciphertext → 解密 decryption → 明文。</li>
+<li>密钥 key 配置密码系统。</li>
+<li><strong>对称</strong>：加密解密同一密钥；<strong>公钥</strong>：公钥加密、私钥解密。</li>
+<li>计算安全性的直觉：<strong>无密钥从密文恢复明文很难；有密钥则很容易。</strong></li>
+<li><strong>Kerckhoffs 原则</strong> ★：密码系统的安全只应依赖密钥的保密，而不是算法的保密。</li>
+<li>理由：秘密算法一旦曝光就弱；秘密算法从来保不住；开放才能提前发现弱点。</li>
+</ul>
+<h4 id="222">2.2.2 简单替换与凯撒密码<a class="headerlink" href="#222" title="Permanent link">&para;</a></h4>
+<ul>
+<li>凯撒：字母表整体移位 n（例：shift 3）。明文 <code>fourscoreandsevenyearsago</code> → 密文 <code>IRXUVFRUHDQGVHYHQBHDUVDJR</code>。</li>
+<li>密钥空间：shift 只有 25 个非零密钥 → 穷举即可（exhaustive key search）。</li>
+<li>一般单表替换：任意字母置换，密钥空间 <strong>26! ≈ 4.03×10²⁶ &gt; 2⁸⁸</strong> → 不能穷举。</li>
+</ul>
+<h4 id="223">2.2.3 频率分析 ⚔ ★<a class="headerlink" href="#223" title="Permanent link">&para;</a></h4>
+<ul>
+<li>英文各字母出现频率差异明显（e/t/a 最高）。</li>
+<li>步骤：统计密文字母频率 → 与英文分布对齐（如 {h,l,r} → {t,a,e}）→ 用高频三字词 <code>the</code> 等验证 → 逐步扩展。</li>
+<li>结论：<strong>“密钥空间大”不等于安全</strong>；存在 shortcut attack 就是不安全。</li>
+</ul>
+<h4 id="224">2.2.4 安全性的操作性定义 ★<a class="headerlink" href="#224" title="Permanent link">&para;</a></h4>
+<ul>
+<li>若<strong>已知最好的攻击就是穷举</strong>，则称该密码系统是安全的。</li>
+<li>若存在任何捷径攻击（shortcut），则不安全。</li>
+<li>但“穷举不可行”才是真正的安全门槛——DES 的 56-bit 就是反例（见 W2）。</li>
+</ul>
+<h4 id="225-otp">2.2.5 一次性密码本 OTP ★★<a class="headerlink" href="#225-otp" title="Permanent link">&para;</a></h4>
+<ul>
+<li>加密：<span class="arithmatex">\(C = P \oplus K\)</span>；解密：<span class="arithmatex">\(P = C \oplus K\)</span>（XOR 自反）。</li>
+<li>例：<code>Salute!</code> 用 <code>heilhitler</code> 作密钥 → 密文 <code>srlhssthsr</code>。</li>
+<li><strong>可证明安全</strong>：密钥每比特等概率随机 ⇒ 所有密文等概率 ⇒ 密文不泄露明文任何信息。</li>
+<li><strong>三个必须条件</strong>（缺一即破）：</li>
+<li>密钥真随机；</li>
+<li>密钥只使用一次；</li>
+<li>密钥与消息等长。</li>
+<li>根本问题：密钥与消息一样长，<strong>“那为什么不直接传密钥？”</strong> → 密钥分发难题。</li>
+<li>真实案例 <strong>VENONA</strong>：苏联间谍用 OTP，但 pad 出现重复使用 → 被密码分析破译。</li>
+</ul>
+<h4 id="226-codebook">2.2.6 代码本密码（codebook）<a class="headerlink" href="#226-codebook" title="Permanent link">&para;</a></h4>
+<ul>
+<li>码本把词/短语映射为码字（如 Zimmerman Telegram）。</li>
+<li><strong>additive</strong>：再叠加一本“随机数本”，发送密文 + additive 位置（位置不保密），接收方先减 additive 再查码本；作用是<strong>同一个词每次编码不同</strong>。</li>
+<li>现代分组密码本质上就是“电子码本”（见 ECB）。</li>
+</ul>
+<blockquote>
+<p>⚠ 易混：<strong>OTP 的“一次”</strong> 指同一密钥流不能加密第二条消息；<strong>codebook + additive</strong> 是历史上缓解“同词同码”的办法，不等于 OTP。</p>
+</blockquote>
+<hr />
+<h3 id="w2-symmetric-key-crypto">W2 对称密码（symmetric key crypto）<a class="headerlink" href="#w2-symmetric-key-crypto" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：流密码把短密钥“拉长”成 OTP 式的密钥流；分组密码用轮函数迭代处理固定块，靠 S-box 提供非线性；分组模式与 MAC 决定“多块数据”能否既保密又完整。</p>
+<h4 id="231">2.3.1 两大分支<a class="headerlink" href="#231" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Stream cipher</th>
+<th>Block cipher</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>处理单位</td>
+<td>1 bit / 1 byte</td>
+<td>固定大小块（如 64/128 bit）</td>
+</tr>
+<tr>
+<td>密钥</td>
+<td>短密钥 → 伪随机密钥流</td>
+<td>密钥 + 轮函数</td>
+</tr>
+<tr>
+<td>类比</td>
+<td>推广的 OTP</td>
+<td>电子码本</td>
+</tr>
+<tr>
+<td>典型</td>
+<td>A5/1、RC4</td>
+<td>DES、3DES、AES、TEA</td>
+</tr>
+<tr>
+<td>现状</td>
+<td>硬件高效，软件慢；逐渐边缘化</td>
+<td>更主流，软件友好</td>
+</tr>
+</tbody>
+</table>
+<h4 id="232-a51gsm">2.3.2 A5/1（GSM）★<a class="headerlink" href="#232-a51gsm" title="Permanent link">&para;</a></h4>
+<ul>
+<li>3 个 LFSR：X 19 位、Y 22 位、Z 23 位；密钥作为寄存器初值。</li>
+<li>每步：<span class="arithmatex">\(m = \mathrm{maj}(x_8, y_{10}, z_{10})\)</span>；<strong>只有钟控位等于 m 的寄存器才步进</strong>。</li>
+<li>步进抽头：</li>
+<li>X：<span class="arithmatex">\(t = x_{13} \oplus x_{16} \oplus x_{17} \oplus x_{18}\)</span></li>
+<li>Y：<span class="arithmatex">\(t = y_{20} \oplus y_{21}\)</span></li>
+<li>Z：<span class="arithmatex">\(t = z_{7} \oplus z_{20} \oplus z_{21} \oplus z_{22}\)</span></li>
+<li>输出密钥流位：<span class="arithmatex">\(x_{18} \oplus y_{21} \oplus z_{22}\)</span>。</li>
+<li>特点：硬件极高效、软件慢；用于 GSM 语音加密；资源受限设备仍有用武之地。</li>
+</ul>
+<h4 id="233-rc4">2.3.3 RC4 ★<a class="headerlink" href="#233-rc4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>核心：256 字节的置换表 <code>S</code>，随密钥自修改。</li>
+<li><strong>KSA（初始化）</strong>：
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>S[i] = i; K[i] = key[i mod N]
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos">2</span></a>j = 0
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos">3</span></a>for i = 0..255: j = (j + S[i] + K[i]) mod 256; swap(S[i], S[j])
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos">4</span></a>i = j = 0
+</code></pre></div></li>
+<li><strong>PRGA（产流）</strong>：
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>i = (i+1) mod 256
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a>j = (j + S[i]) mod 256
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a>swap(S[i], S[j])
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos">4</span></a>t = (S[i] + S[j]) mod 256
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos">5</span></a>keystreamByte = S[t]
+</code></pre></div></li>
+<li>每步产 1 字节（A5/1 每步 1 bit）。</li>
+<li>⚠ <strong>必须丢弃前 256 字节</strong>，否则存在攻击（RC4 已知偏差）。</li>
+<li>命名坑：<strong>RC5 是分组密码</strong>，不是 RC4 的升级版。</li>
+</ul>
+<h4 id="234-feistel">2.3.4 Feistel 结构 ★★<a class="headerlink" href="#234-feistel" title="Permanent link">&para;</a></h4>
+<ul>
+<li>不是某个具体密码，而是一个<strong>框架</strong>：DES、Blowfish、RC5、TEA、Twofish 都是其变体/相关。</li>
+<li>加密：</li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}
+L_{i+1} &amp;= R_i \\
+R_{i+1} &amp;= L_i \oplus F(R_i, K_i) \\
+C &amp;= (R_{n+1}, L_{n+1})
+\end{aligned}
+\]</div>
+<p>（最后左右交换）</p>
+<ul>
+<li>解密：从 <span class="arithmatex">\((R_{n+1}, L_{n+1})\)</span> 出发，用<strong>同一 F、逆序子密钥</strong>：</li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}
+R_{i-1} &amp;= L_i \\
+L_{i-1} &amp;= R_i \oplus F(L_i, K_{i-1})
+\end{aligned}
+\]</div>
+<ul>
+<li>关键性质：<strong>解密对任意 F 都成立</strong>（因为每轮可逆），但<strong>安全性只对特定 F 成立</strong>。</li>
+<li>反例：<span class="arithmatex">\(F = 0\)</span> 时每轮只是交换，毫无安全性。</li>
+</ul>
+<h4 id="235-des">2.3.5 DES ★★<a class="headerlink" href="#235-des" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分组</td>
+<td>64 bit</td>
+</tr>
+<tr>
+<td>密钥</td>
+<td>56 bit（64 bit 含校验位）</td>
+</tr>
+<tr>
+<td>轮数</td>
+<td>16</td>
+</tr>
+<tr>
+<td>每轮子密钥</td>
+<td>48 bit</td>
+</tr>
+<tr>
+<td>结构</td>
+<td>Feistel</td>
+</tr>
+<tr>
+<td>安全核心</td>
+<td>8 个 S-box（6 bit → 4 bit）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一轮流程</strong>：右半 32 bit → 扩展置换 E 成 48 bit → 与子密钥 XOR → 8 个 S-box 变 32 bit → P-box 置换 → 与左半 XOR → 左右交换。</p>
+<ul>
+<li><strong>S-box</strong>：唯一的非线性部件；输入首尾 2 bit 选行、中间 4 bit 选列；DES 的 S-box 经过精心设计以抵抗密码分析 → <strong>安全性主要来自这里</strong>。</li>
+<li><strong>P-box</strong>：对 S-box 输出再做 32-bit 置换（扩散）。</li>
+<li><strong>子密钥生成</strong>：56 bit 密钥分两半各 28 bit，循环左移后压缩选 48 bit。</li>
+<li><strong>初始置换 IP / 末置换 FP</strong>：不提供任何安全性，只是历史设计。</li>
+<li><strong>破解历史</strong>：1998 EFF DES Cracker &lt; $250,000、&lt; 3 天；1999 distributed.net 22 小时 15 分（多机空闲算力）。结论：56-bit 已不可用。</li>
+</ul>
+<h4 id="236-3destriple-des">2.3.6 3DES（Triple DES）★<a class="headerlink" href="#236-3destriple-des" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>C = E(D(E(P, K1), K2), K1)</code>，即 <strong>EDE，两把密钥，112 bit</strong>。</li>
+<li>为什么 EDE 而不是 EEE：<strong>向后兼容</strong>——<code>E(D(E(P,K),K),K) = E(P,K)</code>，单密钥时退化为 DES。</li>
+<li>为什么不用 <code>E(E(P,K1),K2)</code>：<strong>中间相遇攻击（meet-in-the-middle）</strong> 把 2¹¹² 降到约 2⁵⁷。</li>
+<li>⚠ 3DES 的 112 bit 是“两把 56-bit 密钥”，不是 168；三密钥版本才是 168（课件只讲两密钥）。</li>
+</ul>
+<h4 id="237-aes">2.3.7 AES ★★<a class="headerlink" href="#237-aes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>取代 DES 的事实标准；<strong>不是 Feistel 结构</strong>。</li>
+<li>分组 128 bit；密钥 128/192/256 bit；轮数 <strong>10/12/14</strong>。</li>
+<li>每轮 4 个操作：</li>
+<li><strong>ByteSub</strong>：S-box 逐字节替换（非线性；无不动点 <span class="arithmatex">\(S(a)\neq a\)</span>，且需逆表）。</li>
+<li><strong>ShiftRow</strong>：行循环移位，避免各列被独立加密（扩散）。</li>
+<li><strong>MixColumn</strong>：每列做可逆矩阵乘法（GF(2⁸)），实现上是大查找表。</li>
+<li><strong>AddRoundKey</strong>：与子密钥 XOR。</li>
+<li>优点：8/32-bit CPU 上都高效、代码/内存 footprint 小、有 <strong>AES-NI</strong> 硬件指令（AESENC/AESDEC）。</li>
+<li><strong>雪崩效应</strong>：明文 1 bit 变化 → 密文大幅变化。</li>
+</ul>
+<blockquote>
+<p>课件明确：<strong>不要求背 AES 实现细节</strong>，但要能说清四个操作的作用与顺序、以及“为什么不是 Feistel”。</p>
+</blockquote>
+<h4 id="238-teatiny-encryption-algorithm">2.3.8 TEA（Tiny Encryption Algorithm）<a class="headerlink" href="#238-teatiny-encryption-algorithm" title="Permanent link">&para;</a></h4>
+<ul>
+<li>64-bit 分组、128-bit 密钥、32 轮（轮数可变）、假设 32-bit 算术。</li>
+<li><code>delta = 0x9e3779b9</code>（黄金比例常数，“magic number”）。</li>
+<li>每轮同时更新 L、R，用 <code>+/-</code> 而不是 XOR → “almost Feistel”。</li>
+<li>优点：极简易、快、内存小。</li>
+<li>弱点：<strong>等价密钥</strong>（4 把不同密钥给出相同密文），有效密钥 2¹²⁸ → 2¹²⁶；以及 X-box 类攻击。</li>
+<li>课件：<strong>不要求背实现</strong>，但要理解“弱轮函数 + 多轮”的设计取舍。</li>
+</ul>
+<h4 id="239-linear-cryptanalysis">2.3.9 线性密码分析（linear cryptanalysis）★<a class="headerlink" href="#239-linear-cryptanalysis" title="Permanent link">&para;</a></h4>
+<ul>
+<li>分组密码唯一非线性部件是 S-box；攻击思路：<strong>用线性方程近似非线性 S-box</strong>。</li>
+<li>对给定 S-box，统计输入/输出比特的线性关系成立概率，例如：</li>
+<li><code>y1 = x1</code> 以 3/4 概率成立；</li>
+<li><span class="arithmatex">\(y_{0} = x_{0} \oplus x_{2} \oplus 1\)</span> 以概率 1 成立；</li>
+<li><span class="arithmatex">\(y_{0} \oplus y_{1} = x_{1} \oplus x_{2}\)</span> 以 3/4 概率成立。</li>
+<li>偏差（bias）越大，越可利用；沿轮传播后恢复子密钥。</li>
+<li>DES 的 S-box 设计使<strong>单个输出比特没有好的线性逼近</strong>，但输出比特的线性组合仍可被输入线性组合逼近；实践上需要海量明文，不太实用。</li>
+</ul>
+<h4 id="2310">2.3.10 分组模式 ★★<a class="headerlink" href="#2310" title="Permanent link">&para;</a></h4>
+<p><strong>为什么需要模式</strong>：分组只有 64/128 bit，消息远大于一块；每块换新密钥 = OTP 的不现实。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>加密</th>
+<th>特点</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ECB</strong></td>
+<td><code>C_i = E(P_i,K)</code></td>
+<td>最简单；相同明文块 → 相同密文块</td>
+<td>⚔ <strong>cut-and-paste</strong>；模式泄露（加密图片仍看出轮廓）</td>
+</tr>
+<tr>
+<td><strong>CBC</strong></td>
+<td><span class="arithmatex">\(C_0=E(IV\oplus P_0,K)\)</span>，<span class="arithmatex">\(C_i=E(C_{i-1}\oplus P_i,K)\)</span></td>
+<td>相同明文块 → 不同密文；IV 随机但不保密</td>
+<td>传输错误只影响有限块；<strong>仍可 cut-and-paste / 可延展</strong></td>
+</tr>
+<tr>
+<td><strong>CTR</strong></td>
+<td><span class="arithmatex">\(C_i = P_i \oplus E(IV+i,K)\)</span></td>
+<td>把分组密码当流密码；支持随机访问</td>
+<td><strong>IV/nonce 绝不能重用</strong>（否则两次密文 XOR = 两明文 XOR）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ECB cut-and-paste 例：明文 <code>Eva. pings Bob. Ted. pings Tom.</code> → 攻击者交换密文块 → 解密成 <code>Eva. pings Tom. Ted. pings Bob.</code>。</li>
+<li>ECB 图片实验：加密后的图像仍保留大块轮廓 → 因为相同明文块产生相同密文。</li>
+<li>CBC 的 IV 不需要保密，但需要不可预测/唯一（课件强调 random）。</li>
+<li>部分块（partial block）不在本课范围。</li>
+</ul>
+<h4 id="2311-mac">2.3.11 完整性：MAC ★★<a class="headerlink" href="#2311-mac" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>加密只提供机密性，不提供完整性</strong>：OTP 可被任意翻转、ECB 可 cut-and-paste。</li>
+<li><strong>MAC = CBC residue</strong>：做 CBC 加密，只保留最后一个密文块作为 MAC（密码学校验和）。
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>C_0 = E(IV⊕P_0,K), ..., C_{N-1} = E(C_{N-2}⊕P_{N-1},K) = MAC
+</code></pre></div></li>
+<li>发送 <span class="arithmatex">\((IV, P_0\\dots P_{N-1}, MAC)\)</span>；接收方重算并比对。</li>
+<li>为什么能检测篡改：改动任一 <code>P_i</code> 会通过链式结构传播到最终 MAC；没有 K 无法伪造新 MAC。</li>
+<li><strong>加密与 MAC 用不同密钥</strong>：同一把密钥 + 把最后密文块当 MAC 发送两次，不增加安全性；不同密钥（即使相关）可行。</li>
+<li>代价：约 2 倍加密工作量；优化可到约 1.5 倍；<strong>AE（authenticated encryption）</strong> 是研究方向。</li>
+<li>概念区分：<strong>MAC ≠ 签名</strong>（MAC 双方共享密钥，无法抗抵赖；签名用私钥，可抗抵赖，见 W3）。</li>
+</ul>
+<h4 id="2312">2.3.12 量子计算与对称密码<a class="headerlink" href="#2312" title="Permanent link">&para;</a></h4>
+<ul>
+<li>量子比特可处于叠加态；但造机、编程都极难，结果概率性。</li>
+<li><strong>Grover 算法</strong>：穷举搜索平方根加速 → n-bit 密钥的工作因子从 <span class="arithmatex">\(2^n\)</span> 降到约 <span class="arithmatex">\(2^{n/2}\)</span>。</li>
+<li>对策：<strong>密钥长度翻倍</strong>（AES-128 → AES-256），代价只是“稍慢”。</li>
+<li>结论：量子计算对对称密码<strong>不是致命威胁</strong>（对比 RSA/DH，见 W3）。</li>
+</ul>
+<hr />
+<h3 id="w3-public-key-crypto">W3 公钥密码（public key crypto）<a class="headerlink" href="#w3-public-key-crypto" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：用“陷门单向函数”解决密钥分发与不可抵赖；但公钥算法慢、有消息长度限制，实际系统是“公钥建钥 + 对称加密数据”的混合体制，并用 PKI 绑定身份与公钥。</p>
+<h4 id="241">2.4.1 核心思想 ★<a class="headerlink" href="#241" title="Permanent link">&para;</a></h4>
+<ul>
+<li>基于 <strong>trapdoor one-way function</strong>：正向易算、反向难算；知道陷门（私钥）则反向易算。</li>
+<li>典型单向函数：<span class="arithmatex">\(N = p\cdot q\)</span> 易算，由 N 分解出 p、q 难。</li>
+<li>两种用法：</li>
+<li><strong>加密</strong>：用 Bob 的公钥加密 → 只有 Bob 的私钥能解。</li>
+<li><strong>签名</strong>：用私钥“加密” → 任何人用公钥“解密”验证；只有私钥持有者能签。</li>
+</ul>
+<h4 id="242-rsa">2.4.2 RSA ★★<a class="headerlink" href="#242-rsa" title="Permanent link">&para;</a></h4>
+<p><strong>密钥生成</strong>
+1. 选大素数 p、q；<span class="arithmatex">\(N = p\cdot q\)</span>。
+2. 选 e 与 <code>(p−1)(q−1)</code> 互素。
+3. 求 d 使 <span class="arithmatex">\(e\cdot d \equiv 1 \bmod (p-1)(q-1)\)</span>。
+4. 公钥 <code>(N, e)</code>；私钥 <code>d</code>（p、q 必须销毁/保密）。</p>
+<p><strong>加解密</strong>
+- <span class="arithmatex">\(C = M^e \bmod N\)</span>
+- <span class="arithmatex">\(M = C^d \bmod N\)</span></p>
+<p><strong>安全性</strong>：若攻击者能分解 N = p·q，就能由 e 求出 d → <strong>分解模数即破 RSA</strong>。</p>
+<p><strong>小例子</strong>：p=11, q=3 → N=33, φ=20；e=3 → d=7。
+- M=8：<span class="arithmatex">\(C = 8^{3} \bmod 33 = 512 \bmod 33 = 17\)</span>；<span class="arithmatex">\(M = 17^{7} \bmod 33 = 8\)</span>。</p>
+<p><strong>RSA 数字</strong>：RSA Labs 发布 100–617 位十进制的半素数；截至 2018-08，54 个中 20 个被分解；RSA-100（330 bit）最容易，RSA-2048 目前无人能破。</p>
+<p><strong>效率</strong>
+- 直接算 <span class="arithmatex">\(M^e\)</span> 再取模会产生天文数字 → <strong>每步取模 + 反复平方（repeated squaring）</strong>。
+- 例：5²⁰ mod 35：5¹→5，5²→25，5⁵→10，5¹⁰→30，5²⁰→25；不产生巨大中间值。
+- 可预计算常用幂的表。
+- <strong>消息长度受限</strong>：2048-bit RSA 最多约 <strong>245 字节</strong>明文；不要“切块加密”（膨胀 + 慢）。</p>
+<p><strong>混合加密（hybrid）</strong> ★
+- 公钥只用来建立/封装一个对称密钥；数据用对称密码（AES）加密。
+- SSL/TLS、OpenPGP 都这么做。
+- 但仍需证书解决“公钥属于谁”。</p>
+<h4 id="243-diffie-hellman">2.4.3 Diffie-Hellman 密钥交换 ★★<a class="headerlink" href="#243-diffie-hellman" title="Permanent link">&para;</a></h4>
+<ul>
+<li>目的：在不安全信道上协商共享对称密钥；<strong>不用于加密/签名</strong>。</li>
+<li>公开参数 g、p；Alice 私密 a，Bob 私密 b。</li>
+<li>交换 <span class="arithmatex">\(g^a \bmod p\)</span>、<span class="arithmatex">\(g^b \bmod p\)</span>。</li>
+<li>Alice 算 <span class="arithmatex">\((g^b)^a = g^{ab}\)</span>；Bob 算 <span class="arithmatex">\((g^a)^b = g^{ab}\)</span>；共享密钥 <span class="arithmatex">\(K = g^{ab} \bmod p\)</span>。</li>
+<li>安全性基于<strong>离散对数问题</strong>：给定 <span class="arithmatex">\(g, p, g^k \bmod p\)</span>，求 k 很难。</li>
+<li>⚠ 攻击者看到 <span class="arithmatex">\(g^a\)</span>、<span class="arithmatex">\(g^b\)</span>，但 <span class="arithmatex">\(g^a\cdot g^b = g^{a+b} \neq g^{ab}\)</span>。</li>
+<li>⚔ <strong>中间人攻击（MiM）</strong>：Trudy 分别与 Alice、Bob 协商 <span class="arithmatex">\(g^{at}\)</span>、<span class="arithmatex">\(g^{bt}\)</span>，双方毫不知情。</li>
+<li>根源：DH 本身<strong>没有认证</strong>。</li>
+<li>解决：认证（证书/签名/预共享密钥），见 PKI。</li>
+</ul>
+<h4 id="244">2.4.4 数字签名与不可抵赖 ★<a class="headerlink" href="#244" title="Permanent link">&para;</a></h4>
+<ul>
+<li>用私钥签：<code>S = [M]Alice</code>；任何人用 Alice 公钥验证。</li>
+<li>提供 <strong>integrity + authentication + non-repudiation</strong>。</li>
+<li><strong>为什么对称 MAC 不能抗抵赖</strong>：Alice 与 Bob 共享 K，Bob 也能伪造 MAC，无法向第三方证明是 Alice 下的单。</li>
+<li>签名前提：私钥未泄露/未被偷。</li>
+</ul>
+<h4 id="245-pki">2.4.5 PKI 与证书 ★<a class="headerlink" href="#245-pki" title="Permanent link">&para;</a></h4>
+<ul>
+<li>问题：收方如何确信“这把公钥确实属于某人”？</li>
+<li>方案：<strong>CA（Certificate Authority）</strong> 作为可信第三方，签发<strong>数字证书</strong>（名字 + 公钥 + 其他信息，用 CA 私钥签名）。</li>
+<li>验证：用 CA 公钥验签 → 确认证书完整性 → 信任证书中的公钥。</li>
+<li><strong>X.509</strong> 常见字段：Version、Serial Number、Signature Algorithm、Issuer Name、Validity Period、Subject Name、Subject Public Key、Issuer/Subject Unique ID、Extensions、Digital Signature。</li>
+<li><strong>生命周期</strong>：生成密钥对 → 签发 → 使用 → 到期/私钥泄露 → 吊销（CRL）→ 重新认证/换钥。</li>
+<li><strong>为什么信任 CA</strong>：根 CA 预装在 OS/浏览器/应用中，随系统更新；身份核验靠现实世界手段，不是密码学。</li>
+<li><strong>PKI = 使用公钥所需的一切</strong>：密钥生成与管理、CA、CRL 等；没有统一标准；三种信任模型：垄断型（单一/极少数 CA）、寡头型（少数 CA，最常见）、全员 CA（web of trust 思路）。</li>
+</ul>
+<h4 id="246">2.4.6 哈希函数 ★★<a class="headerlink" href="#246" title="Permanent link">&para;</a></h4>
+<p><strong>用途</strong>：签名大消息时先签指纹 <code>h(M)</code>（效率）；完整性；口令存储；哈希链；PoW。</p>
+<p><strong>安全性质</strong>（必背）
+1. <strong>Compression</strong>：任意长度 → 固定 n-bit。
+2. <strong>Efficiency</strong>：易计算。
+3. <strong>One-way（preimage resistance）</strong>：给定 y，找不到 x 使 <code>H(x)=y</code>。
+4. <strong>Weak collision resistance（second preimage）</strong>：给定 x，找不到 y≠x 使 <code>H(y)=H(x)</code>。
+5. <strong>Strong collision resistance</strong>：找不到任意一对 y≠x 使 <code>H(y)=H(x)</code>。</p>
+<p><strong>生日问题</strong> ★
+- 全班有人和“我”同生日：需 <strong>253</strong> 人（pre-birthday，对应 weak collision）。
+- 任意两人同生日：只需 <strong>23</strong> 人（birthday，对应 strong collision）。
+- 一般化：N-bit 哈希，约 <span class="arithmatex">\(2^{N/2}\)</span> 次尝试即可找到碰撞。
+- 推论：<strong>N-bit 哈希的安全强度只有 N/2 bit</strong>；而 N-bit 对称密钥强度约 N bit。
+  - 128-bit 哈希 → 2⁶⁴ 工作量即可破碰撞。</p>
+<p><strong>常见算法</strong>
+- <strong>MD5</strong>：128-bit 输出，碰撞已易构造 → 已破。
+- <strong>SHA-1</strong>：160-bit，结构与 MD5 类似，2005 年起可破。
+- SHA-224/256/384/512 等。
+- 内部结构：<strong>Merkle–Damgård</strong>：固定压缩函数 + 逐块迭代，上一块输出参与下一块；无密钥，类似分组密码。
+- <strong>雪崩效应</strong>：<code>MD5("...dog")</code> 与 <code>MD5("...dog.")</code> 输出完全不同。</p>
+<p><strong>哈希的巧用</strong>
+- <strong>口令哈希 + salt</strong>（见 W7）：<code>y = h(password, s)</code>，存 <code>(s,y)</code>；salt 不保密，但迫使攻击者对每个用户重算。
+- <strong>哈希链</strong>：24 次课，第 1 次给 <code>Hash²³(t)</code>，第 d 次给 <span class="arithmatex">\(Hash^{24-d}(t)\)</span>，最后一次给 t；单向性保证不能由当前值推出未来值 → 一次性口令/令牌。
+- <strong>反垃圾邮件 PoW</strong>：要求 <code>h(M,R,T)</code> 前 N 位为 0；发送方平均 <span class="arithmatex">\(2^N\)</span> 次哈希，接收方 1 次验证；N 可调。
+- 区块链 PoW 同源（w1 提及）。</p>
+<p><strong>量子计算</strong>
+- <strong>Shor 算法</strong>（1994）可高效分解大整数、解离散对数 → <strong>RSA/DH 将失效</strong>。
+- 2048-bit 模数：数域筛法 ≈ 125-bit 对称密钥强度；Shor ≈ 30-bit。
+- 结论：对称密码 + 加长密钥可存活；公钥需 <strong>post-quantum crypto</strong>（如 NTRU）。</p>
+<hr />
+<h3 id="w4-a-malware">W4-A 恶意软件（malware）<a class="headerlink" href="#w4-a-malware" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：恶意代码的目标是“让攻击者的代码在你的机器上运行”；传播方式（worm/virus/trojan/backdoor）与检测方式（签名/行为/聚类）构成另一场军备竞赛。</p>
+<h4 id="251">2.5.1 类型（无严格统一定义）★<a class="headerlink" href="#251" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>核心特征</th>
+<th>传播</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Worm</strong></td>
+<td>自我复制、主动传播</td>
+<td>利用漏洞自动扩散</td>
+</tr>
+<tr>
+<td><strong>Virus</strong></td>
+<td>修改宿主程序/引导区，被动传播</td>
+<td>依附文件，随程序运行</td>
+</tr>
+<tr>
+<td><strong>Trojan horse</strong></td>
+<td>伪装成正常软件，含意外功能</td>
+<td>用户主动安装；不自我复制；常可远程控制</td>
+</tr>
+<tr>
+<td><strong>Trapdoor / backdoor</strong></td>
+<td>绕过正常认证的隐蔽入口</td>
+<td>植入后门</td>
+</tr>
+<tr>
+<td><strong>Ransomware</strong></td>
+<td>加密受害者数据索要赎金</td>
+<td>常配合钓鱼/漏洞</td>
+</tr>
+</tbody>
+</table>
+<h4 id="252">2.5.2 蠕虫案例 ★<a class="headerlink" href="#252" title="Permanent link">&para;</a></h4>
+<p><strong>Morris Worm（1988-11-03）</strong>
+- Robert Morris，Cornell 23 岁博士生；约 <strong>99 行</strong>程序；几乎瘫痪当时的 Internet。
+- 入侵途径：
+  1. <code>fingerd</code>、<code>sendmail</code> 的 <strong>buffer overflow</strong>；
+  2. 猜测弱口令（常见口令表）。
+- 漏洞早已公开但补丁未普及。
+- 危害机制：<strong>指数级传播</strong> + 重复感染导致机器失去响应 → 破坏 <strong>Availability</strong>。
+- 影响：极大提升安全意识。</p>
+<p><strong>SQL Slammer（2003）</strong>
+- 单一 <strong>376 字节 UDP 包</strong>即可传播；10 分钟感染 <strong>75,000</strong> 台。
+- 利用数据库软件漏洞；补丁 <strong>6 个月前</strong>已发布。
+- 峰值每 <strong>8.5 秒</strong>翻倍；因传播过快耗尽带宽而“自燃”。</p>
+<h4 id="253-pe">2.5.3 病毒与 PE 文件 ★<a class="headerlink" href="#253-pe" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Windows 可执行格式 <strong>PE（Portable Executable）</strong>。</li>
+<li>感染步骤：</li>
+<li>修改 PE 头；</li>
+<li>附加一个恶意代码节（section）；</li>
+<li>把入口点重定向到恶意节。</li>
+<li>病毒可寄生：引导扇区（boot sector，最早取得控制）、应用程序、库函数、编译器/调试器/杀毒软件（最恶毒）。</li>
+</ul>
+<h4 id="254">2.5.4 木马与供应链 ★<a class="headerlink" href="#254" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Mac 木马</strong>：<code>freeMusic.mp3</code> 实际是 application（不是数据）；双击后 iTunes 打开（符合预期）+ 狂笑/弹窗（意外）；能做用户能做的一切（删文件、下载、启动应用）。</li>
+<li><strong>Android 重打包</strong>：下载热门 App → 反编译 → 插入恶意代码 → 重新打包分发。</li>
+<li><strong>Backdoor</strong>：监听某端口，绕过本地口令认证，提供远程访问。</li>
+<li><strong>Reflections on Trusting Trust</strong>（Ken Thompson, 1984 Turing Award）：</li>
+<li>恶意编译器可在编译时植入后门，源码看起来完全干净。</li>
+<li>现实案例：<strong>XcodeGhost（2015）</strong>——开发者下载了非官方渠道的 Xcode。</li>
+<li>结论：<strong>root of trust</strong> 问题；仅审计源码不足以完全信任二进制。</li>
+</ul>
+<h4 id="255">2.5.5 勒索软件<a class="headerlink" href="#255" title="Permanent link">&para;</a></h4>
+<ul>
+<li>用轻量对称密码（TEA/Twofish/Blowfish…）加密受害者数据。</li>
+<li>检测思路：<strong>pattern matching delta</strong>（加密过程对文件内容的规律性改变）。</li>
+</ul>
+<h4 id="256">2.5.6 检测方法 ★★<a class="headerlink" href="#256" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>做法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>静态签名</strong></td>
+<td>在文件中搜索特征串/通配符/哈希；如 W32/Beast 的 <code>83EB 0274...</code></td>
+<td>对普通恶意软件有效；用户负担小；最流行</td>
+<td>签名库巨大、扫描慢；需持续更新；无签名则检测不到；高级恶意软件可绕过</td>
+</tr>
+<tr>
+<td><strong>动态行为</strong></td>
+<td>监控“异常”行为：异常文件访问、系统异常、异常网络活动</td>
+<td>可发现无签名的新恶意软件</td>
+<td>需定义“正常”，且正常会变；准确率；攻击者可“慢速攻击”伪装正常；常与签名结合</td>
+</tr>
+<tr>
+<td><strong>恶意软件聚类</strong></td>
+<td>与已知家族/样本比对（VirusTotal 等），用相似度、聚类、嵌入</td>
+<td>加速海量未知样本分析；发现同作者/同工具包</td>
+<td>不是检测本身；依赖样本库质量</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>行为分析实例：Android 记录 <strong>system call 序列</strong>（<code>fread("passwordFile")</code> → <code>sendmsg(...)</code>）；难点是 <code>sendmsg</code> 的内容不可见 → 静态分析。</li>
+<li>浏览器挖矿：WebAssembly 中大量哈希计算 → 运行时识别“挖矿”操作。</li>
+<li>实际执行环境：VM、sandbox、硬件支持；恶意软件可 <strong>sandbox evasion</strong>（检测自己是否在虚拟环境，如 “Red Pill”）。</li>
+</ul>
+<h4 id="257">2.5.7 军备竞赛：加密 / 变形 ★<a class="headerlink" href="#257" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>加密恶意软件</strong>：不同密钥 → 不同“随机”字节 → 无共同签名。</li>
+<li>检测：扫描 <strong>decryptor 代码</strong>（仍是签名）；运行时 dump 解密后的代码。</li>
+<li><strong>Metamorphic（变形）</strong>：感染新系统前自我变异。</li>
+<li>过程：反汇编自己 → 插入随机变化（指令置换、死代码）→ 重新汇编。</li>
+<li>功能相同、签名不同 → 签名检测失效。</li>
+<li>趋势：加密、多态、变形、混淆/多样化；恶意软件已成“生态系统”，开发走向“软件工程化”。</li>
+</ul>
+<hr />
+<h3 id="w4-b-reverse-engineering">W4-B 逆向工程（reverse engineering）<a class="headerlink" href="#w4-b-reverse-engineering" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：没有源码时，从可执行文件恢复“程序在做什么”；它是几乎所有软件安全任务的基础，而编译是“多对一”的不可逆映射。</p>
+<h4 id="261">2.6.1 正反向工程<a class="headerlink" href="#261" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Forward engineering</strong>：需求 → 设计 → 实现 → 测试 → 交付（瀑布模型）。</li>
+<li><strong>Reverse engineering</strong>：把东西拆开、分析其工作原理，逐步恢复更高层抽象与意图。</li>
+<li>在安全中的位置：</li>
+<li>软件逆向：几乎所有软件安全任务的基础（攻击者/防御者都没有源码）。</li>
+<li>协议逆向：网络安全的成熟领域（抓包 → 恢复报文结构：Header/Length/Checksum/Command/Data）。</li>
+<li>算法/模型逆向：新兴（魔数、统计查询对、DNN 逆向）。</li>
+<li>硬件逆向。</li>
+</ul>
+<h4 id="262">2.6.2 工具链与概念 ★<a class="headerlink" href="#262" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a>Source code --compiler--&gt; Assembly --assembler--&gt; Executable
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a>Executable --disassembler--&gt; Assembly
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a>Executable --decompiler--&gt; Source code（decompiler 内含 disassembler）
+</code></pre></div>
+- <strong>Disassembler</strong>：可执行文件 → CPU 汇编指令。
+- <strong>Decompiler</strong>：可执行文件 → 源码级表示。
+- 商业工具：IDA Pro、JEB3、Hopper；开源：<strong>Ghidra</strong>（NSA 开源）。</p>
+<h4 id="263">2.6.3 编译是“单向函数” ★<a class="headerlink" href="#263" title="Permanent link">&para;</a></h4>
+<ul>
+<li>多份不同源码可编译成同一段机器码：
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos">1</span></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos">2</span></a><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos">3</span></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+  都可能生成同一机器码 → <strong>无法唯一还原“原始源码”</strong>。</li>
+<li>但对理解/复用而言，任一语义等价的写法都可接受。</li>
+</ul>
+<h4 id="264-vs">2.6.4 反汇编：线性 vs 递归 ★★<a class="headerlink" href="#264-vs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>线性扫描（linear）</strong>：从代码段第一个字节开始逐条解码直到结尾。</li>
+<li>问题：编译器会在代码段中<strong>嵌入数据</strong>（如跳转表、常量）；线性扫描会把数据误当指令。</li>
+<li><strong>递归扫描（recursive）</strong>：沿控制转移（jmp/call/ret）遍历，只反汇编可达代码。</li>
+<li>能正确处理“代码中嵌数据”的情况（如 <code>inst1; jmp data; inst3...</code>）。</li>
+<li>CPU 也是按控制流执行，所以递归更贴近真实语义。</li>
+</ul>
+<h4 id="265-cc">2.6.5 现代 C/C++ 反编译流水线 ★★<a class="headerlink" href="#265-cc" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos">1</span></a>Executable
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos">2</span></a> → Disassembly（反汇编）
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos">3</span></a> → Variable/Type Recovery（变量与类型恢复）
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos">4</span></a> → Control-Flow Recovery（控制流恢复）
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos">5</span></a> → Optimization（优化）
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos">6</span></a> → Code Generation（代码生成）
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos">7</span></a> → Decompiler Output
+</code></pre></div>
+<ul>
+<li><strong>变量恢复</strong>：从“整块内存”中划分出变量区域（哪些字节总是一起被访问 → 一个变量）。</li>
+<li><strong>类型恢复 = 类型推断</strong>：</li>
+<li><code>b = *a</code> → a 是指针；</li>
+<li><code>printf("%d", a)</code> → a 是整数；</li>
+<li><code>fopen(a, "r")</code> → a 是字符串（文件名）。</li>
+<li>本质是“演绎证明”过程，逐步约束类型。</li>
+<li><strong>控制流恢复</strong>：汇编 → <strong>CFG（控制流图）</strong>，这是恢复 <code>if/while/for</code> 的前提。</li>
+<li><strong>代码生成</strong>：模式匹配 + 代码模板具体化（识别出“这应该是一个 for 循环”）。</li>
+</ul>
+<h4 id="266">2.6.6 反编译的实际缺陷 ⚠<a class="headerlink" href="#266" title="Permanent link">&para;</a></h4>
+<p>商业反编译器仍会在变量/类型恢复上出错，典型 bug：
+- <strong>不可达循环</strong>：<code>for (i=6; i&lt;-12; i-=6)</code> 原程序不可达，反编译却变成可达/多次迭代。
+- <strong>移位/截断</strong>：<code>(uint8_t)a &gt;&gt; (uint8_t)6</code> 被错误还原，导致 a 的值不同。
+- <strong>整型宽度</strong>：<code>int32_t a = 0xaaaaffff</code> 被还原成 <code>int16_t</code>，<code>a+4</code> 结果不同。</p>
+<h4 id="267-software-crack">2.6.7 案例：序列号破解（software crack）★<a class="headerlink" href="#267-software-crack" title="Permanent link">&para;</a></h4>
+<ol>
+<li>程序要求输入 serial，错误则退出。</li>
+<li>反汇编 → 找到比较处：<code>cmp</code> 输入与硬编码字符串 → 直接看到 <code>S123N456</code>，输入即通过。</li>
+<li>更进一步：不找序列号，直接 <strong>patch</strong> 跳转指令（把条件跳转改成无条件/ NOP），或用十六进制编辑器改字节 → 任意序列号都通过。</li>
+<li>所需工具：仅一个反汇编器；远程攻击时可能需 trial-and-error 猜地址。</li>
+<li>结论：<strong>开放系统上无法阻止 SRE</strong>，只能提高成本。</li>
+</ol>
+<h4 id="268">2.6.8 反逆向手段<a class="headerlink" href="#268" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Anti-disassembly</strong>：在代码中嵌入数据，干扰线性扫描。</li>
+<li><strong>Code obfuscation</strong>：让代码难以理解（见 W5）。</li>
+<li><strong>Encryption / packer</strong>：加壳，运行时解壳。</li>
+</ul>
+<hr />
+<h3 id="w5-a-buffer-overflow">W5-A 缓冲区溢出（buffer overflow）<a class="headerlink" href="#w5-a-buffer-overflow" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：C/C++ 不做边界检查，超长输入可覆盖栈上的返回地址，从而劫持控制流、执行任意代码；防御从“不可执行栈、金丝雀、ASLR、安全语言”多管齐下。</p>
+<h4 id="271">2.7.1 漏洞谱系<a class="headerlink" href="#271" title="Permanent link">&para;</a></h4>
+<ul>
+<li>可能被利用的 bug：空指针解引用、UAF、double free、数组越界、栈/堆溢出、返回局部变量指针、未初始化变量、负数误用、大参数按值传递、分配不足、内存/文件句柄/网络资源泄漏、未处理返回码、失效迭代器……</li>
+<li>⚠ <strong>并非所有 bug 都可利用</strong>；不可利用的逻辑 bug 不构成 vulnerability。</li>
+<li>常见高危：<strong>buffer overflow、format string、integer overflow、UAF、type confusion、race condition</strong>。</li>
+</ul>
+<h4 id="272">2.7.2 内存布局与栈帧 ★★<a class="headerlink" href="#272" title="Permanent link">&para;</a></h4>
+<ul>
+<li>进程内存（Linux，Mac/Windows 类似）：text（代码）、data、bss、heap（向高地址增长）、stack（向低地址增长）。</li>
+<li>栈帧从高地址到低地址：
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos"> 1</span></a>高地址
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos"> 2</span></a>┌─────────────┐
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos"> 3</span></a>│ 参数 a, b    │
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos"> 4</span></a>├─────────────┤
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos"> 5</span></a>│ 返回地址 ret │  ← 溢出目标
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos"> 6</span></a>├─────────────┤
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos"> 7</span></a>│ saved FP     │
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos"> 8</span></a>├─────────────┤
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos"> 9</span></a>│ 局部变量     │
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos">10</span></a>│ char buf[10] │  ← 写入起点
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><a href="#__codelineno-6-11"><span class="linenos">11</span></a>└─────────────┘
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><a href="#__codelineno-6-12"><span class="linenos">12</span></a>低地址        SP
+</code></pre></div></li>
+<li>函数调用时压入返回地址、帧指针、局部变量；<strong>栈向低地址增长，缓冲区向高地址写</strong> → 溢出会先覆盖 saved FP，再覆盖 <strong>ret</strong>。</li>
+</ul>
+<h4 id="273">2.7.3 两种“越界” ★<a class="headerlink" href="#273" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Buffer overread</strong>：读超出缓冲区 → 泄露相邻内存（如 <strong>Heartbleed</strong> 读 OpenSSL 内存）。</li>
+<li><strong>Buffer overwrite</strong>：写超出缓冲区 → 篡改相邻数据/返回地址。</li>
+</ul>
+<h4 id="274">2.7.4 溢出攻击原理 ★★<a class="headerlink" href="#274" title="Permanent link">&para;</a></h4>
+<ul>
+<li>简单场景：<code>char buffer[N]</code> 旁边有 <code>boolean flag</code>（口令正确标志）；超长输入覆盖 flag → 任意口令通过。</li>
+<li>栈溢出：</li>
+<li>覆盖 ret → 程序“返回”到错误地址 → 崩溃（DoS）；</li>
+<li>更坏：让 ret 指向<strong>注入的恶意代码</strong>（shellcode）→ 任意代码执行。</li>
+<li>别名：stack smashing、buffer overrun、code injection、control-flow hijacking。</li>
+<li>前提：代码中确实存在溢出；<strong>并非所有溢出都可利用</strong>；常需 trial-and-error 猜地址，但“成功一次就够”。</li>
+<li>⚠ 让缓冲区“向高地址增长”并不能解决问题（课件注明见笔记）。</li>
+</ul>
+<h4 id="275-c">2.7.5 不安全 C 库函数 ★<a class="headerlink" href="#275-c" title="Permanent link">&para;</a></h4>
+<p><code>strcpy</code>、<code>gets</code>、<code>strcat</code>、<code>scanf</code>、<code>sprintf</code> …… 共同点：<strong>不检查目标缓冲区长度</strong>。</p>
+<h4 id="276-serial">2.7.6 利用步骤（serial 案例）★<a class="headerlink" href="#276-serial" title="Permanent link">&para;</a></h4>
+<ol>
+<li>输入超长 <code>A</code>（0x41）观察崩溃 → 判断 ret 被覆盖的偏移。</li>
+<li>反汇编找到想跳转的地址（如绕过检查的 <code>0x401034</code>）。</li>
+<li>地址按 <strong>little-endian</strong> 逆序写入：<code>0x401034</code> → 字节 <code>34 10 40 00</code> → ASCII <code>"4^P@"</code>（0x40='@'，0x10=^P，0x34='4'）。</li>
+<li>构造 payload：填充 + 目标地址（+ 可选 NOP sled + shellcode）。</li>
+<li>成功绕过序列号检查。</li>
+</ol>
+<h4 id="277">2.7.7 防御 ★★<a class="headerlink" href="#277" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>防御</th>
+<th>机制</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W^X / DEP</strong></td>
+<td>栈/堆不可执行（write XOR execute）；Windows 支持，Linux 有补丁</td>
+<td>自修改代码、JIT 需要可写/可执行内存</td>
+</tr>
+<tr>
+<td><strong>Canary（栈金丝雀）</strong></td>
+<td>在 ret 前放一个值，函数返回前检查是否被改；常量 <code>0x000aff0d</code> 或运行时随机</td>
+<td>非万无一失；某些攻击可绕过/不触碰 canary；Web 服务器约 8% 性能损失</td>
+</tr>
+<tr>
+<td><strong>ASLR</strong></td>
+<td>随机化栈、可执行文件基址等</td>
+<td>可暴力猜（32-bit 熵低）；可 <strong>spraying</strong> 注入代码；需配合其他防御</td>
+</tr>
+<tr>
+<td><strong>安全语言</strong></td>
+<td>Java/C# 等自动边界检查</td>
+<td>需重写/迁移；性能与兼容性</td>
+</tr>
+<tr>
+<td><strong>安全函数</strong></td>
+<td>用带长度参数的版本；额外长度检查</td>
+<td>依赖开发者正确使用</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>现代组合：ASLR + canary + NX + PIE + CFI；攻击者则用 info leak、ROP/JOP 绕过（课件点到“and even more later”）。</p>
+</blockquote>
+<hr />
+<h3 id="w5-b-obfuscation">W5-B 软件混淆（obfuscation）<a class="headerlink" href="#w5-b-obfuscation" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：在“恶意宿主”假设下，混淆通过改变代码形态（布局、数据、控制流）提高逆向成本；它无法做到绝对安全，只能让攻击代价高于收益。</p>
+<h4 id="281">2.8.1 动机与前提 ★<a class="headerlink" href="#281" title="Permanent link">&para;</a></h4>
+<ul>
+<li>软件含大量信息：.NET 的 MSIL、Java/JS/Python 字节码、C/C++ 二进制。</li>
+<li>代码会被利用：非恶意 RE（测试、集成、扩展）；恶意 RE（攻击、盗版）；恶意软件作者也想逃避聚类/相似性分析。</li>
+<li><strong>移动代码 + 恶意主机</strong>：代码在别人机器上运行，宿主不可信。</li>
+</ul>
+<h4 id="282">2.8.2 为什么现有保护不够 ⚠<a class="headerlink" href="#282" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬件隔离</td>
+<td>需改造硬件，不现实</td>
+</tr>
+<tr>
+<td>服务器端执行</td>
+<td>需要始终在线高带宽；还要解决认证等网络安全问题</td>
+</tr>
+<tr>
+<td>加密</td>
+<td>鸡生蛋：解密例程本身可见</td>
+</tr>
+</tbody>
+</table>
+<h4 id="283">2.8.3 目标与边界 ★<a class="headerlink" href="#283" title="Permanent link">&para;</a></h4>
+<ul>
+<li>让被保护软件“看起来”与原版不同；<strong>判断两段代码的相似性</strong>是许多软件安全分析的基础。</li>
+<li><strong>不能完全阻止</strong>恶意 RE：给定足够时间/资源，任何混淆都可被还原（穷举）。</li>
+<li>正确目标：<strong>让还原成本对攻击者而言过高</strong>。</li>
+</ul>
+<h4 id="284">2.8.4 三类混淆 ★★<a class="headerlink" href="#284" title="Permanent link">&para;</a></h4>
+<p><strong>1) Layout obfuscation（布局）</strong>
+- 删除注释、重命名标识符（类/方法/变量 → 无意义名）。
+- 商业工具：DashO（Java）、Dotfuscator（MSIL）。
+- 很轻量；现实中大量流行 App 甚至没做布局混淆。</p>
+<p><strong>2) Data obfuscation（数据）</strong>
+- 变量拆分/合并/编码。
+- 数组拆分、数组合并、数组折叠（增维）、数组展平（降维）。
+- 数据加密（如字符串加密，移动 App 常用）。</p>
+<p><strong>3) Control-flow obfuscation（控制流）</strong> ★
+- 前提：布局/数据混淆不改变控制结构 → 控制结构仍可作“代码签名”。
+- 手段：
+  - <strong>指令插入（垃圾代码）</strong>：<code>nop</code>、<code>add/sub</code>、<code>xor/xor</code> 等语义抵消序列；简单、破坏已知模式。
+  - <strong>指令替换</strong>：等价指令序列替换；极端案例 <strong>M/o/Vfuscator</strong> 把 C/C++ 编译成“只有 mov”的程序。
+  - <strong>控制流平坦化（flattening）</strong>：把所有基本块放进 <code>switch(x)</code> 分发器，用状态变量 x 驱动；原 CFG 被“压平”。
+  - <strong>不透明谓词（opaque predicate）</strong>：条件表达式的值在运行时已知，但静态分析难以推断。
+    - 例：<code>if (x*x + y*y &gt;= 2*x*y)</code> 恒真（但不易看出）；汇编中更隐蔽。
+    - 类型：invariant（不变量）、context（上下文相关）、多线程（一个线程只放 &gt;n 的数，另一个线程取值 → <code>x&lt;n</code> 恒假）。
+    - 不透明性决定控制流变换的韧性。</p>
+<p><strong>进阶</strong>
+- <strong>VM-based obfuscation</strong>：自定义指令集 + 秘密编码 + 虚拟 CPU/分发器；已商业化；不是万无一失，但显著增加分析难度。
+- <strong>Multilingual obfuscation</strong>：混合不同计算模型（命令式 = 图灵机；函数式 = lambda 演算；逻辑式 = Horn 逻辑），编译后机器码更难理解。</p>
+<h4 id="285">2.8.5 混淆效果评估 ★<a class="headerlink" href="#285" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>含义</th>
+<th>度量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Potency</strong></td>
+<td>引入多少复杂度</td>
+<td>调用图边数、基本块数、CFG 边数等软件复杂度指标</td>
+</tr>
+<tr>
+<td><strong>Stealth</strong></td>
+<td>混淆代码能否“融入”其余代码</td>
+<td>指令分布异常检测</td>
+</tr>
+<tr>
+<td><strong>Resilience</strong></td>
+<td>还原有多难</td>
+<td>diff 技术比较混淆前后二进制相似度</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>性能代价</td>
+<td>体积、执行减速</td>
+</tr>
+</tbody>
+</table>
+<h4 id="286">2.8.6 为什么“好”的混淆很难设计 ⚠<a class="headerlink" href="#286" title="Permanent link">&para;</a></h4>
+<ul>
+<li>想出“有趣”的变异不难，需要创造力；想出“安全”的变异极难。</li>
+<li>尤其当方法公开、攻击者已知你的方案时。</li>
+<li>开放设计 + 无真正秘密 + 搜索空间有限 → 原理上就不强（呼应 Kerckhoffs）。</li>
+</ul>
+<hr />
+<h3 id="w6-a-iisoftware-exploitation">W6-A 软件利用 II（software exploitation）<a class="headerlink" href="#w6-a-iisoftware-exploitation" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：除栈溢出外，堆上的 UAF/双重释放、栈上的格式化字符串、数据库层的 SQL 注入，都是“输入验证/生命周期管理失败”的不同表现。</p>
+<h4 id="291">2.9.1 内存漏洞地图<a class="headerlink" href="#291" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>漏洞</th>
+<th>位置</th>
+<th>根因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buffer overflow</td>
+<td>栈/堆</td>
+<td>越界写</td>
+</tr>
+<tr>
+<td><strong>Use-after-free</strong></td>
+<td>堆</td>
+<td>释放后继续使用</td>
+</tr>
+<tr>
+<td><strong>Double free</strong></td>
+<td>堆</td>
+<td>同一块释放两次</td>
+</tr>
+<tr>
+<td><strong>Type confusion</strong></td>
+<td>堆</td>
+<td>把对象当成另一种类型</td>
+</tr>
+<tr>
+<td><strong>Format string</strong></td>
+<td>栈</td>
+<td>用户控制格式串</td>
+</tr>
+<tr>
+<td><strong>SQL injection</strong></td>
+<td>数据库</td>
+<td>输入拼接进查询</td>
+</tr>
+</tbody>
+</table>
+<h4 id="292">2.9.2 堆基础 ★<a class="headerlink" href="#292" title="Permanent link">&para;</a></h4>
+<ul>
+<li>堆：动态分配内存；C <code>malloc/free</code>，C++ <code>new/delete</code>。</li>
+<li>分配的内存在程序终止或显式 <code>free/delete</code> 前一直有效。</li>
+<li><strong>内存泄漏</strong>：只分配不释放 → 资源滥用，可导致崩溃/无响应 → 破坏 <strong>Availability</strong>。</li>
+<li>程序员需自行管理生命周期 → 错误温床。</li>
+</ul>
+<h4 id="293-use-after-free">2.9.3 Use-After-Free ★★<a class="headerlink" href="#293-use-after-free" title="Permanent link">&para;</a></h4>
+<ul>
+<li>缺陷：<code>free(p)</code> 后仍通过 <code>p</code> 读写，把已释放内存当有效。</li>
+<li>利用：释放后立刻分配<strong>同样大小</strong>的新对象 → 新对象占据同一块内存 → 通过悬垂指针写入，篡改新对象的字段（如函数指针/vtable）→ 控制流劫持/任意代码执行。</li>
+<li>案例（Protostar heap2，PoC）：</li>
+<li>正常流程：create user → login → 指定 service → cleanup。</li>
+<li>攻击流程：create user → cleanup（释放）→ 指定 service（复用同一 chunk，写入 “you have logged in already!”）→ login 时读取旧指针 → 未认证即“已登录”。</li>
+<li><code>strdup</code> 在堆上分配 chunk，是复用的关键。</li>
+<li>为什么 fuzz 难检测：<strong>复杂度 + 显著性（saliency）</strong>——需要特定分配/释放序列。</li>
+<li>防御：释放后把指针置 <strong>NULL</strong>；使用智能指针。</li>
+</ul>
+<h4 id="294-double-free">2.9.4 Double Free ★<a class="headerlink" href="#294-double-free" title="Permanent link">&para;</a></h4>
+<ul>
+<li>同一块内存释放两次 → 堆元数据被破坏。</li>
+<li>攻击：精心构造分配/释放链，让第二次 free 把“用户数据”当元数据解析 → 任意地址写/控制流劫持。</li>
+<li>防御：释放后置 NULL（最直接）。</li>
+</ul>
+<h4 id="295">2.9.5 格式化字符串 ★★<a class="headerlink" href="#295" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>printf(format, ...)</code>：格式串决定如何解释后续参数（<code>%d</code> 值、<code>%s</code> 指针）。</li>
+<li>编译器通常<strong>不检查</strong>格式串与参数是否匹配。</li>
+<li>若用户能控制格式串：</li>
+<li><code>%s%s%s...</code> → 把栈上的值当字符串地址 → <strong>泄露内存</strong>（可绕过 ASLR）。</li>
+<li><code>%n</code> → 把“已输出字节数”<strong>写入</strong>参数指定的地址 → <strong>任意内存写</strong>。</li>
+<li>防御：</li>
+<li>尽量用硬编码字符串、无参数；</li>
+<li>至少硬编码格式串，禁止 <code>printf(user_input)</code>；</li>
+<li>禁用 <code>%n</code>。</li>
+</ul>
+<h4 id="296-sql">2.9.6 SQL 注入 ★★<a class="headerlink" href="#296-sql" title="Permanent link">&para;</a></h4>
+<ul>
+<li>成因：不可信输入被拼进 SQL：
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos">1</span></a><span class="x">"SELECT * FROM Users WHERE name='$name';"</span>
+</code></pre></div></li>
+<li>输入 <code>x' OR 'a'='a</code> →
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos">1</span></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s1">'x'</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="s1">'a'</span><span class="o">=</span><span class="s1">'a'</span><span class="p">;</span>
+</code></pre></div>
+  → 恒真，绕过认证。</li>
+<li>更狠：<code>'; DROP TABLE Students; --</code> → 删表。</li>
+<li><strong>最佳防御：预处理语句 + 绑定变量（prepared statements / bound parameters）</strong>。</li>
+<li>原理：SQL 语句先被数据库<strong>解析/编译</strong>，参数随后与“已编译语句”结合，而不是拼成 SQL 字符串 → 输入永远被当作数据，不会被解析为语法。</li>
+<li>辅助防御：</li>
+<li>输入语法校验（邮箱、日期、零件号等有固定语言）；</li>
+<li>长度限制（很多注入依赖长字符串）；</li>
+<li>扫描 <code>INSERT/DROP</code> 等关键词；</li>
+<li><strong>最小数据库权限</strong>（只读用户只给读权限）。</li>
+</ul>
+<hr />
+<h3 id="w6-b-side-channel">W6-B 侧信道（side channel）<a class="headerlink" href="#w6-b-side-channel" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：不利用软件 bug，而是利用“秘密相关的程序行为 → 物理环境 → 可观测”这条链，从执行时间、缓存、功耗、电磁、声音、热量中反推密钥。</p>
+<h4 id="2101">2.10.1 三个构成条件 ★★<a class="headerlink" href="#2101" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>秘密相关的信息流</strong>：程序行为随秘密不同而不同。</li>
+<li><strong>信息流影响物理环境</strong>：时间、功耗、缓存状态、声音……</li>
+<li><strong>物理环境可被攻击者观测/利用</strong>。</li>
+</ol>
+<blockquote>
+<p>缺一不可。防御也可从这三环入手：消除秘密相关分支/访存（常数时间）、屏蔽物理信号、限制观测能力。</p>
+</blockquote>
+<h4 id="2102">2.10.2 类型<a class="headerlink" href="#2102" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Timing（执行时间）、Cache（缓存）、Power（功耗）、EM（电磁辐射）、Sound（声音）、Heat（热量）。</li>
+<li>例：声音侧信道可从 CPU 发出的嗡嗡声区分 RSA 密钥位 0/1（Tromer 等）。</li>
+</ul>
+<h4 id="2103-rsa">2.10.3 RSA 时间侧信道 ★★<a class="headerlink" href="#2103-rsa" title="Permanent link">&para;</a></h4>
+<ul>
+<li>场景：Alice 公钥 (N,e)、私钥 d；攻击者可发送任意 M，Alice 返回 <span class="arithmatex">\(M^d \bmod N\)</span>（签名）；攻击者可精确计时。</li>
+<li>实现：<strong>平方-乘（square-and-multiply）</strong>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos">1</span></a>for bit in d:
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos">2</span></a>    x = x² mod N
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos">3</span></a>    if bit == 1: x = x*M mod N
+</code></pre></div></li>
+<li>时间差异：</li>
+<li>bit = 0：只平方（快）；</li>
+<li>bit = 1：平方 + 乘法（慢）。</li>
+<li>一条时间轨迹即可读出密钥位序列（实际需多次试验，但<strong>不需要分解大数</strong>）。</li>
+<li>经典文献：Kocher, “Timing Attacks on Implementations of DH, RSA, DSS, and Other Systems”, 1996。</li>
+</ul>
+<h4 id="2104">2.10.4 缓存侧信道 ★★<a class="headerlink" href="#2104" title="Permanent link">&para;</a></h4>
+<ul>
+<li>基本原理：<strong>访问 cache 中的数据明显快于访问主存</strong>。</li>
+<li>Cache line = 最小存储单元，通常 <strong>64 字节</strong>；地址低位是 line offset，其余位是 line index。</li>
+<li><strong>Flush + Reload</strong>：攻击者先把目标 cache line 从缓存中逐出，等受害者运行后测量重新加载时间 → 快 = 受害者访问过该行。</li>
+<li>威胁模型：</li>
+<li>强：能观测<strong>具体访问了哪条 cache line</strong>；</li>
+<li>弱：只能观测 <strong>hit/miss 序列</strong>，仍可推断秘密输入。</li>
+<li>与 RSA 的关系：</li>
+<li>平方-乘：秘密相关<strong>控制流</strong> → 时间/分支泄漏；</li>
+<li>滑动窗口（sliding window）：<code>table[idx]</code> 秘密相关<strong>内存访问</strong> → 缓存泄漏。</li>
+<li>云计算时代尤其危险：不同 VM 共享 L1/L2（同核）或 L3（跨核）。</li>
+<li>关联大事件：<strong>2018 Spectre &amp; Meltdown</strong>。</li>
+</ul>
+<h4 id="2105">2.10.5 功耗侧信道 ★<a class="headerlink" href="#2105" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>SPA（Simple Power Analysis）</strong>：直接解读功耗轨迹，识别设备正在执行的操作与密钥位。</li>
+<li>假设：攻击者能获得一条覆盖整个密码运算的功耗轨迹。</li>
+<li>一条轨迹即可泄露秘密（如 1/0 对应不同功耗波形）。</li>
+<li>已有针对手机/嵌入式设备的 PoC。</li>
+</ul>
+<blockquote>
+<p>课件对功耗/缓存只给高层思路；DPA、掩码、隐藏等进阶内容未展开（可作为延伸）。</p>
+</blockquote>
+<hr />
+<h3 id="w7-a-authentication">W7-A 认证（authentication）<a class="headerlink" href="#w7-a-authentication" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：访问控制 = 认证（你是谁）+ 授权（你能做什么）；认证依赖“你知道/你拥有/你是什么”，而密码的现实弱点是用户选择，生物特征的弱点是不可撤销。</p>
+<h4 id="2111">2.11.1 访问控制两部分 ★<a class="headerlink" href="#2111" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Authentication</strong>：你是不是你说的那个人？（人→机，或机→机）</li>
+<li><strong>Authorization</strong>：你被允许做这件事吗？（访问后能做什么，限制动作）</li>
+</ul>
+<h4 id="2112">2.11.2 三种认证因子 ★★<a class="headerlink" href="#2112" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>因子</th>
+<th>例子</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Something you know</strong></td>
+<td>口令、PIN、生日、母亲婚前姓、宠物名</td>
+<td>免费、易重置；但弱、可猜、可泄露</td>
+</tr>
+<tr>
+<td><strong>Something you have</strong></td>
+<td>智能卡、ATM 卡、令牌、手机、MAC 地址</td>
+<td>需携带/发放；可丢失</td>
+</tr>
+<tr>
+<td><strong>Something you are</strong></td>
+<td>指纹、签名、人脸、声纹、步态</td>
+<td>难伪造；但不可撤销、有错误率</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2FA</strong>：三者中任取两类（信用卡 + 签名；ATM 卡 + PIN）。</p>
+<h4 id="2113">2.11.3 密码为什么流行<a class="headerlink" href="#2113" title="Permanent link">&para;</a></h4>
+<ul>
+<li>成本：免费；便利：重置口令比重新发一个拇指容易。</li>
+<li>但“密码是当今安全工程师面临的最大实践问题之一”。</li>
+</ul>
+<h4 id="2114-vs">2.11.4 密钥 vs 口令 ★<a class="headerlink" href="#2114-vs" title="Permanent link">&para;</a></h4>
+<ul>
+<li>64-bit 随机密钥 → 2⁶⁴ 个可能，攻击者约需试 2⁶³。</li>
+<li>8 字符口令、每字符 256 种 → 理论 256⁸ = 2⁶⁴；<strong>但用户不随机选</strong> → 实际可选空间远小于 2⁶³ → <strong>字典攻击</strong>。</li>
+<li>字典攻击：只尝试最可能成功的候选（字典词、变形）。</li>
+</ul>
+<h4 id="2115">2.11.5 好坏口令与口令短语 ★<a class="headerlink" href="#2115" title="Permanent link">&para;</a></h4>
+<ul>
+<li>坏口令：<code>frank</code>、<code>Fido</code>、<code>Password</code>、<code>incorrect</code>、<code>Pikachu</code>、<code>88195277</code>、<code>AustinStamp</code>。</li>
+<li>好口令：<code>jfIej,43j-EmmL+y</code>、<code>09864376537263</code>、<code>0nceuP0nAt1m8</code>、<code>P0kem0n</code>。</li>
+<li><strong>Passphrase</strong>：10–30 字母、更难暴力破解、不在短语/名言字典中、比随机串好记。</li>
+<li>实验（三组）：</li>
+<li>A：≥6 字符 + 1 个非字母 → 约 <strong>30%</strong> 易破解；</li>
+<li>B：基于 passphrase → 约 <strong>10%</strong> 被破，且好记；</li>
+<li>C：8 个随机字符 → 约 <strong>10%</strong> 被破，但难记。</li>
+<li>结论：<strong>passphrase 在安全性与可记忆性之间更优</strong>。</li>
+</ul>
+<h4 id="2116">2.11.6 口令攻击面 ★<a class="headerlink" href="#2116" title="Permanent link">&para;</a></h4>
+<ul>
+<li>针对某个账户 / 系统内任意账户 / 任意系统账户；</li>
+<li><strong>DoS</strong>（如反复输错锁定账户 → 思考 ATM）；</li>
+<li>离线：拿到口令文件后字典攻击；</li>
+<li>在线：猜测、撞库、社会工程、键盘记录、日志泄露。</li>
+</ul>
+<h4 id="2117">2.11.7 口令存储：哈希 + 盐 ★★<a class="headerlink" href="#2117" title="Permanent link">&para;</a></h4>
+<ul>
+<li>不能明文存口令；但又要验证 → 存 <strong>hash</strong>。</li>
+<li>攻击：预计算字典中所有 <code>h(x)</code>；拿到哈希文件后直接比对 → 一次预计算，之后秒破。</li>
+<li><strong>Salt</strong>：随机值 s，存 <code>(s, y=h(password,s))</code>。</li>
+<li>s 不保密；</li>
+<li>验证仍容易；</li>
+<li>但攻击者必须<strong>为每个用户、每个 salt 重算</strong>，预计算表失效，成本大幅上升。</li>
+<li>现代还应使用慢哈希（bcrypt/scrypt/Argon2）——课件未展开，属延伸。</li>
+</ul>
+<h4 id="2118">2.11.8 其他口令问题<a class="headerlink" href="#2118" title="Permanent link">&para;</a></h4>
+<ul>
+<li>口令太多 → 重用 → 一处泄露、处处沦陷；</li>
+<li>默认口令不修改；</li>
+<li>社会工程；</li>
+<li>错误日志可能含“近似口令”；</li>
+<li>bug、键盘记录、间谍软件；</li>
+<li>破解工具：L0phtCrack/LC4（Windows）、John the Ripper（Unix）；管理员应主动用它们做弱口令审计。</li>
+</ul>
+<h4 id="2119">2.11.9 生物特征 ★<a class="headerlink" href="#2119" title="Permanent link">&para;</a></h4>
+<ul>
+<li>“你就是钥匙”：指纹、签名、人脸、声纹、步态。</li>
+<li><strong>理想特性</strong>：Universal（普适）、Distinguishing（可区分）、Permanent（长期不变）、Collectable（易采集）、安全、用户友好。</li>
+<li>现实中：没有一种生物特征对所有人适用；无法 100% 确定；只要长期有效即可；采集依赖配合。</li>
+<li><strong>Enrollment vs Recognition</strong>：</li>
+<li>注册：录入数据库，可慢、可重复测量，但必须非常精确 → 现实中可能是薄弱点（root trust）。</li>
+<li>识别：必须快速、简单，同时足够准确。</li>
+<li><strong>错误率</strong> ★：</li>
+<li><strong>Fraud</strong>：攻击者被误认成 Alice（冒充者被接受）；</li>
+<li><strong>Insult</strong>：Alice 未被认成 Alice（本人被拒绝）；</li>
+<li>两者此消彼长：99% 匹配阈值 → 低 fraud、高 insult；30% → 高 fraud、低 insult。</li>
+<li><strong>Equal Error Rate (EER)</strong>：fraud = insult 的点，用于比较不同生物特征。</li>
+<li>⚠ 课件把 fraud 标为 “false negative”、insult 标为 “false positive”，与常规术语相反；<strong>按定义描述记</strong>：冒充者被接受 = fraud，本人被拒 = insult。</li>
+<li>生物特征并非万无一失：可偷拇指、复印指纹/虹膜、攻破软件/数据库/可信基；且<strong>无法撤销</strong>“被泄露的指纹”。</li>
+</ul>
+<hr />
+<h3 id="w7-b-network-security">W7-B 网络基础与安全（network security）<a class="headerlink" href="#w7-b-network-security" title="Permanent link">&para;</a></h3>
+<p><strong>一句话</strong>：网络是分层、分组交换的协议栈；每一层都有自己的地址与协议，也都有自己的攻击面（应用层欺骗、传输层 DoS、网络层 IP/NAT、链路层 ARP 欺骗）。</p>
+<h4 id="2121">2.12.1 基础概念 ★<a class="headerlink" href="#2121" title="Permanent link">&para;</a></h4>
+<ul>
+<li>组成：主机（computer/laptop/server/phone）+ 互联的路由器 mesh；目的是传数据。</li>
+<li><strong>分组交换 vs 电路交换</strong>：</li>
+<li>电话网是电路交换：每次通话建立专用电路，带宽浪费。</li>
+<li>数据网是分组交换：数据切成分组、独立传输、无专用电路；带宽效率高，但更复杂。</li>
+<li><strong>协议</strong>：精确规定通信规则；细节在 <strong>RFC</strong>（事实上的 Internet 标准）。</li>
+<li><strong>Stateless vs Stateful</strong>：无状态不“记住”，有状态“记住”；许多安全问题与状态有关（如 DoS 针对有状态协议）。</li>
+</ul>
+<h4 id="2122">2.12.2 五层协议栈 ★★<a class="headerlink" href="#2122" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>协议例</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>HTTP, FTP, SMTP, DNS</td>
+<td>应用语义</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>TCP, UDP</td>
+<td>端到端传输</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>IP, routing (RIP/OSPF/BGP)</td>
+<td>路由/寻址</td>
+</tr>
+<tr>
+<td>Link</td>
+<td>Ethernet, PPP, 802.11</td>
+<td>相邻节点传输</td>
+</tr>
+<tr>
+<td>Physical</td>
+<td>—</td>
+<td>比特流</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>分层运行</strong>：源端数据沿栈“下行”，每层加头；路由器只处理到网络层（路由信息在此）；目的端“上行”到应用层。</li>
+<li><strong>封装</strong>：<code>(H, (H, (H, (H, X))))</code>，应用数据在最内层。</li>
+</ul>
+<h4 id="2123">2.12.3 应用层 ★<a class="headerlink" href="#2123" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Client-Server</strong>：客户端先说，服务器响应；<strong>P2P</strong>：主机同时是 client 和 server。</li>
+<li><strong>HTTP</strong>：请求/响应；<strong>HTTP 是无状态的</strong>。</li>
+<li><strong>Cookie</strong>：服务器首次下发，浏览器保存并在后续请求中带回；服务器用 cookie 数据库“记住”你。</li>
+<li>用途：购物车、推荐；</li>
+<li>是很弱很弱的认证；</li>
+<li>隐私问题：单个站点可了解你，多个站点联合可了解更多（追踪）。</li>
+<li><strong>SMTP</strong>：发送方 → 收件人邮件服务器；再用 POP3/IMAP/HTTP 取信。</li>
+<li>命令<strong>人类可读</strong>：<code>telnet server 25</code> → <code>HELO</code>、<code>MAIL FROM</code>、<code>RCPT TO</code>、<code>DATA</code>、<code>.</code>、<code>QUIT</code>。</li>
+<li>⚔ <strong>伪造发件人</strong>：<code>MAIL FROM: &lt;arnold@ca.gov&gt;</code> 可随意写 → 邮件欺骗（PoC；真实实现还有更多检查）。</li>
+<li><strong>DNS</strong>：</li>
+<li>域名 → IP（如 <code>cse.ust.hk</code> → <code>143.89.41.177</code>）；分布式数据库。</li>
+<li>解析：root → TLD（.hk/.org/.edu）→ 子域，递归进行。</li>
+<li>全球只有 <strong>13 个 root server 集群</strong> → 事实上的单点故障；针对根服务器的攻击发生过，但未持续足够久。</li>
+<li>⚔ <strong>DNS 缓存投毒</strong>：服务器为性能缓存解析结果；若收到并缓存了<strong>假记录</strong>，就把错误 IP 返回给客户端 → 流量被引到攻击者机器。</li>
+</ul>
+<h4 id="2124">2.12.4 传输层 ★<a class="headerlink" href="#2124" title="Permanent link">&para;</a></h4>
+<ul>
+<li>网络层只提供“尽力而为”的不可靠交付；改进服务由主机（传输层）提供。</li>
+<li><strong>TCP</strong>：可靠、按序、流控、面向连接（先联系再发数据；逻辑连接，非物理连接）。</li>
+<li>头部：源/目的端口、序号、确认号、标志位（ACK/SYN/RST…）、窗口、校验和、紧急指针；无选项时 <strong>20 字节</strong>。</li>
+<li><strong>三次握手</strong>：<code>SYN</code> → <code>SYN-ACK</code> → <code>ACK</code>（可带数据）。</li>
+<li>⚔ <strong>SYN flooding</strong>：</li>
+<li>服务器收到 SYN 就记住“半开连接” → 消耗资源；</li>
+<li>大量半开连接 → 内存耗尽/崩溃 → 无法服务正常请求；</li>
+<li>根因：<strong>TCP 是有状态的</strong>。</li>
+<li><strong>UDP</strong>：无连接、开销小、不保证可靠/有序。</li>
+</ul>
+<h4 id="2125">2.12.5 网络层 ★<a class="headerlink" href="#2125" title="Permanent link">&para;</a></h4>
+<ul>
+<li>IP：尽力而为；每台主机、每个路由器都运行 IP；路由器还跑路由协议（RIP/OSPF/BGP）。</li>
+<li>IPv4 地址 <strong>32 bit</strong>，点分十进制（<code>195.72.180.27</code>，每段 0–255）；地址不够用 → 各种扩展技巧；主机 IP 可能变化。</li>
+<li><strong>Socket = IP + 端口</strong>，全球唯一标识一个进程。</li>
+<li>端口 16 bit；&lt;1024 为 well-known（HTTP 80、POP3 110）；&gt;1024 动态。</li>
+<li><strong>NAT</strong>：用一个（或少数）公网 IP + 不同端口映射多个内网主机；扩展地址空间，并<strong>隐式隐藏内网源地址</strong>。</li>
+<li>代价/缺点：<strong>DoS 仍可行</strong>；破坏端到端透明性（课件只强调 DoS）。</li>
+<li>例：内网 <code>192.168.0.12:1025</code> ↔ 公网 <code>11.0.0.1:4000</code>，NAT 表维护映射。</li>
+<li>⚔ <strong>Ping flood / Ping of Death</strong>：滥用 ICMP echo request/reply；大量 ICMP 淹没受害者；但攻击前可能先塞满自己的带宽。</li>
+</ul>
+<h4 id="2126">2.12.6 链路层 ★<a class="headerlink" href="#2126" title="Permanent link">&para;</a></h4>
+<ul>
+<li>在网卡（NIC）中实现，NIC 半自治、基本不受主机控制；同时实现链路层与物理层。</li>
+<li><strong>MAC 地址</strong>：48 bit，全球唯一；用于在同一链路上转发。</li>
+<li>类比：IP 像家庭住址，MAC 像身份证号。</li>
+<li><strong>ARP</strong>：已知 IP，求对应 MAC；每台主机有 ARP 表/缓存，自动生成，条目约 20 分钟后过期；ARP <strong>无状态</strong>。</li>
+<li>⚔ <strong>ARP 缓存投毒</strong>：</li>
+<li>攻击者主动发送伪造 ARP reply（如“111.111.111.002 的 MAC 是 CC-CC-...”）；</li>
+<li>双方缓存被污染 → 流量经过攻击者 → <strong>中间人</strong>。</li>
+</ul>
+<h4 id="2127">2.12.7 按层归纳攻击面 ★<a class="headerlink" href="#2127" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>攻击</th>
+<th>防御方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用</td>
+<td>SMTP 伪造、DNS 投毒、Cookie 隐私</td>
+<td>认证（SPF/DKIM）、DNSSEC、隐私策略</td>
+</tr>
+<tr>
+<td>传输</td>
+<td>SYN flood</td>
+<td>SYN cookies、限流、防火墙</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>IP 欺骗、Ping flood、NAT 规避</td>
+<td>入口过滤、限速</td>
+</tr>
+<tr>
+<td>链路</td>
+<td>ARP 投毒</td>
+<td>静态 ARP、DAI、加密</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 横向串联<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31-cia">3.1 攻击 ↔ 防御 ↔ CIA 对照表<a class="headerlink" href="#31-cia" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>攻击</th>
+<th>讲</th>
+<th>破坏</th>
+<th>关键防御</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>频率分析破古典密码</td>
+<td>w1</td>
+<td>C</td>
+<td>OTP/强密码</td>
+</tr>
+<tr>
+<td>DES 穷举</td>
+<td>w2</td>
+<td>C</td>
+<td>AES/长密钥</td>
+</tr>
+<tr>
+<td>ECB cut-and-paste</td>
+<td>w2</td>
+<td>I</td>
+<td>CBC/CTR + MAC/AE</td>
+</tr>
+<tr>
+<td>CBC 比特翻转</td>
+<td>w2</td>
+<td>I</td>
+<td>MAC/AE</td>
+</tr>
+<tr>
+<td>RSA 分解 / 侧信道</td>
+<td>w3/w6</td>
+<td>C</td>
+<td>长密钥、常数时间、盲化</td>
+</tr>
+<tr>
+<td>DH MiM</td>
+<td>w3</td>
+<td>C/Auth</td>
+<td>证书、签名、认证 DH</td>
+</tr>
+<tr>
+<td>哈希碰撞</td>
+<td>w3</td>
+<td>I</td>
+<td>SHA-256/512、加长输出</td>
+</tr>
+<tr>
+<td>蠕虫/病毒/木马</td>
+<td>w4</td>
+<td>A/C/I</td>
+<td>补丁、签名+行为检测、沙箱</td>
+</tr>
+<tr>
+<td>逆向/破解</td>
+<td>w4</td>
+<td>IP/认证</td>
+<td>混淆、加壳、反调试</td>
+</tr>
+<tr>
+<td>栈溢出</td>
+<td>w5</td>
+<td>C/I/A</td>
+<td>NX、canary、ASLR、安全语言</td>
+</tr>
+<tr>
+<td>UAF/double free</td>
+<td>w6</td>
+<td>C/I/A</td>
+<td>置 NULL、智能指针、GC</td>
+</tr>
+<tr>
+<td>格式化字符串</td>
+<td>w6</td>
+<td>C/I</td>
+<td>硬编码格式串、禁用 %n</td>
+</tr>
+<tr>
+<td>SQL 注入</td>
+<td>w6</td>
+<td>C/I</td>
+<td>预处理语句、最小权限</td>
+</tr>
+<tr>
+<td>时间/缓存/功耗侧信道</td>
+<td>w6</td>
+<td>C</td>
+<td>常数时间、盲化、隔离</td>
+</tr>
+<tr>
+<td>口令字典/撞库</td>
+<td>w7</td>
+<td>C</td>
+<td>长 passphrase、salt、慢哈希、2FA</td>
+</tr>
+<tr>
+<td>生物特征伪造</td>
+<td>w7</td>
+<td>C</td>
+<td>多因子、活体检测、可撤销凭证</td>
+</tr>
+<tr>
+<td>SMTP 伪造/DNS 投毒/ARP 投毒/SYN flood</td>
+<td>w7</td>
+<td>C/I/A</td>
+<td>认证、DNSSEC、DAI、SYN cookies</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32">3.2 数字速记表 ★<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>26! ≈ 4.03×10²⁶ &gt; 2⁸⁸</td>
+<td>一般单表替换的密钥空间</td>
+</tr>
+<tr>
+<td>2⁵⁶</td>
+<td>DES 密钥空间（实际 56 bit）</td>
+</tr>
+<tr>
+<td>2⁵⁷</td>
+<td>双重加密（2DES <code>E(E(P,K1),K2)</code>）经中间相遇攻击后的代价；3DES 改用 EDE 正是为避免这一点</td>
+</tr>
+<tr>
+<td>2¹¹²</td>
+<td>3DES 两密钥有效强度</td>
+</tr>
+<tr>
+<td>2¹²⁶</td>
+<td>TEA 等价密钥后的有效强度</td>
+</tr>
+<tr>
+<td>10/12/14</td>
+<td>AES-128/192/256 的轮数</td>
+</tr>
+<tr>
+<td>245 字节</td>
+<td>2048-bit RSA 可加密的最大明文（PKCS#1 v1.5）</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2^{N/2}\)</span></td>
+<td>N-bit 哈希找碰撞的代价</td>
+</tr>
+<tr>
+<td>23 / 253</td>
+<td>生日问题 / 预生日问题的人数</td>
+</tr>
+<tr>
+<td>64 字节</td>
+<td>典型 cache line 大小</td>
+</tr>
+<tr>
+<td>99 行</td>
+<td>Morris Worm 代码量（1988-11-03）</td>
+</tr>
+<tr>
+<td>376 字节 / 75,000 / 8.5 秒</td>
+<td>SQL Slammer 的包大小 / 10 分钟感染数 / 翻倍时间</td>
+</tr>
+<tr>
+<td>0x000aff0d</td>
+<td>经典 canary 常量</td>
+</tr>
+<tr>
+<td>8%</td>
+<td>canary 对 Web 服务器的性能影响</td>
+</tr>
+<tr>
+<td>1.5×</td>
+<td>加密 + MAC 的优化开销</td>
+</tr>
+<tr>
+<td>13</td>
+<td>DNS 根服务器集群数</td>
+</tr>
+<tr>
+<td>32 / 16 / 48 bit</td>
+<td>IPv4 地址 / 端口 / MAC 地址</td>
+</tr>
+<tr>
+<td>20 字节</td>
+<td>无选项 TCP 首部</td>
+</tr>
+<tr>
+<td>~20 分钟</td>
+<td>ARP 缓存过期时间</td>
+</tr>
+<tr>
+<td>0x9e3779b9</td>
+<td>TEA 的 delta 常数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 易混概念对照 ⚠<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>加密</td>
+<td>MAC/签名</td>
+<td>加密保机密性；MAC/签名保完整性；只有签名抗抵赖</td>
+</tr>
+<tr>
+<td>MAC</td>
+<td>数字签名</td>
+<td>MAC 对称、双方可伪造；签名非对称、只有私钥持有者能签</td>
+</tr>
+<tr>
+<td>哈希</td>
+<td>加密</td>
+<td>哈希无密钥、单向、定长；加密可逆、有密钥</td>
+</tr>
+<tr>
+<td>weak collision</td>
+<td>strong collision</td>
+<td>给定 x 找 y；任意找一对</td>
+</tr>
+<tr>
+<td>stream cipher</td>
+<td>block cipher</td>
+<td>按 bit/byte vs 按块；OTP 推广 vs 码本</td>
+</tr>
+<tr>
+<td>ECB</td>
+<td>CBC</td>
+<td>独立加密 vs 链式；相同明文块是否产生相同密文</td>
+</tr>
+<tr>
+<td>3DES EDE</td>
+<td>EEE</td>
+<td>EDE 可向后兼容单密钥 DES</td>
+</tr>
+<tr>
+<td>worm</td>
+<td>virus</td>
+<td>主动自我传播 vs 依附宿主被动传播</td>
+</tr>
+<tr>
+<td>trojan</td>
+<td>backdoor</td>
+<td>伪装正常软件 vs 绕过认证的隐蔽入口</td>
+</tr>
+<tr>
+<td>线性反汇编</td>
+<td>递归反汇编</td>
+<td>顺序解码 vs 沿控制流遍历</td>
+</tr>
+<tr>
+<td>disassembler</td>
+<td>decompiler</td>
+<td>到汇编 vs 到源码</td>
+</tr>
+<tr>
+<td>UAF</td>
+<td>double free</td>
+<td>释放后使用 vs 释放两次</td>
+</tr>
+<tr>
+<td>fraud</td>
+<td>insult</td>
+<td>冒充者被接受 vs 本人被拒绝（此消彼长，EER 相等点）</td>
+</tr>
+<tr>
+<td>认证</td>
+<td>授权</td>
+<td>你是谁 vs 你能做什么</td>
+</tr>
+<tr>
+<td>stateful</td>
+<td>stateless</td>
+<td>记住状态（易 DoS）vs 不记状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34">3.4 术语中英对照<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>中文</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机密性/完整性/可用性</td>
+<td>Confidentiality / Integrity / Availability</td>
+</tr>
+<tr>
+<td>威胁模型</td>
+<td>threat model</td>
+</tr>
+<tr>
+<td>攻击面</td>
+<td>attack surface</td>
+</tr>
+<tr>
+<td>最小权限</td>
+<td>least privilege</td>
+</tr>
+<tr>
+<td>开放设计</td>
+<td>open design</td>
+</tr>
+<tr>
+<td>机制最小化</td>
+<td>economy of mechanism</td>
+</tr>
+<tr>
+<td>明文/密文/密钥</td>
+<td>plaintext / ciphertext / key</td>
+</tr>
+<tr>
+<td>穷举密钥搜索</td>
+<td>exhaustive key search</td>
+</tr>
+<tr>
+<td>频率分析</td>
+<td>frequency analysis</td>
+</tr>
+<tr>
+<td>一次性密码本</td>
+<td>one-time pad (OTP)</td>
+</tr>
+<tr>
+<td>流密码/分组密码</td>
+<td>stream cipher / block cipher</td>
+</tr>
+<tr>
+<td>密钥流</td>
+<td>keystream</td>
+</tr>
+<tr>
+<td>轮函数/子密钥</td>
+<td>round function / subkey</td>
+</tr>
+<tr>
+<td>分组模式</td>
+<td>mode of operation</td>
+</tr>
+<tr>
+<td>初始化向量</td>
+<td>initialization vector (IV)</td>
+</tr>
+<tr>
+<td>消息认证码</td>
+<td>message authentication code (MAC)</td>
+</tr>
+<tr>
+<td>认证加密</td>
+<td>authenticated encryption (AE)</td>
+</tr>
+<tr>
+<td>陷门单向函数</td>
+<td>trapdoor one-way function</td>
+</tr>
+<tr>
+<td>中间相遇攻击</td>
+<td>meet-in-the-middle attack</td>
+</tr>
+<tr>
+<td>中间人攻击</td>
+<td>man-in-the-middle (MiM)</td>
+</tr>
+<tr>
+<td>公钥基础设施</td>
+<td>public key infrastructure (PKI)</td>
+</tr>
+<tr>
+<td>证书吊销列表</td>
+<td>certificate revocation list (CRL)</td>
+</tr>
+<tr>
+<td>抗抵赖</td>
+<td>non-repudiation</td>
+</tr>
+<tr>
+<td>原像/碰撞</td>
+<td>preimage / collision</td>
+</tr>
+<tr>
+<td>雪崩效应</td>
+<td>avalanche effect</td>
+</tr>
+<tr>
+<td>恶意软件</td>
+<td>malware</td>
+</tr>
+<tr>
+<td>蠕虫/病毒/木马/后门</td>
+<td>worm / virus / trojan / backdoor</td>
+</tr>
+<tr>
+<td>勒索软件</td>
+<td>ransomware</td>
+</tr>
+<tr>
+<td>变形/多态恶意软件</td>
+<td>metamorphic / polymorphic malware</td>
+</tr>
+<tr>
+<td>逆向工程</td>
+<td>reverse engineering</td>
+</tr>
+<tr>
+<td>反汇编器/反编译器</td>
+<td>disassembler / decompiler</td>
+</tr>
+<tr>
+<td>控制流图</td>
+<td>control flow graph (CFG)</td>
+</tr>
+<tr>
+<td>缓冲区溢出</td>
+<td>buffer overflow</td>
+</tr>
+<tr>
+<td>栈金丝雀</td>
+<td>stack canary</td>
+</tr>
+<tr>
+<td>地址空间布局随机化</td>
+<td>ASLR</td>
+</tr>
+<tr>
+<td>写异或执行</td>
+<td>W^X / DEP</td>
+</tr>
+<tr>
+<td>释放后使用</td>
+<td>use-after-free (UAF)</td>
+</tr>
+<tr>
+<td>双重释放</td>
+<td>double free</td>
+</tr>
+<tr>
+<td>格式化字符串</td>
+<td>format string</td>
+</tr>
+<tr>
+<td>SQL 注入</td>
+<td>SQL injection</td>
+</tr>
+<tr>
+<td>侧信道</td>
+<td>side channel</td>
+</tr>
+<tr>
+<td>缓存行</td>
+<td>cache line</td>
+</tr>
+<tr>
+<td>简单功耗分析</td>
+<td>simple power analysis (SPA)</td>
+</tr>
+<tr>
+<td>认证/授权</td>
+<td>authentication / authorization</td>
+</tr>
+<tr>
+<td>口令短语</td>
+<td>passphrase</td>
+</tr>
+<tr>
+<td>盐</td>
+<td>salt</td>
+</tr>
+<tr>
+<td>生物特征</td>
+<td>biometrics</td>
+</tr>
+<tr>
+<td>错误接受率/错误拒绝率</td>
+<td>fraud rate / insult rate</td>
+</tr>
+<tr>
+<td>等错误率</td>
+<td>equal error rate (EER)</td>
+</tr>
+<tr>
+<td>双因子认证</td>
+<td>two-factor authentication (2FA)</td>
+</tr>
+<tr>
+<td>分组交换</td>
+<td>packet switching</td>
+</tr>
+<tr>
+<td>封装</td>
+<td>encapsulation</td>
+</tr>
+<tr>
+<td>套接字</td>
+<td>socket</td>
+</tr>
+<tr>
+<td>网络地址转换</td>
+<td>NAT</td>
+</tr>
+<tr>
+<td>地址解析协议</td>
+<td>ARP</td>
+</tr>
+<tr>
+<td>拒绝服务</td>
+<td>denial of service (DoS)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 自测清单（能不看笔记答出即过关）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="w1">w1<a class="headerlink" href="#w1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>CIA 各是什么？各举一个攻击例子。</li>
+<li>漏洞的“设计原因”和“实现原因”各举三例。</li>
+<li>威胁模型要回答哪三个问题？以云平台为例说明。</li>
+<li>Saltzer &amp; Schroeder 的三条原则是什么？各解决什么问题？</li>
+<li>为什么 OTP 可证明安全？它的三个使用条件是什么？为什么现实中不用？</li>
+</ol>
+<h3 id="w2">w2<a class="headerlink" href="#w2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>流密码和分组密码的本质区别？各举两个算法。</li>
+<li>A5/1 的 majority clocking 怎么工作？输出位怎么算？</li>
+<li>RC4 的 KSA 和 PRGA 各做什么？为什么要丢弃前 256 字节？</li>
+<li>Feistel 加解密公式？为什么“任意 F 都能解密，但不是任意 F 都安全”？</li>
+<li>DES 的分组/密钥/轮数/S-box 规格？安全性来自哪里？</li>
+<li>3DES 为什么用 EDE？为什么不能用 <code>E(E(P,K1),K2)</code>（中间相遇攻击把 2¹¹² 降到了多少）？</li>
+<li>AES 的四个轮操作及作用？为什么不是 Feistel？</li>
+<li>ECB 的两个致命问题？CBC 如何解决？CBC 还剩下什么问题？</li>
+<li>CTR 的 nonce 为什么绝不能重用？</li>
+<li>MAC 为什么能检测篡改？为什么加密和 MAC 要用不同密钥？</li>
+<li>Grover 算法对 AES 的影响？对策是什么？</li>
+</ol>
+<h3 id="w3">w3<a class="headerlink" href="#w3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>RSA 密钥生成、加解密、安全性假设？</li>
+<li>为什么 RSA 要“每步取模 + 反复平方”？2048-bit 能加密多长明文？</li>
+<li>混合加密的流程？为什么需要它？</li>
+<li>DH 的共享密钥怎么推导？MiM 怎么发生、怎么防？</li>
+<li>数字签名为什么能抗抵赖，而 MAC 不能？</li>
+<li>证书里有什么？CA 的作用？根 CA 为什么可信？</li>
+<li>哈希五个性质？生日攻击为什么是 <span class="arithmatex">\(2^{N/2}\)</span>？</li>
+<li>哈希链如何实现一次性口令？为什么安全？</li>
+<li>Shor 算法对 RSA/DH 意味着什么？对称密码为什么没事？</li>
+</ol>
+<h3 id="w4">w4<a class="headerlink" href="#w4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>worm/virus/trojan/backdoor 的区别？</li>
+<li>Morris Worm 和 SQL Slammer 的传播机制与教训？</li>
+<li>PE 病毒如何感染可执行文件？</li>
+<li>“Reflections on Trusting Trust” 说明了什么？XcodeGhost 是什么？</li>
+<li>静态签名检测与动态行为检测的优缺点？如何绕过？</li>
+<li>metamorphic malware 如何变异？如何检测？</li>
+<li>线性反汇编为什么会失败？递归反汇编如何解决？</li>
+<li>反编译器的流水线？变量/类型恢复的难点？</li>
+<li>如何用反汇编 + patch 绕过序列号检查？little-endian 在其中的作用？</li>
+</ol>
+<h3 id="w5">w5<a class="headerlink" href="#w5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>栈帧布局？溢出为什么能覆盖返回地址？</li>
+<li>overread 和 overwrite 的区别？Heartbleed 属于哪种？</li>
+<li>溢出利用的完整步骤？NOP sled 的作用？</li>
+<li>W^X、canary、ASLR 各自防什么、有什么局限？</li>
+<li>混淆的三类？控制流平坦化和不透明谓词的原理？</li>
+<li>混淆效果从哪四个维度评估？为什么“安全混淆”很难？</li>
+</ol>
+<h3 id="w6">w6<a class="headerlink" href="#w6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>UAF 的成因与利用思路？如何修复？</li>
+<li>double free 如何破坏堆？如何防？</li>
+<li><code>%s</code> 和 <code>%n</code> 在格式化字符串攻击中分别做什么？如何防？</li>
+<li>SQL 注入的原理？为什么 prepared statement 能防住？</li>
+<li>侧信道攻击的三个构成条件？</li>
+<li>RSA 平方-乘为什么泄露密钥位？如何防御（思路）？</li>
+<li>Flush+Reload 的原理？强/弱威胁模型的差别？</li>
+<li>为什么云环境放大缓存侧信道风险？</li>
+</ol>
+<h3 id="w7">w7<a class="headerlink" href="#w7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>认证与授权的区别？三种认证因子？</li>
+<li>为什么口令熵远低于同等长度随机密钥？salt 解决什么问题？</li>
+<li>passphrase 的实验结论？EER 是什么？</li>
+<li>生物特征的理想属性？fraud/insult 如何权衡？为什么生物特征难撤销？</li>
+<li>五层协议栈及各层协议？封装过程？</li>
+<li>Cookie 与 HTTP 状态的关系？隐私风险？</li>
+<li>DNS 解析流程与缓存投毒？</li>
+<li>TCP 三次握手与 SYN flood 的关系？为什么根因是“有状态”？</li>
+<li>NAT 的优点与缺点？socket 由什么组成？</li>
+<li>ARP 投毒如何形成中间人？如何缓解？</li>
+</ol>
+<hr />
+<h2 id="5">5. 复习优先级建议<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>先背框架</strong>：§1 地图 + §3.1 对照表 + §3.3 易混表。</li>
+<li><strong>再抠机制</strong>：Feistel/DES/AES、CBC/MAC、RSA/DH、栈帧溢出、UAF、格式化字符串、侧信道三条件、TCP/ARP。</li>
+<li><strong>最后记数字</strong>：§3.2；数字题最容易“知道但记错”。</li>
+<li><strong>答题模板</strong>：定义 → 机制/步骤 → 攻击 → 防御 → 局限。任何“请分析某攻击”的题都可套这五段。</li>
+</ol>
+<blockquote>
+<p>说明：课件未明确标注考试范围；若按“前半学期”理解，w1–w4 是主干，w5 的缓冲区溢出常与前半段合并考。以教师/Canvas 通知为准。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="上一页: 首页">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                首页
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../glossary/" class="md-footer__link md-footer__link--next" aria-label="下一页: 术语表">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                术语表
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/table-wrap.js"></script>
+      
+        <script src="../javascripts/glossary.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

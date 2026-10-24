@@ -1,0 +1,1740 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity 复习资料">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/hw/hw2/">
+      
+      
+        <link rel="prev" href="../hw1/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>作业二复盘 · 逆向与内存安全 - CSIT5730 复习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-header__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 复习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              作业二复盘 · 逆向与内存安全
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-nav__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 复习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分章复习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分章复习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 · 导论与古典密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 · 对称密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 · 公钥密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 · 恶意软件与逆向工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 · 软件利用 II 与侧信道
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业解析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    作业解析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 1 · 两种“扫代码”的方式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 1 · 两种“扫代码”的方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 顺着跳转扫的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 怎么补
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 怎么让逆向更难受
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 2 · 恶意样本真的比正常软件多吗
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 2 · 恶意样本真的比正常软件多吗">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 靠谱吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 签名检测怎么改
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-printfname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 3 · printf(name) 的坑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 3 · printf(name) 的坑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 用户能搞出什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 能从读升级到写吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 怎么修
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 4 · 编译器本身被做手脚
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 4 · 编译器本身被做手脚">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c1-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) C1 和 A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-c0-c2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 删 C0、编 C2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 用可信 T 重建
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 5 · 三个登录程序（溢出思路）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 5 · 三个登录程序（溢出思路）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login1：连续字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login2-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login2：固定 canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login3-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login3：动态 canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编程题容易踩的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复盘清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 1 · 两种“扫代码”的方式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 1 · 两种“扫代码”的方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 顺着跳转扫的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 怎么补
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 怎么让逆向更难受
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 2 · 恶意样本真的比正常软件多吗
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 2 · 恶意样本真的比正常软件多吗">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 靠谱吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 签名检测怎么改
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-printfname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 3 · printf(name) 的坑
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 3 · printf(name) 的坑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 用户能搞出什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 能从读升级到写吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 怎么修
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 4 · 编译器本身被做手脚
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 4 · 编译器本身被做手脚">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c1-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) C1 和 A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-c0-c2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 删 C0、编 C2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) 用可信 T 重建
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 5 · 三个登录程序（溢出思路）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 5 · 三个登录程序（溢出思路）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login1：连续字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login2-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login2：固定 canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login3-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login3：动态 canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编程题容易踩的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复盘清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">作业二复盘 · 逆向与内存安全<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>题干是<strong>脱敏重述</strong>，不是作业原文；答案尽量讲人话，不提供可直接抄的 payload。</p>
+<p>仅作复习，别直接交；课程作业与答案版权归教师所有。</p>
+</blockquote>
+<hr />
+<h2 id="1">题目 1 · 两种“扫代码”的方式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：反汇编有两种常见思路：一种是从头到尾按字节顺次扫（线性），一种是顺着跳转/调用一路跟（递归）。回答三个小问：</p>
+<ol>
+<li>顺着跳转扫，有什么坑？</li>
+<li>这个坑怎么补？</li>
+<li>开发者想让逆向更难受，可以做什么？</li>
+</ol>
+<p><strong>先分清两种扫法</strong></p>
+<ul>
+<li><strong>线性扫</strong>：从代码段第一个字节开始，一条接一条往下解，像读书从第一行读到最后一页。</li>
+<li><strong>递归扫</strong>：从入口开始，遇到 <code>jmp</code>/<code>call</code> 就跟着跳过去，只解“真的会执行”的地方。</li>
+</ul>
+<h3 id="1_1">(1) 顺着跳转扫的坑<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>它只能跟<strong>直接</strong>跳转。遇到<strong>间接跳转</strong>就麻烦了，比如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a><span class="nf">jmp</span><span class="w"> </span><span class="no">eax</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos">2</span></a><span class="nf">call</span><span class="w"> </span><span class="p">[</span><span class="no">ebx</span><span class="err">+</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+<p><code>eax</code> 里到底是什么地址？静态看代码往往算不出来（可能是运行时才填的表、虚函数、回调）。算不出来，就不知道下一步去哪，于是<strong>漏掉一部分代码</strong>。</p>
+<p><strong>一句话</strong>：直接跳转能跟，间接跳转容易跟丢；跟丢的代码就没被反汇编到。</p>
+<h3 id="2">(2) 怎么补<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>混着用</strong>：先用递归扫；对“落在可执行段、但递归没覆盖”的区域，再用线性扫补一遍；</li>
+<li><strong>算一算</strong>：常量传播、模拟执行，尽量把 <code>eax</code> 这类值推出来；</li>
+<li><strong>找入口</strong>：用签名/启发式识别函数开头、跳转表；</li>
+<li><strong>跑一跑</strong>：动态执行/插桩，看实际执行到哪些地址。</li>
+</ul>
+<h3 id="3">(3) 怎么让逆向更难受<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>代码混淆</strong>：控制流平坦化、不透明谓词、指令替换，让代码“看起来不像原来的结构”；</li>
+<li><strong>加壳/加密</strong>：运行时再解壳；</li>
+<li><strong>反汇编干扰</strong>：在代码段里嵌数据，让线性扫把数据当指令。</li>
+</ul>
+<hr />
+<h2 id="2_1">题目 2 · 恶意样本真的比正常软件多吗<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：有人说，现在恶意样本的数量已经超过正常软件，签名库都快装不下了。</p>
+<ol>
+<li>这话靠谱吗？</li>
+<li>如果真是这样，签名检测该怎么改？</li>
+</ol>
+<h3 id="1_2">(1) 靠谱吗<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p><strong>要看“怎么数”</strong>。</p>
+<ul>
+<li>按<strong>样本/变体</strong>数：一个恶意程序可以自动生成大量多态/变形变种，数量很容易爆炸；这种情况下，“恶意样本更多”完全可能。</li>
+<li>按<strong>独立程序/家族</strong>数：结论可能完全不同，没那么多“家族”。</li>
+<li>正常软件也有大量版本，但恶意样本的自动化变种成本更低。</li>
+</ul>
+<p>所以，这句话在“按样本计数”的定义下是合理的；不要把它当成某个具体的全球统计结论。</p>
+<h3 id="2_2">(2) 签名检测怎么改<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<p>传统签名是“列出坏的特征”。坏样本比好样本多时，签名库会爆炸，而且总会有漏网的新变种。</p>
+<p><strong>换个方向：以好软件为中心（allowlist）</strong></p>
+<ol>
+<li><strong>可信哈希白名单</strong>：只让已审核的可执行文件跑；</li>
+<li><strong>未知文件隔离</strong>：不在白名单 → 沙箱/隔离，而不是“没坏签名就放行”；</li>
+<li><strong>白名单要防篡改</strong>：签名、认证更新，别让攻击者改白名单；</li>
+<li><strong>审核流程</strong>：新版本先审再加入；</li>
+<li><strong>别把“批准”当“无漏洞”</strong>：白名单只说明“这是你批准的程序”，不代表它没有漏洞；仍需行为监控和补丁管理。</li>
+</ol>
+<p><strong>通俗理解</strong>：与其记住“所有坏人的脸”，不如只让“名单上的好人”进门；不认识的人先请到小房间，别直接放进办公室。</p>
+<hr />
+<h2 id="3-printfname">题目 3 · <code>printf(name)</code> 的坑<a class="headerlink" href="#3-printfname" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：下面这种写法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a><span class="kt">char</span><span class="w"> </span><span class="n">name</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a><span class="n">scanf</span><span class="p">(</span><span class="s">"%63s"</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a><span class="n">printf</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+</code></pre></div>
+<p>用户输入会直接被当成格式串。回答：</p>
+<ol>
+<li>用户能搞出什么事？</li>
+<li>除了读内存，还能写吗？</li>
+<li>怎么修？</li>
+</ol>
+<h3 id="1_3">(1) 用户能搞出什么<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<p><code>printf</code> 的第一个参数是“格式串”，里面 <code>%s</code>、<code>%d</code>、<code>%x</code> 这些占位符会去取后面的参数。但这里只传了 <code>name</code> 一个参数，后面的参数从哪来？——从栈上“顺手拿”。</p>
+<p>如果用户输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>%s%s%s
+</code></pre></div>
+<p><code>printf</code> 就会把栈上的三个值当成“字符串地址”，把那里的内存打出来。结果可能是：</p>
+<ul>
+<li><strong>泄露内存</strong>（栈上的数据、地址）；</li>
+<li>如果某个值不是合法地址，<strong>程序崩溃</strong>。</li>
+</ul>
+<p><code>%x</code> 也会把栈上的数据以十六进制打出来。</p>
+<h3 id="2_3">(2) 能从读升级到写吗<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
+<p>能，靠 <strong><code>%n</code></strong>。</p>
+<p><code>%n</code> 不打印东西，而是把“到目前为止已经输出了多少个字节”<strong>写</strong>到对应参数指向的地址：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a><span class="n">printf</span><span class="p">(</span><span class="s">"blah %n blah</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a><span class="c1">// "blah " 是 5 个字节，所以 val = 5</span>
+</code></pre></div>
+<p>攻击者控制格式串，也就控制了 <code>printf</code> 从栈上取的“参数”：可以指定目标地址（返回地址、flag、GOT 等），再用输出宽度控制写入的值。于是从“读内存”升级成“任意内存写”，进一步劫持控制流。</p>
+<p><strong>通俗理解</strong>：<code>%s</code> 是“把地址上的东西念出来”，<code>%n</code> 是“把数写到地址上”；一个偷看，一个改账本。</p>
+<h3 id="3_1">(3) 怎么修<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>硬编码格式串</strong>：<code>printf("%s", name);</code>——<code>name</code> 是数据，不是格式；</li>
+<li>不需要格式化时用 <code>puts(name)</code>/<code>fputs</code>；</li>
+<li><strong>绝不</strong> <code>printf(user_input)</code>；</li>
+<li>禁用 <code>%n</code>；</li>
+<li>开编译器格式串告警（<code>-Wformat-security</code>）、做代码审计。</li>
+</ol>
+<p><strong>核心</strong>：把格式串从用户手里拿走。</p>
+<hr />
+<h2 id="4">题目 4 · 编译器本身被做手脚<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：一个团队审了编译器源码和账户检查程序源码，都没发现恶意代码。但他们现在用的编译器可执行文件 <code>C0</code> 被污染了，藏了两条规则：</p>
+<ul>
+<li>编译“账户检查程序”源码时，往产物里插后门；</li>
+<li>编译“编译器”源码时，把这两条规则也插进新编译器。</li>
+</ul>
+<p>他们用 <code>C0</code> 编出 <code>C1</code>，再用 <code>C1</code> 编出账户检查程序 <code>A1</code>。</p>
+<ol>
+<li><code>C1</code> 和 <code>A1</code> 干净吗？</li>
+<li>删掉 <code>C0</code>，用 <code>C1</code> 再编一个 <code>C2</code>，能解决吗？</li>
+<li>如果有一个独立可信的编译器 <code>T</code>，怎么重建？</li>
+</ol>
+<h3 id="1-c1-a1">(1) C1 和 A1<a class="headerlink" href="#1-c1-a1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>C1 有隐藏规则</strong>：<code>C0</code> 认出“这是编译器源码”，把两条规则插进 C1；</li>
+<li><strong>A1 有后门</strong>：C1 认出“这是账户检查源码”，把后门插进 A1；</li>
+<li>两份源码都干净，但恶意行为通过编译器“遗传”了。</li>
+</ul>
+<p><strong>通俗理解</strong>：不是源代码里写了坏东西，而是“翻译官”在翻译时偷偷加了一句；你检查原文，当然看不出来。</p>
+<h3 id="2-c0-c2">(2) 删 C0、编 C2<a class="headerlink" href="#2-c0-c2" title="Permanent link">&para;</a></h3>
+<p><strong>不能解决</strong>。C1 已经带规则，编编译器源码时会把同样的规则插进 C2；删 C0 只是删掉“第一代”二进制，后代仍然带毒。</p>
+<p><strong>关键</strong>：源码干净 ≠ 编出来的二进制干净；源码审计不能证明编译器忠实。</p>
+<h3 id="3-t">(3) 用可信 T 重建<a class="headerlink" href="#3-t" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在可信环境里，用 <code>T</code> 编译“编译器源码” → 干净的 <code>C_clean</code>；</li>
+<li>用 <code>C_clean</code>（或直接用 <code>T</code>）编译“账户检查源码” → 干净的 A；</li>
+<li><strong>替换所有受影响的二进制</strong>，不只是删 C0 或改源码；</li>
+<li>最好用可复现构建/多样化双编译，防止再次被污染。</li>
+</ol>
+<p><strong>关键</strong>：换掉“被污染的构建产物”，从可信根重建工具链。</p>
+<hr />
+<h2 id="5">题目 5 · 三个登录程序（溢出思路）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：有三个登录程序，都从命令行拿 username/password，和文件里的 secret 比。目标是用溢出绕过检查，看到登录成功。三个版本分别加了不同防护：</p>
+<ul>
+<li>login1：没有 canary；</li>
+<li>login2：固定 canary；</li>
+<li>login3：用 username 算出来的 canary。</li>
+</ul>
+<p>下面只讲<strong>栈布局和思路</strong>，不写可直接抄的 payload；实际偏移要自己用调试器/反汇编确认。</p>
+<blockquote>
+<p>课程还要求 username 以自己的学号开头，且不能使用 <code>password.txt</code> 里的内容；这里不展开。</p>
+</blockquote>
+<h3 id="login1">login1：连续字段<a class="headerlink" href="#login1" title="Permanent link">&para;</a></h3>
+<p><strong>布局</strong>：几个字段在栈上挨着排：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos">1</span></a>entered_name | entered_secret | stored_name | stored_secret
+</code></pre></div>
+<p><strong>思路</strong>：</p>
+<ul>
+<li>username 只填 <code>entered_name</code>，长度刚好不越界；</li>
+<li>password 从 <code>entered_secret</code> 开始写，会<strong>越过</strong>自己的缓冲区，覆盖后面的 <code>stored_name</code> 和 <code>stored_secret</code>；</li>
+<li>程序会在每个字段末尾写终止符；用 filler 把多余字符“顶掉”；</li>
+<li>比较时 <code>entered_name == stored_name</code>、<code>entered_secret == stored_secret</code>，于是通过。</li>
+</ul>
+<p><strong>通俗理解</strong>：不是破解密码，而是把“标准答案”改成你刚写进去的那份。</p>
+<h3 id="login2-canary">login2：固定 canary<a class="headerlink" href="#login2-canary" title="Permanent link">&para;</a></h3>
+<p><strong>布局</strong>：字段和两个标记交错：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos">1</span></a>entered_name | stored_name | tag1 | stored_secret | tag2 | entered_secret
+</code></pre></div>
+<ul>
+<li><code>tag1</code>、<code>tag2</code> 初始相等；</li>
+<li>username 要覆盖 <code>stored_name</code>、<code>tag1</code>、<code>stored_secret</code>、<code>tag2</code>，同时让两个 tag 仍然相等；</li>
+<li>password 只负责填 <code>entered_secret</code>。</li>
+</ul>
+<p><strong>思路</strong>：</p>
+<ul>
+<li>用 filler + 你选的 username/password 覆盖 stored 字段；</li>
+<li>在两个 tag 的位置都放上<strong>相同的值</strong>（原来的固定值，或同一个非零字节）；</li>
+<li>这样 canary 检查通过，比较也通过。</li>
+</ul>
+<p><strong>通俗理解</strong>：canary 是“固定暗号”，你只要在正确的位置把暗号原样写回去，它就发现不了。</p>
+<h3 id="login3-canary">login3：动态 canary<a class="headerlink" href="#login3-canary" title="Permanent link">&para;</a></h3>
+<p><strong>布局</strong>：tag 在 password 缓冲区的前后都有：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos">1</span></a>expected_tag | entered_secret | boundary_tag | stored_secret | stored_name | entered_name
+</code></pre></div>
+<ul>
+<li><code>expected_tag</code> 在 password 缓冲区<strong>之前</strong>，密码溢出碰不到它；</li>
+<li><code>boundary_tag</code> 在 <code>entered_secret</code> 之后，会被 password 覆盖；</li>
+<li>程序比较 <code>boundary_tag</code> 和 <code>expected_tag</code>；</li>
+<li><code>expected_tag</code> 是由 username 的前几位学号数字<strong>算出来</strong>的，所以不能写死。</li>
+</ul>
+<p><strong>思路</strong>：</p>
+<ol>
+<li>username 填 <code>entered_name</code>；</li>
+<li>password 从 <code>entered_secret</code> 开始，依次覆盖 <code>boundary_tag</code>、<code>stored_secret</code>、<code>stored_name</code>；</li>
+<li>用学号数字按程序里的公式算出 6 字节 tag <code>G</code>；</li>
+<li>在 <code>boundary_tag</code> 对应的偏移放 <code>G</code>，让 <code>boundary_tag == expected_tag</code>；</li>
+<li>在 <code>stored_name</code> 放你的 username，在 <code>stored_secret</code> 放你的 password；</li>
+<li>终止符落在 <code>stored_name</code> 末尾，不要碰到 <code>entered_name</code>。</li>
+</ol>
+<p><strong>通俗理解</strong>：动态 canary 不是“不能绕”，而是“暗号每次不一样”；你得先看懂它怎么算，再自己算一个放回去。</p>
+<h3 id="_2">编程题容易踩的坑<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>坑</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接抄 payload</td>
+<td>偏移随编译器/栈布局变，换环境就废</td>
+</tr>
+<tr>
+<td>username 不带学号</td>
+<td>课程要求，直接没分</td>
+</tr>
+<tr>
+<td>用 <code>password.txt</code> 的内容</td>
+<td>题目禁止，视为 secret</td>
+</tr>
+<tr>
+<td>忽略终止符</td>
+<td>每个字段末尾的 <code>\0</code> 会改变比较</td>
+</tr>
+<tr>
+<td>canary 位置写错</td>
+<td>login2 要两个 tag 相等；login3 要放算出来的 G</td>
+</tr>
+<tr>
+<td>文件格式不对</td>
+<td>两行：第一行 username，第二行 password</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">复盘清单<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>题</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>递归怕间接跳转；线性+递归互补；混淆/加壳</td>
+</tr>
+<tr>
+<td>2</td>
+<td>按变体计数 → 恶意多；改 allowlist + 隔离未知 + 签名更新</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>%s</code> 泄露、<code>%n</code> 任意写；<code>printf("%s", name)</code>、禁 <code>%n</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>C1 带规则、A1 带后门；删 C0 无用；用可信 T 重建并替换二进制</td>
+</tr>
+<tr>
+<td>5</td>
+<td>login1 连续字段；login2 固定 tag；login3 动态 tag 要自己算</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../hw1/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 作业一复盘 · 密码学基础">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                作业一复盘 · 密码学基础
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../javascripts/glossary.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
