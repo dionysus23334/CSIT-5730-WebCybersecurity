@@ -19,6 +19,7 @@
 | **CFG** | Control Flow Graph | 控制流图 | [第 4 章 · 2.5 现代 C/C++ 反编译流水线](review/ch4-malware-re.md) |
 | **CFI** | Control Flow Integrity | 控制流完整性 | [第 5 章 · 1.7 防御](review/ch5-buffer-obfuscation.md) |
 | **CIA** | Confidentiality, Integrity, Availability | 机密性、完整性、可用性 | [第 1 章 · 0. 本章主线（先记住这三句）](review/ch1-intro.md) |
+| **CPU** | Central Processing Unit | 中央处理器 | [第 1 章 · 1.3 防御者的三件事](review/ch1-intro.md) |
 | **CRL** | Certificate Revocation List | 证书吊销列表 | [第 3 章 · 5.3 证书生命周期](review/ch3-public-key.md) |
 | **CTR** | Counter Mode | 计数器模式 | [第 2 章 · 0. 本章主线（先记住这三句）](review/ch2-symmetric.md) |
 | **DEP** | Data Execution Prevention | 数据执行保护 | [第 5 章 · 1.7 防御](review/ch5-buffer-obfuscation.md) |
@@ -29,8 +30,10 @@
 | **DPA** | Differential Power Analysis | 差分功耗分析 | [第 6 章 · 4.5 功耗侧信道](review/ch6-exploit-sidechannel.md) |
 | **EBP** | Extended Base Pointer | 扩展基址指针 | [第 5 章 · 0. 本章主线（先记住这三句）](review/ch5-buffer-obfuscation.md) |
 | **ECB** | Electronic Codebook | 电子密码本模式 | [第 1 章 · 1.1 CIA 三要素（必须能脱口而出）](review/ch1-intro.md) |
+| **EDE** | Encrypt-Decrypt-Encrypt | 加密-解密-加密（3DES 的两密钥结构） | [第 2 章 · 0. 本章主线（先记住这三句）](review/ch2-symmetric.md) |
 | **EER** | Equal Error Rate | 等错误率 | [第 7 章 · 0. 本章主线（先记住这三句）](review/ch7-auth-network.md) |
 | **ESP** | Extended Stack Pointer | 扩展栈指针 | [第 5 章 · 答案](review/ch5-buffer-obfuscation.md) |
+| **GOT** | Global Offset Table | 全局偏移表 | [第 6 章 · 例 2：格式化字符串（10 分）](review/ch6-exploit-sidechannel.md) |
 | **GSM** | Global System for Mobile Communications | 全球移动通信系统 | [第 2 章 · 1.1 定位](review/ch2-symmetric.md) |
 | **HTTP** | HyperText Transfer Protocol | 超文本传输协议 | [第 7 章 · 2.2 五层协议栈](review/ch7-auth-network.md) |
 | **ICMP** | Internet Control Message Protocol | 互联网控制消息协议 | [第 7 章 · 2.5 网络层](review/ch7-auth-network.md) |
@@ -65,6 +68,7 @@
 | **TTL** | Time To Live | 生存时间 | [第 7 章 · 例 5：DNS 投毒（10 分）](review/ch7-auth-network.md) |
 | **UAF** | Use-After-Free | 释放后使用 | [第 1 章 · 1.2 漏洞从哪里来（设计 vs 实现）](review/ch1-intro.md) |
 | **UDP** | User Datagram Protocol | 用户数据报协议 | [第 4 章 · 1.2 蠕虫案例](review/ch4-malware-re.md) |
+| **VM** | Virtual Machine | 虚拟机 | [第 1 章 · 1.3 防御者的三件事](review/ch1-intro.md) |
 | **X.509** | X.509 Public Key Certificate Standard | X.509 公钥证书标准 | [第 3 章 · 0. 本章主线（先记住这三句）](review/ch3-public-key.md) |
 | **XOR** | Exclusive OR | 异或运算 | [第 1 章 · 0. 本章主线（先记住这三句）](review/ch1-intro.md) |
 

@@ -226,9 +226,24 @@ const GLOSSARY = {
   "GSM": [
     "Global System for Mobile Communications",
     "全球移动通信系统"
+  ],
+  "EDE": [
+    "Encrypt-Decrypt-Encrypt",
+    "加密-解密-加密（3DES 的两密钥结构）"
+  ],
+  "VM": [
+    "Virtual Machine",
+    "虚拟机"
+  ],
+  "GOT": [
+    "Global Offset Table",
+    "全局偏移表"
+  ],
+  "CPU": [
+    "Central Processing Unit",
+    "中央处理器"
   ]
 };
-
 (function () {
   function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
   function expand() {
