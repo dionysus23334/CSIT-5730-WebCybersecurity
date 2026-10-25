@@ -66,7 +66,7 @@
 
 | Type | Chapter | Key formula/number |
 |---|---|---|
-| Caesar decryption, bit count of 26! | 1 | \(P=(C-k) \bmod 26\); `log2(26!)≈88.4` |
+| Caesar decryption, bit count of 26! | 1 | \(P=(C-k) \bmod 26\); <span class="mchip">\(\log_2(26!)\approx 88.4\)</span> |
 | OTP two-time pad | 1 | \(C_{1}\oplus C_{2}=P_{1}\oplus P_{2}\) |
 | One Feistel round | 2 | \(L'=R, R'=L\oplus F(R,K)\) |
 | 2DES meet-in-the-middle | 2 | \(2^{112} \to 2^{57}\) |
@@ -76,11 +76,11 @@
 | DH shared key | 3 | \(K=g^{ab} \bmod p\) |
 | Birthday attack | 3 | \(2^{N/2}\) |
 | d-th step of a hash chain | 3 | \(H^{24-d}(t)\) |
-| Worm doubling | 4 | `600/8.5≈70` times |
+| Worm doubling | 4 | <span class="mchip">\(600/8.5\approx 70\)</span> times |
 | Stack overflow offset / little-endian | 5 | `buf[64]` → ret offset 68; `80 a0 04 08` |
 | RSA timing trace | 6 | slow = 1, fast = 0 |
 | Cache line | 6 | 64B line; `address/64` |
-| Password entropy | 7 | `len × log2(charset)` |
+| Password entropy | 7 | <span class="mchip">\(\text{len} \times \log_2(\text{charset})\)</span> |
 | salt attack volume | 7 | dictionary size × number of users |
 | NAT table | 7 | internal `IP:port` ↔ public `IP:port` |
 

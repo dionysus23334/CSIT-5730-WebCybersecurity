@@ -232,7 +232,7 @@ R (32 bit)
 
 - The only non-linear component of a block cipher is the S-box; the attack idea is to **approximate the S-box with linear equations**.
 - For a given S-box, measure the probability that a linear relation between input and output bits holds:
-  - `y1 = x1` holds with probability 3/4;
+  - <span class="mchip">\(y_1 = x_1\)</span> holds with probability 3/4;
   - \(y_{0} = x_{0} \oplus x_{2} \oplus 1\) holds with probability 1;
   - \(y_{0} \oplus y_{1} = x_{1} \oplus x_{2}\) holds with probability 3/4.
 - The larger the **bias**, the better the approximation; after propagating along multiple rounds the subkey can be recovered.
