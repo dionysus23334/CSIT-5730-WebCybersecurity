@@ -4,7 +4,11 @@
 >
 > **非官方资料**；课程内容与课件版权归授课教师所有，本仓库不包含原始课件 PDF。
 
-**在线阅读**：<https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/>
+**在线阅读（中文）**：<https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/>
+
+**English edition**：<https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/>
+
+> 右上角 `EN / 中文` 可在当前页面直接切换语言。
 
 ## 内容
 
