@@ -76,14 +76,16 @@ Computing \(M^e\) directly produces astronomically large numbers; you must **tak
 
 **Example**: compute \(5^{20} \bmod 35\).
 
-```
-5¹  = 5
-5²  = 25
-5⁴  = 25² = 625 ≡ 30 (mod 35)
-5⁵  = 5⁴·5 = 30·5 = 150 ≡ 10
-5¹⁰ = 10² = 100 ≡ 30
-5²⁰ = 30² = 900 ≡ 25
-```
+\[
+\begin{aligned}
+5^1 &= 5\\
+5^2 &= 25\\
+5^4 &= 25^2 = 625 \equiv 30 \pmod{35}\\
+5^5 &= 5^4\cdot 5 = 30\cdot 5 = 150 \equiv 10 \pmod{35}\\
+5^{10} &= 10^2 = 100 \equiv 30 \pmod{35}\\
+5^{20} &= 30^2 = 900 \equiv 25 \pmod{35}
+\end{aligned}
+\]
 
 - First write the exponent in binary, then go bit by bit: "square, and multiply by the base when the bit is 1".
 - Intermediate values always stay < N², so nothing blows up.
@@ -149,12 +151,14 @@ Public parameters: a large prime p, a generator g.
 
 ### 3.4 Small example (p=23, g=5, a=6, b=15)
 
-```
-A = 5⁶ mod 23 = 8
-B = 5¹⁵ mod 23 = 19
-Alice: K = 19⁶ mod 23 = 2
-Bob:   K = 8¹⁵ mod 23 = 2
-```
+\[
+\begin{aligned}
+A &= 5^6 \bmod 23 = 8\\
+B &= 5^{15} \bmod 23 = 19\\
+\text{Alice: } K &= 19^6 \bmod 23 = 2\\
+\text{Bob: } K &= 8^{15} \bmod 23 = 2
+\end{aligned}
+\]
 
 ---
 

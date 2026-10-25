@@ -109,9 +109,7 @@
 
 **Salting (salt)**
 
-```
-Choose a random s; store (s, y = h(password, s))
-```
+Choose a random \(s\); store \((s,\ y = h(\text{password}, s))\).
 
 - **s is not secret**; it can be stored together with y;
 - Verification: recompute `h(input, s)` with the stored s and compare it with y;

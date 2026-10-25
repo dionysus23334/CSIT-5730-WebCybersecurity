@@ -196,9 +196,9 @@ plaintext P --encrypt E(K)--> ciphertext C --decrypt D(K)--> plaintext P
 
 If \(C_{1} = P_{1} \oplus K\), \(C_{2} = P_{2} \oplus K\), then:
 
-```
-C1 ⊕ C2 = P1 ⊕ P2
-```
+\[
+C_1 \oplus C_2 = P_1 \oplus P_2
+\]
 
 - If P1 is known, then \(P_{2} = C_{1} \oplus C_{2} \oplus P_{1}\);
 - If both P1 and P2 are English, then \(P_{1} \oplus P_{2}\) can be guessed word by word with "crib-dragging".

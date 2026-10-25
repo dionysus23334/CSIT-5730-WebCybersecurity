@@ -196,9 +196,9 @@
 
 若 \(C_{1} = P_{1} \oplus K\)，\(C_{2} = P_{2} \oplus K\)，则：
 
-```
-C1 ⊕ C2 = P1 ⊕ P2
-```
+\[
+C_1 \oplus C_2 = P_1 \oplus P_2
+\]
 
 - 若已知 P1，则 \(P_{2} = C_{1} \oplus C_{2} \oplus P_{1}\)；
 - 若 P1、P2 都是英文，则 \(P_{1} \oplus P_{2}\) 可用“crib-dragging”逐词猜出。

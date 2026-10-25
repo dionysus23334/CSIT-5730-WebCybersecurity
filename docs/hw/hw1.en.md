@@ -91,24 +91,26 @@ The plaintext is **`hill`**.
 
 ### (1) 80-bit, worst case
 
-```
-2^80 / 2^15 = 2^65 seconds
-```
+\[
+\frac{2^{80}}{2^{15}} = 2^{65}\ \text{seconds}
+\]
 
 One year is about `3.1536×10^7` seconds, so:
 
-```
-2^65 / 3.1536×10^7 ≈ 1.17×10^12 years
-```
+\[
+\frac{2^{65}}{3.1536\times10^{7}} \approx 1.17\times10^{12}\ \text{years}
+\]
 
 About **1.17 trillion years**.
 
 ### (2) 50-bit, average case
 
-```
-2^49 / 2^15 = 2^34 seconds
-2^34 / 3.1536×10^7 ≈ 544 years
-```
+\[
+\begin{aligned}
+\frac{2^{49}}{2^{15}} &= 2^{34}\ \text{seconds}\\
+\frac{2^{34}}{3.1536\times10^{7}} &\approx 544\ \text{years}
+\end{aligned}
+\]
 
 About **544 years**.
 
@@ -122,9 +124,9 @@ About **544 years**.
 
 **Problem**: normal CTR is `C_i = P_i ⊕ E(IV+i, K)`. Someone writes it as:
 
-```
-C_i = P_i ⊕ E(K, IV+i)
-```
+\[
+C_i = P_i \oplus E(K, IV+i)
+\]
 
 Note that this is `E(plaintext, key)`: `K` is put in the "plaintext" position, and `IV+i` becomes the "key" instead. Is this secure?
 
@@ -161,11 +163,13 @@ The problem is that **`IV` is public**. So the "key" used for encryption is publ
 
 **Problem**: CBC-MAC works like this:
 
-```
-C_0 = E(IV ⊕ P_0, K)
-C_i = E(C_{i-1} ⊕ P_i, K)
-MAC = C_{n-1}
-```
+\[
+\begin{aligned}
+C_0 &= E(IV \oplus P_0, K)\\
+C_i &= E(C_{i-1} \oplus P_i, K)\\
+MAC &= C_{n-1}
+\end{aligned}
+\]
 
 Now you know the MAC value `X` and you also know the key `K`, but not the original message. Can you assemble a new message whose MAC is still `X`? How many blocks are you free to choose?
 
@@ -200,9 +204,9 @@ Now you know the MAC value `X` and you also know the key `K`, but not the origin
 
 **Reading one block**
 
-```
-P_i = D(C_i, K) ⊕ C_{i-1}
-```
+\[
+P_i = D(C_i, K) \oplus C_{i-1}
+\]
 
 - You need `C_i` and the preceding block `C_{i-1}`;
 - Block 0 has no "preceding block", so the IV takes its place.
@@ -226,26 +230,28 @@ So random reads are possible in CBC, you just have to fetch one extra ciphertext
 
 **First look at the decryption formula**
 
-```
-P1 = D(C1, K) ⊕ C0
-```
+\[
+P_1 = D(C_1, K) \oplus C_0
+\]
 
 To make `P1` become `X`, you need `D(C1,K) ⊕ C0'` to equal `X`. `D(C1,K)` cannot be changed (C1 is untouched), but `C0` can.
 
 **Method**: set
 
-```
-C0' = C0 ⊕ P1 ⊕ X
-```
+\[
+C_0' = C_0 \oplus P_1 \oplus X
+\]
 
 **Verification**
 
-```
-P1' = D(C1, K) ⊕ C0'
-    = D(C1, K) ⊕ C0 ⊕ P1 ⊕ X
-    = P1 ⊕ P1 ⊕ X
-    = X
-```
+\[
+\begin{aligned}
+P_1' &= D(C_1, K) \oplus C_0'\\
+&= D(C_1, K) \oplus C_0 \oplus P_1 \oplus X\\
+&= P_1 \oplus P_1 \oplus X\\
+&= X
+\end{aligned}
+\]
 
 **Side effect**: since `C0` changed, `P0` also becomes garbled (`P0 = D(C0',K) ⊕ IV`). If you only care about P1, that is acceptable.
 
@@ -259,10 +265,12 @@ P1' = D(C1, K) ⊕ C0'
 
 **Problem**: Trudy obtains two ciphertexts encrypted with Alice's public key:
 
-```
-C0 = M0^e mod N
-C1 = M1^e mod N
-```
+\[
+\begin{aligned}
+C_0 &= M_0^e \bmod N\\
+C_1 &= M_1^e \bmod N
+\end{aligned}
+\]
 
 She does not know the private key or the plaintexts.
 
@@ -274,9 +282,9 @@ She does not know the private key or the plaintexts.
 
 Simply multiply the two ciphertexts:
 
-```
-C0·C1 ≡ M0^e · M1^e ≡ (M0·M1)^e (mod N)
-```
+\[
+C_0\cdot C_1 \equiv M_0^e\cdot M_1^e \equiv (M_0\cdot M_1)^e \pmod N
+\]
 
 So the result is `C0·C1 mod N`.
 
@@ -317,10 +325,14 @@ Trudy can:
 
 The protocol becomes:
 
-```
-S = [F(M)]Alice
-Bob verifies: {S}Alice = F(M)
-```
+\[
+S = [F(M)]_{\text{Alice}}
+\]
+
+Bob verifies:
+\[
+\{S\}_{\text{Alice}} = F(M)
+\]
 
 Trudy picks R, computes `Y = {R}Alice`, and now she has to find an `M` with `F(M) = Y` before she can send `(M,R)`.
 
