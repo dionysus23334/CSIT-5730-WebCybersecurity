@@ -173,11 +173,11 @@ R (32 bit)
 
 ### 2.3 3DES (Triple DES) ★
 
-**Structure**: `C = E(D(E(P, K1), K2), K1)`, i.e., **EDE, two keys, effective strength 112 bit**.
+**Structure**: <span class="mchip">\(C = E(D(E(P,K_1),K_2),K_1)\)</span>, i.e., **EDE, two keys, effective strength 112 bit**.
 
 **Why EDE instead of EEE?**
 
-- **Backward compatible**: when `K1 = K2 = K`, `E(D(E(P,K),K),K) = E(P,K)`, which degrades to ordinary DES.
+- **Backward compatible**: when <span class="mchip">\(K_1 = K_2 = K\)</span>, <span class="mchip">\(E(D(E(P,K),K),K) = E(P,K)\)</span>, which degrades to ordinary DES.
 - This way old systems being upgraded can interoperate in single-key mode.
 
 **Why not double encryption `E(E(P,K1),K2)`?**
@@ -365,7 +365,7 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 **Question**: L0=0110, R0=1001, K=1111, F(R,K)=R⊕K. Find (L1,R1) after one round and the ciphertext C.
 
 **Solution**:
-- `L1 = R0 = 1001`
+- <span class="mchip">\(L_1 = R_0 = 1001\)</span>
 - \(R_{1} = L_{0} \oplus F(R_{0},K) = 0110 \oplus (1001\oplus 1111) = 0110 \oplus 0110 = 0000\)
 - \(C = (R_1, L_1) = (0000, 1001)\)
 
@@ -373,12 +373,12 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 
 ### Example 2: 2DES meet-in-the-middle (10 points)
 
-**Question**: double encryption `C = E(E(P,K1),K2)`, with 56-bit keys. Explain how MITM reduces 2¹¹² to about 2⁵⁷.
+**Question**: double encryption <span class="mchip">\(C = E(E(P,K_1),K_2)\)</span>, with 56-bit keys. Explain how MITM reduces 2¹¹² to about 2⁵⁷.
 
 **Solution**:
-1. For all 2⁵⁶ values of K1, compute `X = E(P,K1)` and store it in a table (sorted/hashed by X).
-2. For all 2⁵⁶ values of K2, compute `Y = D(C,K2)`.
-3. Find the match where `X = Y` → candidate (K1,K2), then verify with a second plaintext/ciphertext pair.
+1. For all 2⁵⁶ values of K1, compute <span class="mchip">\(X = E(P,K_1)\)</span> and store it in a table (sorted/hashed by X).
+2. For all 2⁵⁶ values of K2, compute <span class="mchip">\(Y = D(C,K_2)\)</span>.
+3. Find the match where <span class="mchip">\(X = Y\)</span> → candidate (K1,K2), then verify with a second plaintext/ciphertext pair.
 4. Time ≈ 2⁵⁶ + 2⁵⁶ = 2⁵⁷, space ≈ 2⁵⁶.
 
 **Conclusion**: double encryption does not have 112-bit strength; 3DES uses EDE to avoid this direct decomposition.

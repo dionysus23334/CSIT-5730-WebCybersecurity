@@ -150,8 +150,8 @@ plaintext P --encrypt E(K)--> ciphertext C --decrypt D(K)--> plaintext P
 - Why so fast? Because Caesar has only 25 nonzero keys, so **exhaustive key search** is enough.
 
 **General simple substitution**: an arbitrary permutation of letters, key space `26!`.
-- `26! = 403,291,461,126,605,635,584,000,000 ≈ 4.03×10²⁶`
-- `log2(26!) ≈ 88.4`, i.e. **> 2⁸⁸**, exhaustive search is infeasible.
+- <span class="mchip">\(26! = 403{,}291{,}461{,}126{,}605{,}635{,}584{,}000{,}000 \approx 4.03\times10^{26}\)</span>
+- <span class="mchip">\(\log_2(26!) \approx 88.4\)</span>, i.e. **> 2⁸⁸**, exhaustive search is infeasible.
 - But **frequency analysis** breaks it:
   1. Count the ciphertext letter frequencies;
   2. Align them with the English distribution (e/t/a are the most common; slide example: {h,l,r} → {t,a,e});
@@ -180,7 +180,7 @@ plaintext P --encrypt E(K)--> ciphertext C --decrypt D(K)--> plaintext P
 **Why it is provably secure**
 
 - Every bit of the key is equally likely at random ⇒ for any plaintext, the ciphertext is uniformly distributed over the ciphertext space ⇒ **the ciphertext carries no information about the plaintext**.
-- Formal statement: `P(C=c | P=p1) = P(C=c | P=p2)` holds for any p1, p2.
+- Formal statement: <span class="mchip">\(P(C=c \mid P=p_1) = P(C=c \mid P=p_2)\)</span> holds for any p1, p2.
 
 **The three required conditions (violating any one breaks it)**
 
@@ -229,7 +229,7 @@ C_1 \oplus C_2 = P_1 \oplus P_2
 
 **Solution**:
 - Try all 25 keys, or observe the high frequencies: `I` and `V` appear several times, so guess `I→E` (shift by 4).
-- Solve with `P = C − 4`: `YOU ARE TERMINATED`.
+- Solve with <span class="mchip">\(P = C-4\)</span>: `YOU ARE TERMINATED`.
 - Key k=4 (+4 when encrypting).
 
 **Scoring points**: write the formula \(P=(C-k) \bmod 26\); state that "Caesar has only 25 keys, so it can be exhaustively searched".

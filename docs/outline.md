@@ -296,8 +296,8 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 #### 2.3.6 3DES（Triple DES）★
 
-- `C = E(D(E(P, K1), K2), K1)`，即 **EDE，两把密钥，112 bit**。
-- 为什么 EDE 而不是 EEE：**向后兼容**——`E(D(E(P,K),K),K) = E(P,K)`，单密钥时退化为 DES。
+- <span class="mchip">\(C = E(D(E(P,K_1),K_2),K_1)\)</span>，即 **EDE，两把密钥，112 bit**。
+- 为什么 EDE 而不是 EEE：**向后兼容**——<span class="mchip">\(E(D(E(P,K),K),K) = E(P,K)\)</span>，单密钥时退化为 DES。
 - 为什么不用 `E(E(P,K1),K2)`：**中间相遇攻击（meet-in-the-middle）** 把 2¹¹² 降到约 2⁵⁷。
 - ⚠ 3DES 的 112 bit 是“两把 56-bit 密钥”，不是 168；三密钥版本才是 168（课件只讲两密钥）。
 
@@ -328,7 +328,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 - 分组密码唯一非线性部件是 S-box；攻击思路：**用线性方程近似非线性 S-box**。
 - 对给定 S-box，统计输入/输出比特的线性关系成立概率，例如：
-  - `y1 = x1` 以 3/4 概率成立；
+  - <span class="mchip">\(y_1 = x_1\)</span> 以 3/4 概率成立；
   - \(y_{0} = x_{0} \oplus x_{2} \oplus 1\) 以概率 1 成立；
   - \(y_{0} \oplus y_{1} = x_{1} \oplus x_{2}\) 以 3/4 概率成立。
 - 偏差（bias）越大，越可利用；沿轮传播后恢复子密钥。
@@ -340,7 +340,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 | 模式 | 加密 | 特点 | 问题 |
 |---|---|---|---|
-| **ECB** | `C_i = E(P_i,K)` | 最简单；相同明文块 → 相同密文块 | ⚔ **cut-and-paste**；模式泄露（加密图片仍看出轮廓） |
+| **ECB** | <span class="mchip">\(C_i = E(P_i,K)\)</span> | 最简单；相同明文块 → 相同密文块 | ⚔ **cut-and-paste**；模式泄露（加密图片仍看出轮廓） |
 | **CBC** | \(C_0=E(IV\oplus P_0,K)\)，\(C_i=E(C_{i-1}\oplus P_i,K)\) | 相同明文块 → 不同密文；IV 随机但不保密 | 传输错误只影响有限块；**仍可 cut-and-paste / 可延展** |
 | **CTR** | \(C_i = P_i \oplus E(IV+i,K)\) | 把分组密码当流密码；支持随机访问 | **IV/nonce 绝不能重用**（否则两次密文 XOR = 两明文 XOR） |
 
@@ -427,7 +427,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 #### 2.4.4 数字签名与不可抵赖 ★
 
-- 用私钥签：`S = [M]Alice`；任何人用 Alice 公钥验证。
+- 用私钥签：<span class="mchip">\(S = [M]_{\text{Alice}}\)</span>；任何人用 Alice 公钥验证。
 - 提供 **integrity + authentication + non-repudiation**。
 - **为什么对称 MAC 不能抗抵赖**：Alice 与 Bob 共享 K，Bob 也能伪造 MAC，无法向第三方证明是 Alice 下的单。
 - 签名前提：私钥未泄露/未被偷。
@@ -449,9 +449,9 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 **安全性质**（必背）
 1. **Compression**：任意长度 → 固定 n-bit。
 2. **Efficiency**：易计算。
-3. **One-way（preimage resistance）**：给定 y，找不到 x 使 `H(x)=y`。
-4. **Weak collision resistance（second preimage）**：给定 x，找不到 y≠x 使 `H(y)=H(x)`。
-5. **Strong collision resistance**：找不到任意一对 y≠x 使 `H(y)=H(x)`。
+3. **One-way（preimage resistance）**：给定 y，找不到 x 使 <span class="mchip">\(H(x)=y\)</span>。
+4. **Weak collision resistance（second preimage）**：给定 x，找不到 y≠x 使 <span class="mchip">\(H(y)=H(x)\)</span>。
+5. **Strong collision resistance**：找不到任意一对 y≠x 使 <span class="mchip">\(H(y)=H(x)\)</span>。
 
 **生日问题** ★
 - 全班有人和“我”同生日：需 **253** 人（pre-birthday，对应 weak collision）。
@@ -468,7 +468,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 - **雪崩效应**：`MD5("...dog")` 与 `MD5("...dog.")` 输出完全不同。
 
 **哈希的巧用**
-- **口令哈希 + salt**（见 W7）：`y = h(password, s)`，存 `(s,y)`；salt 不保密，但迫使攻击者对每个用户重算。
+- **口令哈希 + salt**（见 W7）：<span class="mchip">\(y = h(\text{password}, s)\)</span>，存 `(s,y)`；salt 不保密，但迫使攻击者对每个用户重算。
 - **哈希链**：24 次课，第 1 次给 `Hash²³(t)`，第 d 次给 \(Hash^{24-d}(t)\)，最后一次给 t；单向性保证不能由当前值推出未来值 → 一次性口令/令牌。
 - **反垃圾邮件 PoW**：要求 `h(M,R,T)` 前 N 位为 0；发送方平均 \(2^N\) 次哈希，接收方 1 次验证；N 可调。
 - 区块链 PoW 同源（w1 提及）。
@@ -966,7 +966,7 @@ Executable
 
 - 不能明文存口令；但又要验证 → 存 **hash**。
 - 攻击：预计算字典中所有 `h(x)`；拿到哈希文件后直接比对 → 一次预计算，之后秒破。
-- **Salt**：随机值 s，存 `(s, y=h(password,s))`。
+- **Salt**：随机值 s，存 <span class="mchip">\((s,\ y=h(\text{password},s))\)</span>。
   - s 不保密；
   - 验证仍容易；
   - 但攻击者必须**为每个用户、每个 salt 重算**，预计算表失效，成本大幅上升。

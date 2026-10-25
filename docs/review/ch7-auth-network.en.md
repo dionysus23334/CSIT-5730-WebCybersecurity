@@ -114,7 +114,7 @@ Choose a random \(s\); store \((s,\ y = h(\text{password}, s))\).
 - **s is not secret**; it can be stored together with y;
 - Verification: recompute `h(input, s)` with the stored s and compare it with y;
 - The attacker must **recompute for every user and every salt**, so the precomputed table is useless;
-- Cost: the offline attack goes from `|D|` to `|D| × number of users` (plus the per-call cost of a slow hash).
+- Cost: the offline attack goes from `|D|` to <span class="mchip">\(|D| \times \text{number of users}\)</span> (plus the per-call cost of a slow hash).
 
 > Modern practice also uses a **slow hash** (bcrypt/scrypt/Argon2) to increase the cost of a single computation; the slides do not elaborate, but you may mention it in an answer.
 
@@ -313,9 +313,9 @@ Client → Server: ACK (and data)
 **Question**: For an 8-character password chosen at random from 26 lowercase letters, from 95 printable characters, and from 256 bytes respectively, what is the entropy in bits in each case? Why is the actual strength far below this?
 
 **Solution**:
-- 26⁸: `8×log2(26) ≈ 8×4.70 = 37.6 bit`
-- 95⁸: `8×log2(95) ≈ 8×6.57 = 52.6 bit`
-- 256⁸: `8×8 = 64 bit`
+- 26⁸: <span class="mchip">\(8\times\log_2(26) \approx 8\times4.70 = 37.6\ \text{bit}\)</span>
+- 95⁸: <span class="mchip">\(8\times\log_2(95) \approx 8\times6.57 = 52.6\ \text{bit}\)</span>
+- 256⁸: <span class="mchip">\(8\times8 = 64\ \text{bit}\)</span>
 - In practice users do not choose at random and use dictionary words/mutations → the attacker uses a dictionary attack, and the actual search space is far smaller than the theoretical value.
 
 ### Example 2: Salting (8 points)

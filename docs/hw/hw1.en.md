@@ -12,9 +12,9 @@
 
 **Think it through first**
 
-- Number the letters: `A=0, B=1, ..., Z=25`;
-- the i-th letter (i starting from 0) shifts by `13+i` positions;
-- if the result exceeds 25, subtract 26 (equivalent to `mod 26`).
+- Number the letters: <span class="mchip">\(A=0,\ B=1,\ \ldots,\ Z=25\)</span>;
+- the i-th letter (i starting from 0) shifts by <span class="mchip">\(13+i\)</span> positions;
+- if the result exceeds 25, subtract 26 (equivalent to <span class="mchip">\(\bmod 26\)</span>).
 
 **Step-by-step calculation**
 
@@ -31,23 +31,23 @@
 
 The ciphertext is **`FSRKIAMS`**.
 
-**Why this is not an ordinary Caesar cipher**: an ordinary Caesar cipher's "key" is a single number; here the shift is different at every position, which amounts to the key being a sequence of numbers `13,14,15,...`.
+**Why this is not an ordinary Caesar cipher**: an ordinary Caesar cipher's "key" is a single number; here the shift is different at every position, which amounts to the key being a sequence of numbers <span class="mchip">\(13,14,15,\ldots\)</span>.
 
-**Common mistake**: the 8th letter shifts by 20, not 13; `Y(24)+20=44`, `44-26=18`, which is S.
+**Common mistake**: the 8th letter shifts by 20, not 13; <span class="mchip">\(Y(24)+20=44\)</span>, <span class="mchip">\(44-26=18\)</span>, which is S.
 
 ---
 
 ## Problem 2 · Running OTP backwards
 
-**Problem**: the same 3-bit encoding: `e=000, f=001, h=010, i=011, k=100, l=101, r=110, t=111`. The OTP rule is `C = P ⊕ K`.
+**Problem**: the same 3-bit encoding: `e=000, f=001, h=010, i=011, k=100, l=101, r=110, t=111`. The OTP rule is <span class="mchip">\(C = P \oplus K\)</span>.
 
 1. Given the plaintext `hike` and the ciphertext `left`, find the key.
 2. Given the key `keel` and the ciphertext `rile`, find the plaintext.
 
 **Think it through first**: XOR has a nice property — XOR the same thing twice and you get it back. So:
 
-- to find the key: `K = P ⊕ C`;
-- to find the plaintext: `P = C ⊕ K`.
+- to find the key: <span class="mchip">\(K = P \oplus C\)</span>;
+- to find the plaintext: <span class="mchip">\(P = C \oplus K\)</span>.
 
 ### (1) Finding the key
 
@@ -77,17 +77,17 @@ The plaintext is **`hill`**.
 
 ## Problem 3 · How long brute-force key search takes
 
-**Problem**: suppose one machine can try `2^15` keys per second.
+**Problem**: suppose one machine can try <span class="mchip">\(2^{15}\)</span> keys per second.
 
 1. An 80-bit key, worst case: how long does it take?
 2. A 50-bit key, average case: how long does it take?
 
 **Think it through first**
 
-- an n-bit key has `2^n` possible values;
+- an n-bit key has <span class="mchip">\(2^{n}\)</span> possible values;
 - the worst case requires trying all of them;
-- on average only half are needed, that is `2^(n-1)`;
-- the machine tries `2^15` per second, so the number of seconds = number of attempts ÷ `2^15`.
+- on average only half are needed, that is <span class="mchip">\(2^{n-1}\)</span>;
+- the machine tries <span class="mchip">\(2^{15}\)</span> per second, so the number of seconds = number of attempts ÷ <span class="mchip">\(2^{15}\)</span>.
 
 ### (1) 80-bit, worst case
 
@@ -95,7 +95,7 @@ The plaintext is **`hill`**.
 \frac{2^{80}}{2^{15}} = 2^{65}\ \text{seconds}
 \]
 
-One year is about `3.1536×10^7` seconds, so:
+One year is about <span class="mchip">\(3.1536\times10^{7}\)</span> seconds, so:
 
 \[
 \frac{2^{65}}{3.1536\times10^{7}} \approx 1.17\times10^{12}\ \text{years}
@@ -114,21 +114,21 @@ About **1.17 trillion years**.
 
 About **544 years**.
 
-**In plain terms**: each extra key bit doubles the work factor; 80-bit has 30 bits more than 50-bit, which is a factor of `2^30` more (about 1 billion times).
+**In plain terms**: each extra key bit doubles the work factor; 80-bit has 30 bits more than 50-bit, which is a factor of <span class="mchip">\(2^{30}\)</span> more (about 1 billion times).
 
-**Common mistake**: the average case uses `2^49`, not `2^50`; do not treat "seconds" as "years" directly.
+**Common mistake**: the average case uses <span class="mchip">\(2^{49}\)</span>, not <span class="mchip">\(2^{50}\)</span>; do not treat "seconds" as "years" directly.
 
 ---
 
 ## Problem 4 · Is this CTR formula sound?
 
-**Problem**: normal CTR is `C_i = P_i ⊕ E(IV+i, K)`. Someone writes it as:
+**Problem**: normal CTR is <span class="mchip">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span>. Someone writes it as:
 
 \[
 C_i = P_i \oplus E(K, IV+i)
 \]
 
-Note that this is `E(plaintext, key)`: `K` is put in the "plaintext" position, and `IV+i` becomes the "key" instead. Is this secure?
+Note that this is <span class="mchip">\(E(\text{plaintext}, \text{key})\)</span>: `K` is put in the "plaintext" position, and `IV+i` becomes the "key" instead. Is this secure?
 
 **First look at the argument positions**
 
@@ -139,7 +139,7 @@ The problem is that **`IV` is public**. So the "key" used for encryption is publ
 
 **Attack: one known plaintext/ciphertext pair recovers K**
 
-1. From `C_i = P_i ⊕ E(K, IV+i)`, XOR both sides with `P_i`:
+1. From <span class="mchip">\(C_{i} = P_{i} \oplus E(K, IV+i)\)</span>, XOR both sides with `P_i`:
    ```
    P_i ⊕ C_i = E(K, IV+i)
    ```
@@ -177,8 +177,8 @@ Now you know the MAC value `X` and you also know the key `K`, but not the origin
 
 **Construction**
 
-1. Choose the first `n-1` blocks `P_0,...,P_{n-2}` freely;
-2. Compute `C_{n-2}` along the CBC chain;
+1. Choose the first <span class="mchip">\(n-1\)</span> blocks <span class="mchip">\(P_0,\ldots,P_{n-2}\)</span> freely;
+2. Compute <span class="mchip">\(C_{n-2}\)</span> along the CBC chain;
 3. Set the final block to:
    ```
    P_{n-1} = D(X, K) ⊕ C_{n-2}
@@ -216,7 +216,7 @@ So random reads are possible in CBC, you just have to fetch one extra ciphertext
 **Changing one block?**
 
 - CBC: changing `P_i` changes `C_i`; `C_i` is also the input to the next block, so all later chaining values change. To keep the later plaintext intact, all ciphertext from i onward must be recomputed.
-- CTR: `C_i = P_i ⊕ E(IV+i, K)`, each block is independent; changing one block does not affect the others.
+- CTR: <span class="mchip">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span>, each block is independent; changing one block does not affect the others.
 
 **Conclusion**: CBC suits sequential reads and writes; random reads are fine, but random writes/updates are expensive. CTR is better suited to random access.
 
@@ -234,7 +234,7 @@ So random reads are possible in CBC, you just have to fetch one extra ciphertext
 P_1 = D(C_1, K) \oplus C_0
 \]
 
-To make `P1` become `X`, you need `D(C1,K) ⊕ C0'` to equal `X`. `D(C1,K)` cannot be changed (C1 is untouched), but `C0` can.
+To make `P1` become `X`, you need <span class="mchip">\(D(C_1,K) \oplus C_0'\)</span> to equal `X`. `D(C1,K)` cannot be changed (C1 is untouched), but `C0` can.
 
 **Method**: set
 
@@ -253,7 +253,7 @@ P_1' &= D(C_1, K) \oplus C_0'\\
 \end{aligned}
 \]
 
-**Side effect**: since `C0` changed, `P0` also becomes garbled (`P0 = D(C0',K) ⊕ IV`). If you only care about P1, that is acceptable.
+**Side effect**: since `C0` changed, `P0` also becomes garbled (<span class="mchip">\(P_0 = D(C_0',K) \oplus IV\)</span>). If you only care about P1, that is acceptable.
 
 **Conclusion**: CBC encryption does not provide integrity; if you know a plaintext block, you can change it in a targeted way.
 
@@ -274,8 +274,8 @@ C_1 &= M_1^e \bmod N
 
 She does not know the private key or the plaintexts.
 
-1. Can she compute `(M0·M1)^e mod N`?
-2. What about `(M0+M1)^e mod N`?
+1. Can she compute <span class="mchip">\((M_0\cdot M_1)^{e} \bmod N\)</span>?
+2. What about <span class="mchip">\((M_0+M_1)^{e} \bmod N\)</span>?
 3. What are the practical uses of fully homomorphic encryption (FHE)?
 
 ### (1) Multiplication
@@ -286,13 +286,13 @@ Simply multiply the two ciphertexts:
 C_0\cdot C_1 \equiv M_0^e\cdot M_1^e \equiv (M_0\cdot M_1)^e \pmod N
 \]
 
-So the result is `C0·C1 mod N`.
+So the result is <span class="mchip">\(C_0\cdot C_1 \bmod N\)</span>.
 
 **In plain terms**: RSA is like "doing multiplication while wearing gloves" — multiply the ciphertexts and, after decryption, you get exactly the product of the plaintexts.
 
 ### (2) Addition
 
-In general she cannot. RSA has only **multiplicative homomorphism**, not additive homomorphism; `M0^e + M1^e` is usually not equal to `(M0+M1)^e`. Special cases and exhaustive search aside, there is no comparable simple algebraic operation.
+In general she cannot. RSA has only **multiplicative homomorphism**, not additive homomorphism; <span class="mchip">\(M_0^{e} + M_1^{e}\)</span> is usually not equal to <span class="mchip">\((M_0+M_1)^{e}\)</span>. Special cases and exhaustive search aside, there is no comparable simple algebraic operation.
 
 ### (3) Uses of FHE
 
@@ -313,9 +313,9 @@ In one sentence: **outsource the computation, but the data is never exposed.**
 Trudy can:
 
 1. pick an `R` at will;
-2. compute `N = {R}Alice` ("encrypting" R with Alice's public key);
+2. compute <span class="mchip">\(N = \{R\}_{\text{Alice}}\)</span> ("encrypting" R with Alice's public key);
 3. send `(N, R)` to Bob;
-4. Bob verifies `{R}Alice = N`, and so believes that `N` is a message signed by Alice.
+4. Bob verifies <span class="mchip">\(\{R\}_{\text{Alice}} = N\)</span>, and so believes that `N` is a message signed by Alice.
 
 **What is this called**: existential forgery. Trudy cannot freely choose a meaningful `N`, she only gets "the public-key encryption of R"; but Bob really does accept a message that Alice never signed.
 
@@ -334,11 +334,11 @@ Bob verifies:
 \{S\}_{\text{Alice}} = F(M)
 \]
 
-Trudy picks R, computes `Y = {R}Alice`, and now she has to find an `M` with `F(M) = Y` before she can send `(M,R)`.
+Trudy picks R, computes <span class="mchip">\(Y = \{R\}_{\text{Alice}}\)</span>, and now she has to find an `M` with <span class="mchip">\(F(M) = Y\)</span> before she can send `(M,R)`.
 
 So `F` must be **one-way (preimage-resistant)**:
 
-> Given Y, finding an M with `F(M)=Y` is computationally infeasible.
+> Given Y, finding an M with <span class="mchip">\(F(M)=Y\)</span> is computationally infeasible.
 
 This way Trudy cannot turn an arbitrary Y into a valid message. In practice a collision-resistant hash (such as SHA-256) is used; one-wayness blocks this forgery, and collision resistance prevents "swapping the message".
 
@@ -348,22 +348,22 @@ This way Trudy cannot turn an arbitrary Y into a valid message. In practice a co
 
 ## Problem 10 · The "guaranteed" number for hash collisions
 
-**Problem**: a hash outputs n bit, so there are at most `2^n` possible results. Now you want to **guarantee** finding 10 distinct colliding pairs of inputs (different pairs may share an input). What is the largest number of distinct inputs you need to try?
+**Problem**: a hash outputs n bit, so there are at most <span class="mchip">\(2^{n}\)</span> possible results. Now you want to **guarantee** finding 10 distinct colliding pairs of inputs (different pairs may share an input). What is the largest number of distinct inputs you need to try?
 
-**Think it through first**: think of the `2^n` outputs as `2^n` buckets. Each input is thrown into one bucket; two inputs in the same bucket form one colliding pair.
+**Think it through first**: think of the <span class="mchip">\(2^{n}\)</span> outputs as <span class="mchip">\(2^{n}\)</span> buckets. Each input is thrown into one bucket; two inputs in the same bucket form one colliding pair.
 
-**Answer**: `2^n + 10`.
+**Answer**: <span class="mchip">\(2^{n} + 10\)</span>.
 
 **Why**
 
-- If each bucket holds at most 1, you can place at most `2^n` inputs and there is not a single colliding pair;
-- Adding the `2^n+1`-th input must collide with an input in some bucket, giving the 1st pair;
+- If each bucket holds at most 1, you can place at most <span class="mchip">\(2^{n}\)</span> inputs and there is not a single colliding pair;
+- Adding the <span class="mchip">\(2^{n}+1\)</span>-th input must collide with an input in some bucket, giving the 1st pair;
 - after that, every extra "surplus" input adds at least one more pair;
-- so `2^n + 10` inputs give at least 10 pairs.
+- so <span class="mchip">\(2^{n} + 10\)</span> inputs give at least 10 pairs.
 
-**Why it cannot be fewer**: with `2^n + 9`, you can put 2 in each of 9 buckets and 1 in every other bucket; that gives only 9 pairs in total, not 10.
+**Why it cannot be fewer**: with <span class="mchip">\(2^{n} + 9\)</span>, you can put 2 in each of 9 buckets and 1 in every other bucket; that gives only 9 pairs in total, not 10.
 
-**Common mistake**: what is asked here is "guarantee" (worst case), not the "expected" `2^{n/2}` of a birthday attack.
+**Common mistake**: what is asked here is "guarantee" (worst case), not the "expected" <span class="mchip">\(2^{n/2}\)</span> of a birthday attack.
 
 **In plain terms**: it is not "try many times and probably collide", but "fill the drawers to a certain count and a duplicate is unavoidable".
 
@@ -395,14 +395,14 @@ In one sentence: encryption is "hiding something reversibly", and hashing is "an
 
 | Problem | Key point |
 |---|---|
-| 1 | shift `13+i`; `FSRKIAMS` |
-| 2 | `K=P⊕C`, `P=C⊕K`; `tilt`, `hill` |
-| 3 | `2^65 s ≈ 1.17×10^12 years`; `2^34 s ≈ 544 years` |
-| 4 | `E(K, IV+i)` uses the public IV as the key → K can be recovered |
-| 5 | final block `D(X,K)⊕C_{n-2}`; the rest is free |
+| 1 | shift <span class="mchip">\(13+i\)</span>; `FSRKIAMS` |
+| 2 | <span class="mchip">\(K=P\oplus C\)</span>, <span class="mchip">\(P=C\oplus K\)</span>; `tilt`, `hill` |
+| 3 | <span class="mchip">\(2^{65}\ \text{s} \approx 1.17\times10^{12}\ \text{years}\)</span>; <span class="mchip">\(2^{34}\ \text{s} \approx 544\ \text{years}\)</span> |
+| 4 | <span class="mchip">\(E(K, IV+i)\)</span> uses the public IV as the key → K can be recovered |
+| 5 | final block <span class="mchip">\(D(X,K)\oplus C_{n-2}\)</span>; the rest is free |
 | 6 | CBC reads need the preceding block; changing a block requires recomputing the rest; CTR is independent |
-| 7 | `C0'=C0⊕P1⊕X` → `P1'=X` |
+| 7 | <span class="mchip">\(C_0'=C_0\oplus P_1\oplus X\)</span> → <span class="mchip">\(P_1'=X\)</span> |
 | 8 | RSA is multiplicatively homomorphic; not additively; FHE for privacy-preserving computation |
 | 9 | existential forgery; `F` must be one-way / collision resistant |
-| 10 | `2^n+10`; pigeonhole; `2^n+9` is not enough |
+| 10 | <span class="mchip">\(2^{n}+10\)</span>; pigeonhole; <span class="mchip">\(2^{n}+9\)</span> is not enough |
 | 11 | key / reversible / fixed length / many-to-one |

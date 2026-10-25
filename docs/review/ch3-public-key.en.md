@@ -62,7 +62,7 @@
 
 Encryption: \(C = M^e \bmod N\); decryption: \(M = C^d \bmod N\).
 
-**Correctness intuition**: \(C^d = M^{ed} = M^{1+k\varphi (N)} \equiv M \pmod{N}\); when `gcd(M,N)=1` this follows directly from Euler's theorem, and when they are not coprime it can also be proved with CRT (since N is the product of two primes). In practice the probability that M is not coprime to N is negligible.
+**Correctness intuition**: \(C^d = M^{ed} = M^{1+k\varphi (N)} \equiv M \pmod{N}\); when <span class="mchip">\(\gcd(M,N)=1\)</span> this follows directly from Euler's theorem, and when they are not coprime it can also be proved with CRT (since N is the product of two primes). In practice the probability that M is not coprime to N is negligible.
 
 ### 2.3 Security = factoring N ★★
 
@@ -187,9 +187,9 @@ B &= 5^{15} \bmod 23 = 19\\
 ### 4.3 Hash-then-sign ★★
 
 - Signing a large message directly: RSA is slow, and the signature length = the message length (impractical).
-- Instead sign `h(M)`: `S = [h(M)]Alice`, and send `(M, S)`.
+- Instead sign `h(M)`: <span class="mchip">\(S = [h(M)]_{\text{Alice}}\)</span>, and send `(M, S)`.
 - Verify: compute `h(M)` and compare it with \(S^e\).
-- Precondition: the hash must be **collision resistant**; otherwise an attacker finds `M'` with `h(M')=h(M)` and can replace `(M,S)` with `(M',S)`.
+- Precondition: the hash must be **collision resistant**; otherwise an attacker finds `M'` with <span class="mchip">\(h(M')=h(M)\)</span> and can replace `(M,S)` with `(M',S)`.
 - This explains why broken collisions in MD5/SHA-1 directly threaten signature security.
 
 ### 4.4 The "direction" of signature vs encryption (easy to get wrong)
@@ -334,7 +334,7 @@ Key pair generated → Certificate issued → Key pair in use → Certificate ex
 **Solution**:
 - \(N = 11\times 3 = 33\)
 - \(\varphi (N) = 10\times 2 = 20\)
-- `e=3`, \(3d \equiv 1 \pmod{20}\) → `d=7` (3×7=21≡1)
+- <span class="mchip">\(e=3\)</span>, \(3d \equiv 1 \pmod{20}\) → <span class="mchip">\(d=7\)</span> (3×7=21≡1)
 - \(C = 8^{3} \bmod 33 = 512 \bmod 33 = 17\)
 - Verify: \(17^{7} \bmod 33\)
   - \(17^{2} = 289 \equiv 25\)
@@ -382,7 +382,7 @@ Key pair generated → Certificate issued → Key pair in use → Certificate ex
 
 **Solution**:
 - Class d sends \(H^{24-d}(t)\); d=5 → **`H¹⁹(t)`**.
-- Verify: hash the previous value once more; it should equal the value received in class 4 (`H(H¹⁹)=H²⁰`).
+- Verify: hash the previous value once more; it should equal the value received in class 4 (<span class="mchip">\(H(H^{19})=H^{20}\)</span>).
 - An attacker holding `H¹⁹(t)` cannot derive `H¹⁸(t)` (that requires inverting the hash), so they cannot forge the next value in advance.
 
 ### Example 6: Why RSA needs padding (6 points)

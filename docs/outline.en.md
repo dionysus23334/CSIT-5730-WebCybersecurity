@@ -296,8 +296,8 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 #### 2.3.6 3DES (Triple DES) ★
 
-- `C = E(D(E(P, K1), K2), K1)`, i.e., **EDE, two keys, 112 bit**.
-- Why EDE and not EEE: **backward compatible** — `E(D(E(P,K),K),K) = E(P,K)`, with a single key it degrades to DES.
+- <span class="mchip">\(C = E(D(E(P,K_1),K_2),K_1)\)</span>, i.e., **EDE, two keys, 112 bit**.
+- Why EDE and not EEE: **backward compatible** — <span class="mchip">\(E(D(E(P,K),K),K) = E(P,K)\)</span>, with a single key it degrades to DES.
 - Why not `E(E(P,K1),K2)`: the **meet-in-the-middle attack** reduces 2¹¹² to about 2⁵⁷.
 - ⚠ The 112 bit of 3DES is "two 56-bit keys", not 168; only the three-key version is 168 (the slides only cover two keys).
 
@@ -328,7 +328,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 - The only non-linear component of a block cipher is the S-box; the attack idea is to **approximate the non-linear S-box with linear equations**.
 - For a given S-box, measure the probability that a linear relation between input and output bits holds, for example:
-  - `y1 = x1` holds with probability 3/4;
+  - <span class="mchip">\(y_1 = x_1\)</span> holds with probability 3/4;
   - \(y_{0} = x_{0} \oplus x_{2} \oplus 1\) holds with probability 1;
   - \(y_{0} \oplus y_{1} = x_{1} \oplus x_{2}\) holds with probability 3/4.
 - The larger the bias, the more usable it is; after propagating along the rounds the subkey can be recovered.
@@ -340,7 +340,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 | Mode | Encryption | Characteristics | Problem |
 |---|---|---|---|
-| **ECB** | `C_i = E(P_i,K)` | simplest; the same plaintext block → the same ciphertext block | ⚔ **cut-and-paste**; pattern leakage (the outline of an encrypted image is still visible) |
+| **ECB** | <span class="mchip">\(C_i = E(P_i,K)\)</span> | simplest; the same plaintext block → the same ciphertext block | ⚔ **cut-and-paste**; pattern leakage (the outline of an encrypted image is still visible) |
 | **CBC** | \(C_0=E(IV\oplus P_0,K)\), \(C_i=E(C_{i-1}\oplus P_i,K)\) | the same plaintext block → different ciphertext; the IV is random but not secret | transmission errors only affect limited blocks; **cut-and-paste / malleable still possible** |
 | **CTR** | \(C_i = P_i \oplus E(IV+i,K)\) | uses the block cipher like a stream cipher; supports random access | **the IV/nonce must never be reused** (otherwise the XOR of two ciphertexts = the XOR of two plaintexts) |
 
@@ -428,7 +428,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 #### 2.4.4 Digital signature and non-repudiation ★
 
-- Sign with the private key: `S = [M]Alice`; anyone verifies with Alice's public key.
+- Sign with the private key: <span class="mchip">\(S = [M]_{\text{Alice}}\)</span>; anyone verifies with Alice's public key.
 - Provides **integrity + authentication + non-repudiation**.
 - **Why a symmetric MAC cannot provide non-repudiation**: Alice and Bob share K, so Bob could also forge the MAC, and it cannot be proven to a third party that Alice placed the order.
 - Precondition for signatures: the private key has not been leaked/stolen.
@@ -450,9 +450,9 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 **Security properties** (must memorize)
 1. **Compression**: any length → fixed n-bit.
 2. **Efficiency**: easy to compute.
-3. **One-way (preimage resistance)**: given y, it is infeasible to find an x such that `H(x)=y`.
-4. **Weak collision resistance (second preimage)**: given x, it is infeasible to find y≠x such that `H(y)=H(x)`.
-5. **Strong collision resistance**: infeasible to find any pair y≠x such that `H(y)=H(x)`.
+3. **One-way (preimage resistance)**: given y, it is infeasible to find an x such that <span class="mchip">\(H(x)=y\)</span>.
+4. **Weak collision resistance (second preimage)**: given x, it is infeasible to find y≠x such that <span class="mchip">\(H(y)=H(x)\)</span>.
+5. **Strong collision resistance**: infeasible to find any pair y≠x such that <span class="mchip">\(H(y)=H(x)\)</span>.
 
 **Birthday problem** ★
 - Someone in the class has the same birthday as "me": **253** people are needed (pre-birthday, corresponds to weak collision).
@@ -469,7 +469,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 - **Avalanche effect**: the outputs of `MD5("...dog")` and `MD5("...dog.")` are completely different.
 
 **Clever uses of hashing**
-- **Password hashing + salt** (see W7): `y = h(password, s)`, store `(s,y)`; the salt is not secret, but it forces the attacker to recompute for each user.
+- **Password hashing + salt** (see W7): <span class="mchip">\(y = h(\text{password}, s)\)</span>, store `(s,y)`; the salt is not secret, but it forces the attacker to recompute for each user.
 - **Hash chains**: 24 classes, class 1 gets `Hash²³(t)`, class d gets \(Hash^{24-d}(t)\), the last class gets t; one-wayness guarantees that future values cannot be inferred from the current value → one-time password/token.
 - **Anti-spam PoW**: require the first N bits of `h(M,R,T)` to be zero; the sender needs \(2^N\) hashes on average, the recipient needs 1 verification; N is tunable.
 - Blockchain PoW comes from the same idea (mentioned in w1).
@@ -968,7 +968,7 @@ Commercial decompilers still make mistakes in variable/type recovery; typical bu
 
 - Passwords cannot be stored in plaintext; but they still need to be verified → store the **hash**.
 - Attack: precompute `h(x)` for all x in the dictionary; after getting the hashed password file, just compare → one-time precomputation, after which the attack is trivial.
-- **Salt**: a random value s, store `(s, y=h(password,s))`.
+- **Salt**: a random value s, store <span class="mchip">\((s,\ y=h(\text{password},s))\)</span>.
   - s is not secret;
   - verification is still easy;
   - but the attacker must **recompute for every user and every salt**, so the precomputed tables fail and the cost rises sharply.
