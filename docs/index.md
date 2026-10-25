@@ -4,6 +4,8 @@
 >
 > 非官方资料；课程内容与课件版权归授课教师所有。
 
+[← 返回个人主页 / Study archive](https://dionysus23334.github.io/study-blogs/)
+
 ## 从这里开始
 
 - [**知识大纲**](outline.md) —— 全课知识地图、分讲大纲、横向对比、数字速记、58 道自测
