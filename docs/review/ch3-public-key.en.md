@@ -276,7 +276,7 @@ Key pair generated → Certificate issued → Key pair in use → Certificate ex
 - Generalization: for an N-bit hash, about \(2^{N/2}\) tries are enough to find a collision.
 - Corollaries:
   - **An N-bit hash has only N/2 bits of security strength**;
-  - 128-bit (MD5) → 2⁶⁴; 160-bit (SHA-1) → 2⁸⁰;
+  - 128-bit (MD5) → \(2^{64}\); 160-bit (SHA-1) → \(2^{80}\);
   - whereas an N-bit symmetric key has about N bits of strength.
 
 ### 6.3 Common algorithms
@@ -372,8 +372,8 @@ Key pair generated → Certificate issued → Key pair in use → Certificate ex
 **Question**: a system uses a 128-bit hash for integrity checking. How many tries does an attacker need to forge a second preimage? How many to find an arbitrary collision?
 
 **Solution**:
-- Second preimage (given x, find y): about **2¹²⁸**;
-- Arbitrary collision (birthday): about **2⁶⁴**;
+- Second preimage (given x, find y): about **\(2^{128}\)**;
+- Arbitrary collision (birthday): about **\(2^{64}\)**;
 - So a 128-bit hash has only 64 bits of "collision resistance", which is no longer enough; at least 256-bit should be used.
 
 ### Example 5: Hash chain (8 points)

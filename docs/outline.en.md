@@ -165,7 +165,7 @@ The slides focus on 3 of them:
 
 - Caesar: shift the whole alphabet by n (e.g., shift 3). Plaintext `fourscoreandsevenyearsago` → ciphertext `IRXUVFRUHDQGVHYHQBHDUVDJR`.
 - Key space: a shift has only 25 nonzero keys → exhaustive key search is enough.
-- General simple substitution: an arbitrary permutation of letters, key space **26! ≈ 4.03×10²⁶ > 2⁸⁸** → cannot be exhausted.
+- General simple substitution: an arbitrary permutation of letters, key space **26! ≈ 4.03×10²⁶ > \(2^{88}\)** → cannot be exhausted.
 
 #### 2.2.3 Frequency analysis ⚔ ★
 
@@ -298,7 +298,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 
 - <span class="mchip">\(C = E(D(E(P,K_1),K_2),K_1)\)</span>, i.e., **EDE, two keys, 112 bit**.
 - Why EDE and not EEE: **backward compatible** — <span class="mchip">\(E(D(E(P,K),K),K) = E(P,K)\)</span>, with a single key it degrades to DES.
-- Why not `E(E(P,K1),K2)`: the **meet-in-the-middle attack** reduces 2¹¹² to about 2⁵⁷.
+- Why not `E(E(P,K1),K2)`: the **meet-in-the-middle attack** reduces \(2^{112}\) to about \(2^{57}\).
 - ⚠ The 112 bit of 3DES is "two 56-bit keys", not 168; only the three-key version is 168 (the slides only cover two keys).
 
 #### 2.3.7 AES ★★
@@ -308,7 +308,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 - 4 operations each round:
   1. **ByteSub**: byte-by-byte S-box substitution (non-linear; no fixed point \(S(a)\neq a\), and an inverse table is needed).
   2. **ShiftRow**: cyclic shift of the rows, avoiding the columns being encrypted independently (diffusion).
-  3. **MixColumn**: each column is multiplied by an invertible matrix (GF(2⁸)), implemented as a big lookup table.
+  3. **MixColumn**: each column is multiplied by an invertible matrix (GF(\(2^{8}\))), implemented as a big lookup table.
   4. **AddRoundKey**: XOR with the subkey.
 - Advantages: efficient on both 8/32-bit CPUs, small code/memory footprint, **AES-NI** hardware instructions (AESENC/AESDEC).
 - **Avalanche effect**: one bit difference in the plaintext → a big change in the ciphertext.
@@ -321,7 +321,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 - `delta = 0x9e3779b9` (the golden ratio constant, the "magic number").
 - Each round updates L and R at the same time, using `+/-` instead of XOR → "almost Feistel".
 - Advantages: extremely simple, fast, low memory requirement.
-- Weakness: **equivalent keys** (4 different keys that all give the same ciphertext), effective key 2¹²⁸ → 2¹²⁶; and X-box type attacks.
+- Weakness: **equivalent keys** (4 different keys that all give the same ciphertext), effective key \(2^{128}\) → \(2^{126}\); and X-box type attacks.
 - The slides: **you are not required to remember the implementation**, but you must understand the design trade-off of "weak round function + many rounds".
 
 #### 2.3.9 Linear cryptanalysis ★
@@ -459,7 +459,7 @@ L_{i-1} &= R_i \oplus F(L_i, K_{i-1})
 - Any two people have the same birthday: only **23** people are needed (birthday, corresponds to strong collision).
 - Generalization: for an N-bit hash, about \(2^{N/2}\) tries are enough to find a collision.
 - Corollary: **an N-bit hash has only N/2 bits of security**; an N-bit symmetric key has about N bits.
-  - 128-bit hash → 2⁶⁴ work is enough to break collision resistance.
+  - 128-bit hash → \(2^{64}\) work is enough to break collision resistance.
 
 **Common algorithms**
 - **MD5**: 128-bit output, collisions are easy to find → broken.
@@ -942,8 +942,8 @@ Commercial decompilers still make mistakes in variable/type recovery; typical bu
 
 #### 2.11.4 Keys vs passwords ★
 
-- A 64-bit random key → 2⁶⁴ possibilities, and the attacker needs to try about 2⁶³.
-- An 8-character password with 256 options per character → in theory 256⁸ = 2⁶⁴; **but users do not select passwords at random** → the actual space is far smaller than 2⁶³ → **dictionary attack**.
+- A 64-bit random key → \(2^{64}\) possibilities, and the attacker needs to try about \(2^{63}\).
+- An 8-character password with 256 options per character → in theory 256⁸ = \(2^{64}\); **but users do not select passwords at random** → the actual space is far smaller than \(2^{63}\) → **dictionary attack**.
 - Dictionary attack: tries only those possibilities which are deemed most likely to succeed (dictionary words, mutations).
 
 #### 2.11.5 Good and bad passwords, and passphrases ★
@@ -1116,11 +1116,11 @@ Commercial decompilers still make mistakes in variable/type recovery; typical bu
 
 | Number | Meaning |
 |---|---|
-| 26! ≈ 4.03×10²⁶ > 2⁸⁸ | Key space of a general monoalphabetic substitution |
-| 2⁵⁶ | DES key space (56 bit effective) |
-| 2⁵⁷ | Cost of double encryption (2DES `E(E(P,K1),K2)`) after the meet-in-the-middle attack; 3DES switched to EDE precisely to avoid this |
-| 2¹¹² | Effective strength of two-key 3DES |
-| 2¹²⁶ | Effective strength of TEA after equivalent keys |
+| 26! ≈ 4.03×10²⁶ > \(2^{88}\) | Key space of a general monoalphabetic substitution |
+| \(2^{56}\) | DES key space (56 bit effective) |
+| \(2^{57}\) | Cost of double encryption (2DES `E(E(P,K1),K2)`) after the meet-in-the-middle attack; 3DES switched to EDE precisely to avoid this |
+| \(2^{112}\) | Effective strength of two-key 3DES |
+| \(2^{126}\) | Effective strength of TEA after equivalent keys |
 | 10/12/14 | Number of rounds of AES-128/192/256 |
 | 245 bytes | Largest plaintext 2048-bit RSA can encrypt (PKCS#1 v1.5) |
 | \(2^{N/2}\) | Cost of finding a collision for an N-bit hash |
@@ -1235,7 +1235,7 @@ Commercial decompilers still make mistakes in variable/type recovery; typical bu
 8. What do the KSA and the PRGA of RC4 each do? Why discard the first 256 bytes?
 9. What are the Feistel encryption/decryption formulas? Why is it that "any F can be decrypted, but not any F is secure"?
 10. What are the block/key/round/S-box specifications of DES? Where does its security come from?
-11. Why does 3DES use EDE? Why can't `E(E(P,K1),K2)` be used (to what does the meet-in-the-middle attack reduce 2¹¹²)?
+11. Why does 3DES use EDE? Why can't `E(E(P,K1),K2)` be used (to what does the meet-in-the-middle attack reduce \(2^{112}\))?
 12. What are the four round operations of AES and what does each do? Why is it not a Feistel network?
 13. What are the two fatal problems of ECB? How does CBC solve them? What problems remain in CBC?
 14. Why must the CTR nonce never be reused?

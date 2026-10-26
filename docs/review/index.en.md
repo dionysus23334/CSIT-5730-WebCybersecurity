@@ -102,5 +102,5 @@
 
 - Content marked in the decks as "implementation not required" (AES round-function details, TEA code, RSA repeated-squaring details) is kept in these notes as "role/flow"; you are not required to memorize the code line by line.
 - In Chapter 7, the fraud/insult labels for biometrics are opposite to the usual false positive/negative; these notes record them as the "definition description" and mark them with ⚠.
-- In Chapter 2, `2⁵⁷` for 2DES and `112-bit` for 3DES are two different things; these notes already distinguish them clearly, so do not mix them up in the exam.
+- In Chapter 2, <span class="mchip">\(2^{57}\)</span> for 2DES and `112-bit` for 3DES are two different things; these notes already distinguish them clearly, so do not mix them up in the exam.
 - If you want to expand a chapter into "30 practice questions + detailed solutions", or merge the 7 chapters into one printable PDF, you can keep building on top of the chapter contents.

@@ -159,11 +159,44 @@ R (32 bit)
   → swap left and right
 ```
 
+
+<div class="diagram-wrap">
+  <div class="diagram diagram--des" role="img" aria-label="One round of DES: expansion permutation, XOR with the subkey, eight S-boxes, P-box, XOR with the left half, then swap"></div>
+  <p class="diagram-caption">One round of DES: the 32-bit R is expanded to 48 bit, XORed with the 48-bit subkey, passed through eight S-boxes back to 32 bit, then permuted by the P-box and XORed with L; the right side shows subkey generation.</p>
+</div>
+
 - **Expansion permutation E**: 32 → 48 bit; by repeating edge bits it splits the data into 8 groups of 6 bit each.
 - **S-box**: the only **non-linear** component. Input 6 bit: the outer 2 bit select the row (0–3), the middle 4 bit select the column (0–15); output 4 bit. The DES S-boxes are carefully designed to resist differential/linear cryptanalysis → **this is mainly where the security of DES comes from**.
 - **P-box**: further permutes the 32-bit output, providing diffusion.
 - **Subkey generation**: the 56-bit key is split into two 28-bit halves, each cyclically left-shifted every round, then compressed to select 48 bit.
 - **Initial permutation IP / final permutation FP**: provide no security at all, they are just a historical design; software implementations often omit them.
+
+
+**Expansion permutation E: eight 6-bit outputs (input bit numbers 0–31)**
+
+| Group | 6-bit output (input bit numbers) |
+|---|---|
+| 1 | 31, 0, 1, 2, 3, 4 |
+| 2 | 3, 4, 5, 6, 7, 8 |
+| 3 | 7, 8, 9, 10, 11, 12 |
+| 4 | 11, 12, 13, 14, 15, 16 |
+| 5 | 15, 16, 17, 18, 19, 20 |
+| 6 | 19, 20, 21, 22, 23, 24 |
+| 7 | 23, 24, 25, 26, 27, 28 |
+| 8 | 27, 28, 29, 30, 31, 0 |
+
+Adjacent groups share two edge bits, so 32 bit are "stretched" into 48 bit; this is not arbitrary repetition — it makes every S-box input cross the original 4-bit boundary and improves diffusion.
+
+**P-box (32 → 32)**
+
+| Output bits | Input bit numbers |
+|---|---|
+| 0–15 | 15, 6, 19, 20, 28, 11, 27, 16, 0, 14, 22, 25, 4, 17, 30, 9 |
+| 16–31 | 1, 7, 23, 13, 31, 26, 2, 8, 18, 12, 29, 5, 21, 10, 3, 24 |
+
+The P-box scatters each S-box output bit to a different S-box in the next round, preventing one group from permanently influencing the same group.
+
+**Decryption**: DES decryption uses the same Feistel network, but applies the 16 subkeys in reverse order \(K_{16},K_{15},\dots,K_1\); IP and FP are inverse permutations.
 
 **Cracking history (memorize the numbers)**
 
@@ -180,15 +213,15 @@ R (32 bit)
 - **Backward compatible**: when <span class="mchip">\(K_1 = K_2 = K\)</span>, <span class="mchip">\(E(D(E(P,K),K),K) = E(P,K)\)</span>, which degrades to ordinary DES.
 - This way old systems being upgraded can interoperate in single-key mode.
 
-**Why not double encryption `E(E(P,K1),K2)`?**
+**Why not double encryption <span class="mchip">\(E(E(P,K_1),K_2)\)</span>?**
 
 - Double encryption nominally has 112-bit strength, but there is a **meet-in-the-middle (MITM) attack**:
-  - For each K1 compute \(E_{K_{1}}(P)\) and store it (about 2⁵⁶);
-  - For each K2 compute \(D_{K_{2}}(C)\) and look for a match (about 2⁵⁶);
-  - Total time/space about 2⁵⁶ each, together about **2⁵⁷**, not 2¹¹².
+  - For each K1 compute \(E_{K_{1}}(P)\) and store it (about \(2^{56}\));
+  - For each K2 compute \(D_{K_{2}}(C)\) and look for a match (about \(2^{56}\));
+  - Total time/space about \(2^{56}\) each, together about **\(2^{57}\)**, not \(2^{112}\).
 - The EDE structure of 3DES (outer E with K1, inner D with K2) **cannot** be attacked by this simple meet-in-the-middle directly, so it keeps about 112-bit strength.
 
-> ⚠ Common mistake: the "2¹¹² → 2⁵⁷" in the slides refers to **double encryption, 2DES**; do not take 2⁵⁷ as the effective strength of 3DES. The two-key version of 3DES is about **112 bit**.
+> ⚠ Common mistake: the "\(2^{112}\) → \(2^{57}\)" in the slides refers to **double encryption, 2DES**; do not take \(2^{57}\) as the effective strength of 3DES. The two-key version of 3DES is about **112 bit**.
 
 **Three-key 3DES**: `E(D(E(P,K1),K2),K3)`, strength about 168 bit (the slides only cover the two-key version).
 
@@ -205,7 +238,7 @@ R (32 bit)
 
 1. **ByteSub (SubBytes)**: byte-by-byte S-box lookup, the only non-linear layer; no fixed point (\(S(a) \neq a\)), and an inverse table is needed for decryption.
 2. **ShiftRow (ShiftRows)**: row 0 is not shifted, row 1 is shifted by 1 byte, row 2 by 2, row 3 by 3; the purpose is to mix the columns, **avoiding the columns being encrypted independently**.
-3. **MixColumn (MixColumns)**: each column is multiplied on the left by an invertible matrix (over GF(2⁸)), implemented as a lookup table; it provides diffusion within a column.
+3. **MixColumn (MixColumns)**: each column is multiplied on the left by an invertible matrix (over GF(\(2^{8}\))), implemented as a lookup table; it provides diffusion within a column.
 4. **AddRoundKey**: XOR the subkey with the block (the only "key injection" step).
 
 **Why AES is popular**
@@ -223,10 +256,10 @@ R (32 bit)
 | Block | 64 bit |
 | Key | 128 bit |
 | Rounds | Variable, 32 rounds is considered secure |
-| Constant | `delta = 0x9e3779b9` (golden ratio) |
+| Constant | <span class="mchip">\(\delta = \texttt{0x9e3779b9}\)</span> (golden ratio) |
 | Characteristics | "Weak" round function + many rounds; "almost Feistel" (uses `+/-` instead of pure XOR) |
 
-**Weakness**: **equivalent keys** exist (4 different keys that all give the same ciphertext), lowering the effective strength from 2¹²⁸ to about **2¹²⁶**; there are also X-box type attacks. The slides do not require you to remember the implementation.
+**Weakness**: **equivalent keys** exist (4 different keys that all give the same ciphertext), lowering the effective strength from \(2^{128}\) to about **\(2^{126}\)**; there are also X-box type attacks. The slides do not require you to remember the implementation.
 
 ### 2.6 Linear cryptanalysis ★
 
@@ -353,7 +386,7 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 - **Grover's algorithm**: gives a square-root speedup for exhaustive search.
   - Classical: n-bit key, work factor about 2ⁿ;
   - Grover: about **\(2^{n/2}\)**.
-- For AES-128: about 2⁶⁴ after Grover → no longer enough; the countermeasure is **AES-256** (about 2¹²⁸ after Grover).
+- For AES-128: about \(2^{64}\) after Grover → no longer enough; the countermeasure is **AES-256** (about \(2^{128}\) after Grover).
 - Conclusion: quantum is **not a serious threat** to symmetric ciphers, **doubling the key length** is enough; the real danger is RSA/DH (Shor, Chapter 3).
 
 ---
@@ -373,13 +406,13 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 
 ### Example 2: 2DES meet-in-the-middle (10 points)
 
-**Question**: double encryption <span class="mchip">\(C = E(E(P,K_1),K_2)\)</span>, with 56-bit keys. Explain how MITM reduces 2¹¹² to about 2⁵⁷.
+**Question**: double encryption <span class="mchip">\(C = E(E(P,K_1),K_2)\)</span>, with 56-bit keys. Explain how MITM reduces \(2^{112}\) to about \(2^{57}\).
 
 **Solution**:
-1. For all 2⁵⁶ values of K1, compute <span class="mchip">\(X = E(P,K_1)\)</span> and store it in a table (sorted/hashed by X).
-2. For all 2⁵⁶ values of K2, compute <span class="mchip">\(Y = D(C,K_2)\)</span>.
+1. For all \(2^{56}\) values of K1, compute <span class="mchip">\(X = E(P,K_1)\)</span> and store it in a table (sorted/hashed by X).
+2. For all \(2^{56}\) values of K2, compute <span class="mchip">\(Y = D(C,K_2)\)</span>.
 3. Find the match where <span class="mchip">\(X = Y\)</span> → candidate (K1,K2), then verify with a second plaintext/ciphertext pair.
-4. Time ≈ 2⁵⁶ + 2⁵⁶ = 2⁵⁷, space ≈ 2⁵⁶.
+4. Time ≈ \(2^{56}\) + \(2^{56}\) = \(2^{57}\), space ≈ \(2^{56}\).
 
 **Conclusion**: double encryption does not have 112-bit strength; 3DES uses EDE to avoid this direct decomposition.
 
@@ -408,8 +441,8 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 **Question**: how much security strength does AES-128 have left under quantum computing? What should be done?
 
 **Solution**:
-- Grover reduces exhaustive search from 2¹²⁸ to about 2⁶⁴;
-- 2⁶⁴ is no longer enough for modern computing power → switch to **AES-256**, about 2¹²⁸ after Grover;
+- Grover reduces exhaustive search from \(2^{128}\) to about \(2^{64}\);
+- \(2^{64}\) is no longer enough for modern computing power → switch to **AES-256**, about \(2^{128}\) after Grover;
 - The only cost is being "a little slower", which is acceptable.
 
 ---
@@ -419,7 +452,7 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 | Mistake | Correct |
 |---|---|
 | Two-key 3DES strength = 168 bit | Two keys give about **112 bit**; only three keys give about 168 |
-| "2⁵⁷ is the strength of 3DES" | 2⁵⁷ is the MITM cost for **double encryption, 2DES**; 3DES EDE is about 112 bit |
+| "\(2^{57}\) is the strength of 3DES" | \(2^{57}\) is the MITM cost for **double encryption, 2DES**; 3DES EDE is about 112 bit |
 | Feistel decryption requires F to be invertible | It does not; Feistel is invertible for any F, but security depends on F |
 | AES is a Feistel cipher | It is not; AES is an SPN (substitution-permutation network) |
 | 3DES uses EDE to be "harder to crack" | The primary purpose is **backward compatibility with single-key DES**; it also avoids the 2DES MITM |
@@ -439,7 +472,7 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 3. What do RC4's KSA and PRGA each do? Why must the first 256 bytes be discarded?
 4. Write the Feistel encryption and decryption formulas; why is it that "any F can decrypt, but not any F is secure"?
 5. What are DES's block, key, rounds, subkey length, and S-box specification? Where does the security come from?
-6. Why does 3DES use EDE? Why not `E(E(P,K1),K2)`?
+6. Why does 3DES use EDE? Why not <span class="mchip">\(E(E(P,K_1),K_2)\)</span>?
 7. What are the four AES round operations and what does each do? Why is it said not to be a Feistel cipher?
 8. What are ECB's two fatal problems? How does CBC solve them? What problems remain in CBC?
 9. Why must the CTR nonce never be reused? Give the quantity the attacker can compute directly.
@@ -453,12 +486,12 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 3. The KSA uses the key to scramble the 256-byte permutation table; the PRGA swaps and outputs 1 byte per step; the first 256 bytes have a statistical bias, and keeping them can be exploited.
 4. \(L_{i+1}=R_i\), \(R_{i+1}=L_i\oplus F(R_i,K_i)\), \(C=(R_{n+1},L_{n+1})\); decryption runs in reverse with the subkeys in reverse order. Every round is invertible, so F need not be invertible; but with \(F=0\) only a swap remains, with no confusion at all.
 5. 64/56/16/48/8 S-boxes (6→4). The security comes mainly from the non-linearity of the S-boxes.
-6. EDE degrades to DES when K1=K2 (backward compatible); `E(E(P,K1),K2)` is reduced by MITM from 2¹¹² to about 2⁵⁷.
+6. EDE degrades to DES when K1=K2 (backward compatible); <span class="mchip">\(E(E(P,K_1),K_2)\)</span> is reduced by MITM from \(2^{112}\) to about \(2^{57}\).
 7. ByteSub (non-linearity), ShiftRow (row diffusion), MixColumn (column diffusion), AddRoundKey (key injection). AES processes the whole 128-bit state each round, not just half of it.
 8. The same plaintext block produces the same ciphertext → pattern leakage; blocks can be rearranged → cut-and-paste. CBC uses chaining and a random IV to solve "same block"; but whole-block rearrangement and bit flipping are still possible.
 9. \(C_{1}\oplus C_{2} = P_{1}\oplus P_{2}\); the same `E(IV)` is used twice, so the XOR of the two ciphertexts is the XOR of the two plaintexts.
 10. Changing any plaintext block propagates along the CBC chain to the final MAC; without K it cannot be forged. Under the same key the MAC and the ciphertext can "borrow" from each other, and sending it twice adds no security; different keys separate the purposes.
-11. AES-128 → about 2⁶⁴ (not enough); AES-256 → about 2¹²⁸ (enough); the cost is being a little slower.
+11. AES-128 → about \(2^{64}\) (not enough); AES-256 → about \(2^{128}\) (enough); the cost is being a little slower.
 
 ---
 
@@ -472,9 +505,9 @@ C_{N-1} &= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
 | DES | 64/56/16/48; 8 S-boxes (6→4); security relies on the S-boxes |
 | DES cracking | 1998 EFF < $250k, < 3 days; 1999 22h15m |
 | 3DES | EDE, two keys 112 bit; three keys 168 bit |
-| 2DES MITM | 2¹¹² → about 2⁵⁷ |
+| 2DES MITM | \(2^{112}\) → about \(2^{57}\) |
 | AES | 128-bit block; 128/192/256-bit key; 10/12/14 rounds; ByteSub/ShiftRow/MixColumn/AddRoundKey |
-| TEA | 64/128; 32 rounds; delta=0x9e3779b9; equivalent keys 2¹²⁸→2¹²⁶ |
+| TEA | 64/128; 32 rounds; delta=0x9e3779b9; equivalent keys \(2^{128}\)→\(2^{126}\) |
 | ECB | same plaintext block, same ciphertext; cut-paste; pattern leakage |
 | CBC | \(C_i=E(C_{i-1}\oplus P_i)\); IV random and not secret; bit flipping possible |
 | CTR | \(C_i=P_i\oplus E(IV+i)\); nonce must not be reused; random access |

@@ -594,3 +594,31 @@ body {
   line-height: 1.5;
 }
 .mchip mjx-container { color: inherit !important; }
+
+/* transparent slide diagrams */
+.diagram-wrap {
+  margin: 1.4rem 0 1.6rem;
+  text-align: center;
+}
+.diagram {
+  display: block;
+  width: min(100%, 620px);
+  aspect-ratio: 540 / 500;
+  margin: 0 auto;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.diagram--des { background-image: url("../assets/diagrams/des-round.svg"); }
+.diagram-caption {
+  margin: .55rem auto 0;
+  max-width: 40em;
+  color: var(--md-default-fg-color--light);
+  font-size: .72rem;
+  line-height: 1.6;
+  text-align: center;
+}
+[data-md-color-scheme="slate"] .diagram {
+  filter: invert(1) hue-rotate(180deg);
+}

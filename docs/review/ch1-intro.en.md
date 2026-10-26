@@ -151,7 +151,7 @@ plaintext P --encrypt E(K)--> ciphertext C --decrypt D(K)--> plaintext P
 
 **General simple substitution**: an arbitrary permutation of letters, key space `26!`.
 - <span class="mchip">\(26! = 403{,}291{,}461{,}126{,}605{,}635{,}584{,}000{,}000 \approx 4.03\times10^{26}\)</span>
-- <span class="mchip">\(\log_2(26!) \approx 88.4\)</span>, i.e. **> 2⁸⁸**, exhaustive search is infeasible.
+- <span class="mchip">\(\log_2(26!) \approx 88.4\)</span>, i.e. **> \(2^{88}\)**, exhaustive search is infeasible.
 - But **frequency analysis** breaks it:
   1. Count the ciphertext letter frequencies;
   2. Align them with the English distribution (e/t/a are the most common; slide example: {h,l,r} → {t,a,e});
@@ -239,7 +239,7 @@ C_1 \oplus C_2 = P_1 \oplus P_2
 **Question**: a general simple substitution has 26! keys, why is it still insecure?
 
 **Solution**:
-- 26! ≈ 2⁸⁸·⁴, exhaustive search really is infeasible;
+- 26! ≈ \(2^{88}\)·⁴, exhaustive search really is infeasible;
 - but a simple substitution **preserves the letter frequency distribution**, so frequency analysis + pattern words can recover the mapping step by step;
 - therefore the "best attack" is not exhaustive search but frequency analysis → by definition it is **insecure**.
 
@@ -304,7 +304,7 @@ C_1 \oplus C_2 = P_1 \oplus P_2
 4. Open design: avoids "the whole system collapsing the moment a secret algorithm leaks"; Economy: lowers the cost of audit and verification; Least privilege: limits the impact scope after a vulnerability is exploited.
 5. Openness lets more people review and find weaknesses beforehand; counterexample: a home-grown private encryption algorithm — once it is reversed there is no security left, and nobody helps you find vulnerabilities.
 6. 25 nonzero keys (or 26 including 0); it can be exhaustively searched, and the frequency distribution is preserved.
-7. ≈ 2⁸⁸·⁴; it shows that exhaustive search is infeasible; it does not show resistance to shortcut attacks such as frequency analysis.
+7. ≈ \(2^{88}\)·⁴; it shows that exhaustive search is infeasible; it does not show resistance to shortcut attacks such as frequency analysis.
 8. Truly random, used only once, as long as the message; violating them leads respectively to predictability, a two-time pad, and infeasible key distribution.
 9. \(C_{1}\oplus C_{2} = P_{1}\oplus P_{2}\).
 10. Because information-theoretically the ciphertext leaks nothing about the plaintext, but the key must be as long as the message and be distributed securely; a stream cipher uses a short key to generate a pseudorandom keystream to "simulate" OTP.
@@ -322,7 +322,7 @@ C_1 \oplus C_2 = P_1 \oplus P_2
 | The three principles | open design, economy of mechanism, least privilege |
 | Kerckhoffs | security depends only on the key, not on keeping the algorithm secret |
 | Caesar | 25 keys, exhaustively searchable; \(P=(C-k) \bmod 26\) |
-| Simple substitution | 26! ≈ 2⁸⁸·⁴, but frequency analysis breaks it |
+| Simple substitution | 26! ≈ \(2^{88}\)·⁴, but frequency analysis breaks it |
 | OTP | \(C=P\oplus K\); random, once, same length; two-time pad → \(C_{1}\oplus C_{2}=P_{1}\oplus P_{2}\) |
 | Definition of security | best attack = exhaustive search → secure; a shortcut exists → insecure |
 | Classical legacy | Kerckhoffs, resistance to the strongest attack, OTP as the theoretical upper bound |

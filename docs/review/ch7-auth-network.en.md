@@ -64,12 +64,12 @@
 | | Key | Password |
 |---|---|---|
 | How it is generated | Random | Chosen by a person |
-| 64-bit key | 2⁶⁴ keys, the attacker tries about 2⁶³ | — |
-| 8 characters, 256 options per character | Theoretically 256⁸ = 2⁶⁴ | But users do not choose at random → in practice far less than 2⁶³ |
+| 64-bit key | \(2^{64}\) keys, the attacker tries about \(2^{63}\) | — |
+| 8 characters, 256 options per character | Theoretically 256⁸ = \(2^{64}\) | But users do not choose at random → in practice far less than \(2^{63}\) |
 | Attack method | Brute force | **Dictionary attack** |
 
 - **Dictionary attack**: tries only the most likely candidates (dictionary words, mutations, common combinations).
-- Example: 8 lowercase letters → 26⁸ ≈ 2³⁷·⁶; 8 printable characters (95 options) → 95⁸ ≈ 2⁵²·⁶.
+- Example: 8 lowercase letters → 26⁸ ≈ \(2^{37}\)·⁶; 8 printable characters (95 options) → 95⁸ ≈ \(2^{52}\)·⁶.
 
 #### Good and bad passwords, and passphrases
 
@@ -423,7 +423,7 @@ Client → Server: ACK (and data)
 
 1. Authentication confirms "who you are"; authorization decides "what you can do". Know: password/PIN/date of birth; have: smartcard/token/cell phone; are: fingerprint/face/voiceprint.
 2. A key is generated at random, so it has full entropy; a password is chosen by a person and is affected by dictionaries/patterns/reuse, so its actual entropy is far below the theoretical value for its length.
-3. Try only the most likely candidates (dictionary words, mutations); because user choices follow patterns, the hit rate is high, far better than brute-forcing 2⁶⁴.
+3. Try only the most likely candidates (dictionary words, mutations); because user choices follow patterns, the hit rate is high, far better than brute-forcing \(2^{64}\).
 4. Longer, easy to remember, and unlikely to be hit by a dictionary; in the experiment, the passphrase group had a 10% crack rate and was easy to remember, while the complex-rule group had 30%.
 5. Precomputation, the same hash for the same password, and bulk cracking; the salt makes each user's hash unique, so the attacker must recompute user by user; the salt does not need to be secret.
 6. Universal, Distinguishing, Permanent, Collectable (+ safe/friendly). Enrollment is putting the info into the database (may be slow, must be precise); Recognition is the actual detection (must be quick and accurate).
@@ -446,7 +446,7 @@ Client → Server: ACK (and data)
 | Access control | Authentication (who you are) + authorization (what you can do) |
 | Three factors | know / have / are |
 | 2FA | Any two categories of factors |
-| Key vs password | 2⁶⁴ vs user choice → dictionary attack |
+| Key vs password | \(2^{64}\) vs user choice → dictionary attack |
 | Password experiment | Complex rules 30%; passphrase 10% and easy to remember; random 10% and hard to remember |
 | salt | Random, not secret, unique per user; attack volume × number of users |
 | Biometrics | Universal/Distinguishing/Permanent/Collectable |
