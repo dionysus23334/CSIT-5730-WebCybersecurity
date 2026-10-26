@@ -1,0 +1,1799 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/hw/hw2/">
+      
+      
+        <link rel="prev" href="../hw1/">
+      
+      
+      
+        
+          <link rel="alternate" href="../../../hw/hw2/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Homework 2 · Reverse Engineering & Memory Safety - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#homework-2-reverse-engineering-memory-safety" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Homework 2 · Reverse Engineering & Memory Safety
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../hw/hw2/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-two-ways-to-scan-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1 · Two ways to "scan code"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 1 · Two ways to &#34;scan code&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pitfalls-of-scanning-by-following-jumps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Pitfalls of scanning by following jumps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-how-to-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) How to fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-to-make-reverse-engineering-more-painful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) How to make reverse engineering more painful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-are-there-really-more-malicious-samples-than-normal-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2 · Are there really more malicious samples than normal software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2 · Are there really more malicious samples than normal software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-is-it-reliable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Is it reliable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-how-signature-detection-should-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) How signature detection should change
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-the-pitfall-of-printfname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3 · The pitfall of printf(name)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3 · The pitfall of printf(name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-what-the-user-can-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) What the user can do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-can-it-be-escalated-from-read-to-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Can it be escalated from read to write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-to-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) How to fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-the-compiler-itself-is-tampered-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4 · The compiler itself is tampered with
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 4 · The compiler itself is tampered with">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c1-and-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) C1 and A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-delete-c0-compile-c2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Delete C0, compile C2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rebuild-with-a-trusted-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Rebuild with a trusted T
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-three-login-programs-overflow-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5 · Three login programs (overflow thinking)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 5 · Three login programs (overflow thinking)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login1-consecutive-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login1: consecutive fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login2-fixed-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login2: fixed canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login3-dynamic-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login3: dynamic canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls-in-the-programming-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common pitfalls in the programming question
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-two-ways-to-scan-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1 · Two ways to "scan code"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 1 · Two ways to &#34;scan code&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pitfalls-of-scanning-by-following-jumps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Pitfalls of scanning by following jumps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-how-to-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) How to fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-to-make-reverse-engineering-more-painful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) How to make reverse engineering more painful
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-are-there-really-more-malicious-samples-than-normal-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2 · Are there really more malicious samples than normal software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2 · Are there really more malicious samples than normal software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-is-it-reliable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Is it reliable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-how-signature-detection-should-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) How signature detection should change
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-the-pitfall-of-printfname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3 · The pitfall of printf(name)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3 · The pitfall of printf(name)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-what-the-user-can-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) What the user can do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-can-it-be-escalated-from-read-to-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Can it be escalated from read to write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-to-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) How to fix it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-the-compiler-itself-is-tampered-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4 · The compiler itself is tampered with
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 4 · The compiler itself is tampered with">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-c1-and-a1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) C1 and A1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-delete-c0-compile-c2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Delete C0, compile C2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rebuild-with-a-trusted-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Rebuild with a trusted T
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-three-login-programs-overflow-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5 · Three login programs (overflow thinking)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 5 · Three login programs (overflow thinking)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login1-consecutive-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login1: consecutive fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login2-fixed-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login2: fixed canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login3-dynamic-canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login3: dynamic canary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls-in-the-programming-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common pitfalls in the programming question
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="homework-2-reverse-engineering-memory-safety">Homework 2 · Reverse Engineering &amp; Memory Safety<a class="headerlink" href="#homework-2-reverse-engineering-memory-safety" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>The question stems are <strong>desensitized restatements</strong>, not the original assignment text; the answers use plain language as much as possible and do not provide payloads that can be copied directly.</p>
+<p>For review only; do not submit directly; the copyright of the course assignment and answers belongs to the instructor.</p>
+</blockquote>
+<hr />
+<h2 id="problem-1-two-ways-to-scan-code">Problem 1 · Two ways to "scan code"<a class="headerlink" href="#problem-1-two-ways-to-scan-code" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: there are two common approaches to disassembly: one scans byte by byte from beginning to end (linear), and one follows jumps/calls all the way (recursive). Answer three sub-questions:</p>
+<ol>
+<li>What are the pitfalls of scanning by following jumps?</li>
+<li>How do you fix that pitfall?</li>
+<li>What can a developer do to make reverse engineering more painful?</li>
+</ol>
+<p><strong>First, tell the two scanning methods apart</strong></p>
+<ul>
+<li><strong>Linear disassembly</strong>: start from the first byte of the code section and decode one instruction after another downward, like reading a book from the first line to the last page.</li>
+<li><strong>Recursive disassembly</strong>: start from the entry point; whenever you hit <code>jmp</code>/<code>call</code>, follow the jump there and only decode the places that "really execute".</li>
+</ul>
+<h3 id="1-pitfalls-of-scanning-by-following-jumps">(1) Pitfalls of scanning by following jumps<a class="headerlink" href="#1-pitfalls-of-scanning-by-following-jumps" title="Permanent link">&para;</a></h3>
+<p>It can only follow <strong>direct</strong> jumps. Hitting an <strong>indirect jump</strong> is trouble, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a><span class="nf">jmp</span><span class="w"> </span><span class="no">eax</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos">2</span></a><span class="nf">call</span><span class="w"> </span><span class="p">[</span><span class="no">ebx</span><span class="err">+</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+<p>What address is actually in <code>eax</code>? Static code analysis often cannot compute it (it may be a table filled in only at runtime, a virtual function, a callback). If you cannot compute it, you do not know where to go next, so you <strong>miss part of the code</strong>.</p>
+<p><strong>In one sentence</strong>: direct jumps can be followed, indirect jumps are easy to lose track of; code you lose track of is never disassembled.</p>
+<h3 id="2-how-to-fix-it">(2) How to fix it<a class="headerlink" href="#2-how-to-fix-it" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Combine them</strong>: run the recursive scan first; for regions that "fall in an executable section but are not covered by recursion", fill them in with a linear scan;</li>
+<li><strong>Compute it</strong>: constant propagation and emulated execution, to derive values such as <code>eax</code> as far as possible;</li>
+<li><strong>Find entries</strong>: use signatures/heuristics to recognize function starts and jump tables;</li>
+<li><strong>Run it</strong>: dynamic execution/instrumentation, to see which addresses are actually executed.</li>
+</ul>
+<h3 id="3-how-to-make-reverse-engineering-more-painful">(3) How to make reverse engineering more painful<a class="headerlink" href="#3-how-to-make-reverse-engineering-more-painful" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Code obfuscation</strong>: control flow flattening, opaque predicates, instruction replacement, so that the code "does not look like its original structure";</li>
+<li><strong>Packing/encryption</strong>: unpack only at runtime;</li>
+<li><strong>Anti-disassembly interference</strong>: embed data in the code section so that a linear scan treats data as instructions.</li>
+</ul>
+<hr />
+<h2 id="problem-2-are-there-really-more-malicious-samples-than-normal-software">Problem 2 · Are there really more malicious samples than normal software<a class="headerlink" href="#problem-2-are-there-really-more-malicious-samples-than-normal-software" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: some people say that the number of malicious samples now exceeds normal software, and signature databases can hardly hold them anymore.</p>
+<ol>
+<li>Is this claim reliable?</li>
+<li>If it really is like that, how should signature detection change?</li>
+</ol>
+<h3 id="1-is-it-reliable">(1) Is it reliable<a class="headerlink" href="#1-is-it-reliable" title="Permanent link">&para;</a></h3>
+<p><strong>It depends on "how you count"</strong>.</p>
+<ul>
+<li>By <strong>sample/variant</strong> count: one malicious program can automatically generate a large number of polymorphic/metamorphic variants, and the count easily explodes; under this definition, "there are more malicious samples" is entirely possible.</li>
+<li>By <strong>independent program/family</strong> count: the conclusion may be completely different, there are not that many "families".</li>
+<li>Normal software also has many versions, but automated variants of malicious samples cost less.</li>
+</ul>
+<p>So the sentence is reasonable under the definition of "counting by sample"; do not treat it as some specific global statistic conclusion.</p>
+<h3 id="2-how-signature-detection-should-change">(2) How signature detection should change<a class="headerlink" href="#2-how-signature-detection-should-change" title="Permanent link">&para;</a></h3>
+<p>A traditional signature is "a list of the bad characteristics". When bad samples outnumber good samples, the signature database explodes, and there will always be new variants that slip through.</p>
+<p><strong>Change direction: center on good software (allowlist)</strong></p>
+<ol>
+<li><strong>Trusted hash allowlist</strong>: only let reviewed executable files run;</li>
+<li><strong>Isolate unknown files</strong>: not on the allowlist → sandbox/quarantine, instead of "let it through if there is no bad signature";</li>
+<li><strong>The allowlist must resist tampering</strong>: sign it and authenticate updates, do not let the attacker modify the allowlist;</li>
+<li><strong>Review process</strong>: review new versions first, then add them;</li>
+<li><strong>Do not treat "approved" as "vulnerability-free"</strong>: the allowlist only says "this is a program you approved", it does not mean it has no vulnerabilities; behavior monitoring and patch management are still needed.</li>
+</ol>
+<p><strong>In plain terms</strong>: rather than remembering "all the bad guys' faces", only let the "good guys on the list" in the door; people you do not recognize are first shown into a small room instead of being let straight into the office.</p>
+<hr />
+<h2 id="problem-3-the-pitfall-of-printfname">Problem 3 · The pitfall of <code>printf(name)</code><a class="headerlink" href="#problem-3-the-pitfall-of-printfname" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: the following style of code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a><span class="kt">char</span><span class="w"> </span><span class="n">name</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a><span class="n">scanf</span><span class="p">(</span><span class="s">"%63s"</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a><span class="n">printf</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+</code></pre></div>
+<p>User input is directly treated as a format string. Answer:</p>
+<ol>
+<li>What can the user do?</li>
+<li>Besides reading memory, can it also write?</li>
+<li>How do you fix it?</li>
+</ol>
+<h3 id="1-what-the-user-can-do">(1) What the user can do<a class="headerlink" href="#1-what-the-user-can-do" title="Permanent link">&para;</a></h3>
+<p>The first argument of <code>printf</code> is the "format string"; placeholders such as <code>%s</code>, <code>%d</code>, <code>%x</code> take the arguments after it. But here only one argument, <code>name</code>, is passed — where do the later arguments come from? — they are "grabbed" from the stack.</p>
+<p>If the user inputs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>%s%s%s
+</code></pre></div>
+<p><code>printf</code> then treats three values on the stack as "string addresses" and prints out the memory there. The result may be:</p>
+<ul>
+<li><strong>leaking memory</strong> (data and addresses on the stack);</li>
+<li>if some value is not a valid address, <strong>the program crashes</strong>.</li>
+</ul>
+<p><code>%x</code> also prints stack data in hexadecimal.</p>
+<h3 id="2-can-it-be-escalated-from-read-to-write">(2) Can it be escalated from read to write<a class="headerlink" href="#2-can-it-be-escalated-from-read-to-write" title="Permanent link">&para;</a></h3>
+<p>Yes, through <strong><code>%n</code></strong>.</p>
+<p><code>%n</code> prints nothing; instead it <strong>writes</strong> "the number of bytes output so far" to the address pointed to by the corresponding argument:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a><span class="n">printf</span><span class="p">(</span><span class="s">"blah %n blah</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a><span class="c1">// "blah " is 5 bytes, so val = 5</span>
+</code></pre></div>
+<p>The attacker controls the format string, and therefore also controls the "arguments" that <code>printf</code> takes from the stack: they can specify the target address (return address, flag, GOT, etc.), and then use the output width to control the written value. So it escalates from "reading memory" to "arbitrary memory write", further hijacking control flow.</p>
+<p><strong>In plain terms</strong>: <code>%s</code> is "read out what is at the address", <code>%n</code> is "write a number to the address"; one peeks, one rewrites the books.</p>
+<h3 id="3-how-to-fix-it">(3) How to fix it<a class="headerlink" href="#3-how-to-fix-it" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Hard-code the format string</strong>: <code>printf("%s", name);</code> — <code>name</code> is data, not a format;</li>
+<li>When formatting is not needed, use <code>puts(name)</code>/<code>fputs</code>;</li>
+<li><strong>Never</strong> <code>printf(user_input)</code>;</li>
+<li>Disable <code>%n</code>;</li>
+<li>Turn on compiler format-string warnings (<code>-Wformat-security</code>) and do code auditing.</li>
+</ol>
+<p><strong>Core</strong>: take the format string out of the user's hands.</p>
+<hr />
+<h2 id="problem-4-the-compiler-itself-is-tampered-with">Problem 4 · The compiler itself is tampered with<a class="headerlink" href="#problem-4-the-compiler-itself-is-tampered-with" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: a team audited the compiler source code and the account checker source code, and found no malicious code. But the compiler executable <code>C0</code> they are using now has been contaminated and hides two rules:</p>
+<ul>
+<li>when compiling "account checker" source code, insert a backdoor into the product;</li>
+<li>when compiling "compiler" source code, insert these two rules into the new compiler.</li>
+</ul>
+<p>They use <code>C0</code> to compile <code>C1</code>, then use <code>C1</code> to compile the account checker <code>A1</code>.</p>
+<ol>
+<li>Are <code>C1</code> and <code>A1</code> clean?</li>
+<li>Delete <code>C0</code>, use <code>C1</code> to compile another <code>C2</code> — does that solve it?</li>
+<li>If there is an independent trusted compiler <code>T</code>, how do you rebuild?</li>
+</ol>
+<h3 id="1-c1-and-a1">(1) C1 and A1<a class="headerlink" href="#1-c1-and-a1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>C1 contains the hidden rules</strong>: <code>C0</code> recognizes "this is compiler source code" and inserts the two rules into C1;</li>
+<li><strong>A1 contains the backdoor</strong>: C1 recognizes "this is account checker source code" and inserts the backdoor into A1;</li>
+<li>Both source files are clean, but the malicious behavior is "inherited" through the compiler.</li>
+</ul>
+<p><strong>In plain terms</strong>: it is not that something bad was written in the source code; the "translator" secretly adds a sentence while translating, so of course you cannot see it by checking the original text.</p>
+<h3 id="2-delete-c0-compile-c2">(2) Delete C0, compile C2<a class="headerlink" href="#2-delete-c0-compile-c2" title="Permanent link">&para;</a></h3>
+<p><strong>It does not solve it</strong>. C1 already carries the rules; when it compiles compiler source code it inserts the same rules into C2; deleting C0 only deletes the "first generation" binary, later generations are still poisoned.</p>
+<p><strong>Key point</strong>: clean source code ≠ clean compiled binary; source code auditing cannot prove that the compiler is faithful.</p>
+<h3 id="3-rebuild-with-a-trusted-t">(3) Rebuild with a trusted T<a class="headerlink" href="#3-rebuild-with-a-trusted-t" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In a trusted environment, use <code>T</code> to compile "compiler source code" → a clean <code>C_clean</code>;</li>
+<li>Use <code>C_clean</code> (or <code>T</code> directly) to compile "account checker source code" → a clean A;</li>
+<li><strong>Replace all affected binaries</strong>, not just delete C0 or change the source code;</li>
+<li>Preferably use reproducible builds/diverse double-compiling to prevent contamination again.</li>
+</ol>
+<p><strong>Key point</strong>: swap out "the contaminated build products" and rebuild the toolchain from a trusted root.</p>
+<hr />
+<h2 id="problem-5-three-login-programs-overflow-thinking">Problem 5 · Three login programs (overflow thinking)<a class="headerlink" href="#problem-5-three-login-programs-overflow-thinking" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: there are three login programs; all take username/password from the command line and compare them with the secret in a file. The goal is to use an overflow to bypass the check and see a successful login. The three versions add different protections:</p>
+<ul>
+<li>login1: no canary;</li>
+<li>login2: fixed canary;</li>
+<li>login3: canary computed from the username.</li>
+</ul>
+<p>Below we only discuss the <strong>stack layout and the idea</strong>, and do not write out any payload that can be copied directly; the actual offsets must be confirmed with a debugger/disassembly.</p>
+<blockquote>
+<p>The course also requires the username to start with your own student ID, and the contents of <code>password.txt</code> must not be used; not covered here.</p>
+</blockquote>
+<h3 id="login1-consecutive-fields">login1: consecutive fields<a class="headerlink" href="#login1-consecutive-fields" title="Permanent link">&para;</a></h3>
+<p><strong>Layout</strong>: several fields are lined up next to each other on the stack:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos">1</span></a>entered_name | entered_secret | stored_name | stored_secret
+</code></pre></div>
+<p><strong>Idea</strong>:</p>
+<ul>
+<li>fill only <code>entered_name</code> with the username, at a length that just does not go out of bounds;</li>
+<li>the password starts writing from <code>entered_secret</code> and <strong>goes past</strong> its own buffer, overwriting the later <code>stored_name</code> and <code>stored_secret</code>;</li>
+<li>the program writes a terminator at the end of each field; use filler to "push out" the extra characters;</li>
+<li>at comparison time <code>entered_name == stored_name</code>, <code>entered_secret == stored_secret</code>, so the check passes.</li>
+</ul>
+<p><strong>In plain terms</strong>: you are not cracking the password, you are changing the "standard answer" to the copy you just wrote in.</p>
+<h3 id="login2-fixed-canary">login2: fixed canary<a class="headerlink" href="#login2-fixed-canary" title="Permanent link">&para;</a></h3>
+<p><strong>Layout</strong>: fields interleaved with two tags:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos">1</span></a>entered_name | stored_name | tag1 | stored_secret | tag2 | entered_secret
+</code></pre></div>
+<ul>
+<li><code>tag1</code> and <code>tag2</code> are initially equal;</li>
+<li>the username must overwrite <code>stored_name</code>, <code>tag1</code>, <code>stored_secret</code>, <code>tag2</code>, while keeping the two tags equal;</li>
+<li>the password only has to fill <code>entered_secret</code>.</li>
+</ul>
+<p><strong>Idea</strong>:</p>
+<ul>
+<li>use filler + the username/password you choose to overwrite the stored fields;</li>
+<li>put the <strong>same value</strong> at both tag positions (the original fixed value, or the same non-zero byte);</li>
+<li>this way the canary check passes and the comparison also passes.</li>
+</ul>
+<p><strong>In plain terms</strong>: the canary is a "fixed passphrase"; you just have to write the passphrase back in the right places and it will not notice.</p>
+<h3 id="login3-dynamic-canary">login3: dynamic canary<a class="headerlink" href="#login3-dynamic-canary" title="Permanent link">&para;</a></h3>
+<p><strong>Layout</strong>: tags are both before and after the password buffer:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos">1</span></a>expected_tag | entered_secret | boundary_tag | stored_secret | stored_name | entered_name
+</code></pre></div>
+<ul>
+<li><code>expected_tag</code> is <strong>before</strong> the password buffer, so the password overflow cannot touch it;</li>
+<li><code>boundary_tag</code> is after <code>entered_secret</code> and will be overwritten by the password;</li>
+<li>the program compares <code>boundary_tag</code> with <code>expected_tag</code>;</li>
+<li><code>expected_tag</code> is <strong>computed</strong> from the first few student-ID digits of the username, so it cannot be hard-coded.</li>
+</ul>
+<p><strong>Idea</strong>:</p>
+<ol>
+<li>fill <code>entered_name</code> with the username;</li>
+<li>the password starts at <code>entered_secret</code> and overwrites <code>boundary_tag</code>, <code>stored_secret</code>, <code>stored_name</code> in order;</li>
+<li>use the student-ID digits to compute the 6-byte tag <code>G</code> with the formula in the program;</li>
+<li>put <code>G</code> at the offset corresponding to <code>boundary_tag</code>, so that <code>boundary_tag == expected_tag</code>;</li>
+<li>put your username in <code>stored_name</code> and your password in <code>stored_secret</code>;</li>
+<li>the terminator lands at the end of <code>stored_name</code>; do not touch <code>entered_name</code>.</li>
+</ol>
+<p><strong>In plain terms</strong>: a dynamic canary is not "impossible to bypass", it is "the passphrase is different every time"; you have to understand how it is computed, then compute one yourself and put it back.</p>
+<h3 id="common-pitfalls-in-the-programming-question">Common pitfalls in the programming question<a class="headerlink" href="#common-pitfalls-in-the-programming-question" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copying the payload directly</td>
+<td>The offsets change with the compiler/stack layout, and are useless in another environment</td>
+</tr>
+<tr>
+<td>Username without student ID</td>
+<td>Course requirement; no points at all</td>
+</tr>
+<tr>
+<td>Using the contents of <code>password.txt</code></td>
+<td>Forbidden by the problem; treated as the secret</td>
+</tr>
+<tr>
+<td>Ignoring the terminator</td>
+<td>The <code>\0</code> at the end of each field changes the comparison</td>
+</tr>
+<tr>
+<td>Wrong canary position</td>
+<td>login2 needs the two tags to be equal; login3 needs the computed G</td>
+</tr>
+<tr>
+<td>Wrong file format</td>
+<td>Two lines: first line username, second line password</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="review-checklist">Review checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Key points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Recursion fears indirect jumps; linear + recursive are complementary; obfuscation/packing</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Counting by variant → malware outnumbers; switch to allowlist + isolate unknown + signed updates</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>%s</code> leaks, <code>%n</code> arbitrary write; <code>printf("%s", name)</code>, ban <code>%n</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>C1 carries the rules, A1 carries the backdoor; deleting C0 is useless; rebuild with trusted T and replace binaries</td>
+</tr>
+<tr>
+<td>5</td>
+<td>login1 consecutive fields; login2 fixed tag; login3 dynamic tag must be computed yourself</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../hw1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Homework 1 · Cryptography Foundations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Homework 1 · Cryptography Foundations
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

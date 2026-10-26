@@ -1,0 +1,2484 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/review/ch2-symmetric/">
+      
+      
+        <link rel="prev" href="../ch1-intro/">
+      
+      
+        <link rel="next" href="../ch3-public-key/">
+      
+      
+        
+          <link rel="alternate" href="../../../review/ch2-symmetric/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 2 · Symmetric Key Cryptography - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-symmetric-key-cryptography-review-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2 · Symmetric Key Cryptography
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../review/ch2-symmetric/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-stream-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Stream ciphers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Stream ciphers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-a51-hardware-stream-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 A5/1 (hardware stream cipher) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-rc4-software-stream-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 RC4 (software stream cipher) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-block-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Block ciphers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Block ciphers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-feistel-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Feistel cipher ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 DES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3des-triple-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 3DES (Triple DES) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-aes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 AES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-tea-tiny-encryption-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 TEA (Tiny Encryption Algorithm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-linear-cryptanalysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Linear cryptanalysis ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-modes-of-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Modes of operation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Modes of operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-why-modes-are-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Why modes are needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-ecb-electronic-codebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 ECB (Electronic Codebook) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-cbc-cipher-block-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 CBC (Cipher Block Chaining) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ctr-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 CTR (Counter) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-comparing-the-three-modes-memorize-this-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Comparing the three modes (memorize this table)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-integrity-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Integrity: MAC ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quantum-computers-and-symmetric-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Quantum computers and symmetric ciphers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-one-feistel-round-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: one Feistel round (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-2des-meet-in-the-middle-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: 2DES meet-in-the-middle (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-ecb-cut-and-paste-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: ECB cut-and-paste (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-cbc-bit-flipping-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: CBC bit flipping (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-grover-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Grover (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-common-mistakes-where-marks-are-most-easily-lost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Common mistakes (where marks are most easily lost)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-stream-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Stream ciphers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Stream ciphers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-a51-hardware-stream-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 A5/1 (hardware stream cipher) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-rc4-software-stream-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 RC4 (software stream cipher) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-block-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Block ciphers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Block ciphers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-feistel-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Feistel cipher ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 DES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3des-triple-des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 3DES (Triple DES) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-aes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 AES ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-tea-tiny-encryption-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 TEA (Tiny Encryption Algorithm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-linear-cryptanalysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Linear cryptanalysis ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-modes-of-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Modes of operation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Modes of operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-why-modes-are-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Why modes are needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-ecb-electronic-codebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 ECB (Electronic Codebook) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-cbc-cipher-block-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 CBC (Cipher Block Chaining) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ctr-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 CTR (Counter) ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-comparing-the-three-modes-memorize-this-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Comparing the three modes (memorize this table)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-integrity-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Integrity: MAC ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quantum-computers-and-symmetric-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Quantum computers and symmetric ciphers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-one-feistel-round-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: one Feistel round (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-2des-meet-in-the-middle-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: 2DES meet-in-the-middle (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-ecb-cut-and-paste-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: ECB cut-and-paste (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-cbc-bit-flipping-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: CBC bit flipping (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-grover-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Grover (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-common-mistakes-where-marks-are-most-easily-lost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Common mistakes (where marks are most easily lost)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-2-symmetric-key-cryptography-review-notes">Chapter 2 · Symmetric Key Cryptography · Review Notes<a class="headerlink" href="#chapter-2-symmetric-key-cryptography-review-notes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Matching slides</strong>: <code>w2/Symmetric-Key-Crypto.pdf</code></p>
+<p><strong>Suggested time</strong>: first pass 90 minutes + worked examples 40 minutes + self-test 30 minutes</p>
+<p><strong>Companion</strong>: Outline §2.3</p>
+<p><strong>Weight of this chapter</strong>: the main battleground for crypto computation and mechanism questions. DES/AES parameters, the Feistel formulas, the three modes, MAC, and Grover — at least one of them is almost certain to be examined.</p>
+</blockquote>
+<hr />
+<h2 id="0-chapter-thread-memorize-these-three-sentences-first">0. Chapter thread (memorize these three sentences first)<a class="headerlink" href="#0-chapter-thread-memorize-these-three-sentences-first" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Stream ciphers</strong> use a short key "stretched" into a pseudorandom keystream — in essence a <strong>simulated OTP</strong>; <strong>block ciphers</strong> iterate a round function over fixed-sized blocks — in essence an <strong>electronic codebook</strong>.</li>
+<li>The security of a block cipher comes from its <strong>non-linear S-boxes</strong>; DES relies on 8 S-boxes, AES on ByteSub + MixColumn.</li>
+<li><strong>Encryption only provides confidentiality, not integrity</strong>; multi-block data must rely on <strong>modes</strong>, and integrity must rely on a <strong>MAC</strong>; quantum computing only "halves" the strength of a symmetric key (Grover).</li>
+</ol>
+<p><strong>Common question types in this chapter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question type</th>
+<th>Typical phrasing</th>
+<th>What to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parameter fill-in</td>
+<td>Block, key, and round counts for DES/AES/3DES/TEA</td>
+<td>Memorize the §7 quick-reference table</td>
+</tr>
+<tr>
+<td>Mechanism derivation</td>
+<td>Write one Feistel round, one A5/1 step, the CBC/CTR encryption equations</td>
+<td>Be able to derive the formulas, not just memorize the conclusions</td>
+</tr>
+<tr>
+<td>Mode comparison</td>
+<td>Pros and cons of ECB/CBC/CTR, and when to use them</td>
+<td>Tie it together with "does the same plaintext block give the same ciphertext?"</td>
+</tr>
+<tr>
+<td>Computation</td>
+<td>2DES meet-in-the-middle, Grover, MAC overhead</td>
+<td>Remember <span class="arithmatex">\(2^{57}\)</span>, <span class="arithmatex">\(2^{n/2}\)</span>, 1.5×</td>
+</tr>
+<tr>
+<td>Design question</td>
+<td>Why does 3DES use EDE? Why does MAC use a different key?</td>
+<td>Answer "backward compatible / avoid MITM / avoid key reuse"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-stream-ciphers">1. Stream ciphers<a class="headerlink" href="#1-stream-ciphers" title="Permanent link">&para;</a></h2>
+<h3 id="11-role">1.1 Role<a class="headerlink" href="#11-role" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The key is relatively short (e.g., 128 bit), but the algorithm <strong>stretches</strong> it into a <strong>keystream</strong> as long as the message.</li>
+<li>Encryption: <span class="arithmatex">\(C_i = P_i \oplus KS_i\)</span>; decryption likewise. Used exactly like a one-time pad (OTP).</li>
+<li>Advantages: extremely efficient in hardware, small memory footprint, suitable for voice/embedded.</li>
+<li>Disadvantages: slow in software; on modern CPUs block ciphers (especially AES-NI) are faster.</li>
+<li>Representatives: <strong>A5/1</strong> (GSM), <strong>RC4</strong>.</li>
+</ul>
+<h3 id="12-a51-hardware-stream-cipher">1.2 A5/1 (hardware stream cipher) ★<a class="headerlink" href="#12-a51-hardware-stream-cipher" title="Permanent link">&para;</a></h3>
+<p><strong>Structure</strong></p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Length</th>
+<th>Stepping taps</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>19 bit</td>
+<td><span class="arithmatex">\(t = x_{13} \oplus x_{16} \oplus x_{17} \oplus x_{18}\)</span></td>
+<td>Shift right, the new bit enters x0</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>22 bit</td>
+<td><span class="arithmatex">\(t = y_{20} \oplus y_{21}\)</span></td>
+<td>Shift right, the new bit enters y0</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>23 bit</td>
+<td><span class="arithmatex">\(t = z_{7} \oplus z_{20} \oplus z_{21} \oplus z_{22}\)</span></td>
+<td>Shift right, the new bit enters z0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Each step</strong></p>
+<ol>
+<li>Take the clocking bits: <span class="arithmatex">\(m = \mathrm{maj}(x_8, y_{10}, z_{10})\)</span> (majority of three).</li>
+<li>If <span class="arithmatex">\(x_8 = m\)</span>, X steps; if <span class="arithmatex">\(y_{10} = m\)</span>, Y steps; if <span class="arithmatex">\(z_{10} = m\)</span>, Z steps (<strong>two or three registers may step at the same time</strong>).</li>
+<li>Output the keystream bit: <span class="arithmatex">\(x_{18} \oplus y_{21} \oplus z_{22}\)</span>.</li>
+</ol>
+<p><strong>Majority example</strong>: <span class="arithmatex">\(\mathrm{maj}(0,0,1)=0\)</span>, <span class="arithmatex">\(\mathrm{maj}(1,1,0)=1\)</span>, <span class="arithmatex">\(\mathrm{maj}(1,0,1)=1\)</span>.</p>
+<p><strong>Slide example</strong>: if <span class="arithmatex">\(m = \mathrm{maj}(1,0,1) = 1\)</span>, then X steps, Y does not step, and Z steps; the output bit = XOR of the rightmost bits of the three registers (1 in this example).</p>
+<p><strong>Design trade-off</strong>: shift registers are extremely cheap in hardware; but bit-by-bit software implementations are very slow. GSM used it because of the hardware constraints of the time.</p>
+<blockquote>
+<p>Note: A5/1 itself has known attacks (not covered in the slides), so do not treat it as a synonym for "secure"; if the exam asks "why is it rarely used now", answer "software efficiency + known weaknesses".</p>
+</blockquote>
+<h3 id="13-rc4-software-stream-cipher">1.3 RC4 (software stream cipher) ★<a class="headerlink" href="#13-rc4-software-stream-cipher" title="Permanent link">&para;</a></h3>
+<p><strong>Core</strong>: a 256-byte permutation table <code>S</code> that is "self-modifying" with the key; each step outputs 1 byte.</p>
+<p><strong>KSA (key scheduling algorithm, initialization)</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a><span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mf">0..255</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos">2</span></a>    <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos">3</span></a>    <span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="n">mod</span> <span class="n">N</span><span class="p">]</span>      <span class="c1"># N = number of key bytes, any length</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos">4</span></a><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos">5</span></a><span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mf">0..255</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos">6</span></a>    <span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">mod</span> <span class="mi">256</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos">7</span></a>    <span class="n">swap</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos">8</span></a><span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
+<p><strong>PRGA (pseudo-random generation algorithm)</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a><span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">mod</span> <span class="mi">256</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a><span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">mod</span> <span class="mi">256</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a><span class="n">swap</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos">4</span></a><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="n">mod</span> <span class="mi">256</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos">5</span></a><span class="n">keystreamByte</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>Each step produces 1 byte (A5/1 produces 1 bit per step).</li>
+<li><strong>The first 256 bytes must be discarded</strong>: otherwise the initial output is biased and an attack exists (stated in the slides).</li>
+<li>Naming trap: <strong>RC5 is a block cipher</strong>, not an upgrade of RC4.</li>
+</ul>
+<hr />
+<h2 id="2-block-ciphers">2. Block ciphers<a class="headerlink" href="#2-block-ciphers" title="Permanent link">&para;</a></h2>
+<h3 id="21-feistel-cipher">2.1 Feistel cipher ★★<a class="headerlink" href="#21-feistel-cipher" title="Permanent link">&para;</a></h3>
+<p>A Feistel cipher is not a specific algorithm but a <strong>framework</strong>: DES, Blowfish, RC5, TEA, and Twofish are all instances or related structures.</p>
+<p><strong>Encryption</strong> (P = (L0, R0))</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L_{i+1} &amp;= R_i \\
+R_{i+1} &amp;= L_i \oplus F(R_i, K_i),\quad i = 0,\dots,n \\
+C &amp;= (R_{n+1}, L_{n+1})
+\end{aligned}
+\]</div>
+<p>(the halves are swapped at the end)</p>
+<p><strong>Decryption</strong> (start from <span class="arithmatex">\(C = (R_{n+1}, L_{n+1})\)</span>, subkeys in reverse order)</p>
+<div class="arithmatex">\[
+\begin{aligned}
+R_{i-1} &amp;= L_i \\
+L_{i-1} &amp;= R_i \oplus F(L_i, K_{i-1}) \\
+P &amp;= (L_0, R_0)
+\end{aligned}
+\]</div>
+<p><strong>Two points you must understand</strong></p>
+<ol>
+<li><strong>Decryption works for any F</strong>: every round is a reversible linear/XOR operation, so F need not be invertible.</li>
+<li><strong>Security holds only for certain F</strong>: if <span class="arithmatex">\(F = 0\)</span>, each round is just a swap of the halves, two rounds undo it, and it is completely insecure.</li>
+</ol>
+<p><strong>One-round example</strong>: <span class="arithmatex">\(L_0=0110\)</span>, <span class="arithmatex">\(R_0=1001\)</span>, <span class="arithmatex">\(K=1111\)</span>, <span class="arithmatex">\(F(R,K)=R\oplus K\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(L_1 = R_0 = 1001\)</span></li>
+<li><span class="arithmatex">\(R_{1} = L_{0} \oplus F(R_{0},K) = 0110 \oplus (1001\oplus 1111) = 0110 \oplus 0110 = 0000\)</span></li>
+<li><span class="arithmatex">\(C = (R_1, L_1) = (0000, 1001)\)</span></li>
+</ul>
+<p>Decryption check: <span class="arithmatex">\(R_0 = L_1 = 1001\)</span>; <span class="arithmatex">\(L_{0} = R_{1} \oplus F(L_{1},K) = 0000 \oplus (1001\oplus 1111) = 0110\)</span>. The plaintext is recovered.</p>
+<h3 id="22-des">2.2 DES ★★<a class="headerlink" href="#22-des" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block length</td>
+<td>64 bit</td>
+</tr>
+<tr>
+<td>Key length</td>
+<td>56 bit (64 bit, of which 8 are parity bits)</td>
+</tr>
+<tr>
+<td>Rounds</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Subkey used each round</td>
+<td>48 bit</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td>Feistel</td>
+</tr>
+<tr>
+<td>Source of security</td>
+<td>8 S-boxes (6 bit → 4 bit)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One round (memorize the order)</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>R (32 bit)
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos">2</span></a>  → expansion permutation E → 48 bits
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos">3</span></a>  → XOR with subkey Ki (48 bits)
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos">4</span></a>  → 8 S-boxes (each 6→4) → 32 bits
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos">5</span></a>  → P-box permutation → 32 bits
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos">6</span></a>  → XOR with L
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos">7</span></a>  → swap left and right
+</code></pre></div>
+<div class="diagram-wrap">
+  <div class="diagram diagram--des" role="img" aria-label="One round of DES: expansion permutation, XOR with the subkey, eight S-boxes, P-box, XOR with the left half, then swap"></div>
+  <p class="diagram-caption">One round of DES: the 32-bit R is expanded to 48 bit, XORed with the 48-bit subkey, passed through eight S-boxes back to 32 bit, then permuted by the P-box and XORed with L; the right side shows subkey generation.</p>
+</div>
+
+<ul>
+<li><strong>Expansion permutation E</strong>: 32 → 48 bit; by repeating edge bits it splits the data into 8 groups of 6 bit each.</li>
+<li><strong>S-box</strong>: the only <strong>non-linear</strong> component. Input 6 bit: the outer 2 bit select the row (0–3), the middle 4 bit select the column (0–15); output 4 bit. The DES S-boxes are carefully designed to resist differential/linear cryptanalysis → <strong>this is mainly where the security of DES comes from</strong>.</li>
+<li><strong>P-box</strong>: further permutes the 32-bit output, providing diffusion.</li>
+<li><strong>Subkey generation</strong>: the 56-bit key is split into two 28-bit halves, each cyclically left-shifted every round, then compressed to select 48 bit.</li>
+<li><strong>Initial permutation IP / final permutation FP</strong>: provide no security at all, they are just a historical design; software implementations often omit them.</li>
+</ul>
+<p><strong>Expansion permutation E: eight 6-bit outputs (input bit numbers 0–31)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>6-bit output (input bit numbers)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>31, 0, 1, 2, 3, 4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3, 4, 5, 6, 7, 8</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7, 8, 9, 10, 11, 12</td>
+</tr>
+<tr>
+<td>4</td>
+<td>11, 12, 13, 14, 15, 16</td>
+</tr>
+<tr>
+<td>5</td>
+<td>15, 16, 17, 18, 19, 20</td>
+</tr>
+<tr>
+<td>6</td>
+<td>19, 20, 21, 22, 23, 24</td>
+</tr>
+<tr>
+<td>7</td>
+<td>23, 24, 25, 26, 27, 28</td>
+</tr>
+<tr>
+<td>8</td>
+<td>27, 28, 29, 30, 31, 0</td>
+</tr>
+</tbody>
+</table>
+<p>Adjacent groups share two edge bits, so 32 bit are "stretched" into 48 bit; this is not arbitrary repetition — it makes every S-box input cross the original 4-bit boundary and improves diffusion.</p>
+<p><strong>P-box (32 → 32)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Output bits</th>
+<th>Input bit numbers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–15</td>
+<td>15, 6, 19, 20, 28, 11, 27, 16, 0, 14, 22, 25, 4, 17, 30, 9</td>
+</tr>
+<tr>
+<td>16–31</td>
+<td>1, 7, 23, 13, 31, 26, 2, 8, 18, 12, 29, 5, 21, 10, 3, 24</td>
+</tr>
+</tbody>
+</table>
+<p>The P-box scatters each S-box output bit to a different S-box in the next round, preventing one group from permanently influencing the same group.</p>
+<p><strong>Decryption</strong>: DES decryption uses the same Feistel network, but applies the 16 subkeys in reverse order <span class="arithmatex">\(K_{16},K_{15},\dots,K_1\)</span>; IP and FP are inverse permutations.</p>
+<p><strong>Cracking history (memorize the numbers)</strong></p>
+<ul>
+<li>1998, the EFF DES Cracker: cost <strong>&lt; $250,000</strong>, cracked in <strong>&lt; 3 days</strong>.</li>
+<li>1999, distributed.net: using the idle time of many machines, <strong>22 hours and 15 minutes</strong>.</li>
+<li>Conclusion: <strong>a 56-bit key is too small</strong>, exhaustive search is feasible; DES is no longer secure.</li>
+</ul>
+<h3 id="23-3des-triple-des">2.3 3DES (Triple DES) ★<a class="headerlink" href="#23-3des-triple-des" title="Permanent link">&para;</a></h3>
+<p><strong>Structure</strong>: <span class="mchip"><span class="arithmatex">\(C = E(D(E(P,K_1),K_2),K_1)\)</span></span>, i.e., <strong>EDE, two keys, effective strength 112 bit</strong>.</p>
+<p><strong>Why EDE instead of EEE?</strong></p>
+<ul>
+<li><strong>Backward compatible</strong>: when <span class="mchip"><span class="arithmatex">\(K_1 = K_2 = K\)</span></span>, <span class="mchip"><span class="arithmatex">\(E(D(E(P,K),K),K) = E(P,K)\)</span></span>, which degrades to ordinary DES.</li>
+<li>This way old systems being upgraded can interoperate in single-key mode.</li>
+</ul>
+<p><strong>Why not double encryption <span class="mchip"><span class="arithmatex">\(E(E(P,K_1),K_2)\)</span></span>?</strong></p>
+<ul>
+<li>Double encryption nominally has 112-bit strength, but there is a <strong>meet-in-the-middle (MITM) attack</strong>:</li>
+<li>For each K1 compute <span class="arithmatex">\(E_{K_{1}}(P)\)</span> and store it (about <span class="arithmatex">\(2^{56}\)</span>);</li>
+<li>For each K2 compute <span class="arithmatex">\(D_{K_{2}}(C)\)</span> and look for a match (about <span class="arithmatex">\(2^{56}\)</span>);</li>
+<li>Total time/space about <span class="arithmatex">\(2^{56}\)</span> each, together about <strong><span class="arithmatex">\(2^{57}\)</span></strong>, not <span class="arithmatex">\(2^{112}\)</span>.</li>
+<li>The EDE structure of 3DES (outer E with K1, inner D with K2) <strong>cannot</strong> be attacked by this simple meet-in-the-middle directly, so it keeps about 112-bit strength.</li>
+</ul>
+<blockquote>
+<p>⚠ Common mistake: the "<span class="arithmatex">\(2^{112}\)</span> → <span class="arithmatex">\(2^{57}\)</span>" in the slides refers to <strong>double encryption, 2DES</strong>; do not take <span class="arithmatex">\(2^{57}\)</span> as the effective strength of 3DES. The two-key version of 3DES is about <strong>112 bit</strong>.</p>
+</blockquote>
+<p><strong>Three-key 3DES</strong>: <code>E(D(E(P,K1),K2),K3)</code>, strength about 168 bit (the slides only cover the two-key version).</p>
+<h3 id="24-aes">2.4 AES ★★<a class="headerlink" href="#24-aes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block length</td>
+<td>128 bit (16 bytes, 4×4 byte array)</td>
+</tr>
+<tr>
+<td>Key length</td>
+<td>128 / 192 / 256 bit</td>
+</tr>
+<tr>
+<td>Rounds</td>
+<td>10 / 12 / 14 (matching the keys above)</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td><strong>Not a Feistel cipher</strong> (SPN type)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The 4 operations in each round (the order must not be wrong)</strong></p>
+<ol>
+<li><strong>ByteSub (SubBytes)</strong>: byte-by-byte S-box lookup, the only non-linear layer; no fixed point (<span class="arithmatex">\(S(a) \neq a\)</span>), and an inverse table is needed for decryption.</li>
+<li><strong>ShiftRow (ShiftRows)</strong>: row 0 is not shifted, row 1 is shifted by 1 byte, row 2 by 2, row 3 by 3; the purpose is to mix the columns, <strong>avoiding the columns being encrypted independently</strong>.</li>
+<li><strong>MixColumn (MixColumns)</strong>: each column is multiplied on the left by an invertible matrix (over GF(<span class="arithmatex">\(2^{8}\)</span>)), implemented as a lookup table; it provides diffusion within a column.</li>
+<li><strong>AddRoundKey</strong>: XOR the subkey with the block (the only "key injection" step).</li>
+</ol>
+<p><strong>Why AES is popular</strong></p>
+<ul>
+<li>Efficient on both 8-bit / 32-bit CPUs; small code and memory footprint.</li>
+<li>Hardware instructions <strong>AES-NI</strong> (AESENC / AESDEC) exist, and software is fast too.</li>
+<li><strong>Avalanche effect</strong>: one bit difference in the plaintext → a big change in the ciphertext.</li>
+</ul>
+<blockquote>
+<p>The slides state explicitly: <strong>you are NOT required to remember AES implementation details</strong>, but you must be able to explain clearly what the four operations do, and "why it is not a Feistel cipher" (AES applies substitution-permutation to the whole block each round, instead of only handling half of it).</p>
+</blockquote>
+<h3 id="25-tea-tiny-encryption-algorithm">2.5 TEA (Tiny Encryption Algorithm)<a class="headerlink" href="#25-tea-tiny-encryption-algorithm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block</td>
+<td>64 bit</td>
+</tr>
+<tr>
+<td>Key</td>
+<td>128 bit</td>
+</tr>
+<tr>
+<td>Rounds</td>
+<td>Variable, 32 rounds is considered secure</td>
+</tr>
+<tr>
+<td>Constant</td>
+<td><span class="mchip"><span class="arithmatex">\(\delta = \texttt{0x9e3779b9}\)</span></span> (golden ratio)</td>
+</tr>
+<tr>
+<td>Characteristics</td>
+<td>"Weak" round function + many rounds; "almost Feistel" (uses <code>+/-</code> instead of pure XOR)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Weakness</strong>: <strong>equivalent keys</strong> exist (4 different keys that all give the same ciphertext), lowering the effective strength from <span class="arithmatex">\(2^{128}\)</span> to about <strong><span class="arithmatex">\(2^{126}\)</span></strong>; there are also X-box type attacks. The slides do not require you to remember the implementation.</p>
+<h3 id="26-linear-cryptanalysis">2.6 Linear cryptanalysis ★<a class="headerlink" href="#26-linear-cryptanalysis" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The only non-linear component of a block cipher is the S-box; the attack idea is to <strong>approximate the S-box with linear equations</strong>.</li>
+<li>For a given S-box, measure the probability that a linear relation between input and output bits holds:</li>
+<li><span class="mchip"><span class="arithmatex">\(y_1 = x_1\)</span></span> holds with probability 3/4;</li>
+<li><span class="arithmatex">\(y_{0} = x_{0} \oplus x_{2} \oplus 1\)</span> holds with probability 1;</li>
+<li><span class="arithmatex">\(y_{0} \oplus y_{1} = x_{1} \oplus x_{2}\)</span> holds with probability 3/4.</li>
+<li>The larger the <strong>bias</strong>, the better the approximation; after propagating along multiple rounds the subkey can be recovered.</li>
+<li>The DES S-box design means there are <strong>no good linear approximations to any one output bit</strong>, but linear combinations of output bits can still be approximated by linear combinations of input bits; in practice it requires a huge amount of plaintext and is not very practical.</li>
+</ul>
+<hr />
+<h2 id="3-modes-of-operation">3. Modes of operation<a class="headerlink" href="#3-modes-of-operation" title="Permanent link">&para;</a></h2>
+<h3 id="31-why-modes-are-needed">3.1 Why modes are needed<a class="headerlink" href="#31-why-modes-are-needed" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A block is only 64/128 bit, while the message is far larger than one block.</li>
+<li>A new key for each block = as impractical as a one-time pad (key distribution).</li>
+<li>So a <strong>fixed key + chaining/counter</strong> is used to handle multiple blocks; partial blocks are not considered in this course.</li>
+</ul>
+<h3 id="32-ecb-electronic-codebook">3.2 ECB (Electronic Codebook) ★<a class="headerlink" href="#32-ecb-electronic-codebook" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+C_i &amp;= E(P_i, K) \\
+P_i &amp;= D(C_i, K)
+\end{aligned}
+\]</div>
+<ul>
+<li>Same plaintext block → <strong>same ciphertext block</strong>.</li>
+<li>Equivalent to "a different codebook for each key".</li>
+</ul>
+<p><strong>Problem 1: cut-and-paste</strong></p>
+<p>Plaintext: <code>Eva. pings Bob. Ted. pings Tom.</code> (64-bit blocks, 8-bit ASCII)
+- P0=<code>Eva. pin</code>, P1=<code>gs Bob.</code>, P2=<code>Ted. pin</code>, P3=<code>gs Tom.</code>
+- Ciphertext C0 C1 C2 C3; the attacker rearranges it to <strong>C0 C3 C2 C1</strong>;
+- Decrypts to: <code>Eva. pin</code> + <code>gs Tom.</code> + <code>Ted. pin</code> + <code>gs Bob.</code> = <code>Eva. pings Tom. Ted. pings Bob.</code></p>
+<p><strong>Problem 2: pattern leakage</strong></p>
+<ul>
+<li>Encrypt an uncompressed image and the large-scale outline is still visible — because the same plaintext block produces the same ciphertext block.</li>
+<li>Even without knowing the plaintext, the attacker knows "which blocks are identical".</li>
+</ul>
+<h3 id="33-cbc-cipher-block-chaining">3.3 CBC (Cipher Block Chaining) ★<a class="headerlink" href="#33-cbc-cipher-block-chaining" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= E(IV \oplus P_0, K) \\
+C_i &amp;= E(C_{i-1} \oplus P_i, K) \\
+P_0 &amp;= IV \oplus D(C_0, K) \\
+P_i &amp;= C_{i-1} \oplus D(C_i, K)
+\end{aligned}
+\]</div>
+<ul>
+<li><strong>The IV is random, but need not be secret</strong>; its role is to turn the same P0 into a different C0.</li>
+<li>Same plaintext block → different ciphertext blocks (because the chaining value differs).</li>
+<li><strong>Error propagation is limited</strong>: if C1 is garbled, P1 becomes garbled and the corresponding bits of P2 are affected, but P3 onward is normal.</li>
+<li><strong>Cut-and-paste is still possible</strong> (rearranging whole blocks).</li>
+<li><strong>Malleable</strong>: flipping some bit of <span class="arithmatex">\(C_{i-1}\)</span> → the same bit of <span class="arithmatex">\(P_i\)</span> flips, and <span class="arithmatex">\(P_{i-1}\)</span> becomes garbled. If the attacker knows the structure of <span class="arithmatex">\(P_i\)</span> (e.g., an amount), a targeted modification is possible → <strong>this again shows that encryption does not provide integrity</strong>.</li>
+</ul>
+<blockquote>
+<p>Exam point: does the CBC IV need to be secret? — No; does it need to be random/unpredictable? — Yes.</p>
+</blockquote>
+<h3 id="34-ctr-counter">3.4 CTR (Counter) ★<a class="headerlink" href="#34-ctr-counter" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+C_i &amp;= P_i \oplus E(IV + i, K) \\
+P_i &amp;= C_i \oplus E(IV + i, K)
+\end{aligned}
+\]</div>
+<ul>
+<li>Uses the block cipher like a <strong>stream cipher</strong>; supports <strong>random access</strong> (you can jump directly to block i).</li>
+<li>Can be parallelized and precomputed.</li>
+<li>⚠ <strong>The IV/nonce must never be reused</strong>: if the same <code>E(IV)</code> encrypts two messages, then <span class="arithmatex">\(C_{1}\oplus C_{2} = P_{1}\oplus P_{2}\)</span>, equivalent to a two-time pad.</li>
+</ul>
+<h3 id="35-comparing-the-three-modes-memorize-this-table">3.5 Comparing the three modes (memorize this table)<a class="headerlink" href="#35-comparing-the-three-modes-memorize-this-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>ECB</th>
+<th>CBC</th>
+<th>CTR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Same plaintext block</td>
+<td>Same ciphertext</td>
+<td>Different ciphertext</td>
+<td>Different ciphertext</td>
+</tr>
+<tr>
+<td>Parallel encryption</td>
+<td>Yes</td>
+<td>No (chained)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Random access</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Error propagation</td>
+<td>This block only</td>
+<td>This block + part of the next</td>
+<td>This block only</td>
+</tr>
+<tr>
+<td>Needs an IV</td>
+<td>No</td>
+<td>Yes (random)</td>
+<td>Yes (unique, must not be reused)</td>
+</tr>
+<tr>
+<td>Main problem</td>
+<td>Pattern leakage, cut-and-paste</td>
+<td>Malleable, cut-and-paste</td>
+<td>nonce reuse disaster</td>
+</tr>
+<tr>
+<td>Typical use</td>
+<td>Not recommended</td>
+<td>File/message encryption</td>
+<td>Disk/network/random access</td>
+</tr>
+</tbody>
+</table>
+<h3 id="36-integrity-mac">3.6 Integrity: MAC ★★<a class="headerlink" href="#36-integrity-mac" title="Permanent link">&para;</a></h3>
+<p><strong>Why a MAC is needed</strong></p>
+<ul>
+<li>Encryption only prevents "reading", not "modification": a one-time pad can be flipped, ECB can be rearranged, CBC can be bit-flipped.</li>
+<li><strong>Integrity = detect unauthorized writing</strong>.</li>
+</ul>
+<p><strong>MAC = CBC residue</strong></p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= E(IV \oplus P_0, K) \\
+C_1 &amp;= E(C_0 \oplus P_1, K) \\
+&amp;\vdots \\
+C_{N-1} &amp;= E(C_{N-2} \oplus P_{N-1}, K) = \mathrm{MAC}
+\end{aligned}
+\]</div>
+<ul>
+<li>Send <span class="arithmatex">\((IV, P_0\\dots P_{N-1}, MAC)\)</span>; the receiver recomputes with the same K and compares the MAC.</li>
+<li>Why it detects tampering: changing any <code>P_i</code> propagates along the chain to the final MAC; without K a new MAC cannot be forged.</li>
+</ul>
+<p><strong>Why encryption and MAC must use different keys</strong></p>
+<ul>
+<li>If the same key is used, sending the last ciphertext block (the MAC) again cannot add any security;</li>
+<li>Different keys (even related ones) work, but the cost is about <strong>2×</strong> encryption; optimization can bring it down to about <strong>1.5×</strong>;</li>
+<li><strong>AE (authenticated encryption)</strong> is the research direction for "providing C + I in one operation".</li>
+</ul>
+<p><strong>MAC vs digital signature</strong>: in a MAC both parties share the key, so Bob can forge it too → <strong>no non-repudiation</strong>; a signature uses the private key, and only the signer can produce it → non-repudiation (Chapter 3).</p>
+<hr />
+<h2 id="4-quantum-computers-and-symmetric-ciphers">4. Quantum computers and symmetric ciphers<a class="headerlink" href="#4-quantum-computers-and-symmetric-ciphers" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A qubit can be in a superposition of 0/1; N qubits have <span class="arithmatex">\(2^N\)</span> amplitudes.</li>
+<li><strong>Grover's algorithm</strong>: gives a square-root speedup for exhaustive search.</li>
+<li>Classical: n-bit key, work factor about 2ⁿ;</li>
+<li>Grover: about <strong><span class="arithmatex">\(2^{n/2}\)</span></strong>.</li>
+<li>For AES-128: about <span class="arithmatex">\(2^{64}\)</span> after Grover → no longer enough; the countermeasure is <strong>AES-256</strong> (about <span class="arithmatex">\(2^{128}\)</span> after Grover).</li>
+<li>Conclusion: quantum is <strong>not a serious threat</strong> to symmetric ciphers, <strong>doubling the key length</strong> is enough; the real danger is RSA/DH (Shor, Chapter 3).</li>
+</ul>
+<hr />
+<h2 id="5-worked-examples">5. Worked examples<a class="headerlink" href="#5-worked-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-one-feistel-round-8-points">Example 1: one Feistel round (8 points)<a class="headerlink" href="#example-1-one-feistel-round-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: L0=0110, R0=1001, K=1111, F(R,K)=R⊕K. Find (L1,R1) after one round and the ciphertext C.</p>
+<p><strong>Solution</strong>:
+- <span class="mchip"><span class="arithmatex">\(L_1 = R_0 = 1001\)</span></span>
+- <span class="arithmatex">\(R_{1} = L_{0} \oplus F(R_{0},K) = 0110 \oplus (1001\oplus 1111) = 0110 \oplus 0110 = 0000\)</span>
+- <span class="arithmatex">\(C = (R_1, L_1) = (0000, 1001)\)</span></p>
+<p><strong>Scoring points</strong>: the formulas are written correctly; the final <strong>swap of left and right</strong> (the easiest thing to miss).</p>
+<h3 id="example-2-2des-meet-in-the-middle-10-points">Example 2: 2DES meet-in-the-middle (10 points)<a class="headerlink" href="#example-2-2des-meet-in-the-middle-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: double encryption <span class="mchip"><span class="arithmatex">\(C = E(E(P,K_1),K_2)\)</span></span>, with 56-bit keys. Explain how MITM reduces <span class="arithmatex">\(2^{112}\)</span> to about <span class="arithmatex">\(2^{57}\)</span>.</p>
+<p><strong>Solution</strong>:
+1. For all <span class="arithmatex">\(2^{56}\)</span> values of K1, compute <span class="mchip"><span class="arithmatex">\(X = E(P,K_1)\)</span></span> and store it in a table (sorted/hashed by X).
+2. For all <span class="arithmatex">\(2^{56}\)</span> values of K2, compute <span class="mchip"><span class="arithmatex">\(Y = D(C,K_2)\)</span></span>.
+3. Find the match where <span class="mchip"><span class="arithmatex">\(X = Y\)</span></span> → candidate (K1,K2), then verify with a second plaintext/ciphertext pair.
+4. Time ≈ <span class="arithmatex">\(2^{56}\)</span> + <span class="arithmatex">\(2^{56}\)</span> = <span class="arithmatex">\(2^{57}\)</span>, space ≈ <span class="arithmatex">\(2^{56}\)</span>.</p>
+<p><strong>Conclusion</strong>: double encryption does not have 112-bit strength; 3DES uses EDE to avoid this direct decomposition.</p>
+<h3 id="example-3-ecb-cut-and-paste-8-points">Example 3: ECB cut-and-paste (8 points)<a class="headerlink" href="#example-3-ecb-cut-and-paste-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: the plaintext consists of 4 64-bit blocks: <code>Eva. pin | gs Bob. | Ted. pin | gs Tom.</code>, and the ciphertext is C0 C1 C2 C3. How do you make the decrypted result become <code>Eva. pings Tom. Ted. pings Bob.</code>?</p>
+<p><strong>Solution</strong>: send <strong>C0 C3 C2 C1</strong>.
+- Decryption: P0=<code>Eva. pin</code>, P3=<code>gs Tom.</code>, P2=<code>Ted. pin</code>, P1=<code>gs Bob.</code>
+- Concatenated: <code>Eva. pings Tom. Ted. pings Bob.</code></p>
+<p><strong>Scoring point</strong>: state that each ECB block is independent, so the blocks can be rearranged arbitrarily.</p>
+<h3 id="example-4-cbc-bit-flipping-10-points">Example 4: CBC bit flipping (10 points)<a class="headerlink" href="#example-4-cbc-bit-flipping-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: in CBC encryption, the attacker flips the 3rd bit of C1. Which plaintext blocks are affected after decryption? Can the attacker modify P2 in a targeted way?</p>
+<p><strong>Solution</strong>:
+- P1 is computed from <code>D(C1)</code> → if C1 changes, the whole of P1 becomes garbled (unpredictable);
+- P2 = C1 ⊕ D(C2) → flipping the 3rd bit of C1 makes <strong>the 3rd bit of P2 flip exactly</strong>;
+- So the attacker cannot control P1, but <strong>can flip any bit of P2 in a targeted way</strong> (as long as the structure of P2 is known).
+- Conclusion: CBC encryption does not provide integrity; a MAC/AE must be added.</p>
+<h3 id="example-5-grover-6-points">Example 5: Grover (6 points)<a class="headerlink" href="#example-5-grover-6-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: how much security strength does AES-128 have left under quantum computing? What should be done?</p>
+<p><strong>Solution</strong>:
+- Grover reduces exhaustive search from <span class="arithmatex">\(2^{128}\)</span> to about <span class="arithmatex">\(2^{64}\)</span>;
+- <span class="arithmatex">\(2^{64}\)</span> is no longer enough for modern computing power → switch to <strong>AES-256</strong>, about <span class="arithmatex">\(2^{128}\)</span> after Grover;
+- The only cost is being "a little slower", which is acceptable.</p>
+<hr />
+<h2 id="6-common-mistakes-where-marks-are-most-easily-lost">6. Common mistakes (where marks are most easily lost)<a class="headerlink" href="#6-common-mistakes-where-marks-are-most-easily-lost" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two-key 3DES strength = 168 bit</td>
+<td>Two keys give about <strong>112 bit</strong>; only three keys give about 168</td>
+</tr>
+<tr>
+<td>"<span class="arithmatex">\(2^{57}\)</span> is the strength of 3DES"</td>
+<td><span class="arithmatex">\(2^{57}\)</span> is the MITM cost for <strong>double encryption, 2DES</strong>; 3DES EDE is about 112 bit</td>
+</tr>
+<tr>
+<td>Feistel decryption requires F to be invertible</td>
+<td>It does not; Feistel is invertible for any F, but security depends on F</td>
+</tr>
+<tr>
+<td>AES is a Feistel cipher</td>
+<td>It is not; AES is an SPN (substitution-permutation network)</td>
+</tr>
+<tr>
+<td>3DES uses EDE to be "harder to crack"</td>
+<td>The primary purpose is <strong>backward compatibility with single-key DES</strong>; it also avoids the 2DES MITM</td>
+</tr>
+<tr>
+<td>The CBC IV must be secret</td>
+<td>The IV <strong>need not be secret</strong>, but it must be random/unpredictable</td>
+</tr>
+<tr>
+<td>The CTR nonce may be repeated</td>
+<td><strong>Absolutely not</strong>; reuse is equivalent to a two-time pad</td>
+</tr>
+<tr>
+<td>Encryption also guarantees integrity</td>
+<td>It does not; a MAC/signature/AE is required</td>
+</tr>
+<tr>
+<td>A MAC provides non-repudiation</td>
+<td>It does not; both parties share the key, so Bob can forge it too</td>
+</tr>
+<tr>
+<td>Grover breaks AES</td>
+<td>It only halves the strength; AES-256 restores 128-bit security</td>
+</tr>
+<tr>
+<td>RC5 is an upgrade of RC4</td>
+<td>RC5 is a <strong>block cipher</strong>, unrelated to RC4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-self-test-do-it-first-then-check-the-answers">7. Self-test (do it first, then check the answers)<a class="headerlink" href="#7-self-test-do-it-first-then-check-the-answers" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What is the essential difference between stream ciphers and block ciphers? Give two algorithms for each.</li>
+<li>How does A5/1's majority clocking work? How is the output bit computed?</li>
+<li>What do RC4's KSA and PRGA each do? Why must the first 256 bytes be discarded?</li>
+<li>Write the Feistel encryption and decryption formulas; why is it that "any F can decrypt, but not any F is secure"?</li>
+<li>What are DES's block, key, rounds, subkey length, and S-box specification? Where does the security come from?</li>
+<li>Why does 3DES use EDE? Why not <span class="mchip"><span class="arithmatex">\(E(E(P,K_1),K_2)\)</span></span>?</li>
+<li>What are the four AES round operations and what does each do? Why is it said not to be a Feistel cipher?</li>
+<li>What are ECB's two fatal problems? How does CBC solve them? What problems remain in CBC?</li>
+<li>Why must the CTR nonce never be reused? Give the quantity the attacker can compute directly.</li>
+<li>Why can a MAC detect tampering? Why must encryption and MAC use different keys?</li>
+<li>What does Grover mean for AES-128/256 respectively?</li>
+</ol>
+<h3 id="answers">Answers<a class="headerlink" href="#answers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Stream ciphers generate a keystream bit/byte at a time (A5/1, RC4); block ciphers iterate a round function over fixed-sized blocks (DES, AES).</li>
+<li><span class="arithmatex">\(m = \mathrm{maj}(x_8,y_{10},z_{10})\)</span>; only registers whose clocking bit equals m step; output <span class="arithmatex">\(x_{18}\oplus y_{21}\oplus z_{22}\)</span>.</li>
+<li>The KSA uses the key to scramble the 256-byte permutation table; the PRGA swaps and outputs 1 byte per step; the first 256 bytes have a statistical bias, and keeping them can be exploited.</li>
+<li><span class="arithmatex">\(L_{i+1}=R_i\)</span>, <span class="arithmatex">\(R_{i+1}=L_i\oplus F(R_i,K_i)\)</span>, <span class="arithmatex">\(C=(R_{n+1},L_{n+1})\)</span>; decryption runs in reverse with the subkeys in reverse order. Every round is invertible, so F need not be invertible; but with <span class="arithmatex">\(F=0\)</span> only a swap remains, with no confusion at all.</li>
+<li>64/56/16/48/8 S-boxes (6→4). The security comes mainly from the non-linearity of the S-boxes.</li>
+<li>EDE degrades to DES when K1=K2 (backward compatible); <span class="mchip"><span class="arithmatex">\(E(E(P,K_1),K_2)\)</span></span> is reduced by MITM from <span class="arithmatex">\(2^{112}\)</span> to about <span class="arithmatex">\(2^{57}\)</span>.</li>
+<li>ByteSub (non-linearity), ShiftRow (row diffusion), MixColumn (column diffusion), AddRoundKey (key injection). AES processes the whole 128-bit state each round, not just half of it.</li>
+<li>The same plaintext block produces the same ciphertext → pattern leakage; blocks can be rearranged → cut-and-paste. CBC uses chaining and a random IV to solve "same block"; but whole-block rearrangement and bit flipping are still possible.</li>
+<li><span class="arithmatex">\(C_{1}\oplus C_{2} = P_{1}\oplus P_{2}\)</span>; the same <code>E(IV)</code> is used twice, so the XOR of the two ciphertexts is the XOR of the two plaintexts.</li>
+<li>Changing any plaintext block propagates along the CBC chain to the final MAC; without K it cannot be forged. Under the same key the MAC and the ciphertext can "borrow" from each other, and sending it twice adds no security; different keys separate the purposes.</li>
+<li>AES-128 → about <span class="arithmatex">\(2^{64}\)</span> (not enough); AES-256 → about <span class="arithmatex">\(2^{128}\)</span> (enough); the cost is being a little slower.</li>
+</ol>
+<hr />
+<h2 id="8-pre-exam-quick-reference-card">8. Pre-exam quick-reference card<a class="headerlink" href="#8-pre-exam-quick-reference-card" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value / key point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A5/1</td>
+<td>19/22/23 bit; majority clocking; output <span class="arithmatex">\(x_{18}\oplus y_{21}\oplus z_{22}\)</span></td>
+</tr>
+<tr>
+<td>RC4</td>
+<td>256-byte permutation; discard the first 256 bytes; RC5 is a block cipher</td>
+</tr>
+<tr>
+<td>Feistel</td>
+<td><span class="arithmatex">\(L'=R, R'=L\oplus F(R,K)\)</span>; <span class="arithmatex">\(C=(R,L)\)</span>; F need not be invertible</td>
+</tr>
+<tr>
+<td>DES</td>
+<td>64/56/16/48; 8 S-boxes (6→4); security relies on the S-boxes</td>
+</tr>
+<tr>
+<td>DES cracking</td>
+<td>1998 EFF &lt; $250k, &lt; 3 days; 1999 22h15m</td>
+</tr>
+<tr>
+<td>3DES</td>
+<td>EDE, two keys 112 bit; three keys 168 bit</td>
+</tr>
+<tr>
+<td>2DES MITM</td>
+<td><span class="arithmatex">\(2^{112}\)</span> → about <span class="arithmatex">\(2^{57}\)</span></td>
+</tr>
+<tr>
+<td>AES</td>
+<td>128-bit block; 128/192/256-bit key; 10/12/14 rounds; ByteSub/ShiftRow/MixColumn/AddRoundKey</td>
+</tr>
+<tr>
+<td>TEA</td>
+<td>64/128; 32 rounds; delta=0x9e3779b9; equivalent keys <span class="arithmatex">\(2^{128}\)</span>→<span class="arithmatex">\(2^{126}\)</span></td>
+</tr>
+<tr>
+<td>ECB</td>
+<td>same plaintext block, same ciphertext; cut-paste; pattern leakage</td>
+</tr>
+<tr>
+<td>CBC</td>
+<td><span class="arithmatex">\(C_i=E(C_{i-1}\oplus P_i)\)</span>; IV random and not secret; bit flipping possible</td>
+</tr>
+<tr>
+<td>CTR</td>
+<td><span class="arithmatex">\(C_i=P_i\oplus E(IV+i)\)</span>; nonce must not be reused; random access</td>
+</tr>
+<tr>
+<td>MAC</td>
+<td>CBC residue; different keys for encryption/MAC; about 1.5–2× overhead</td>
+</tr>
+<tr>
+<td>Grover</td>
+<td><span class="arithmatex">\(2^{n/2}\)</span>; AES-256 restores 128-bit security</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ch1-intro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Chapter 1 · Introduction &amp; Classical Cryptography">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Chapter 1 · Introduction & Classical Cryptography
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch3-public-key/" class="md-footer__link md-footer__link--next" aria-label="Next: Chapter 3 · Public Key Cryptography">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Chapter 3 · Public Key Cryptography
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

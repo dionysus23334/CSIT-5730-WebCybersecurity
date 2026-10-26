@@ -1,0 +1,2016 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity 复习资料">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/hw/hw1/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../hw2/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../../en/hw/hw1/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>作业一复盘 · 密码学基础 - CSIT5730 复习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-header__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 复习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              作业一复盘 · 密码学基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/hw/hw1/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-nav__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 复习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← 个人主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分章复习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分章复习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 · 导论与古典密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 · 对称密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 · 公钥密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 · 恶意软件与逆向工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 · 软件利用 II 与侧信道
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业解析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    作业解析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 1 · 会“走位”的凯撒
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 2 · OTP 的反向操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 2 · OTP 的反向操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 求密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 求明文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 3 · 暴力搜密钥要多久
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 3 · 暴力搜密钥要多久">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-80-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 80-bit，最坏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-50-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 50-bit，平均
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ctr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 4 · 这个 CTR 写法靠谱吗
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 5 · 有 MAC 和密钥，能造新消息吗
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 6 · CBC 能不能随机读
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cbc-p1-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 7 · 在 CBC 里把 P1 换成 X
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 8 · RSA 的同态小把戏
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 8 · RSA 的同态小把戏">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 乘法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-fhe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) FHE 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 9 · 签名能不能被“反着用”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 9 · 签名能不能被“反着用”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 这个伪造严重吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fm-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 改成签 F(M) 后，F 要满足什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 10 · 哈希碰撞的“保证数”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 11 · 加密和哈希差在哪
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复盘清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 1 · 会“走位”的凯撒
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 2 · OTP 的反向操作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 2 · OTP 的反向操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 求密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 求明文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 3 · 暴力搜密钥要多久
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 3 · 暴力搜密钥要多久">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-80-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 80-bit，最坏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-50-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 50-bit，平均
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ctr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 4 · 这个 CTR 写法靠谱吗
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 5 · 有 MAC 和密钥，能造新消息吗
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 6 · CBC 能不能随机读
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cbc-p1-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 7 · 在 CBC 里把 P1 换成 X
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 8 · RSA 的同态小把戏
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 8 · RSA 的同态小把戏">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 乘法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-fhe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) FHE 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 9 · 签名能不能被“反着用”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="题目 9 · 签名能不能被“反着用”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 这个伪造严重吗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fm-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 改成签 F(M) 后，F 要满足什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 10 · 哈希碰撞的“保证数”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        题目 11 · 加密和哈希差在哪
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复盘清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">作业一复盘 · 密码学基础<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>题干是<strong>脱敏重述</strong>，不是作业原文；答案尽量用大白话讲清楚思路。</p>
+<p>仅作复习，别直接交；课程作业与答案版权归教师所有。</p>
+</blockquote>
+<hr />
+<h2 id="1">题目 1 · 会“走位”的凯撒<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：普通凯撒是每个字母都挪同样的格数。现在换个规则：第 1 个字母挪 13 格，第 2 个挪 14 格，第 3 个挪 15 格……每往后一个就多挪 1 格。用 A–Z，超过 Z 就绕回 A。把 <code>SECURITY</code> 加密。</p>
+<p><strong>先想清楚</strong></p>
+<ul>
+<li>给字母编号：<span class="mchip"><span class="arithmatex">\(A=0,\ B=1,\ \ldots,\ Z=25\)</span></span>；</li>
+<li>第 i 个字母（i 从 0 开始）挪 <span class="mchip"><span class="arithmatex">\(13+i\)</span></span> 格；</li>
+<li>算完如果超过 25，就减 26（等价于 <span class="mchip"><span class="arithmatex">\(\bmod 26\)</span></span>）。</li>
+</ul>
+<p><strong>一步步算</strong></p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>明文</th>
+<th>值</th>
+<th>挪几格</th>
+<th>算完</th>
+<th>密文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>S</td>
+<td>18</td>
+<td>13</td>
+<td>31 → 5</td>
+<td><strong>F</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>E</td>
+<td>4</td>
+<td>14</td>
+<td>18</td>
+<td><strong>S</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>C</td>
+<td>2</td>
+<td>15</td>
+<td>17</td>
+<td><strong>R</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>U</td>
+<td>20</td>
+<td>16</td>
+<td>36 → 10</td>
+<td><strong>K</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>R</td>
+<td>17</td>
+<td>17</td>
+<td>34 → 8</td>
+<td><strong>I</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>I</td>
+<td>8</td>
+<td>18</td>
+<td>26 → 0</td>
+<td><strong>A</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>T</td>
+<td>19</td>
+<td>19</td>
+<td>38 → 12</td>
+<td><strong>M</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Y</td>
+<td>24</td>
+<td>20</td>
+<td>44 → 18</td>
+<td><strong>S</strong></td>
+</tr>
+</tbody>
+</table>
+<p>密文是 <strong><code>FSRKIAMS</code></strong>。</p>
+<p><strong>为什么不是普通凯撒</strong>：普通凯撒的“密钥”是一个数；这里每个位置的位移都不一样，相当于密钥是一串数 <span class="mchip"><span class="arithmatex">\(13,14,15,\ldots\)</span></span>。</p>
+<p><strong>容易错</strong>：第 8 个字母是挪 20 格，不是 13；<span class="mchip"><span class="arithmatex">\(Y(24)+20=44\)</span></span>，<span class="mchip"><span class="arithmatex">\(44-26=18\)</span></span>，是 S。</p>
+<hr />
+<h2 id="2-otp">题目 2 · OTP 的反向操作<a class="headerlink" href="#2-otp" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：还是那套 3-bit 编码：<code>e=000, f=001, h=010, i=011, k=100, l=101, r=110, t=111</code>。OTP 的规则是 <span class="mchip"><span class="arithmatex">\(C = P \oplus K\)</span></span>。</p>
+<ol>
+<li>已知明文 <code>hike</code>、密文 <code>left</code>，求密钥。</li>
+<li>已知密钥 <code>keel</code>、密文 <code>rile</code>，求明文。</li>
+</ol>
+<p><strong>先想清楚</strong>：XOR 有个好性质——同一个东西异或两次就还原。所以：</p>
+<ul>
+<li>求密钥：<span class="mchip"><span class="arithmatex">\(K = P \oplus C\)</span></span>；</li>
+<li>求明文：<span class="mchip"><span class="arithmatex">\(P = C \oplus K\)</span></span>。</li>
+</ul>
+<h3 id="1_1">(1) 求密钥<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字符</th>
+<th>比特</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>明文</td>
+<td>h i k e</td>
+<td>010 011 100 000</td>
+</tr>
+<tr>
+<td>密文</td>
+<td>l e f t</td>
+<td>101 000 001 111</td>
+</tr>
+<tr>
+<td>异或</td>
+<td><strong>t i l t</strong></td>
+<td><strong>111 011 101 111</strong></td>
+</tr>
+</tbody>
+</table>
+<p>密钥是 <strong><code>tilt</code></strong>。</p>
+<h3 id="2">(2) 求明文<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字符</th>
+<th>比特</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>密文</td>
+<td>r i l e</td>
+<td>110 011 101 000</td>
+</tr>
+<tr>
+<td>密钥</td>
+<td>k e e l</td>
+<td>100 000 000 101</td>
+</tr>
+<tr>
+<td>异或</td>
+<td><strong>h i l l</strong></td>
+<td><strong>010 011 101 101</strong></td>
+</tr>
+</tbody>
+</table>
+<p>明文是 <strong><code>hill</code></strong>。</p>
+<p><strong>通俗理解</strong>：OTP 就是把明文和密钥“搅”在一起；知道其中两个，就能用异或把第三个“搅”回来。</p>
+<p><strong>容易错</strong>：查表时 <code>i=011</code>、<code>l=101</code>，别看串行；异或的结果要按 3 位一组对回去。</p>
+<hr />
+<h2 id="3">题目 3 · 暴力搜密钥要多久<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：假设一台机器每秒能试 <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span> 个密钥。</p>
+<ol>
+<li>80-bit 密钥，最坏情况要多久？</li>
+<li>50-bit 密钥，平均情况要多久？</li>
+</ol>
+<p><strong>先想清楚</strong></p>
+<ul>
+<li>密钥有 n bit，就有 <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> 种可能；</li>
+<li>最坏要把所有可能都试一遍；</li>
+<li>平均只要试一半，也就是 <span class="mchip"><span class="arithmatex">\(2^{n-1}\)</span></span>；</li>
+<li>机器每秒 <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span> 个，所以秒数 = 尝试次数 ÷ <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span>。</li>
+</ul>
+<h3 id="1-80-bit">(1) 80-bit，最坏<a class="headerlink" href="#1-80-bit" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\frac{2^{80}}{2^{15}} = 2^{65}\ \text{秒}
+\]</div>
+<p>一年约 <span class="mchip"><span class="arithmatex">\(3.1536\times10^{7}\)</span></span> 秒，所以：</p>
+<div class="arithmatex">\[
+\frac{2^{65}}{3.1536\times10^{7}} \approx 1.17\times10^{12}\ \text{年}
+\]</div>
+<p>约 <strong>1.17 万亿年</strong>。</p>
+<h3 id="2-50-bit">(2) 50-bit，平均<a class="headerlink" href="#2-50-bit" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{2^{49}}{2^{15}} &amp;= 2^{34}\ \text{秒}\\
+\frac{2^{34}}{3.1536\times10^{7}} &amp;\approx 544\ \text{年}
+\end{aligned}
+\]</div>
+<p>约 <strong>544 年</strong>。</p>
+<p><strong>通俗理解</strong>：密钥每多 1 bit，工作量翻倍；80-bit 比 50-bit 多 30 bit，就是多乘 <span class="mchip"><span class="arithmatex">\(2^{30}\)</span></span>（约 10 亿倍）。</p>
+<p><strong>容易错</strong>：平均情况用 <span class="mchip"><span class="arithmatex">\(2^{49}\)</span></span>，不是 <span class="mchip"><span class="arithmatex">\(2^{50}\)</span></span>；别把“秒”直接当“年”。</p>
+<hr />
+<h2 id="4-ctr">题目 4 · 这个 CTR 写法靠谱吗<a class="headerlink" href="#4-ctr" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：正常 CTR 是 <span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span></span>。有人写成了：</p>
+<div class="arithmatex">\[
+C_i = P_i \oplus E(K, IV+i)
+\]</div>
+<p>注意这里 <span class="mchip"><span class="arithmatex">\(E(\text{明文}, \text{密钥})\)</span></span>：<code>K</code> 被放到了“明文”的位置，<code>IV+i</code> 反而成了“密钥”。这样安全吗？</p>
+<p><strong>先看参数位置</strong></p>
+<ul>
+<li>正常写法：拿 <code>IV+i</code> 当明文、<code>K</code> 当密钥，加密出一段密钥流，再和 <code>P_i</code> 异或；</li>
+<li>这个写法：拿 <code>K</code> 当明文、<code>IV+i</code> 当密钥，加密出一段东西，再异或。</li>
+</ul>
+<p>问题在于：<strong><code>IV</code> 是公开的</strong>。所以加密用的“密钥”是公开的；而真正的密钥 <code>K</code> 被当成明文加密了。</p>
+<p><strong>攻击：知道一对明文/密文就能反推 K</strong></p>
+<ol>
+<li>由 <span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(K, IV+i)\)</span></span> 两边异或 <code>P_i</code>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>P_i ⊕ C_i = E(K, IV+i)
+</code></pre></div></li>
+<li>右边是“用公开的 <code>IV+i</code> 当密钥，加密 <code>K</code>”；</li>
+<li>攻击者知道密钥 <code>IV+i</code>，直接解密：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>K = D(P_i ⊕ C_i, IV+i)
+</code></pre></div></li>
+<li>拿到 K 后，所有块都能解：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>P_j = C_j ⊕ E(K, IV+j)
+</code></pre></div></li>
+</ol>
+<p><strong>结论</strong>：不安全。不是“代码里出现了 K 就安全”，要看 K 到底在“明文”还是“密钥”的位置。</p>
+<p><strong>通俗理解</strong>：这相当于把保险箱的钥匙当成了要锁的东西，而锁的钥匙挂在门上。</p>
+<hr />
+<h2 id="5-mac">题目 5 · 有 MAC 和密钥，能造新消息吗<a class="headerlink" href="#5-mac" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：CBC-MAC 的做法是：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= E(IV \oplus P_0, K)\\
+C_i &amp;= E(C_{i-1} \oplus P_i, K)\\
+MAC &amp;= C_{n-1}
+\end{aligned}
+\]</div>
+<p>现在知道 MAC 值 <code>X</code>，也知道密钥 <code>K</code>，但不知道原消息。能不能拼一条新消息，让 MAC 还是 <code>X</code>？能自由选多少块？</p>
+<p><strong>先想清楚</strong>：MAC 是最后一块密文。最后一块由“前一块链值”和“最后一块明文”决定。既然知道 K，就能反着算：想让最后结果是 X，最后一块明文应该是什么。</p>
+<p><strong>构造</strong></p>
+<ol>
+<li>前 <span class="mchip"><span class="arithmatex">\(n-1\)</span></span> 块 <span class="mchip"><span class="arithmatex">\(P_0,\ldots,P_{n-2}\)</span></span> 随便选；</li>
+<li>按 CBC 链算出 <span class="mchip"><span class="arithmatex">\(C_{n-2}\)</span></span>；</li>
+<li>最后一块令：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a>P_{n-1} = D(X, K) ⊕ C_{n-2}
+</code></pre></div></li>
+<li>验证：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos">1</span></a>MAC = E(P_{n-1} ⊕ C_{n-2}, K)
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos">2</span></a>    = E(D(X,K), K)
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos">3</span></a>    = X
+</code></pre></div></li>
+</ol>
+<p><strong>答案</strong>：能。除了最后一块，前面的块都能自由选；最后一块由前缀、IV、K 和目标 MAC 唯一决定。</p>
+<p><strong>通俗理解</strong>：MAC 像“最后一道封条”。知道封条怎么做的（K），就能先随便排前面的内容，再倒推最后一块，让封条看起来一样。</p>
+<p><strong>顺带一句</strong>：这也说明 MAC 不能抗“知道密钥的人”伪造；它不是数字签名。</p>
+<hr />
+<h2 id="6-cbc">题目 6 · CBC 能不能随机读<a class="headerlink" href="#6-cbc" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：CBC 是一块套一块加密的。如果只想读第 i 块，需要哪些东西？和 CTR 比，随机改一块是不是更麻烦？</p>
+<p><strong>读一块</strong></p>
+<div class="arithmatex">\[
+P_i = D(C_i, K) \oplus C_{i-1}
+\]</div>
+<ul>
+<li>需要 <code>C_i</code> 和前一块 <code>C_{i-1}</code>；</li>
+<li>第 0 块没有“前一块”，用 IV 顶替。</li>
+</ul>
+<p>所以 CBC 随机读是能做到的，只是要多拿一块密文。</p>
+<p><strong>改一块呢</strong></p>
+<ul>
+<li>CBC：改 <code>P_i</code> 会让 <code>C_i</code> 变；<code>C_i</code> 又是下一块的输入，于是后面的链值全变。要保住后面的明文，得把 i 之后的密文全部重算。</li>
+<li>CTR：<span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span></span>，每块独立；改一块不影响别的块。</li>
+</ul>
+<p><strong>结论</strong>：CBC 适合顺序读写；随机读还行，随机写/更新代价大。CTR 更适合随机访问。</p>
+<p><strong>通俗理解</strong>：CBC 像多米诺骨牌，推倒一块后面都跟着倒；CTR 像一排独立的灯，关一盏不影响别的。</p>
+<hr />
+<h2 id="7-cbc-p1-x">题目 7 · 在 CBC 里把 P1 换成 X<a class="headerlink" href="#7-cbc-p1-x" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：Alice 用 CBC 发了 4 块密文和 IV。Trudy 能在传输中改密文。如果她知道 <code>P1</code>，能不能让 Bob 解出来的 <code>P1</code> 变成 <code>X</code>？</p>
+<p><strong>先看解密公式</strong></p>
+<div class="arithmatex">\[
+P_1 = D(C_1, K) \oplus C_0
+\]</div>
+<p>想让 <code>P1</code> 变成 <code>X</code>，就要让 <span class="mchip"><span class="arithmatex">\(D(C_1,K) \oplus C_0'\)</span></span> 等于 <code>X</code>。<code>D(C1,K)</code> 改不了（C1 不动），但可以改 <code>C0</code>。</p>
+<p><strong>做法</strong>：令</p>
+<div class="arithmatex">\[
+C_0' = C_0 \oplus P_1 \oplus X
+\]</div>
+<p><strong>验证</strong></p>
+<div class="arithmatex">\[
+\begin{aligned}
+P_1' &amp;= D(C_1, K) \oplus C_0'\\
+&amp;= D(C_1, K) \oplus C_0 \oplus P_1 \oplus X\\
+&amp;= P_1 \oplus P_1 \oplus X\\
+&amp;= X
+\end{aligned}
+\]</div>
+<p><strong>副作用</strong>：<code>C0</code> 变了，<code>P0</code> 也会变乱（<span class="mchip"><span class="arithmatex">\(P_0 = D(C_0',K) \oplus IV\)</span></span>）。如果只关心 P1，这可以接受。</p>
+<p><strong>结论</strong>：CBC 加密不保完整性；知道某块明文，就能定向改它。</p>
+<p><strong>通俗理解</strong>：CBC 的第一块密文像“调味料”，下一块的明文会受它影响；改一点调料，就能让下一块变味。</p>
+<hr />
+<h2 id="8-rsa">题目 8 · RSA 的同态小把戏<a class="headerlink" href="#8-rsa" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：Trudy 拿到两条用 Alice 公钥加密的密文：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= M_0^e \bmod N\\
+C_1 &amp;= M_1^e \bmod N
+\end{aligned}
+\]</div>
+<p>她不知道私钥，也不知道明文。</p>
+<ol>
+<li>能不能算出 <span class="mchip"><span class="arithmatex">\((M_0\cdot M_1)^{e} \bmod N\)</span></span>？</li>
+<li>那 <span class="mchip"><span class="arithmatex">\((M_0+M_1)^{e} \bmod N\)</span></span> 呢？</li>
+<li>全同态加密（FHE）有什么实际用途？</li>
+</ol>
+<h3 id="1_2">(1) 乘法<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<p>直接把两条密文乘起来：</p>
+<div class="arithmatex">\[
+C_0\cdot C_1 \equiv M_0^e\cdot M_1^e \equiv (M_0\cdot M_1)^e \pmod N
+\]</div>
+<p>所以结果是 <span class="mchip"><span class="arithmatex">\(C_0\cdot C_1 \bmod N\)</span></span>。</p>
+<p><strong>通俗理解</strong>：RSA 像“戴着手套做乘法”——密文相乘，解密后正好是明文相乘。</p>
+<h3 id="2_1">(2) 加法<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p>一般不能。RSA 只有<strong>乘法同态</strong>，没有加法同态；<span class="mchip"><span class="arithmatex">\(M_0^{e} + M_1^{e}\)</span></span> 通常不等于 <span class="mchip"><span class="arithmatex">\((M_0+M_1)^{e}\)</span></span>。特殊情况和穷举另说，但没有类似的简单代数操作。</p>
+<h3 id="3-fhe">(3) FHE 的用途<a class="headerlink" href="#3-fhe" title="Permanent link">&para;</a></h3>
+<ul>
+<li>把加密数据交给不可信服务器做计算（统计、机器学习、检索）；</li>
+<li>服务器全程看不到明文，只返回加密结果；</li>
+<li>适合医疗、金融、基因等隐私敏感场景。</li>
+</ul>
+<p>一句话：<strong>计算外包，但数据不裸奔。</strong></p>
+<hr />
+<h2 id="9">题目 9 · 签名能不能被“反着用”<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：协议是 Alice 用自己的私钥签 <code>M</code>，发 <code>(M,S)</code>；Bob 用 Alice 公钥验。Trudy 能不能让 Bob 接受一条 Alice 根本没签过的消息？</p>
+<h3 id="1_3">(1) 这个伪造严重吗<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h3>
+<p>Trudy 可以：</p>
+<ol>
+<li>随便选一个 <code>R</code>；</li>
+<li>算 <span class="mchip"><span class="arithmatex">\(N = \{R\}_{\text{Alice}}\)</span></span>（用 Alice 公钥“加密”R）；</li>
+<li>把 <code>(N, R)</code> 发给 Bob；</li>
+<li>Bob 验证 <span class="mchip"><span class="arithmatex">\(\{R\}_{\text{Alice}} = N\)</span></span>，于是认为 <code>N</code> 是 Alice 签的消息。</li>
+</ol>
+<p><strong>这叫什么</strong>：存在性伪造。Trudy 不能自由选择有意义的 <code>N</code>，只能得到“R 的公钥加密结果”；但 Bob 确实接受了一条 Alice 没签过的消息。</p>
+<p><strong>严重吗</strong>：是安全性问题，不只是恶作剧。如果系统会把 <code>N</code> 当命令、金额、文件名来解释，就可能出实际问题；只是“随机消息”限制了它的直接利用。</p>
+<h3 id="2-fm-f">(2) 改成签 <code>F(M)</code> 后，F 要满足什么<a class="headerlink" href="#2-fm-f" title="Permanent link">&para;</a></h3>
+<p>协议变成：</p>
+<div class="arithmatex">\[
+S = [F(M)]_{\text{Alice}}
+\]</div>
+<p>Bob 验证：
+[
+{S}_{\text{Alice}} = F(M)
+]</p>
+<p>Trudy 选 R，算出 <span class="mchip"><span class="arithmatex">\(Y = \{R\}_{\text{Alice}}\)</span></span>，现在她得找一个 <code>M</code> 使 <span class="mchip"><span class="arithmatex">\(F(M) = Y\)</span></span>，才能把 <code>(M,R)</code> 发过去。</p>
+<p>所以 <code>F</code> 必须<strong>单向（preimage-resistant）</strong>：</p>
+<blockquote>
+<p>给定 Y，想反推出 M 使 <span class="mchip"><span class="arithmatex">\(F(M)=Y\)</span></span>，计算上不可行。</p>
+</blockquote>
+<p>这样 Trudy 就没法把任意 Y 变成合法消息。实际中会用抗碰撞的哈希（如 SHA-256）；单向性挡住这个伪造，抗碰撞性防止“换消息”。</p>
+<p><strong>通俗理解</strong>：原来签的是“消息本身”，攻击者可以先把签名值伪装成消息；改成签“消息的指纹”后，攻击者没法从指纹倒推出一个消息。</p>
+<hr />
+<h2 id="10">题目 10 · 哈希碰撞的“保证数”<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：一个哈希输出 n bit，最多有 <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> 种结果。现在想<strong>保证</strong>能找到 10 对不同输入碰撞（不同对可以共用输入），最多需要试多少个不同输入？</p>
+<p><strong>先想清楚</strong>：把 <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> 种输出想成 <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> 个桶。每个输入丢进一个桶；同一个桶里有两个输入，就是一对碰撞。</p>
+<p><strong>答案</strong>：<span class="mchip"><span class="arithmatex">\(2^{n} + 10\)</span></span>。</p>
+<p><strong>为什么</strong></p>
+<ul>
+<li>如果每个桶最多放 1 个，最多只能放 <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> 个输入，一对碰撞都没有；</li>
+<li>再放第 <span class="mchip"><span class="arithmatex">\(2^{n}+1\)</span></span> 个，必然和某个桶里的输入撞上，得到第 1 对；</li>
+<li>之后每多放一个“多出来”的输入，至少再新增一对；</li>
+<li>所以 <span class="mchip"><span class="arithmatex">\(2^{n} + 10\)</span></span> 个输入，至少 10 对。</li>
+</ul>
+<p><strong>为什么不能更少</strong>：<span class="mchip"><span class="arithmatex">\(2^{n} + 9\)</span></span> 时，可以让 9 个桶各放 2 个，其余桶各 1 个；这样总共只有 9 对，不够 10 对。</p>
+<p><strong>容易错</strong>：这里问的是“保证”（最坏情况），不是生日攻击的“期望” <span class="mchip"><span class="arithmatex">\(2^{n/2}\)</span></span>。</p>
+<p><strong>通俗理解</strong>：不是“试很多次大概率撞”，而是“把抽屉塞到一定数量，必然有重复”。</p>
+<hr />
+<h2 id="11">题目 11 · 加密和哈希差在哪<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p><strong>题目</strong>：说说加密和哈希的区别，至少三条。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>加密</th>
+<th>哈希</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>密钥</strong></td>
+<td>通常有密钥</td>
+<td>普通密码学哈希没有密钥</td>
+</tr>
+<tr>
+<td><strong>可逆</strong></td>
+<td>能解密回明文</td>
+<td>单向，回不去</td>
+</tr>
+<tr>
+<td><strong>输出</strong></td>
+<td>密文通常和明文差不多长</td>
+<td>任意长度 → 固定长度</td>
+</tr>
+<tr>
+<td><strong>映射</strong></td>
+<td>固定密钥下应可逆</td>
+<td>多对一，必然有碰撞</td>
+</tr>
+<tr>
+<td><strong>目的</strong></td>
+<td>保密</td>
+<td>完整性/指纹/口令存储</td>
+</tr>
+</tbody>
+</table>
+<p><strong>通俗解释</strong></p>
+<ul>
+<li>加密像“上锁的盒子”：有钥匙就能打开，没钥匙打不开；</li>
+<li>哈希像“指纹”：能用来认人，但不能从指纹把整个人还原出来；</li>
+<li>加密必须可逆（否则收件人看不懂），哈希必须不可逆（否则指纹就没意义了）。</li>
+</ul>
+<p>一句话：加密是“可逆地藏起来”，哈希是“不可逆的指纹”。</p>
+<hr />
+<h2 id="_2">复盘清单<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>题</th>
+<th>关键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>位移 <span class="mchip"><span class="arithmatex">\(13+i\)</span></span>；<code>FSRKIAMS</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="mchip"><span class="arithmatex">\(K=P\oplus C\)</span></span>、<span class="mchip"><span class="arithmatex">\(P=C\oplus K\)</span></span>；<code>tilt</code>、<code>hill</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="mchip"><span class="arithmatex">\(2^{65}\ \text{s} \approx 1.17\times10^{12}\ \text{年}\)</span></span>；<span class="mchip"><span class="arithmatex">\(2^{34}\ \text{s} \approx 544\ \text{年}\)</span></span></td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="mchip"><span class="arithmatex">\(E(K, IV+i)\)</span></span> 把公开 IV 当密钥 → 可恢复 K</td>
+</tr>
+<tr>
+<td>5</td>
+<td>最后一块 <span class="mchip"><span class="arithmatex">\(D(X,K)\oplus C_{n-2}\)</span></span>；前面随便选</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CBC 读要前一块；改块要重算后续；CTR 独立</td>
+</tr>
+<tr>
+<td>7</td>
+<td><span class="mchip"><span class="arithmatex">\(C_0'=C_0\oplus P_1\oplus X\)</span></span> → <span class="mchip"><span class="arithmatex">\(P_1'=X\)</span></span></td>
+</tr>
+<tr>
+<td>8</td>
+<td>RSA 乘法同态；加法不同态；FHE 隐私计算</td>
+</tr>
+<tr>
+<td>9</td>
+<td>存在性伪造；<code>F</code> 要单向/抗碰撞</td>
+</tr>
+<tr>
+<td>10</td>
+<td><span class="mchip"><span class="arithmatex">\(2^{n}+10\)</span></span>；鸽巢；<span class="mchip"><span class="arithmatex">\(2^{n}+9\)</span></span> 不够</td>
+</tr>
+<tr>
+<td>11</td>
+<td>密钥/可逆/定长/多对一</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: 总览">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                总览
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../hw2/" class="md-footer__link md-footer__link--next" aria-label="下一页: 作业二复盘 · 逆向与内存安全">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                作业二复盘 · 逆向与内存安全
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../javascripts/glossary.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

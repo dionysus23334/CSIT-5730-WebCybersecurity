@@ -1,0 +1,2673 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/review/ch7-auth-network/">
+      
+      
+        <link rel="prev" href="../ch6-exploit-sidechannel/">
+      
+      
+        <link rel="next" href="../../hw/">
+      
+      
+        
+          <link rel="alternate" href="../../../review/ch7-auth-network/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 7 · Authentication & Network Security - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-7-authentication-network-security-review-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 7 · Authentication & Network Security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../review/ch7-auth-network/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-two-parts-of-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The two parts of access control ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-the-three-authentication-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 The three authentication factors ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Passwords ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Passwords ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-passwords-are-popular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why passwords are popular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys-vs-passwords-key-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys vs passwords (key computation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-and-bad-passwords-and-passphrases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Good and bad passwords, and passphrases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-attack-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password attack surface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-storage-hashing-salt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password storage: hashing + salt ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-password-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other password issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-biometrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Biometrics ★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Biometrics ★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ideal-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ideal properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrollment-vs-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrollment vs Recognition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-rates-fraud-vs-insult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error rates: fraud vs insult ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biometrics-are-not-foolproof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biometrics are not foolproof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2fa-and-the-have-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 2FA and the "have" factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-network-basics-and-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Network basics and security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Network basics and security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic concepts ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-the-five-layer-protocol-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 The five-layer protocol stack ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Application layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-transport-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Transport layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-network-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Network layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Link layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-attack-surface-summarized-by-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Attack surface summarized by layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-password-entropy-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Password entropy (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-salting-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Salting (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-eer-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: EER (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-syn-flood-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: SYN flood (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-dns-poisoning-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: DNS poisoning (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-arp-poisoning-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: ARP poisoning (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-nat-table-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: NAT table (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-pitfalls-where-marks-are-easiest-to-lose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common pitfalls (where marks are easiest to lose)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-two-parts-of-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The two parts of access control ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-the-three-authentication-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 The three authentication factors ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Passwords ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Passwords ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-passwords-are-popular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why passwords are popular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys-vs-passwords-key-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys vs passwords (key computation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#good-and-bad-passwords-and-passphrases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Good and bad passwords, and passphrases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-attack-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password attack surface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-storage-hashing-salt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password storage: hashing + salt ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-password-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other password issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-biometrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Biometrics ★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Biometrics ★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ideal-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ideal properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrollment-vs-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrollment vs Recognition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-rates-fraud-vs-insult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error rates: fraud vs insult ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biometrics-are-not-foolproof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biometrics are not foolproof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-2fa-and-the-have-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 2FA and the "have" factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-network-basics-and-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Network basics and security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Network basics and security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic concepts ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-the-five-layer-protocol-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 The five-layer protocol stack ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Application layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-transport-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Transport layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-network-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Network layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-link-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Link layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-attack-surface-summarized-by-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Attack surface summarized by layer ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-password-entropy-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Password entropy (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-salting-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Salting (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-eer-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: EER (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-syn-flood-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: SYN flood (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-dns-poisoning-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: DNS poisoning (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-arp-poisoning-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: ARP poisoning (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-nat-table-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: NAT table (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-pitfalls-where-marks-are-easiest-to-lose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common pitfalls (where marks are easiest to lose)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-7-authentication-network-security-review-notes">Chapter 7 · Authentication &amp; Network Security · Review Notes<a class="headerlink" href="#chapter-7-authentication-network-security-review-notes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Matching slides</strong>: <code>w7/authentication.pdf</code>, <code>w7/network-security.pdf</code></p>
+<p><strong>Suggested time</strong>: first pass 90 minutes + worked examples 30 minutes + self-test 30 minutes</p>
+<p><strong>Companion</strong>: Outline §2.11, §2.12</p>
+<p><strong>Weight of this chapter</strong>: authentication factors, password entropy/salting, and biometric error rates are short-answer/computation questions; the network part is almost entirely the mapping "layering + protocol + attack", which suits comprehensive questions.</p>
+</blockquote>
+<hr />
+<h2 id="0-chapter-thread-memorize-these-three-sentences-first">0. Chapter thread (memorize these three sentences first)<a class="headerlink" href="#0-chapter-thread-memorize-these-three-sentences-first" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Access control = authentication (who you are) + authorization (what you can do)</strong>; authentication relies on "something you know / something you have / something you are".</li>
+<li><strong>The weakness of passwords is user choice</strong> (not length itself); <strong>hashing + salt</strong> turns an offline dictionary attack from "one-time precomputation" into "recomputation for every user". Biometrics are hard to forge, but <strong>cannot be revoked</strong>.</li>
+<li><strong>A network is a layered, packet-switched protocol stack</strong>; each layer has its own address and protocols, and its own attack surface: application-layer spoofing, transport-layer DoS, network-layer IP (Internet Protocol)/NAT, link-layer ARP spoofing.</li>
+</ol>
+<p><strong>Common question types in this chapter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question type</th>
+<th>Typical phrasing</th>
+<th>What to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concept discrimination</td>
+<td>Authentication vs authorization; the three factors</td>
+<td>Give 3 examples for each factor</td>
+</tr>
+<tr>
+<td>Computation</td>
+<td>Password entropy, attack volume after salt, EER</td>
+<td>Be able to compute log2; be able to compare</td>
+</tr>
+<tr>
+<td>Protocols</td>
+<td>TCP three-way handshake, DNS resolution, NAT</td>
+<td>Draw the sequence/table</td>
+</tr>
+<tr>
+<td>Attacks</td>
+<td>SYN flood, DNS poisoning, ARP poisoning</td>
+<td>Memorize by "layer + root cause + defense"</td>
+</tr>
+<tr>
+<td>Design</td>
+<td>How to design a secure login / prevent replay</td>
+<td>Combine password + salt + 2FA + rate limiting</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-authentication">1. Authentication<a class="headerlink" href="#1-authentication" title="Permanent link">&para;</a></h2>
+<h3 id="11-the-two-parts-of-access-control">1.1 The two parts of access control ★<a class="headerlink" href="#11-the-two-parts-of-access-control" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Question</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Are you who you say you are?</td>
+<td>Login, fingerprint unlock, certificate verification</td>
+</tr>
+<tr>
+<td><strong>Authorization</strong></td>
+<td>Are you allowed to do that?</td>
+<td>A normal user cannot drop the database; RBAC/ACL</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Authentication can be human-to-machine, and also machine-to-machine (e.g., TLS certificates).</li>
+<li>Authenticate first, authorize second; if authentication fails, you should not reach the authorization check.</li>
+</ul>
+<h3 id="12-the-three-authentication-factors">1.2 The three authentication factors ★★<a class="headerlink" href="#12-the-three-authentication-factors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Meaning</th>
+<th>Example</th>
+<th>Advantage</th>
+<th>Disadvantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Something you know</strong></td>
+<td>Something you know</td>
+<td>Password, PIN, date of birth, mother's maiden name, pet's name</td>
+<td>Free, easy to reset</td>
+<td>Weak, guessable, can leak, can be shared</td>
+</tr>
+<tr>
+<td><strong>Something you have</strong></td>
+<td>Something you have</td>
+<td>Smartcard, ATM card, token, cell phone, MAC address</td>
+<td>Requires physical possession, hard to copy remotely</td>
+<td>Can be lost, needs issuance/management</td>
+</tr>
+<tr>
+<td><strong>Something you are</strong></td>
+<td>Something you are</td>
+<td>Fingerprint, face, voiceprint, signature, gait</td>
+<td>Hard to forge, nothing to remember</td>
+<td>Cannot be revoked, has an error rate, collection needs cooperation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2FA (2-factor authentication)</strong>: any two of the three categories.
+- Example: credit card + signature; ATM card + PIN; password + SMS code.</p>
+<h3 id="13-passwords">1.3 Passwords ★★<a class="headerlink" href="#13-passwords" title="Permanent link">&para;</a></h3>
+<h4 id="why-passwords-are-popular">Why passwords are popular<a class="headerlink" href="#why-passwords-are-popular" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Cost</strong>: passwords are free;</li>
+<li><strong>Convenience</strong>: it is easier to reset a password than to issue a new thumb;</li>
+<li>But the slides quote: "Passwords are one of the biggest practical problems facing security engineers today."</li>
+</ul>
+<h4 id="keys-vs-passwords-key-computation">Keys vs passwords (key computation)<a class="headerlink" href="#keys-vs-passwords-key-computation" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Key</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How it is generated</td>
+<td>Random</td>
+<td>Chosen by a person</td>
+</tr>
+<tr>
+<td>64-bit key</td>
+<td><span class="arithmatex">\(2^{64}\)</span> keys, the attacker tries about <span class="arithmatex">\(2^{63}\)</span></td>
+<td>—</td>
+</tr>
+<tr>
+<td>8 characters, 256 options per character</td>
+<td>Theoretically 256⁸ = <span class="arithmatex">\(2^{64}\)</span></td>
+<td>But users do not choose at random → in practice far less than <span class="arithmatex">\(2^{63}\)</span></td>
+</tr>
+<tr>
+<td>Attack method</td>
+<td>Brute force</td>
+<td><strong>Dictionary attack</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Dictionary attack</strong>: tries only the most likely candidates (dictionary words, mutations, common combinations).</li>
+<li>Example: 8 lowercase letters → 26⁸ ≈ <span class="arithmatex">\(2^{37}\)</span>·⁶; 8 printable characters (95 options) → 95⁸ ≈ <span class="arithmatex">\(2^{52}\)</span>·⁶.</li>
+</ul>
+<h4 id="good-and-bad-passwords-and-passphrases">Good and bad passwords, and passphrases<a class="headerlink" href="#good-and-bad-passwords-and-passphrases" title="Permanent link">&para;</a></h4>
+<p><strong>Bad passwords</strong>: <code>frank</code>, <code>Fido</code>, <code>Password</code>, <code>incorrect</code>, <code>Pikachu</code>, <code>88195277</code>, <code>AustinStamp</code>.
+<strong>Good passwords</strong>: <code>jfIej,43j-EmmL+y</code>, <code>09864376537263</code>, <code>0nceuP0nAt1m8</code>, <code>P0kem0n</code>.</p>
+<p><strong>Passphrase</strong>:</p>
+<ul>
+<li>10–30 letters long, which makes brute force attacks difficult;</li>
+<li>if well chosen, it will not be found in any phrase or quote dictionary;</li>
+<li>structured to be more memorable than a random string.</li>
+</ul>
+<p><strong>Slide experiment (three groups of users)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Requirement</th>
+<th>Share cracked</th>
+<th>Memorability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>At least 6 chars, 1 non-letter</td>
+<td>About <strong>30%</strong></td>
+<td>Average</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Based on a passphrase</td>
+<td>About <strong>10%</strong></td>
+<td>Easy</td>
+</tr>
+<tr>
+<td>C</td>
+<td>8 random characters</td>
+<td>About <strong>10%</strong></td>
+<td>Hard</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Conclusion: <strong>a passphrase is the better trade-off between security and memorability</strong>; complexity requirements of the "add one special character" kind have limited effect.</p>
+</blockquote>
+<h4 id="password-attack-surface">Password attack surface<a class="headerlink" href="#password-attack-surface" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Target one particular account / any account on the system / any account on any system;</li>
+<li><strong>DoS</strong>: repeated wrong entries lock the account (think of the ATM swallowing your card);</li>
+<li><strong>Offline</strong>: dictionary/brute-force attack after obtaining the password hash file;</li>
+<li><strong>Online</strong>: guessing, credential stuffing, phishing, social engineering, keystroke logging;</li>
+<li>Error logs may contain "almost" passwords; default passwords are not changed.</li>
+</ul>
+<h4 id="password-storage-hashing-salt">Password storage: hashing + salt ★★<a class="headerlink" href="#password-storage-hashing-salt" title="Permanent link">&para;</a></h4>
+<p><strong>The problem with hashing only (no salt)</strong></p>
+<ol>
+<li>The attacker precomputes <code>h(x)</code> (for every password in the dictionary) → one-time precomputation, after which comparing hashes breaks passwords in seconds;</li>
+<li>The same password → the same hash → accounts can be identified in bulk.</li>
+</ol>
+<p><strong>Salting (salt)</strong></p>
+<p>Choose a random <span class="arithmatex">\(s\)</span>; store <span class="arithmatex">\((s,\ y = h(\text{password}, s))\)</span>.</p>
+<ul>
+<li><strong>s is not secret</strong>; it can be stored together with y;</li>
+<li>Verification: recompute <code>h(input, s)</code> with the stored s and compare it with y;</li>
+<li>The attacker must <strong>recompute for every user and every salt</strong>, so the precomputed table is useless;</li>
+<li>Cost: the offline attack goes from <code>|D|</code> to <span class="mchip"><span class="arithmatex">\(|D| \times \text{number of users}\)</span></span> (plus the per-call cost of a slow hash).</li>
+</ul>
+<blockquote>
+<p>Modern practice also uses a <strong>slow hash</strong> (bcrypt/scrypt/Argon2) to increase the cost of a single computation; the slides do not elaborate, but you may mention it in an answer.</p>
+</blockquote>
+<h4 id="other-password-issues">Other password issues<a class="headerlink" href="#other-password-issues" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Too many passwords → <strong>reuse</strong> → one leak compromises everything;</li>
+<li>Default passwords are not changed;</li>
+<li>Social engineering;</li>
+<li>Login password vs ATM PIN are mixed up;</li>
+<li>Keystroke logging/spyware;</li>
+<li>Cracking tools: L0phtCrack/LC4 (Windows), John the Ripper (Unix); administrators should proactively audit weak passwords.</li>
+</ul>
+<h3 id="14-biometrics">1.4 Biometrics ★<a class="headerlink" href="#14-biometrics" title="Permanent link">&para;</a></h3>
+<h4 id="ideal-properties">Ideal properties<a class="headerlink" href="#ideal-properties" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Meaning</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Universal</strong></td>
+<td>Applies to (almost) everyone</td>
+<td>No biometric applies to everyone</td>
+</tr>
+<tr>
+<td><strong>Distinguishing</strong></td>
+<td>Distinguishes with certainty</td>
+<td>Cannot hope for 100% certainty</td>
+</tr>
+<tr>
+<td><strong>Permanent</strong></td>
+<td>Never changes over a lifetime</td>
+<td>It is OK if it remains valid for a long time</td>
+</tr>
+<tr>
+<td><strong>Collectable</strong></td>
+<td>Easy to collect the required data</td>
+<td>Depends on whether subjects are cooperative</td>
+</tr>
+<tr>
+<td>Safe, user-friendly</td>
+<td>—</td>
+<td>Must be traded off</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enrollment-vs-recognition">Enrollment vs Recognition<a class="headerlink" href="#enrollment-vs-recognition" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Requirement</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enrollment</strong></td>
+<td>Biometric info is put into the database; may be slow and require repeated measurement; must be <strong>very precise</strong></td>
+<td>The enrollment step may be a weak point (root trust)</td>
+</tr>
+<tr>
+<td><strong>Recognition</strong></td>
+<td>Must be <strong>quick and simple</strong>, yet reasonably accurate</td>
+<td>False rejection/false acceptance</td>
+</tr>
+</tbody>
+</table>
+<h4 id="error-rates-fraud-vs-insult">Error rates: fraud vs insult ★★<a class="headerlink" href="#error-rates-fraud-vs-insult" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Fraud</strong>: the attacker is mis-authenticated as Alice (<strong>the impostor is accepted</strong>).</li>
+<li><strong>Insult</strong>: Alice is not authenticated as Alice (<strong>the genuine user is rejected</strong>).</li>
+<li>The two trade off against each other:</li>
+<li>High threshold (99% match) → low fraud, high insult;</li>
+<li>Low threshold (30% match) → high fraud, low insult.</li>
+<li><strong>EER (Equal Error Rate)</strong>: the threshold point where fraud = insult; used to compare different biometrics, the smaller the better.</li>
+</ul>
+<blockquote>
+<p>⚠ The slides label fraud as "false negative" and insult as "false positive", which is the opposite of the usual terminology; <strong>memorize by the definition</strong>: impostor accepted = fraud, genuine user rejected = insult.</p>
+</blockquote>
+<h4 id="biometrics-are-not-foolproof">Biometrics are not foolproof<a class="headerlink" href="#biometrics-are-not-foolproof" title="Permanent link">&para;</a></h4>
+<ul>
+<li>An attacker can steal a thumb, photocopy a fingerprint/iris, 3D-print a mask;</li>
+<li>An attacker can subvert the software/database/trusted base (TCB);</li>
+<li>There is <strong>no way to revoke</strong> a "leaked" fingerprint — this is the biggest difference from passwords (a password can be changed, a fingerprint cannot).</li>
+</ul>
+<h3 id="15-2fa-and-the-have-factor">1.5 2FA and the "have" factor<a class="headerlink" href="#15-2fa-and-the-have-factor" title="Permanent link">&para;</a></h3>
+<ul>
+<li>2FA: any combination of two categories of factors.</li>
+<li>Examples of "have": car key, laptop (MAC address), password generator, ATM card, smartcard.</li>
+<li>Note: an SMS code counts as "have the phone", but there is a SIM swap/interception risk (the slides do not elaborate).</li>
+</ul>
+<hr />
+<h2 id="2-network-basics-and-security">2. Network basics and security<a class="headerlink" href="#2-network-basics-and-security" title="Permanent link">&para;</a></h2>
+<h3 id="21-basic-concepts">2.1 Basic concepts ★<a class="headerlink" href="#21-basic-concepts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A network = hosts (computer/laptop/server/phone) + an interconnected <strong>mesh of routers</strong>; the purpose is to transmit data.</li>
+<li><strong>Packet switched vs circuit switched</strong>:</li>
+<li>The telephone network is <strong>circuit switched</strong>: for each call a dedicated circuit is established, which wastes bandwidth;</li>
+<li>Data networks are <strong>packet switched</strong>: data is chopped up into packets that are transmitted independently, with no dedicated circuit; more efficient bandwidth usage, but more complex.</li>
+<li><strong>Protocols</strong>: precisely specify the "communication rules"; the details are given in <strong>RFCs</strong> (essentially Internet standards).</li>
+<li><strong>Stateless vs stateful</strong>: stateless protocols do not "remember", stateful ones do; many security problems are related to state (e.g., DoS is a problem with stateful protocols).</li>
+</ul>
+<h3 id="22-the-five-layer-protocol-stack">2.2 The five-layer protocol stack ★★<a class="headerlink" href="#22-the-five-layer-protocol-stack" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Example protocols</th>
+<th>Role</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application</strong></td>
+<td>HTTP, FTP, SMTP, DNS</td>
+<td>Application semantics</td>
+<td>Domain name/URL</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>TCP, UDP</td>
+<td>End-to-end delivery</td>
+<td>Port (16 bit)</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>IP, RIP/OSPF/BGP</td>
+<td>Routing/addressing</td>
+<td>IP (32 bit)</td>
+</tr>
+<tr>
+<td><strong>Link</strong></td>
+<td>Ethernet, PPP, 802.11</td>
+<td>Transfer between adjacent nodes</td>
+<td>MAC (48 bit)</td>
+</tr>
+<tr>
+<td><strong>Physical</strong></td>
+<td>—</td>
+<td>Bit stream</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Layering in action</strong></p>
+<ul>
+<li>At the source, data goes "down" the protocol stack, and each layer adds a header;</li>
+<li>A router processes a packet only "up" to the <strong>network layer</strong> (that is where the routing info lives), then passes it down the stack again;</li>
+<li>The destination processes it "up" to the application layer.</li>
+</ul>
+<p><strong>Encapsulation</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>Application layer: (H, X)
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos">2</span></a>Transport layer: (H, (H, X))
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos">3</span></a>Network layer: (H, (H, (H, X)))
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos">4</span></a>Link layer: (H, (H, (H, (H, X))))
+</code></pre></div>
+<ul>
+<li>The application data is on the "inside"; each layer's header is understood only by the peer layer.</li>
+</ul>
+<h3 id="23-application-layer">2.3 Application layer ★<a class="headerlink" href="#23-application-layer" title="Permanent link">&para;</a></h3>
+<p><strong>HTTP</strong></p>
+<ul>
+<li>Request/response; <strong>HTTP is stateless</strong>.</li>
+<li>The client "speaks first" and the server responds (client-server); in P2P, hosts act as both client and server.</li>
+</ul>
+<p><strong>Cookie</strong></p>
+<ul>
+<li>Initially, the cookie is sent from the server to the browser; the browser stores it and sends it back on later requests;</li>
+<li>The server uses a cookie database to "remember" you (shopping carts, recommendations, sessions);</li>
+<li>A <strong>very (very) weak form of authentication</strong>;</li>
+<li>Privacy concerns: one web site can learn a lot about you, and multiple web sites could learn even more (tracking).</li>
+</ul>
+<p><strong>SMTP</strong></p>
+<ul>
+<li>SMTP is used to deliver email from the sender to the recipient's mail server; then POP3/IMAP/HTTP is used to get the messages.</li>
+<li>The commands are <strong>human readable</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>telnet<span class="w"> </span>server<span class="w"> </span><span class="m">25</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos">2</span></a>HELO<span class="w"> </span>ca.gov
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos">3</span></a>MAIL<span class="w"> </span>FROM:<span class="w"> </span>&lt;arnold@ca.gov&gt;
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos">4</span></a>RCPT<span class="w"> </span>TO:<span class="w"> </span>&lt;stamp@cs.sjsu.edu&gt;
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos">5</span></a>DATA
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos">6</span></a>...
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos">7</span></a>.
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos">8</span></a>QUIT
+</code></pre></div>
+<ul>
+<li>⚔ <strong>Spoofed sender</strong>: <code>MAIL FROM</code> can be written at will → email spoofing.</li>
+<li>Defense: SPF/DKIM/DMARC, authentication (not covered in the slides; supplementary).</li>
+</ul>
+<p><strong>DNS</strong></p>
+<ul>
+<li>Domain name → IP (<code>cse.ust.hk</code> → <code>143.89.41.177</code>); a distributed database.</li>
+<li>Resolution: root → TLD (.hk/.org/.edu) → sub-domain, performed recursively.</li>
+<li>There are only <strong>13 "root" DNS server clusters</strong> worldwide → essentially a single point of failure for the Internet; attacks on root servers have occurred, but did not last long enough.</li>
+<li>⚔ <strong>DNS cache poisoning</strong>: for performance, a server caches translations; if it receives and caches a <strong>false record</strong>, it returns the wrong IP to clients → traffic is diverted to the attacker's machine.</li>
+<li>Defense: DNSSEC, randomizing the query ID/port, 0x20 encoding (not covered in the slides).</li>
+</ul>
+<h3 id="24-transport-layer">2.4 Transport layer ★<a class="headerlink" href="#24-transport-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The network layer offers unreliable, "best effort" delivery; any improved service must be provided by the hosts (transport layer).</li>
+<li><strong>TCP</strong>: reliable, in-order, flow control, connection-oriented (it contacts the server before sending data; a logical connection, not a physical one).</li>
+<li>Header: source/destination port, sequence number, acknowledgment number, flags (ACK/SYN/RST...), window, checksum, urgent pointer; <strong>20 bytes</strong> when there are no options.</li>
+<li><strong>Three-way handshake</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>Client → Server: SYN
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos">2</span></a>Server → Client: SYN-ACK
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos">3</span></a>Client → Server: ACK (and data)
+</code></pre></div>
+<ul>
+<li>⚔ <strong>SYN flooding</strong>:</li>
+<li>Whenever a SYN packet is received, the server remembers this "half-open" connection → this consumes resources (backlog);</li>
+<li>Too many half-open connections → memory/table exhaustion → the server cannot respond to legitimate requests;</li>
+<li>Root cause: <strong>TCP is stateful</strong>.</li>
+<li>Defense: SYN cookies, rate limiting, firewall, shorter timeouts (not covered in the slides).</li>
+<li><strong>UDP</strong>: connectionless, low overhead, no guarantee of reliability/ordering.</li>
+</ul>
+<h3 id="25-network-layer">2.5 Network layer ★<a class="headerlink" href="#25-network-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>IP: best effort; IP runs in every host and every router; routers also run routing protocols (RIP/OSPF/BGP).</li>
+<li>An IPv4 address is <strong>32 bits</strong>, in dotted decimal notation (<code>195.72.180.27</code>, each number between 0 and 255); not enough IP addresses → lots of tricks to extend the address space; a host's IP address can change.</li>
+<li><strong>Socket = IP + port</strong>, uniquely identifies a process Internet-wide.</li>
+<li>The port number is 16 bits; below 1024 are "well-known" ports (HTTP is port 80, POP3 is port 110); above 1024 are dynamic.</li>
+<li><strong>NAT</strong>: use one (or a few) public IP addresses + different port numbers to map multiple internal hosts.</li>
+<li>Advantage: extends the IP address space; (implicitly) hides the internal source addresses.</li>
+<li>Disadvantage: a <strong>DoS attack is still feasible</strong>; it breaks end-to-end transparency.</li>
+<li>Example: internal <code>192.168.0.12:1025</code> ↔ public <code>11.0.0.1:4000</code>, with the NAT table maintaining the mapping.</li>
+<li>⚔ <strong>Ping flood / Ping of Death</strong>: abuse the ping command (ICMP echo request/reply); a large volume of ICMP packets overwhelms the victim; before you PoD a host, you may saturate your own bandwidth first.</li>
+</ul>
+<h3 id="26-link-layer">2.6 Link layer ★<a class="headerlink" href="#26-link-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Implemented in the adapter, the Network Interface Card (NIC); the NIC is "semi-autonomous" and (mostly) out of the host's control; it implements both the link and physical layers.</li>
+<li><strong>MAC address</strong>: 48 bits, globally unique; used to forward packets over one link.</li>
+<li>Analogy: an IP address is like your home address, a MAC address is like a social security number.</li>
+<li><strong>ARP</strong>: given an IP address, find the corresponding MAC address; each host has an ARP table, or ARP cache, which is generated automatically and whose entries expire after about <strong>20 min</strong>; ARP is <strong>stateless</strong>.</li>
+<li>⚔ <strong>ARP cache poisoning</strong>:</li>
+<li>The attacker actively sends a forged ARP reply ("the MAC address of 111.111.111.002 is CC-CC-...");</li>
+<li>Both caches are poisoned → traffic goes through the attacker → <strong>man-in-the-middle</strong>.</li>
+<li>Defense: static ARP, DAI (Dynamic ARP Inspection), encryption (not covered in the slides).</li>
+</ul>
+<h3 id="27-attack-surface-summarized-by-layer">2.7 Attack surface summarized by layer ★<a class="headerlink" href="#27-attack-surface-summarized-by-layer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Attack</th>
+<th>Root cause</th>
+<th>Defense direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>SMTP spoofing</td>
+<td>No sender authentication</td>
+<td>SPF/DKIM/DMARC</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>DNS poisoning</td>
+<td>Caching + no signatures</td>
+<td>DNSSEC, randomization</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>Cookie privacy</td>
+<td>Cross-site tracking</td>
+<td>Privacy policy, isolation</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>SYN flood</td>
+<td>TCP is stateful</td>
+<td>SYN cookies, rate limiting</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>IP spoofing, Ping flood</td>
+<td>No source authentication, ICMP abuse</td>
+<td>Ingress filtering, rate limiting</td>
+</tr>
+<tr>
+<td>Link</td>
+<td>ARP poisoning</td>
+<td>ARP is stateless and unauthenticated</td>
+<td>Static ARP, DAI</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-worked-examples">3. Worked examples<a class="headerlink" href="#3-worked-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-password-entropy-8-points">Example 1: Password entropy (8 points)<a class="headerlink" href="#example-1-password-entropy-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: For an 8-character password chosen at random from 26 lowercase letters, from 95 printable characters, and from 256 bytes respectively, what is the entropy in bits in each case? Why is the actual strength far below this?</p>
+<p><strong>Solution</strong>:
+- 26⁸: <span class="mchip"><span class="arithmatex">\(8\times\log_2(26) \approx 8\times4.70 = 37.6\ \text{bit}\)</span></span>
+- 95⁸: <span class="mchip"><span class="arithmatex">\(8\times\log_2(95) \approx 8\times6.57 = 52.6\ \text{bit}\)</span></span>
+- 256⁸: <span class="mchip"><span class="arithmatex">\(8\times8 = 64\ \text{bit}\)</span></span>
+- In practice users do not choose at random and use dictionary words/mutations → the attacker uses a dictionary attack, and the actual search space is far smaller than the theoretical value.</p>
+<h3 id="example-2-salting-8-points">Example 2: Salting (8 points)<a class="headerlink" href="#example-2-salting-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: The dictionary size is 10⁸ and the system has 10⁴ users. With no salt and with salt (an independent salt per user), what order of magnitude does the attacker need to crack all passwords offline in each case?</p>
+<p><strong>Solution</strong>:
+- No salt: precompute 10⁸ hashes, shared by all users → <strong>10⁸</strong>.
+- With salt: every user and every salt must be recomputed → <strong>10⁸ × 10⁴ = 10¹²</strong>.
+- If a slow hash is added on top (0.1 second each), the cost is multiplied by the time factor.</p>
+<h3 id="example-3-eer-8-points">Example 3: EER (8 points)<a class="headerlink" href="#example-3-eer-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: After a fingerprint system raises its threshold, fraud drops to 1% and insult rises to 10%. Explain why, and explain the meaning of EER.</p>
+<p><strong>Solution</strong>:
+- A higher threshold = harder to pass → an impostor is less likely to be accepted (fraud↓), but a legitimate user is also more likely to be rejected (insult↑).
+- The two trade off as the threshold changes; EER is the point where fraud=insult, used to compare different biometrics/systems (the smaller the better).</p>
+<h3 id="example-4-syn-flood-10-points">Example 4: SYN flood (10 points)<a class="headerlink" href="#example-4-syn-flood-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: Describe the process of a SYN flood. Why is the root cause "TCP is stateful"?</p>
+<p><strong>Solution</strong>:
+1. The attacker sends a large number of SYN packets (the source IP can be spoofed);
+2. The server allocates a half-open connection (a backlog table entry) for each SYN and replies with SYN-ACK;
+3. The attacker does not reply with ACK → the table entries are used up;
+4. New legitimate SYN packets cannot enter the queue → denial of service.
+- Root cause: the server must <strong>remember</strong> the state of every half-open connection; state resources are limited.
+- Defense: SYN cookies (store no state, encode the information into the sequence number), rate limiting, shorter timeouts.</p>
+<h3 id="example-5-dns-poisoning-10-points">Example 5: DNS poisoning (10 points)<a class="headerlink" href="#example-5-dns-poisoning-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: How can an attacker make a user who visits <code>www.bank.com</code> be directed to the attacker's own server?</p>
+<p><strong>Solution</strong>:
+1. The attacker sends a forged response (matching the query ID/port) to the recursive DNS server, claiming that the A record of <code>www.bank.com</code> is the attacker's IP;
+2. The recursive server <strong>caches</strong> the false record (within the TTL);
+3. After that, every user who queries that domain name receives the false IP;
+4. The user connects to the attacker's server (which can phish/act as a man-in-the-middle).
+- Defense: DNSSEC (signatures), randomizing the query ID/port, limiting caching.</p>
+<h3 id="example-6-arp-poisoning-10-points">Example 6: ARP poisoning (10 points)<a class="headerlink" href="#example-6-arp-poisoning-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: How can an attacker become a man-in-the-middle between Alice and the gateway on the same LAN?</p>
+<p><strong>Solution</strong>:
+1. The attacker sends Alice a forged ARP reply: "the MAC address of the gateway IP is my MAC";
+2. It sends the gateway a forged ARP reply: "the MAC address of Alice's IP is my MAC";
+3. Both ARP caches are poisoned, and all traffic is sent to the attacker;
+4. The attacker forwards (or tampers with) the traffic → man-in-the-middle.
+- Root cause: ARP is stateless and unauthenticated; the cache is updated as soon as a reply arrives.
+- Defense: static ARP, DAI, port security.</p>
+<h3 id="example-7-nat-table-8-points">Example 7: NAT table (8 points)<a class="headerlink" href="#example-7-nat-table-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: The internal host <code>192.168.0.12:1025</code> accesses <code>12.0.0.1:80</code>; the NAT public address is <code>11.0.0.1</code> and the mapped port is 4000. Write down the source/destination addresses before and after NAT.</p>
+<p><strong>Solution</strong>:
+- Outbound: <code>src=192.168.0.12:1025, dst=12.0.0.1:80</code> → <code>src=11.0.0.1:4000, dst=12.0.0.1:80</code>;
+- NAT table: <code>4000 ↔ 192.168.0.12:1025</code>;
+- Return direction: <code>src=12.0.0.1:80, dst=11.0.0.1:4000</code> → <code>src=12.0.0.1:80, dst=192.168.0.12:1025</code>.</p>
+<hr />
+<h2 id="4-common-pitfalls-where-marks-are-easiest-to-lose">4. Common pitfalls (where marks are easiest to lose)<a class="headerlink" href="#4-common-pitfalls-where-marks-are-easiest-to-lose" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication = authorization</td>
+<td>Authentication confirms identity; authorization decides permissions</td>
+</tr>
+<tr>
+<td>2FA = two passwords</td>
+<td>It must be <strong>two different categories of factors</strong> (know/have/are)</td>
+</tr>
+<tr>
+<td>A longer password is always stronger</td>
+<td>Predictable user choice destroys entropy; <code>P@ssw0rd!</code> is still in the dictionary</td>
+</tr>
+<tr>
+<td>Hashing a password makes it safe</td>
+<td>Without salt you can precompute/compare in bulk; you need salt + a slow hash</td>
+</tr>
+<tr>
+<td>The salt must be kept secret</td>
+<td>The salt does not need to be secret, it only needs to be unique/random</td>
+</tr>
+<tr>
+<td>A biometric can "change the password"</td>
+<td>Biometrics <strong>cannot be revoked</strong>; once leaked they cannot be replaced</td>
+</tr>
+<tr>
+<td>fraud = the genuine user is rejected</td>
+<td>fraud = the impostor is accepted; insult = the genuine user is rejected (the slides label them the other way round; memorize by definition)</td>
+</tr>
+<tr>
+<td>TCP is a "true connection"</td>
+<td>It is only a logical connection; the underlying layer is still packets</td>
+</tr>
+<tr>
+<td>UDP is unreliable, so it is useless</td>
+<td>DNS, video, games, etc. use UDP to gain low latency</td>
+</tr>
+<tr>
+<td>NAT prevents DoS</td>
+<td>NAT does not prevent DoS; it only extends addresses/hides the source</td>
+</tr>
+<tr>
+<td>ARP is a layer-3 protocol</td>
+<td>ARP sits between the link layer and the network layer and maps IP→MAC</td>
+</tr>
+<tr>
+<td>DNS has only 13 physical servers</td>
+<td>There are 13 <strong>root server clusters</strong> (multiple anycast instances)</td>
+</tr>
+<tr>
+<td>Cookie is an authentication mechanism</td>
+<td>It is only state management; its authentication power is very weak</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-self-test-do-it-first-then-check-the-answers">5. Self-test (do it first, then check the answers)<a class="headerlink" href="#5-self-test-do-it-first-then-check-the-answers" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What is the difference between authentication and authorization? Give three examples for each of the three authentication factors.</li>
+<li>Why is a 64-bit random key stronger than an 8-character password? What affects the entropy of a password?</li>
+<li>What is a dictionary attack? Why is it more effective than brute force?</li>
+<li>What advantage does a passphrase have over a "complex password"? What did the slide experiment show?</li>
+<li>What is wrong with hashed passwords without salt? How does salt fix it? Does the salt need to be kept secret?</li>
+<li>What are the four ideal properties of a biometric? What is the difference between enrollment and recognition?</li>
+<li>What are fraud and insult respectively? What is the meaning of EER?</li>
+<li>Why is "biometrics cannot be revoked" a fundamental problem?</li>
+<li>Draw the five-layer protocol stack and give two protocols for each layer.</li>
+<li>What is encapsulation? Up to which layer does a router process a packet?</li>
+<li>Why does HTTP need cookies? What is the privacy risk of cookies?</li>
+<li>How is SMTP spoofed? What are the steps of DNS cache poisoning?</li>
+<li>What is the TCP three-way handshake? What is the root cause of a SYN flood and how do you defend against it?</li>
+<li>What makes up a socket? What are the advantages and disadvantages of NAT?</li>
+<li>How does ARP poisoning create a man-in-the-middle? How do you mitigate it?</li>
+</ol>
+<h3 id="answers">Answers<a class="headerlink" href="#answers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Authentication confirms "who you are"; authorization decides "what you can do". Know: password/PIN/date of birth; have: smartcard/token/cell phone; are: fingerprint/face/voiceprint.</li>
+<li>A key is generated at random, so it has full entropy; a password is chosen by a person and is affected by dictionaries/patterns/reuse, so its actual entropy is far below the theoretical value for its length.</li>
+<li>Try only the most likely candidates (dictionary words, mutations); because user choices follow patterns, the hit rate is high, far better than brute-forcing <span class="arithmatex">\(2^{64}\)</span>.</li>
+<li>Longer, easy to remember, and unlikely to be hit by a dictionary; in the experiment, the passphrase group had a 10% crack rate and was easy to remember, while the complex-rule group had 30%.</li>
+<li>Precomputation, the same hash for the same password, and bulk cracking; the salt makes each user's hash unique, so the attacker must recompute user by user; the salt does not need to be secret.</li>
+<li>Universal, Distinguishing, Permanent, Collectable (+ safe/friendly). Enrollment is putting the info into the database (may be slow, must be precise); Recognition is the actual detection (must be quick and accurate).</li>
+<li>fraud: the impostor is accepted; insult: the genuine user is rejected. EER is the point where the two are equal, used to compare systems, the smaller the better.</li>
+<li>A leaked password can be changed, but a fingerprint/iris cannot be replaced; once leaked it is unusable for life.</li>
+<li>Application (HTTP/SMTP), transport (TCP/UDP), network (IP/BGP), link (Ethernet/ARP), physical.</li>
+<li>Each layer adds a header, with the application data on the inside; a router processes up to the network layer.</li>
+<li>HTTP is stateless, so cookies are used for sessions/shopping carts/recommendations; cross-site tracking and privacy leaks; weak authentication power.</li>
+<li>SMTP's MAIL FROM can be written arbitrarily; DNS poisoning: forged response → the recursive server caches the false record → the wrong IP is returned.</li>
+<li>SYN → SYN-ACK → ACK; the server keeps state for half-open connections, and when the table is full it denies service; defense: SYN cookies, rate limiting, shorter timeouts.</li>
+<li>IP + port; NAT extends addresses and hides the internal network, but it breaks end-to-end and DoS is still feasible.</li>
+<li>Forged ARP replies poison both caches so traffic goes through the attacker; defense: static ARP, DAI, port security.</li>
+</ol>
+<hr />
+<h2 id="6-pre-exam-quick-reference-card">6. Pre-exam quick-reference card<a class="headerlink" href="#6-pre-exam-quick-reference-card" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access control</td>
+<td>Authentication (who you are) + authorization (what you can do)</td>
+</tr>
+<tr>
+<td>Three factors</td>
+<td>know / have / are</td>
+</tr>
+<tr>
+<td>2FA</td>
+<td>Any two categories of factors</td>
+</tr>
+<tr>
+<td>Key vs password</td>
+<td><span class="arithmatex">\(2^{64}\)</span> vs user choice → dictionary attack</td>
+</tr>
+<tr>
+<td>Password experiment</td>
+<td>Complex rules 30%; passphrase 10% and easy to remember; random 10% and hard to remember</td>
+</tr>
+<tr>
+<td>salt</td>
+<td>Random, not secret, unique per user; attack volume × number of users</td>
+</tr>
+<tr>
+<td>Biometrics</td>
+<td>Universal/Distinguishing/Permanent/Collectable</td>
+</tr>
+<tr>
+<td>fraud/insult</td>
+<td>Impostor accepted / genuine user rejected; EER is the equal point</td>
+</tr>
+<tr>
+<td>Five layers</td>
+<td>application/transport/network/link/physical</td>
+</tr>
+<tr>
+<td>Encapsulation</td>
+<td>Each layer adds a header, data is on the inside</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Stateless; cookies add state; weak authentication; privacy</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>Plaintext commands; MAIL FROM can be spoofed</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>13 root clusters; cache poisoning</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Reliable/in-order/flow control/connection-oriented; 20B header; three-way handshake</td>
+</tr>
+<tr>
+<td>SYN flood</td>
+<td>Half-open connections exhaust the backlog; the root cause is statefulness</td>
+</tr>
+<tr>
+<td>IP/socket</td>
+<td>32-bit IP; IP + 16-bit port</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>Address reuse; hides the internal network; does not prevent DoS</td>
+</tr>
+<tr>
+<td>MAC/ARP</td>
+<td>48-bit MAC; ARP cache ~20 min; can be poisoned</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ch6-exploit-sidechannel/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Chapter 6 · Software Exploitation II &amp; Side Channels">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Chapter 6 · Software Exploitation II & Side Channels
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../hw/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

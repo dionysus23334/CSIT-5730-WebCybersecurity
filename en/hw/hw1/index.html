@@ -1,0 +1,2016 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/hw/hw1/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../hw2/">
+      
+      
+        
+          <link rel="alternate" href="../../../hw/hw1/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Homework 1 · Cryptography Foundations - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#homework-1-cryptography-foundations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Homework 1 · Cryptography Foundations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../hw/hw1/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-a-caesar-cipher-that-moves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1 · A Caesar cipher that "moves"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-running-otp-backwards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2 · Running OTP backwards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2 · Running OTP backwards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-finding-the-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Finding the key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-finding-the-plaintext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Finding the plaintext
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-how-long-brute-force-key-search-takes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3 · How long brute-force key search takes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3 · How long brute-force key search takes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-80-bit-worst-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 80-bit, worst case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-50-bit-average-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 50-bit, average case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-is-this-ctr-formula-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4 · Is this CTR formula sound?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-with-a-mac-and-the-key-can-you-build-a-new-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5 · With a MAC and the key, can you build a new message?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-6-can-cbc-do-random-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6 · Can CBC do random access?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-7-replacing-p1-with-x-in-cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 7 · Replacing P1 with X in CBC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-8-the-rsa-homomorphism-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 8 · The RSA homomorphism trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 8 · The RSA homomorphism trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-uses-of-fhe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Uses of FHE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-9-can-a-signature-be-used-backwards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 9 · Can a signature be "used backwards"?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 9 · Can a signature be &#34;used backwards&#34;?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-is-this-forgery-serious" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Is this forgery serious?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-after-switching-to-signing-fm-what-must-f-satisfy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) After switching to signing F(M), what must F satisfy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-10-the-guaranteed-number-for-hash-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 10 · The "guaranteed" number for hash collisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-11-how-encryption-and-hashing-differ" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 11 · How encryption and hashing differ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-a-caesar-cipher-that-moves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1 · A Caesar cipher that "moves"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-running-otp-backwards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2 · Running OTP backwards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2 · Running OTP backwards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-finding-the-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Finding the key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-finding-the-plaintext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Finding the plaintext
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-how-long-brute-force-key-search-takes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3 · How long brute-force key search takes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3 · How long brute-force key search takes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-80-bit-worst-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 80-bit, worst case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-50-bit-average-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) 50-bit, average case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-is-this-ctr-formula-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4 · Is this CTR formula sound?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-with-a-mac-and-the-key-can-you-build-a-new-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5 · With a MAC and the key, can you build a new message?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-6-can-cbc-do-random-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6 · Can CBC do random access?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-7-replacing-p1-with-x-in-cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 7 · Replacing P1 with X in CBC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-8-the-rsa-homomorphism-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 8 · The RSA homomorphism trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 8 · The RSA homomorphism trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-multiplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Multiplication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-uses-of-fhe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Uses of FHE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-9-can-a-signature-be-used-backwards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 9 · Can a signature be "used backwards"?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 9 · Can a signature be &#34;used backwards&#34;?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-is-this-forgery-serious" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Is this forgery serious?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-after-switching-to-signing-fm-what-must-f-satisfy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) After switching to signing F(M), what must F satisfy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-10-the-guaranteed-number-for-hash-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 10 · The "guaranteed" number for hash collisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-11-how-encryption-and-hashing-differ" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 11 · How encryption and hashing differ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="homework-1-cryptography-foundations">Homework 1 · Cryptography Foundations<a class="headerlink" href="#homework-1-cryptography-foundations" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>The question stems are <strong>desensitized restatements</strong>, not the original assignment wording; the answers explain the reasoning in plain language as far as possible.</p>
+<p>For review only — do not submit directly; the copyright of the course assignment and its answers belongs to the instructor.</p>
+</blockquote>
+<hr />
+<h2 id="problem-1-a-caesar-cipher-that-moves">Problem 1 · A Caesar cipher that "moves"<a class="headerlink" href="#problem-1-a-caesar-cipher-that-moves" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: an ordinary Caesar cipher shifts every letter by the same number of positions. Now change the rule: the 1st letter shifts by 13, the 2nd by 14, the 3rd by 15, and so on — each following letter shifts 1 more. Use the alphabet A–Z, wrapping around from Z to A. Encrypt <code>SECURITY</code>.</p>
+<p><strong>Think it through first</strong></p>
+<ul>
+<li>Number the letters: <span class="mchip"><span class="arithmatex">\(A=0,\ B=1,\ \ldots,\ Z=25\)</span></span>;</li>
+<li>the i-th letter (i starting from 0) shifts by <span class="mchip"><span class="arithmatex">\(13+i\)</span></span> positions;</li>
+<li>if the result exceeds 25, subtract 26 (equivalent to <span class="mchip"><span class="arithmatex">\(\bmod 26\)</span></span>).</li>
+</ul>
+<p><strong>Step-by-step calculation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Plaintext</th>
+<th>Value</th>
+<th>Shift</th>
+<th>Result</th>
+<th>Ciphertext</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>S</td>
+<td>18</td>
+<td>13</td>
+<td>31 → 5</td>
+<td><strong>F</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>E</td>
+<td>4</td>
+<td>14</td>
+<td>18</td>
+<td><strong>S</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>C</td>
+<td>2</td>
+<td>15</td>
+<td>17</td>
+<td><strong>R</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>U</td>
+<td>20</td>
+<td>16</td>
+<td>36 → 10</td>
+<td><strong>K</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>R</td>
+<td>17</td>
+<td>17</td>
+<td>34 → 8</td>
+<td><strong>I</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>I</td>
+<td>8</td>
+<td>18</td>
+<td>26 → 0</td>
+<td><strong>A</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>T</td>
+<td>19</td>
+<td>19</td>
+<td>38 → 12</td>
+<td><strong>M</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Y</td>
+<td>24</td>
+<td>20</td>
+<td>44 → 18</td>
+<td><strong>S</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The ciphertext is <strong><code>FSRKIAMS</code></strong>.</p>
+<p><strong>Why this is not an ordinary Caesar cipher</strong>: an ordinary Caesar cipher's "key" is a single number; here the shift is different at every position, which amounts to the key being a sequence of numbers <span class="mchip"><span class="arithmatex">\(13,14,15,\ldots\)</span></span>.</p>
+<p><strong>Common mistake</strong>: the 8th letter shifts by 20, not 13; <span class="mchip"><span class="arithmatex">\(Y(24)+20=44\)</span></span>, <span class="mchip"><span class="arithmatex">\(44-26=18\)</span></span>, which is S.</p>
+<hr />
+<h2 id="problem-2-running-otp-backwards">Problem 2 · Running OTP backwards<a class="headerlink" href="#problem-2-running-otp-backwards" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: the same 3-bit encoding: <code>e=000, f=001, h=010, i=011, k=100, l=101, r=110, t=111</code>. The OTP rule is <span class="mchip"><span class="arithmatex">\(C = P \oplus K\)</span></span>.</p>
+<ol>
+<li>Given the plaintext <code>hike</code> and the ciphertext <code>left</code>, find the key.</li>
+<li>Given the key <code>keel</code> and the ciphertext <code>rile</code>, find the plaintext.</li>
+</ol>
+<p><strong>Think it through first</strong>: XOR has a nice property — XOR the same thing twice and you get it back. So:</p>
+<ul>
+<li>to find the key: <span class="mchip"><span class="arithmatex">\(K = P \oplus C\)</span></span>;</li>
+<li>to find the plaintext: <span class="mchip"><span class="arithmatex">\(P = C \oplus K\)</span></span>.</li>
+</ul>
+<h3 id="1-finding-the-key">(1) Finding the key<a class="headerlink" href="#1-finding-the-key" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Characters</th>
+<th>Bits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plaintext</td>
+<td>h i k e</td>
+<td>010 011 100 000</td>
+</tr>
+<tr>
+<td>Ciphertext</td>
+<td>l e f t</td>
+<td>101 000 001 111</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td><strong>t i l t</strong></td>
+<td><strong>111 011 101 111</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The key is <strong><code>tilt</code></strong>.</p>
+<h3 id="2-finding-the-plaintext">(2) Finding the plaintext<a class="headerlink" href="#2-finding-the-plaintext" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Characters</th>
+<th>Bits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ciphertext</td>
+<td>r i l e</td>
+<td>110 011 101 000</td>
+</tr>
+<tr>
+<td>Key</td>
+<td>k e e l</td>
+<td>100 000 000 101</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td><strong>h i l l</strong></td>
+<td><strong>010 011 101 101</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The plaintext is <strong><code>hill</code></strong>.</p>
+<p><strong>In plain terms</strong>: OTP just "mixes" the plaintext and the key together; if you know two of them, you can "mix" the third one back out with XOR.</p>
+<p><strong>Common mistake</strong>: in the table <code>i=011</code> and <code>l=101</code>, so do not read them off by row; the XOR result has to be mapped back in groups of 3 bits.</p>
+<hr />
+<h2 id="problem-3-how-long-brute-force-key-search-takes">Problem 3 · How long brute-force key search takes<a class="headerlink" href="#problem-3-how-long-brute-force-key-search-takes" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: suppose one machine can try <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span> keys per second.</p>
+<ol>
+<li>An 80-bit key, worst case: how long does it take?</li>
+<li>A 50-bit key, average case: how long does it take?</li>
+</ol>
+<p><strong>Think it through first</strong></p>
+<ul>
+<li>an n-bit key has <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> possible values;</li>
+<li>the worst case requires trying all of them;</li>
+<li>on average only half are needed, that is <span class="mchip"><span class="arithmatex">\(2^{n-1}\)</span></span>;</li>
+<li>the machine tries <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span> per second, so the number of seconds = number of attempts ÷ <span class="mchip"><span class="arithmatex">\(2^{15}\)</span></span>.</li>
+</ul>
+<h3 id="1-80-bit-worst-case">(1) 80-bit, worst case<a class="headerlink" href="#1-80-bit-worst-case" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\frac{2^{80}}{2^{15}} = 2^{65}\ \text{seconds}
+\]</div>
+<p>One year is about <span class="mchip"><span class="arithmatex">\(3.1536\times10^{7}\)</span></span> seconds, so:</p>
+<div class="arithmatex">\[
+\frac{2^{65}}{3.1536\times10^{7}} \approx 1.17\times10^{12}\ \text{years}
+\]</div>
+<p>About <strong>1.17 trillion years</strong>.</p>
+<h3 id="2-50-bit-average-case">(2) 50-bit, average case<a class="headerlink" href="#2-50-bit-average-case" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{2^{49}}{2^{15}} &amp;= 2^{34}\ \text{seconds}\\
+\frac{2^{34}}{3.1536\times10^{7}} &amp;\approx 544\ \text{years}
+\end{aligned}
+\]</div>
+<p>About <strong>544 years</strong>.</p>
+<p><strong>In plain terms</strong>: each extra key bit doubles the work factor; 80-bit has 30 bits more than 50-bit, which is a factor of <span class="mchip"><span class="arithmatex">\(2^{30}\)</span></span> more (about 1 billion times).</p>
+<p><strong>Common mistake</strong>: the average case uses <span class="mchip"><span class="arithmatex">\(2^{49}\)</span></span>, not <span class="mchip"><span class="arithmatex">\(2^{50}\)</span></span>; do not treat "seconds" as "years" directly.</p>
+<hr />
+<h2 id="problem-4-is-this-ctr-formula-sound">Problem 4 · Is this CTR formula sound?<a class="headerlink" href="#problem-4-is-this-ctr-formula-sound" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: normal CTR is <span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span></span>. Someone writes it as:</p>
+<div class="arithmatex">\[
+C_i = P_i \oplus E(K, IV+i)
+\]</div>
+<p>Note that this is <span class="mchip"><span class="arithmatex">\(E(\text{plaintext}, \text{key})\)</span></span>: <code>K</code> is put in the "plaintext" position, and <code>IV+i</code> becomes the "key" instead. Is this secure?</p>
+<p><strong>First look at the argument positions</strong></p>
+<ul>
+<li>Normal form: take <code>IV+i</code> as the plaintext and <code>K</code> as the key, encrypt to get a keystream, then XOR it with <code>P_i</code>;</li>
+<li>This form: take <code>K</code> as the plaintext and <code>IV+i</code> as the key, encrypt something, then XOR.</li>
+</ul>
+<p>The problem is that <strong><code>IV</code> is public</strong>. So the "key" used for encryption is public, while the real key <code>K</code> is encrypted as the plaintext.</p>
+<p><strong>Attack: one known plaintext/ciphertext pair recovers K</strong></p>
+<ol>
+<li>From <span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(K, IV+i)\)</span></span>, XOR both sides with <code>P_i</code>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>P_i ⊕ C_i = E(K, IV+i)
+</code></pre></div></li>
+<li>The right-hand side is "encrypting <code>K</code> with the public <code>IV+i</code> as the key";</li>
+<li>The attacker knows the key <code>IV+i</code>, so she just decrypts:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>K = D(P_i ⊕ C_i, IV+i)
+</code></pre></div></li>
+<li>Once she has K, every block can be decrypted:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a>P_j = C_j ⊕ E(K, IV+j)
+</code></pre></div></li>
+</ol>
+<p><strong>Conclusion</strong>: not secure. "K appears in the code" does not make it secure; what matters is whether K sits in the "plaintext" or the "key" position.</p>
+<p><strong>In plain terms</strong>: this is like treating the safe's key as the thing to be locked up, while the key to the lock is hanging on the door.</p>
+<hr />
+<h2 id="problem-5-with-a-mac-and-the-key-can-you-build-a-new-message">Problem 5 · With a MAC and the key, can you build a new message?<a class="headerlink" href="#problem-5-with-a-mac-and-the-key-can-you-build-a-new-message" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: CBC-MAC works like this:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= E(IV \oplus P_0, K)\\
+C_i &amp;= E(C_{i-1} \oplus P_i, K)\\
+MAC &amp;= C_{n-1}
+\end{aligned}
+\]</div>
+<p>Now you know the MAC value <code>X</code> and you also know the key <code>K</code>, but not the original message. Can you assemble a new message whose MAC is still <code>X</code>? How many blocks are you free to choose?</p>
+<p><strong>Think it through first</strong>: the MAC is the final ciphertext block. The final block is determined by "the previous chaining value" and "the final plaintext block". Since you know K, you can work backwards: to make the final result X, what should the final plaintext block be?</p>
+<p><strong>Construction</strong></p>
+<ol>
+<li>Choose the first <span class="mchip"><span class="arithmatex">\(n-1\)</span></span> blocks <span class="mchip"><span class="arithmatex">\(P_0,\ldots,P_{n-2}\)</span></span> freely;</li>
+<li>Compute <span class="mchip"><span class="arithmatex">\(C_{n-2}\)</span></span> along the CBC chain;</li>
+<li>Set the final block to:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a>P_{n-1} = D(X, K) ⊕ C_{n-2}
+</code></pre></div></li>
+<li>Verify:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos">1</span></a>MAC = E(P_{n-1} ⊕ C_{n-2}, K)
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos">2</span></a>    = E(D(X,K), K)
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos">3</span></a>    = X
+</code></pre></div></li>
+</ol>
+<p><strong>Answer</strong>: yes. Apart from the final block, all earlier blocks can be chosen freely; the final block is uniquely determined by the prefix, the IV, K, and the target MAC.</p>
+<p><strong>In plain terms</strong>: a MAC is like "the final seal". If you know how the seal is made (K), you can arrange the earlier content however you like and then work backwards to the final block, so that the seal looks the same.</p>
+<p><strong>One more thing</strong>: this also shows that a MAC cannot resist forgery by someone who knows the key; it is not a digital signature.</p>
+<hr />
+<h2 id="problem-6-can-cbc-do-random-access">Problem 6 · Can CBC do random access?<a class="headerlink" href="#problem-6-can-cbc-do-random-access" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: CBC chains one block onto another. If you want to read only block i, what do you need? Compared with CTR, is it more trouble to change one block at random?</p>
+<p><strong>Reading one block</strong></p>
+<div class="arithmatex">\[
+P_i = D(C_i, K) \oplus C_{i-1}
+\]</div>
+<ul>
+<li>You need <code>C_i</code> and the preceding block <code>C_{i-1}</code>;</li>
+<li>Block 0 has no "preceding block", so the IV takes its place.</li>
+</ul>
+<p>So random reads are possible in CBC, you just have to fetch one extra ciphertext block.</p>
+<p><strong>Changing one block?</strong></p>
+<ul>
+<li>CBC: changing <code>P_i</code> changes <code>C_i</code>; <code>C_i</code> is also the input to the next block, so all later chaining values change. To keep the later plaintext intact, all ciphertext from i onward must be recomputed.</li>
+<li>CTR: <span class="mchip"><span class="arithmatex">\(C_{i} = P_{i} \oplus E(IV+i, K)\)</span></span>, each block is independent; changing one block does not affect the others.</li>
+</ul>
+<p><strong>Conclusion</strong>: CBC suits sequential reads and writes; random reads are fine, but random writes/updates are expensive. CTR is better suited to random access.</p>
+<p><strong>In plain terms</strong>: CBC is like dominoes — knock one over and the rest fall with it; CTR is like a row of independent lamps — switching one off does not affect the others.</p>
+<hr />
+<h2 id="problem-7-replacing-p1-with-x-in-cbc">Problem 7 · Replacing P1 with X in CBC<a class="headerlink" href="#problem-7-replacing-p1-with-x-in-cbc" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: Alice sends 4 ciphertext blocks and the IV using CBC. Trudy can change the ciphertext in transit. If she knows <code>P1</code>, can she make the <code>P1</code> that Bob decrypts become <code>X</code>?</p>
+<p><strong>First look at the decryption formula</strong></p>
+<div class="arithmatex">\[
+P_1 = D(C_1, K) \oplus C_0
+\]</div>
+<p>To make <code>P1</code> become <code>X</code>, you need <span class="mchip"><span class="arithmatex">\(D(C_1,K) \oplus C_0'\)</span></span> to equal <code>X</code>. <code>D(C1,K)</code> cannot be changed (C1 is untouched), but <code>C0</code> can.</p>
+<p><strong>Method</strong>: set</p>
+<div class="arithmatex">\[
+C_0' = C_0 \oplus P_1 \oplus X
+\]</div>
+<p><strong>Verification</strong></p>
+<div class="arithmatex">\[
+\begin{aligned}
+P_1' &amp;= D(C_1, K) \oplus C_0'\\
+&amp;= D(C_1, K) \oplus C_0 \oplus P_1 \oplus X\\
+&amp;= P_1 \oplus P_1 \oplus X\\
+&amp;= X
+\end{aligned}
+\]</div>
+<p><strong>Side effect</strong>: since <code>C0</code> changed, <code>P0</code> also becomes garbled (<span class="mchip"><span class="arithmatex">\(P_0 = D(C_0',K) \oplus IV\)</span></span>). If you only care about P1, that is acceptable.</p>
+<p><strong>Conclusion</strong>: CBC encryption does not provide integrity; if you know a plaintext block, you can change it in a targeted way.</p>
+<p><strong>In plain terms</strong>: CBC's first ciphertext block is like "seasoning" — the next block's plaintext is affected by it; change the seasoning a little and the next block tastes different.</p>
+<hr />
+<h2 id="problem-8-the-rsa-homomorphism-trick">Problem 8 · The RSA homomorphism trick<a class="headerlink" href="#problem-8-the-rsa-homomorphism-trick" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: Trudy obtains two ciphertexts encrypted with Alice's public key:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_0 &amp;= M_0^e \bmod N\\
+C_1 &amp;= M_1^e \bmod N
+\end{aligned}
+\]</div>
+<p>She does not know the private key or the plaintexts.</p>
+<ol>
+<li>Can she compute <span class="mchip"><span class="arithmatex">\((M_0\cdot M_1)^{e} \bmod N\)</span></span>?</li>
+<li>What about <span class="mchip"><span class="arithmatex">\((M_0+M_1)^{e} \bmod N\)</span></span>?</li>
+<li>What are the practical uses of fully homomorphic encryption (FHE)?</li>
+</ol>
+<h3 id="1-multiplication">(1) Multiplication<a class="headerlink" href="#1-multiplication" title="Permanent link">&para;</a></h3>
+<p>Simply multiply the two ciphertexts:</p>
+<div class="arithmatex">\[
+C_0\cdot C_1 \equiv M_0^e\cdot M_1^e \equiv (M_0\cdot M_1)^e \pmod N
+\]</div>
+<p>So the result is <span class="mchip"><span class="arithmatex">\(C_0\cdot C_1 \bmod N\)</span></span>.</p>
+<p><strong>In plain terms</strong>: RSA is like "doing multiplication while wearing gloves" — multiply the ciphertexts and, after decryption, you get exactly the product of the plaintexts.</p>
+<h3 id="2-addition">(2) Addition<a class="headerlink" href="#2-addition" title="Permanent link">&para;</a></h3>
+<p>In general she cannot. RSA has only <strong>multiplicative homomorphism</strong>, not additive homomorphism; <span class="mchip"><span class="arithmatex">\(M_0^{e} + M_1^{e}\)</span></span> is usually not equal to <span class="mchip"><span class="arithmatex">\((M_0+M_1)^{e}\)</span></span>. Special cases and exhaustive search aside, there is no comparable simple algebraic operation.</p>
+<h3 id="3-uses-of-fhe">(3) Uses of FHE<a class="headerlink" href="#3-uses-of-fhe" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hand encrypted data to an untrusted server to compute on (statistics, machine learning, search);</li>
+<li>The server never sees the plaintext and returns only the encrypted result;</li>
+<li>Suits privacy-sensitive settings such as healthcare, finance, and genomics.</li>
+</ul>
+<p>In one sentence: <strong>outsource the computation, but the data is never exposed.</strong></p>
+<hr />
+<h2 id="problem-9-can-a-signature-be-used-backwards">Problem 9 · Can a signature be "used backwards"?<a class="headerlink" href="#problem-9-can-a-signature-be-used-backwards" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: in the protocol, Alice signs <code>M</code> with her own private key and sends <code>(M,S)</code>; Bob verifies with Alice's public key. Can Trudy make Bob accept a message that Alice never signed at all?</p>
+<h3 id="1-is-this-forgery-serious">(1) Is this forgery serious?<a class="headerlink" href="#1-is-this-forgery-serious" title="Permanent link">&para;</a></h3>
+<p>Trudy can:</p>
+<ol>
+<li>pick an <code>R</code> at will;</li>
+<li>compute <span class="mchip"><span class="arithmatex">\(N = \{R\}_{\text{Alice}}\)</span></span> ("encrypting" R with Alice's public key);</li>
+<li>send <code>(N, R)</code> to Bob;</li>
+<li>Bob verifies <span class="mchip"><span class="arithmatex">\(\{R\}_{\text{Alice}} = N\)</span></span>, and so believes that <code>N</code> is a message signed by Alice.</li>
+</ol>
+<p><strong>What is this called</strong>: existential forgery. Trudy cannot freely choose a meaningful <code>N</code>, she only gets "the public-key encryption of R"; but Bob really does accept a message that Alice never signed.</p>
+<p><strong>Is it serious?</strong>: it is a security problem, not just a prank. If the system interprets <code>N</code> as a command, an amount, or a file name, real damage is possible; the "random message" is the only thing limiting its direct exploitation.</p>
+<h3 id="2-after-switching-to-signing-fm-what-must-f-satisfy">(2) After switching to signing <code>F(M)</code>, what must F satisfy?<a class="headerlink" href="#2-after-switching-to-signing-fm-what-must-f-satisfy" title="Permanent link">&para;</a></h3>
+<p>The protocol becomes:</p>
+<div class="arithmatex">\[
+S = [F(M)]_{\text{Alice}}
+\]</div>
+<p>Bob verifies:
+[
+{S}_{\text{Alice}} = F(M)
+]</p>
+<p>Trudy picks R, computes <span class="mchip"><span class="arithmatex">\(Y = \{R\}_{\text{Alice}}\)</span></span>, and now she has to find an <code>M</code> with <span class="mchip"><span class="arithmatex">\(F(M) = Y\)</span></span> before she can send <code>(M,R)</code>.</p>
+<p>So <code>F</code> must be <strong>one-way (preimage-resistant)</strong>:</p>
+<blockquote>
+<p>Given Y, finding an M with <span class="mchip"><span class="arithmatex">\(F(M)=Y\)</span></span> is computationally infeasible.</p>
+</blockquote>
+<p>This way Trudy cannot turn an arbitrary Y into a valid message. In practice a collision-resistant hash (such as SHA-256) is used; one-wayness blocks this forgery, and collision resistance prevents "swapping the message".</p>
+<p><strong>In plain terms</strong>: originally what is signed is "the message itself", so an attacker can disguise the signature value as a message; once what is signed becomes "the message's fingerprint", the attacker cannot work backwards from a fingerprint to a message.</p>
+<hr />
+<h2 id="problem-10-the-guaranteed-number-for-hash-collisions">Problem 10 · The "guaranteed" number for hash collisions<a class="headerlink" href="#problem-10-the-guaranteed-number-for-hash-collisions" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: a hash outputs n bit, so there are at most <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> possible results. Now you want to <strong>guarantee</strong> finding 10 distinct colliding pairs of inputs (different pairs may share an input). What is the largest number of distinct inputs you need to try?</p>
+<p><strong>Think it through first</strong>: think of the <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> outputs as <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> buckets. Each input is thrown into one bucket; two inputs in the same bucket form one colliding pair.</p>
+<p><strong>Answer</strong>: <span class="mchip"><span class="arithmatex">\(2^{n} + 10\)</span></span>.</p>
+<p><strong>Why</strong></p>
+<ul>
+<li>If each bucket holds at most 1, you can place at most <span class="mchip"><span class="arithmatex">\(2^{n}\)</span></span> inputs and there is not a single colliding pair;</li>
+<li>Adding the <span class="mchip"><span class="arithmatex">\(2^{n}+1\)</span></span>-th input must collide with an input in some bucket, giving the 1st pair;</li>
+<li>after that, every extra "surplus" input adds at least one more pair;</li>
+<li>so <span class="mchip"><span class="arithmatex">\(2^{n} + 10\)</span></span> inputs give at least 10 pairs.</li>
+</ul>
+<p><strong>Why it cannot be fewer</strong>: with <span class="mchip"><span class="arithmatex">\(2^{n} + 9\)</span></span>, you can put 2 in each of 9 buckets and 1 in every other bucket; that gives only 9 pairs in total, not 10.</p>
+<p><strong>Common mistake</strong>: what is asked here is "guarantee" (worst case), not the "expected" <span class="mchip"><span class="arithmatex">\(2^{n/2}\)</span></span> of a birthday attack.</p>
+<p><strong>In plain terms</strong>: it is not "try many times and probably collide", but "fill the drawers to a certain count and a duplicate is unavoidable".</p>
+<hr />
+<h2 id="problem-11-how-encryption-and-hashing-differ">Problem 11 · How encryption and hashing differ<a class="headerlink" href="#problem-11-how-encryption-and-hashing-differ" title="Permanent link">&para;</a></h2>
+<p><strong>Problem</strong>: state the differences between encryption and hashing, at least three.</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Encryption</th>
+<th>Hashing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Key</strong></td>
+<td>usually keyed</td>
+<td>an ordinary cryptographic hash is unkeyed</td>
+</tr>
+<tr>
+<td><strong>Reversible</strong></td>
+<td>can decrypt back to the plaintext</td>
+<td>one-way, cannot go back</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>the ciphertext is usually about as long as the plaintext</td>
+<td>arbitrary length → fixed length</td>
+</tr>
+<tr>
+<td><strong>Mapping</strong></td>
+<td>should be reversible under a fixed key</td>
+<td>many-to-one, collisions are unavoidable</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>confidentiality</td>
+<td>integrity / fingerprint / password storage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In plain terms</strong></p>
+<ul>
+<li>Encryption is like "a locked box": with the key you can open it, without the key you cannot;</li>
+<li>a hash is like "a fingerprint": it can identify a person, but you cannot reconstruct the whole person from the fingerprint;</li>
+<li>encryption must be reversible (otherwise the recipient cannot read it), and a hash must be irreversible (otherwise the fingerprint is meaningless).</li>
+</ul>
+<p>In one sentence: encryption is "hiding something reversibly", and hashing is "an irreversible fingerprint".</p>
+<hr />
+<h2 id="review-checklist">Review checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Key point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>shift <span class="mchip"><span class="arithmatex">\(13+i\)</span></span>; <code>FSRKIAMS</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="mchip"><span class="arithmatex">\(K=P\oplus C\)</span></span>, <span class="mchip"><span class="arithmatex">\(P=C\oplus K\)</span></span>; <code>tilt</code>, <code>hill</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="mchip"><span class="arithmatex">\(2^{65}\ \text{s} \approx 1.17\times10^{12}\ \text{years}\)</span></span>; <span class="mchip"><span class="arithmatex">\(2^{34}\ \text{s} \approx 544\ \text{years}\)</span></span></td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="mchip"><span class="arithmatex">\(E(K, IV+i)\)</span></span> uses the public IV as the key → K can be recovered</td>
+</tr>
+<tr>
+<td>5</td>
+<td>final block <span class="mchip"><span class="arithmatex">\(D(X,K)\oplus C_{n-2}\)</span></span>; the rest is free</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CBC reads need the preceding block; changing a block requires recomputing the rest; CTR is independent</td>
+</tr>
+<tr>
+<td>7</td>
+<td><span class="mchip"><span class="arithmatex">\(C_0'=C_0\oplus P_1\oplus X\)</span></span> → <span class="mchip"><span class="arithmatex">\(P_1'=X\)</span></span></td>
+</tr>
+<tr>
+<td>8</td>
+<td>RSA is multiplicatively homomorphic; not additively; FHE for privacy-preserving computation</td>
+</tr>
+<tr>
+<td>9</td>
+<td>existential forgery; <code>F</code> must be one-way / collision resistant</td>
+</tr>
+<tr>
+<td>10</td>
+<td><span class="mchip"><span class="arithmatex">\(2^{n}+10\)</span></span>; pigeonhole; <span class="mchip"><span class="arithmatex">\(2^{n}+9\)</span></span> is not enough</td>
+</tr>
+<tr>
+<td>11</td>
+<td>key / reversible / fixed length / many-to-one</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../hw2/" class="md-footer__link md-footer__link--next" aria-label="Next: Homework 2 · Reverse Engineering &amp; Memory Safety">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Homework 2 · Reverse Engineering & Memory Safety
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

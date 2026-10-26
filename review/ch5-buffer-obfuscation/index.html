@@ -1,0 +1,2418 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity 复习资料">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/review/ch5-buffer-obfuscation/">
+      
+      
+        <link rel="prev" href="../ch4-malware-re/">
+      
+      
+        <link rel="next" href="../ch6-exploit-sidechannel/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../../en/review/ch5-buffer-obfuscation/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>第 5 章 · 缓冲区溢出与混淆 - CSIT5730 复习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-header__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 复习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 5 章 · 缓冲区溢出与混淆
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/review/ch5-buffer-obfuscation/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CSIT5730 复习笔记" class="md-nav__button md-logo" aria-label="CSIT5730 复习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 复习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← 个人主页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    知识大纲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分章复习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分章复习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 章 · 导论与古典密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 章 · 对称密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 章 · 公钥密码
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 章 · 恶意软件与逆向工程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 章 · 缓冲区溢出与混淆
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 本章主线（先记住这三句）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 缓冲区溢出（buffer overflow）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 缓冲区溢出（buffer overflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 漏洞谱系与“可利用性”★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 进程内存布局 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 两种“越界”★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 溢出攻击原理 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 不安全的 C 库函数 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 利用步骤（serial 案例）★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 防御 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 为什么“缓冲区反向增长”不是解法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 软件混淆（obfuscation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 软件混淆（obfuscation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 动机与威胁模型 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 为什么现有保护不够 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 目标与边界 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 三类混淆 ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 三类混淆 ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1layout-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （1）Layout obfuscation（布局）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2data-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （2）Data obfuscation（数据）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3control-flow-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （3）Control-flow obfuscation（控制流）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 混淆效果评估 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 为什么“好”的混淆很难设计 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 例题精讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 例题精讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1ret-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 1：ret 偏移（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payload8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2：小端 payload（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3canary-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 3：canary 原理（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4aslr-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4：ASLR 的局限（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 5：控制流平坦化（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 6：不透明谓词（6 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 7：混淆评估（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 易错点（考场最易丢分）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 自测（先做，再看答案）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 自测（先做，再看答案）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 考前速记卡
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 章 · 软件利用 II 与侧信道
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 章 · 认证与网络安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业解析
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    作业解析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    总览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业一复盘 · 密码学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作业二复盘 · 逆向与内存安全
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 本章主线（先记住这三句）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 缓冲区溢出（buffer overflow）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 缓冲区溢出（buffer overflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 漏洞谱系与“可利用性”★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 进程内存布局 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 两种“越界”★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 溢出攻击原理 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 不安全的 C 库函数 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 利用步骤（serial 案例）★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 防御 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 为什么“缓冲区反向增长”不是解法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 软件混淆（obfuscation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 软件混淆（obfuscation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 动机与威胁模型 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 为什么现有保护不够 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 目标与边界 ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 三类混淆 ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 三类混淆 ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1layout-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （1）Layout obfuscation（布局）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2data-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （2）Data obfuscation（数据）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3control-flow-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （3）Control-flow obfuscation（控制流）★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 混淆效果评估 ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 为什么“好”的混淆很难设计 ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 例题精讲
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 例题精讲">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1ret-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 1：ret 偏移（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-payload8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 2：小端 payload（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3canary-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 3：canary 原理（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4aslr-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4：ASLR 的局限（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 5：控制流平坦化（10 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 6：不透明谓词（6 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 7：混淆评估（8 分）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 易错点（考场最易丢分）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 自测（先做，再看答案）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 自测（先做，再看答案）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 考前速记卡
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="5">第 5 章 · 缓冲区溢出与软件混淆 · 复习资料<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>对应课件</strong>：<code>w5/buffer-overflow.pdf</code>、<code>w5/obfuscation.pdf</code></p>
+<p><strong>建议用时</strong>：第一遍 80 分钟 + 例题 40 分钟 + 自测 30 分钟</p>
+<p><strong>配套</strong>：知识大纲 §2.7、§2.8</p>
+<p><strong>本章权重</strong>：栈帧图 + 溢出利用步骤 + 三种防御的局限，是必考重点；混淆偏概念，常考“三类 + 四个评估维度”。</p>
+</blockquote>
+<hr />
+<h2 id="0">0. 本章主线（先记住这三句）<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>C/C++ 不做边界检查 + 栈向低地址增长</strong> → 超长输入覆盖返回地址 → 崩溃或<strong>控制流劫持</strong>（执行任意代码）。</li>
+<li>防御是“多层叠加”：<strong>W^X 让栈不可执行、canary 检测越界、ASLR 让地址不可猜</strong>；每一层都有绕过方法，没有银弹。</li>
+<li><strong>混淆不是加密</strong>：它只改变代码形态（布局/数据/控制流），目标是让逆向成本高于收益；评估看 <strong>potency / stealth / resilience / cost</strong>。</li>
+</ol>
+<p><strong>本章常见考法</strong></p>
+<table>
+<thead>
+<tr>
+<th>题型</th>
+<th>典型问法</th>
+<th>备考动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>画图</td>
+<td>画栈帧，标出 buf/EBP/ret</td>
+<td>背“高地址→低地址”顺序</td>
+</tr>
+<tr>
+<td>计算</td>
+<td>buf[64] 覆盖 ret 的偏移、payload 字节</td>
+<td>会算 64+4，会小端写地址</td>
+</tr>
+<tr>
+<td>防御分析</td>
+<td>NX/canary/ASLR 各防什么、怎么绕过</td>
+<td>一张表背下来</td>
+</tr>
+<tr>
+<td>概念</td>
+<td>混淆三类、四个评估维度</td>
+<td>每类举 2 个例子</td>
+</tr>
+<tr>
+<td>设计</td>
+<td>为什么混淆不能彻底防 RE</td>
+<td>答“成本 + Kerckhoffs + 有限搜索空间”</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-buffer-overflow">1. 缓冲区溢出（buffer overflow）<a class="headerlink" href="#1-buffer-overflow" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 漏洞谱系与“可利用性”★<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>可能被利用的 bug（课件列举）：</p>
+<ul>
+<li>空指针解引用、UAF、double free、数组越界、栈/堆溢出；</li>
+<li>返回局部变量指针、未初始化变量、负数误用；</li>
+<li>大参数按值传递、分配不足；</li>
+<li>内存/文件句柄/网络资源泄漏、未处理返回码、失效迭代器。</li>
+</ul>
+<blockquote>
+<p>⚠ <strong>并非所有 bug 都可利用</strong>；不可利用的逻辑 bug 不构成 vulnerability。常见高危：<strong>buffer overflow、format string、integer overflow、UAF、type confusion、race condition</strong>。</p>
+</blockquote>
+<h3 id="12">1.2 进程内存布局 ★★<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos"> 1</span></a>高地址
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos"> 2</span></a>┌──────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos"> 3</span></a>│ stack        │ ← 向低地址增长
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos"> 4</span></a>├──────────────┤
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos"> 5</span></a>│              │
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos"> 6</span></a>├──────────────┤
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos"> 7</span></a>│ heap         │ ← 向高地址增长
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos"> 8</span></a>├──────────────┤
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos"> 9</span></a>│ bss          │ 未初始化全局/静态
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos">10</span></a>├──────────────┤
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos">11</span></a>│ data         │ 已初始化全局/静态
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos">12</span></a>├──────────────┤
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos">13</span></a>│ text         │ 代码
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos">14</span></a>└──────────────┘
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos">15</span></a>低地址
+</code></pre></div>
+<ul>
+<li>Mac/Windows 类似；具体地址随机化（ASLR）会改变基址。</li>
+<li>栈帧（32-bit，简化，忽略对齐填充）：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos"> 1</span></a>高地址
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos"> 2</span></a>┌─────────────────┐
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos"> 3</span></a>│ 参数 a, b        │
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos"> 4</span></a>├─────────────────┤
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos"> 5</span></a>│ 返回地址 ret     │ ← 溢出目标（4 字节）
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos"> 6</span></a>├─────────────────┤
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos"> 7</span></a>│ saved EBP        │ ← 4 字节
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos"> 8</span></a>├─────────────────┤
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos"> 9</span></a>│ 局部变量         │
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos">10</span></a>│ char buf[64]     │ ← 写入起点，向高地址写
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos">11</span></a>└─────────────────┘
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos">12</span></a>低地址              ESP
+</code></pre></div>
+<ul>
+<li>函数调用时压入返回地址、帧指针、局部变量；<strong>栈向低地址增长，缓冲区向高地址写</strong> → 溢出先覆盖 saved EBP，再覆盖 <strong>ret</strong>。</li>
+</ul>
+<h3 id="13">1.3 两种“越界”★<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>行为</th>
+<th>后果</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buffer overread</strong></td>
+<td>读超出缓冲区</td>
+<td>泄露相邻内存（可绕过 ASLR）</td>
+<td><strong>Heartbleed</strong>（OpenSSL 读越界）</td>
+</tr>
+<tr>
+<td><strong>Buffer overwrite</strong></td>
+<td>写超出缓冲区</td>
+<td>篡改相邻数据/返回地址</td>
+<td>栈溢出、堆溢出</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14">1.4 溢出攻击原理 ★★<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p><strong>最简单的场景</strong>：<code>char buffer[N]</code> 旁边有 <code>boolean flag</code>（口令正确标志）；超长输入覆盖 flag → 任意口令通过。</p>
+<p><strong>栈溢出</strong>：</p>
+<ol>
+<li>覆盖 ret → 程序“返回”到错误地址 → 崩溃（DoS）；</li>
+<li>更坏：让 ret 指向<strong>注入的恶意代码</strong>（shellcode）→ 任意代码执行；</li>
+<li>别名：stack smashing、buffer overrun、<strong>code injection</strong>、<strong>control-flow hijacking</strong>。</li>
+</ol>
+<p><strong>前提</strong>：
+- 代码中确实存在溢出；
+- <strong>并非所有溢出都可利用</strong>；
+- 常需 trial-and-error 猜地址，但“成功一次就够”。</p>
+<blockquote>
+<p>⚠ “让缓冲区向高地址增长”并不能解决问题（课件注明见笔记）——因为 ret 仍在缓冲区的“上方”，只是覆盖方向变了，攻击者仍可构造布局。</p>
+</blockquote>
+<h3 id="15-c">1.5 不安全的 C 库函数 ★<a class="headerlink" href="#15-c" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>strcpy(dest, src)</code></td>
+<td>不检查 dest 长度</td>
+</tr>
+<tr>
+<td><code>gets(s)</code></td>
+<td>完全不知道缓冲区大小</td>
+</tr>
+<tr>
+<td><code>strcat(dest, src)</code></td>
+<td>追加时可能越界</td>
+</tr>
+<tr>
+<td><code>scanf("%s", ...)</code></td>
+<td>不限制宽度</td>
+</tr>
+<tr>
+<td><code>sprintf(buf, ...)</code></td>
+<td>格式化输出可能超长</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>共同点：<strong>不检查目标缓冲区长度</strong>；应使用 <code>strncpy</code>/<code>snprintf</code>/<code>fgets</code> 等带长度参数的版本，并检查返回值。</p>
+</blockquote>
+<h3 id="16-serial">1.6 利用步骤（serial 案例）★★<a class="headerlink" href="#16-serial" title="Permanent link">&para;</a></h3>
+<p><strong>场景</strong>：程序要求 serial，不知道正确值，只有 exe；错误则退出。</p>
+<ol>
+<li><strong>探测偏移</strong>：输入递增长度的 <code>A</code>（0x41），观察崩溃时 ret 是否被 <code>0x41414141</code> 覆盖 → 确定偏移。</li>
+<li><strong>找目标地址</strong>：反汇编，找到“跳过检查”的地址（如 <code>0x401034</code>）。</li>
+<li><strong>按小端写地址</strong>：<code>0x401034</code> → 字节 <code>34 10 40 00</code> → ASCII <code>4^P@</code>。</li>
+<li><strong>构造 payload</strong>：<code>填充 + 目标地址</code>（必要时加 NOP sled + shellcode）。</li>
+<li><strong>触发</strong>：程序返回时跳到目标地址，绕过检查。</li>
+</ol>
+<p><strong>偏移计算（32-bit 简化）</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos">2</span></a><span class="n">偏移</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">(</span><span class="n">saved</span><span class="w"> </span><span class="n">EBP</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">68</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos">3</span></a><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="s">"A"</span><span class="o">*</span><span class="mi">68</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p>若目标地址含 <code>0x00</code>，<code>strcpy</code> 会被截断 → 实际利用要选不含空字节的地址（如 <code>0x0804a080</code> → <code>\x80\xa0\x04\x08</code>），或用其他写入方式。</p>
+</blockquote>
+<p><strong>NOP sled</strong>：在 shellcode 前放大量 <code>0x90</code>，只要 ret 落进 sled 任一位置就能滑到 shellcode，降低“精确猜地址”的难度。</p>
+<h3 id="17">1.7 防御 ★★<a class="headerlink" href="#17" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>防御</th>
+<th>机制</th>
+<th>能防什么</th>
+<th>局限/绕过</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W^X / DEP</strong></td>
+<td>栈/堆标记为不可执行（write XOR execute）</td>
+<td>栈上 shellcode 直接执行</td>
+<td><strong>ROP/return-to-libc</strong> 复用已有代码；JIT/自修改代码需要可写可执行内存</td>
+</tr>
+<tr>
+<td><strong>Canary（栈金丝雀）</strong></td>
+<td>在局部变量与 saved EBP 之间放一个随机值；函数返回前检查</td>
+<td>连续栈溢出（必须破坏 canary 才能到 ret）</td>
+<td>可<strong>泄露 canary</strong>（格式化字符串/信息泄露）；任意写可不碰 canary；非万无一失；约 8% 性能损失</td>
+</tr>
+<tr>
+<td><strong>ASLR</strong></td>
+<td>随机化栈、堆、库、可执行文件基址</td>
+<td>让攻击者猜不中地址</td>
+<td>32-bit 熵低可暴力猜；可 <strong>spraying</strong>；需 info leak 配合；不防“不依赖固定地址”的攻击</td>
+</tr>
+<tr>
+<td><strong>安全语言</strong></td>
+<td>Java/C#/Rust 等自动边界检查</td>
+<td>从根上消除越界</td>
+<td>需重写/迁移；性能、兼容性、FFI</td>
+</tr>
+<tr>
+<td><strong>安全函数</strong></td>
+<td>带长度参数的库函数 + 检查</td>
+<td>减少常见错误</td>
+<td>依赖开发者正确使用；逻辑错误仍在</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Canary 细节</strong></p>
+<ul>
+<li>经典常量 <code>0x000aff0d</code>（含 <code>\x00</code>、<code>\x0a</code>、<code>\xff</code>、<code>\x0d</code>，防止被字符串函数无意复制）；也可运行时随机。</li>
+<li>函数序言写入，函数尾声比较；不一致 → <code>__stack_chk_fail</code> → 终止。</li>
+<li>绕过：先泄露 canary 再原样写回；或利用不经过栈的写原语。</li>
+</ul>
+<p><strong>ASLR 细节</strong></p>
+<ul>
+<li>攻击者可以<strong>重复猜</strong>（尤其 32-bit 地址空间小）；可以<strong>喷射</strong>大量攻击代码提高命中率。</li>
+<li>与 NX 组合后，攻击者转向 ROP：用已有代码片段（gadget）拼出攻击逻辑。</li>
+</ul>
+<blockquote>
+<p>现代组合：<strong>ASLR + canary + NX + PIE + CFI</strong>；没有单一防御足够。</p>
+</blockquote>
+<h3 id="18">1.8 为什么“缓冲区反向增长”不是解法<a class="headerlink" href="#18" title="Permanent link">&para;</a></h3>
+<ul>
+<li>若缓冲区向高地址增长，ret 在低地址侧，看似不会被覆盖；</li>
+<li>但攻击者可以覆盖其他关键数据（函数指针、saved EBP、参数），或利用堆/其他结构；</li>
+<li>根本问题是<strong>缺少边界检查</strong>，不是增长方向。</li>
+</ul>
+<hr />
+<h2 id="2-obfuscation">2. 软件混淆（obfuscation）<a class="headerlink" href="#2-obfuscation" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 动机与威胁模型 ★<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>软件含大量信息：.NET 的 MSIL、Java/JS/Python 字节码、C/C++ 二进制。</li>
+<li>代码会被利用：</li>
+<li>非恶意 RE：测试、集成、扩展；</li>
+<li>恶意 RE：攻击、盗版、抄袭；</li>
+<li>恶意软件作者也想逃避<strong>聚类/相似性分析</strong>。</li>
+<li><strong>移动代码 + 恶意主机</strong>：代码在别人的机器上运行，宿主不可信 → 需要“软件保护”。</li>
+</ul>
+<h3 id="22">2.2 为什么现有保护不够 ⚠<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬件隔离</td>
+<td>需改造硬件，不现实</td>
+</tr>
+<tr>
+<td>服务器端执行</td>
+<td>需始终在线高带宽；还要解决认证等网络安全问题</td>
+</tr>
+<tr>
+<td>加密</td>
+<td><strong>鸡生蛋</strong>：解密例程本身可见，攻击者总能拿到解密后的代码</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">2.3 目标与边界 ★<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<ul>
+<li>混淆：让被保护软件“看起来”与原版不同；<strong>判断两段代码的相似性</strong>是许多软件安全分析的基础。</li>
+<li><strong>不能完全阻止</strong>恶意 RE：给定足够时间/资源，任何混淆都可被还原（穷举）。</li>
+<li>正确目标：<strong>让还原成本对攻击者而言过高</strong>（提高成本，而不是追求绝对安全）。</li>
+</ul>
+<h3 id="24">2.4 三类混淆 ★★<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<h4 id="1layout-obfuscation">（1）Layout obfuscation（布局）<a class="headerlink" href="#1layout-obfuscation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>删除注释、重命名标识符（类/方法/变量 → 无意义名）。</li>
+<li>工具：DashO（Java）、Dotfuscator（MSIL）。</li>
+<li>特点：<strong>非常轻量</strong>，不改变语义；现实中大量流行 App 甚至没做布局混淆。</li>
+</ul>
+<h4 id="2data-obfuscation">（2）Data obfuscation（数据）<a class="headerlink" href="#2data-obfuscation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>变量拆分/合并/编码。</li>
+<li>数组拆分、数组合并、数组折叠（增维）、数组展平（降维）。</li>
+<li>数据加密（如字符串加密，移动 App 常用）。</li>
+<li>目的：让“数据是什么、怎么用”更难推断。</li>
+</ul>
+<h4 id="3control-flow-obfuscation">（3）Control-flow obfuscation（控制流）★<a class="headerlink" href="#3control-flow-obfuscation" title="Permanent link">&para;</a></h4>
+<p><strong>前提</strong>：布局/数据混淆不改变控制结构 → 控制结构仍可作“代码签名”。</p>
+<p><strong>手段 1：指令插入（垃圾代码）</strong></p>
+<ul>
+<li>插入无语义指令：<code>nop</code>；或语义抵消序列：<code>add → sub</code>、<code>xor → xor</code>。</li>
+<li>优点：简单、易实现、破坏已知模式/签名。</li>
+</ul>
+<p><strong>手段 2：指令替换</strong></p>
+<ul>
+<li>用等价指令序列替换原指令。</li>
+<li>极端案例：<strong>M/o/Vfuscator</strong> 把 C/C++ 编译成“只有 <code>mov</code> 指令”的程序。</li>
+</ul>
+<p><strong>手段 3：控制流平坦化（flattening）</strong></p>
+<ul>
+<li>把函数的所有基本块放进一个 <code>switch(x)</code> 分发器，用状态变量 x 驱动。</li>
+<li>原 CFG 被“压平”，丢失明显的分支/循环结构。</li>
+</ul>
+<p>例：函数 <code>f(i,j)</code>：<code>a=1; if(i&lt;j) a=j; do { a*=i--; } while(i&gt;0); return a;</code></p>
+<table>
+<thead>
+<tr>
+<th>原基本块</th>
+<th>平坦化后的状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A: <code>a=1</code></td>
+<td><code>x=0</code> → case 0: A; <code>x = (i&lt;j) ? 1 : 2</code></td>
+</tr>
+<tr>
+<td>B: <code>a=j</code></td>
+<td>case 1: B; <code>x=3</code></td>
+</tr>
+<tr>
+<td>C: <code>a=a*i; i=i-1</code></td>
+<td>case 2: C; <code>x = (i&gt;0) ? 2 : 3</code></td>
+</tr>
+<tr>
+<td>D: <code>return a</code></td>
+<td>case 3: D</td>
+</tr>
+</tbody>
+</table>
+<p>外层只留一个 <code>while(true) switch(x)</code>。</p>
+<p><strong>手段 4：不透明谓词（opaque predicate）</strong></p>
+<ul>
+<li>条件表达式的值在运行时<strong>已知</strong>，但静态分析难以推断。</li>
+<li>例：<code>if (x*x + y*y &gt;= 2*x*y)</code> 恒真，因为 <span class="arithmatex">\((x-y)^{2} \ge 0\)</span>；汇编中更不直观。</li>
+<li>类型：</li>
+<li><strong>Invariant</strong>：恒真/恒假，与输入无关；</li>
+<li><strong>Context</strong>：只在特定上下文成立；</li>
+<li><strong>多线程</strong>：一个线程只往全局结构放 <code>&gt;n</code> 的数，另一个线程取一个赋给 x → <code>if (x&lt;n)</code> 恒假。</li>
+<li>不透明性决定控制流变换的<strong>韧性</strong>。</li>
+</ul>
+<p><strong>进阶</strong></p>
+<ul>
+<li><strong>VM-based obfuscation</strong>：自定义指令集 + 秘密编码 + 虚拟 CPU/分发器；已商业化；不是万无一失，但显著增加分析难度。</li>
+<li><strong>Multilingual obfuscation</strong>：混合不同计算模型（命令式=图灵机、函数式=lambda 演算、逻辑式=Horn 逻辑），编译后机器码更难理解。</li>
+</ul>
+<h3 id="25">2.5 混淆效果评估 ★★<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>含义</th>
+<th>度量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Potency</strong></td>
+<td>引入多少复杂度</td>
+<td>调用图边数、基本块数、CFG 边数等</td>
+</tr>
+<tr>
+<td><strong>Stealth</strong></td>
+<td>混淆代码能否“融入”其余代码</td>
+<td>指令分布异常检测</td>
+</tr>
+<tr>
+<td><strong>Resilience</strong></td>
+<td>还原有多难</td>
+<td>diff 技术比较混淆前后二进制相似度</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>性能代价</td>
+<td>体积、执行减速</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>四者需要权衡：potency 高可能 cost 大；stealth 好可能 resilience 低。</p>
+</blockquote>
+<h3 id="26">2.6 为什么“好”的混淆很难设计 ⚠<a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
+<ul>
+<li>想出“有趣”的变异不难，需要创造力；想出“安全”的变异极难。</li>
+<li>尤其当方法公开、攻击者已知你的方案时（<strong>Kerckhoffs 的延伸</strong>）。</li>
+<li>开放设计 + 无真正秘密 + 搜索空间有限 → 原理上就不强。</li>
+</ul>
+<hr />
+<h2 id="3">3. 例题精讲<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="1ret-8">例 1：ret 偏移（8 分）<a class="headerlink" href="#1ret-8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：32-bit 程序，函数内 <code>char buf[64]</code>，无对齐填充，saved EBP 4 字节，ret 4 字节。覆盖 ret 需要多少字节填充？</p>
+<p><strong>解</strong>：
+- buf 64 字节；
+- saved EBP 4 字节；
+- 因此 ret 从 buf 起始的第 <strong>68</strong> 字节开始；
+- payload = <code>b"A"*68 + p32(target)</code>。</p>
+<p><strong>得分点</strong>：说明“先覆盖 saved EBP，再覆盖 ret”；提到实际编译器可能有对齐填充，需动态确认。</p>
+<h3 id="2-payload8">例 2：小端 payload（8 分）<a class="headerlink" href="#2-payload8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：目标地址 <code>0x0804a080</code>，写出 payload 中的地址字节。</p>
+<p><strong>解</strong>：
+- little-endian：低字节在前 → <code>80 a0 04 08</code>；
+- Python：<code>p32(0x0804a080)</code> = <code>b"\x80\xa0\x04\x08"</code>。
+- 若地址含 <code>\x00</code>（如 <code>0x08048400</code>），<code>strcpy</code> 会截断，需换地址或换写入方式。</p>
+<h3 id="3canary-8">例 3：canary 原理（8 分）<a class="headerlink" href="#3canary-8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：canary 如何检测栈溢出？攻击者如何绕过？</p>
+<p><strong>解</strong>：
+- 编译器在局部变量与 saved EBP 之间放一个随机值；函数返回前比较该值是否被改；不一致则调用 <code>__stack_chk_fail</code> 终止。
+- 连续溢出必须经过 canary 才能到 ret，因此会被发现。
+- 绕过：① 泄露 canary 后原样写回（格式化字符串/信息泄露）；② 使用不经过该栈帧的任意写；③ 覆盖不触发检查的路径。</p>
+<h3 id="4aslr-8">例 4：ASLR 的局限（8 分）<a class="headerlink" href="#4aslr-8" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：ASLR 随机化地址，为什么 32-bit 程序仍可能被绕过？</p>
+<p><strong>解</strong>：
+- 32-bit 地址空间熵有限，攻击者可<strong>暴力猜</strong>（反复试，崩溃重启）；
+- 可用 <strong>heap/stack spraying</strong> 大量布置攻击代码/ROP gadget，提高命中率；
+- 需要 info leak 泄露基址；或转向不需要固定地址的攻击（如 partial overwrite）。
+- 因此 ASLR 必须与 NX、canary、CFI 等组合。</p>
+<h3 id="510">例 5：控制流平坦化（10 分）<a class="headerlink" href="#510" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：把 <code>a=1; if(i&lt;j) a=j; do{a*=i--;}while(i&gt;0); return a;</code> 用 switch 分发器平坦化。</p>
+<p><strong>解</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a><span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos">4</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos">5</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos">6</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos">7</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos">8</span></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos">9</span></a><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>原 CFG 的分支/循环被“藏”进状态变量 x 的赋值中；静态分析要先恢复 x 的取值才能重建 CFG。</li>
+</ul>
+<h3 id="66">例 6：不透明谓词（6 分）<a class="headerlink" href="#66" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：<code>if (x*x + y*y &gt;= 2*x*y)</code> 为什么恒真？有什么前提？</p>
+<p><strong>解</strong>：
+- <span class="arithmatex">\(x^{2} + y^{2} - 2xy = (x-y)^{2} \ge 0\)</span>；
+- 因此对任意实数 x、y 恒真；汇编中不易看出。
+- 前提：整数运算不溢出；若溢出则可能为假（设计时要考虑）。</p>
+<h3 id="78">例 7：混淆评估（8 分）<a class="headerlink" href="#78" title="Permanent link">&para;</a></h3>
+<p><strong>题</strong>：某混淆器让程序体积增大 3 倍、运行慢 40%，但指令分布与正常代码差异明显。用四个维度评价。</p>
+<p><strong>解</strong>：
+- <strong>Cost</strong>：差（体积 3×、慢 40%）；
+- <strong>Stealth</strong>：差（指令分布异常，易被统计检测）；
+- <strong>Potency</strong>：需要看 CFG/基本块复杂度是否真的提高；
+- <strong>Resilience</strong>：需要做 diff/相似性分析，看还原难度。
+- 结论：该混淆“视觉上复杂”，但 stealth 和 cost 不理想，整体效果有限。</p>
+<hr />
+<h2 id="4">4. 易错点（考场最易丢分）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>正确</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>栈向高地址增长</td>
+<td>栈向<strong>低地址</strong>增长；缓冲区写入向高地址</td>
+</tr>
+<tr>
+<td>溢出一定覆盖 ret</td>
+<td>可能只覆盖局部变量/EBP；要看布局和长度</td>
+</tr>
+<tr>
+<td>所有溢出都可利用</td>
+<td>很多只导致崩溃；可利用性取决于布局、地址、保护</td>
+</tr>
+<tr>
+<td>NX 能防所有代码执行</td>
+<td>防“栈上执行”；ROP/return-to-libc 可绕过</td>
+</tr>
+<tr>
+<td>canary 万无一失</td>
+<td>可泄露/绕过；不保护非连续写</td>
+</tr>
+<tr>
+<td>ASLR 让攻击不可能</td>
+<td>32-bit 可暴力猜；可 spray；需 info leak</td>
+</tr>
+<tr>
+<td>用安全函数就安全</td>
+<td>逻辑错误、长度计算错误仍在</td>
+</tr>
+<tr>
+<td>混淆 = 加密</td>
+<td>混淆不保密，只增加理解成本；加密有密钥</td>
+</tr>
+<tr>
+<td>混淆能彻底防 RE</td>
+<td>不能；只能提高成本</td>
+</tr>
+<tr>
+<td>Potency 越高越好</td>
+<td>还要看 stealth/resilience/cost 的权衡</td>
+</tr>
+<tr>
+<td>控制流平坦化改变了程序语义</td>
+<td>不改变；只是把 CFG 藏进状态变量</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5_1">5. 自测（先做，再看答案）<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>画出 32-bit 栈帧，标出参数、ret、saved EBP、buf 的顺序。</li>
+<li>为什么溢出能覆盖返回地址？栈的增长方向是什么？</li>
+<li>overread 和 overwrite 的区别？Heartbleed 属于哪种？</li>
+<li>列举 5 个不安全的 C 库函数，并说明共同问题。</li>
+<li>描述栈溢出的完整利用步骤；NOP sled 的作用？</li>
+<li>W^X、canary、ASLR 各防什么？各有什么局限？</li>
+<li>为什么“让缓冲区向高地址增长”不能解决问题？</li>
+<li>混淆的三类是什么？各举两个具体手段。</li>
+<li>控制流平坦化的原理？不透明谓词的本质？</li>
+<li>混淆效果从哪四个维度评估？为什么“安全混淆”很难？</li>
+<li>VM-based 混淆和 multilingual 混淆各是什么？</li>
+</ol>
+<h3 id="_1">答案<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>高→低：参数、ret、saved EBP、局部变量（buf 在最靠近 ESP 的低地址端）。</li>
+<li>栈向低地址增长，buf 向高地址写；ret 位于 buf 上方，超长写入会先过 saved EBP 再到 ret。</li>
+<li>overread 读越界（泄露），overwrite 写越界（篡改）；Heartbleed 是 overread。</li>
+<li><code>strcpy</code>、<code>gets</code>、<code>strcat</code>、<code>scanf("%s")</code>、<code>sprintf</code>；都不检查目标缓冲区长度。</li>
+<li>探测偏移 → 找目标地址 → 小端写地址 → 构造 payload（填充+地址，可加 NOP sled/shellcode）→ 触发返回。NOP sled 降低猜地址精度要求。</li>
+<li>W^X：栈不可执行，防 shellcode；可被 ROP 绕过。canary：检测连续溢出；可泄露/绕过。ASLR：随机化地址；32-bit 可暴力猜、可 spray。</li>
+<li>根本问题是缺边界检查；ret 仍可通过其他布局/结构被覆盖，或改函数指针/参数。</li>
+<li>布局（重命名、删注释）；数据（数组拆分/合并、字符串加密）；控制流（垃圾指令、指令替换、平坦化、不透明谓词）。</li>
+<li>把所有基本块放进 switch 分发器，用状态变量驱动；不透明谓词是“运行时值已知、静态难推断”的条件。</li>
+<li>Potency、Stealth、Resilience、Cost；因为方法公开（Kerckhoffs）、无真正秘密、搜索空间有限，攻击者可针对性还原。</li>
+<li>VM-based：自定义指令集 + 虚拟 CPU 解释执行；multilingual：混合命令式/函数式/逻辑式等不同计算模型。</li>
+</ol>
+<hr />
+<h2 id="6">6. 考前速记卡<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>栈方向</td>
+<td>栈向低地址增长；buf 向高地址写</td>
+</tr>
+<tr>
+<td>32-bit 栈帧</td>
+<td>参数 / ret / saved EBP / buf（低地址）</td>
+</tr>
+<tr>
+<td>偏移</td>
+<td><code>buf[64]</code> → ret 偏移 68（64+4）</td>
+</tr>
+<tr>
+<td>小端</td>
+<td>低字节在前；<code>0x0804a080</code> → <code>80 a0 04 08</code></td>
+</tr>
+<tr>
+<td>危险函数</td>
+<td>strcpy、gets、strcat、scanf、sprintf</td>
+</tr>
+<tr>
+<td>别名</td>
+<td>stack smashing、code injection、control-flow hijacking</td>
+</tr>
+<tr>
+<td>W^X</td>
+<td>栈不可执行；绕过：ROP/return-to-libc</td>
+</tr>
+<tr>
+<td>Canary</td>
+<td><code>0x000aff0d</code> 或随机；约 8% 开销；可泄露</td>
+</tr>
+<tr>
+<td>ASLR</td>
+<td>随机化基址；32-bit 熵低；可 spray/暴力猜</td>
+</tr>
+<tr>
+<td>混淆三类</td>
+<td>layout / data / control-flow</td>
+</tr>
+<tr>
+<td>控制流手段</td>
+<td>垃圾指令、指令替换（mov-only）、平坦化、不透明谓词</td>
+</tr>
+<tr>
+<td>不透明谓词</td>
+<td><span class="arithmatex">\((x-y)^{2}\ge 0\)</span>；invariant/context/多线程</td>
+</tr>
+<tr>
+<td>评估</td>
+<td>potency / stealth / resilience / cost</td>
+</tr>
+<tr>
+<td>边界</td>
+<td>混淆只提高成本，不能彻底防 RE</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../ch4-malware-re/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 4 章 · 恶意软件与逆向工程">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第 4 章 · 恶意软件与逆向工程
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch6-exploit-sidechannel/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第 6 章 · 软件利用 II 与侧信道">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第 6 章 · 软件利用 II 与侧信道
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      个人复习整理 · 非官方资料 · 课件版权归授课教师所有
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../javascripts/glossary.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

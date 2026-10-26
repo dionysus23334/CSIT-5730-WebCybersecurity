@@ -1,0 +1,2090 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/review/ch1-intro/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../ch2-symmetric/">
+      
+      
+        
+          <link rel="alternate" href="../../../review/ch1-intro/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 1 · Introduction & Classical Cryptography - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-1-introduction-classical-cryptography-review-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 1 · Introduction & Classical Cryptography
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../review/ch1-intro/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-security-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Security mindset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Security mindset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-three-cia-elements-must-be-able-to-say-them-without-hesitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The three CIA elements (must be able to say them without hesitation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-where-do-vulnerabilities-come-from-design-vs-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Where do vulnerabilities come from (design vs. implementation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-defenders-three-things" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The defender's three things
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-saltzer-schroeder-security-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Saltzer &amp; Schroeder security design principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-white-hat-ethics-for-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 White hat ethics (for awareness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-classical-cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Classical cryptography
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Classical cryptography">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-vocabulary-and-kerckhoffss-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic vocabulary and Kerckhoffs's principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-caesar-cipher-and-frequency-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Caesar cipher and frequency analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-an-operational-definition-of-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 An operational definition of "secure"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-one-time-pad-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 One-time pad (OTP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-codebook-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Codebook cipher
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-the-three-legacies-of-classical-cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 The three legacies of classical cryptography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-caesar-decryption-5-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Caesar decryption (5 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-key-space-and-security-5-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Key space and security (5 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-otp-reuse-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: OTP reuse (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-threat-modeling-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Threat modeling (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-mistakes-where-marks-are-most-easily-lost-in-the-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common mistakes (where marks are most easily lost in the exam)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-look-at-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then look at the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then look at the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-security-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Security mindset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Security mindset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-three-cia-elements-must-be-able-to-say-them-without-hesitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The three CIA elements (must be able to say them without hesitation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-where-do-vulnerabilities-come-from-design-vs-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Where do vulnerabilities come from (design vs. implementation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-defenders-three-things" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The defender's three things
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-saltzer-schroeder-security-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Saltzer &amp; Schroeder security design principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-white-hat-ethics-for-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 White hat ethics (for awareness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-classical-cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Classical cryptography
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Classical cryptography">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-vocabulary-and-kerckhoffss-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic vocabulary and Kerckhoffs's principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-caesar-cipher-and-frequency-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Caesar cipher and frequency analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-an-operational-definition-of-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 An operational definition of "secure"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-one-time-pad-otp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 One-time pad (OTP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-codebook-cipher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Codebook cipher
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-the-three-legacies-of-classical-cryptography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 The three legacies of classical cryptography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-caesar-decryption-5-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Caesar decryption (5 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-key-space-and-security-5-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Key space and security (5 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-otp-reuse-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: OTP reuse (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-threat-modeling-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Threat modeling (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-mistakes-where-marks-are-most-easily-lost-in-the-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common mistakes (where marks are most easily lost in the exam)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-look-at-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then look at the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then look at the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-1-introduction-classical-cryptography-review-notes">Chapter 1 · Introduction &amp; Classical Cryptography · Review Notes<a class="headerlink" href="#chapter-1-introduction-classical-cryptography-review-notes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Matching slides</strong>: <code>w1/introduction-CSIT5730-26F.pdf</code>, <code>w1/classic-crypto.pdf</code></p>
+<p><strong>Suggested time</strong>: first pass 60 minutes + self-test 30 minutes</p>
+<p><strong>Companion</strong>: Outline §2.1, §2.2</p>
+<p><strong>Weight of this chapter</strong>: a high-frequency source for concept questions + threat modeling questions; classical crypto is usually only examined as multiple choice / fill-in / small computations, but the idea of OTP runs through all the cryptography that follows.</p>
+</blockquote>
+<hr />
+<h2 id="0-chapter-thread-memorize-these-three-sentences-first">0. Chapter thread (memorize these three sentences first)<a class="headerlink" href="#0-chapter-thread-memorize-these-three-sentences-first" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Security is not a pile of tools, it is a way of thinking</strong>: first ask "which property do we want to protect (CIA)", then ask "who will attack how (threat model)", and only then work out "is it worth defending (cost/benefit)".</li>
+<li><strong>Vulnerabilities come either from design or from implementation</strong>; design flaws cannot be solved by patching, implementation flaws can be patched but will be reused over and over.</li>
+<li><strong>The value of classical crypto lies in establishing the vocabulary</strong>: Kerckhoffs's principle, a key space is not security, frequency analysis, and the fundamental contradiction between OTP's provable security and its "unusability".</li>
+</ol>
+<p><strong>Common question types in this chapter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question type</th>
+<th>Typical phrasing</th>
+<th>What to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concept discrimination</td>
+<td>What are the three elements of CIA? Given a scenario, decide which one is broken</td>
+<td>Memorize the definitions + prepare 2 examples per category</td>
+</tr>
+<tr>
+<td>Threat modeling</td>
+<td>Given a system (cloud / phone / enterprise intranet), write out attacker/capability/asset</td>
+<td>Apply the three-question template</td>
+</tr>
+<tr>
+<td>Principle application</td>
+<td>A certain design violates which Saltzer &amp; Schroeder principle</td>
+<td>Remember 3 principles + be able to give examples</td>
+</tr>
+<tr>
+<td>Classical crypto computation</td>
+<td>Caesar decryption, key space, frequency analysis, OTP</td>
+<td>Be able to compute the bit count of 26!, be able to do XOR</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-security-mindset">1. Security mindset<a class="headerlink" href="#1-security-mindset" title="Permanent link">&para;</a></h2>
+<h3 id="11-the-three-cia-elements-must-be-able-to-say-them-without-hesitation">1.1 The three CIA elements (must be able to say them without hesitation)<a class="headerlink" href="#11-the-three-cia-elements-must-be-able-to-say-them-without-hesitation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>One-sentence definition</th>
+<th>Example of violation</th>
+<th>Where it reappears in this course</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confidentiality</strong></td>
+<td>Unauthorized parties cannot read the data</td>
+<td>eavesdropping, side channel, data breach, storing passwords in plaintext</td>
+<td>cryptography, side channel</td>
+</tr>
+<tr>
+<td><strong>Integrity</strong></td>
+<td>The data is accurate and has not been modified without authorization</td>
+<td>tampering with a transfer amount, ECB cut-and-paste, SQL injection modifying the database</td>
+<td>MAC (Message Authentication Code), signatures, hashing</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Authorized users can access it whenever they need it</td>
+<td>SYN flood, worms, memory leaks, ransomware</td>
+<td>DoS, malware</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key understanding</strong></p>
+<ul>
+<li>CIA is not mutually exclusive: a single attack often breaks several at once. Ransomware = confidentiality (encryption) + availability (data unavailable); ARP spoofing = confidentiality (eavesdropping) + integrity (tamperable).</li>
+<li>When analyzing any attack, the first sentence should be: "which one/ones of CIA does this break."</li>
+<li><strong>Authentication itself is not one of the CIA elements</strong>, but it is a prerequisite for achieving C/I/A; an authentication failure leads to unauthorized access.</li>
+</ul>
+<h3 id="12-where-do-vulnerabilities-come-from-design-vs-implementation">1.2 Where do vulnerabilities come from (design vs. implementation)<a class="headerlink" href="#12-where-do-vulnerabilities-come-from-design-vs-implementation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Concrete source</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Design</strong></td>
+<td>Theoretical limitations</td>
+<td>the OTP key must be as long as the message → cannot be distributed at scale</td>
+</tr>
+<tr>
+<td></td>
+<td>Lack of security features</td>
+<td>the protocol has no authentication → DH man-in-the-middle</td>
+</tr>
+<tr>
+<td></td>
+<td>Side channels</td>
+<td>however correct the implementation, time/power/cache still leak the key</td>
+</tr>
+<tr>
+<td></td>
+<td>Wrong threat model</td>
+<td>assuming "users will not modify the client" / "the cloud service provider is trusted"</td>
+</tr>
+<tr>
+<td></td>
+<td>Wrong user model</td>
+<td>assuming users choose strong passwords and read certificate warnings</td>
+</tr>
+<tr>
+<td><strong>Implementation</strong></td>
+<td>Coding errors</td>
+<td>buffer overflow, UAF, format string</td>
+</tr>
+<tr>
+<td></td>
+<td>Hardware errors</td>
+<td>Rowhammer, Spectre/Meltdown class</td>
+</tr>
+<tr>
+<td></td>
+<td>Injected errors</td>
+<td>supply chain backdoor, malicious compiler (XcodeGhost)</td>
+</tr>
+<tr>
+<td></td>
+<td>Failure to meet specifications</td>
+<td>the implementation is inconsistent with the protocol RFC, creating an opening</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Where do attackers go to find vulnerabilities</strong></p>
+<ol>
+<li>Find unknown vulnerabilities (0-day) — the hardest, but the most valuable;</li>
+<li>Buy 0-day — feasible, and it forms a black market;</li>
+<li>Reuse known vulnerabilities — the easiest: no patch applied, old systems, default configuration.</li>
+</ol>
+<blockquote>
+<p>Exam point: <strong>"design flaws and implementation flaws are fixed in different ways"</strong>. Design flaws require changing the protocol/architecture (possibly incompatible), an implementation flaw just needs a patch, but as long as unpatched machines remain it is still exploitable (the lesson of the Morris Worm).</p>
+</blockquote>
+<h3 id="13-the-defenders-three-things">1.3 The defender's three things<a class="headerlink" href="#13-the-defenders-three-things" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Question it answers</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security policy</strong></td>
+<td>Which property do I want to enforce?</td>
+<td>a verifiable rule, e.g. "the password can only be stored on this machine", "a data pointer can only access the specified memory region"</td>
+</tr>
+<tr>
+<td><strong>Risk assessment</strong></td>
+<td>What assets do I have? Which is most critical? Who do I defend against first?</td>
+<td>asset inventory + risk ranking</td>
+</tr>
+<tr>
+<td><strong>Threat model</strong></td>
+<td>Who attacks? With what capability? What do they want to steal?</td>
+<td>the three elements attacker / capability / asset</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Threat model template (use it directly in the exam)</strong></p>
+<blockquote>
+<ul>
+<li>System: ____</li>
+<li>Attacker: ____ (e.g., co-tenant, service provider, network man-in-the-middle, malicious employee, the person who has the phone)</li>
+<li>Capability: ____ (e.g., can share the CPU cache, can control the hypervisor, can send arbitrary packets, can physically touch the device)</li>
+<li>Asset: ____ (e.g., private key, photos, password, transaction records)</li>
+<li>Therefore what needs to be defended is: ____ (which one of CIA it corresponds to)</li>
+</ul>
+</blockquote>
+<p><strong>Cloud platform example (the slide example)</strong></p>
+<ul>
+<li>Attacker: the service provider, other cloud tenants.</li>
+<li>Capability: the service provider can control everything (hypervisor, snapshots, scheduling); a co-tenant VM can share the same physical hardware with you (L1/L2 shared within a core, L3 shared across cores).</li>
+<li>Asset: anything valuable (keys, data, models).</li>
+<li>Conclusion: this is inherently a <strong>side channel</strong> threat model; beyond cryptography you must also consider physical/microarchitectural leakage.</li>
+</ul>
+<p><strong>Cost vs. benefit (defense is not "the stronger the better")</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Advantage</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Online kernel monitoring</td>
+<td>easy to deploy</td>
+<td>slows down the performance</td>
+</tr>
+<tr>
+<td>Offline formal verification</td>
+<td>no runtime overhead</td>
+<td>almost infeasible for a commercial OS</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Exam point: if a scenario asks "why not use the strongest defense", the answer is usually <strong>cost, compatibility, performance, availability</strong>, not "it cannot be done".</p>
+</blockquote>
+<h3 id="14-saltzer-schroeder-security-design-principles">1.4 Saltzer &amp; Schroeder security design principles<a class="headerlink" href="#14-saltzer-schroeder-security-design-principles" title="Permanent link">&para;</a></h3>
+<p>The slides focus on 3 principles; you must be able to give "principle + explanation + example":</p>
+<ol>
+<li><strong>Open design</strong><ul>
+<li>Security depends only on the key, not on keeping the algorithm secret.</li>
+<li>Rationale: once a secret algorithm leaks it is completely broken; in reality secrets do not stay secret; only openness lets peers find the weaknesses beforehand.</li>
+<li>Counterexample: a home-grown "ancestral encryption algorithm", treating Base64 as encryption.</li>
+</ul>
+</li>
+<li><strong>Economy of mechanism</strong><ul>
+<li>Simple interfaces, clean module boundaries, avoid global state.</li>
+<li>Benefits: easier debugging, code audit, static/dynamic analysis, formal verification.</li>
+<li>Counterexample: one function handles authentication, authorization, logging, and encryption at the same time — a huge attack surface that is hard to verify.</li>
+</ul>
+</li>
+<li><strong>Least privilege</strong><ul>
+<li>Grant exactly "the minimum capability required to run".</li>
+<li>Practice: grant nothing first, and add permissions one by one as errors appear; rather than granting root first and then taking it back.</li>
+<li>Counterexample: using root for the database connection; an app demanding contacts + location + storage the moment it starts.</li>
+</ul>
+</li>
+</ol>
+<p><strong>The complete classic list (supplementary; you can answer this if the exam asks "what else")</strong>: fail-safe defaults (deny by default), complete mediation (check every access), separation of privilege, least common mechanism, psychological acceptability (usability).</p>
+<blockquote>
+<p>Note: the slides say "some of the rules may not be applicable nowadays"; when answering, do not be absolute — principles are a starting point for trade-offs, not dogma.</p>
+</blockquote>
+<h3 id="15-white-hat-ethics-for-awareness">1.5 White hat ethics (for awareness)<a class="headerlink" href="#15-white-hat-ethics-for-awareness" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Test only on systems for which you have <strong>authorization</strong>; report found vulnerabilities through <strong>responsible disclosure</strong>; do not steal, do not damage, do not publish the details of unfixed issues.</li>
+<li>The course has an ethics statement; "be a happy and ethic hacker".</li>
+</ul>
+<hr />
+<h2 id="2-classical-cryptography">2. Classical cryptography<a class="headerlink" href="#2-classical-cryptography" title="Permanent link">&para;</a></h2>
+<h3 id="21-basic-vocabulary-and-kerckhoffss-principle">2.1 Basic vocabulary and Kerckhoffs's principle<a class="headerlink" href="#21-basic-vocabulary-and-kerckhoffss-principle" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos">1</span></a>plaintext P --encrypt E(K)--&gt; ciphertext C --decrypt D(K)--&gt; plaintext P
+</code></pre></div>
+<ul>
+<li><strong>Symmetric</strong>: the same key encrypts and decrypts; <strong>public key</strong>: the public key encrypts, the private key decrypts (Chapter 3).</li>
+<li>The intuition for security: <strong>computing P from C without the key is hard; with the key it is easy.</strong></li>
+<li><strong>Kerckhoffs's principle</strong>: the security of a cryptosystem should depend only on the secrecy of the <strong>key</strong>, not on the secrecy of the algorithm.</li>
+<li>This is "open design" embodied in cryptography.</li>
+<li>Modern example: the AES algorithm is completely public, and security relies on the key.</li>
+</ul>
+<h3 id="22-caesar-cipher-and-frequency-analysis">2.2 Caesar cipher and frequency analysis<a class="headerlink" href="#22-caesar-cipher-and-frequency-analysis" title="Permanent link">&para;</a></h3>
+<p><strong>Caesar cipher</strong>: shift the whole alphabet by k. Encryption <span class="arithmatex">\(C = (P + k) \bmod 26\)</span>, decryption <span class="arithmatex">\(P = (C - k) \bmod 26\)</span>.</p>
+<p><strong>Example (the slide example)</strong>: ciphertext <code>CSYEVIXIVQMREXIH</code>, known to be a Caesar cipher; find the plaintext.
+- Try k=4 (shift every letter back by 4):
+  <code>C→Y, S→O, Y→U, E→A, V→R, I→E, X→T, ...</code>
+- Result: <strong><code>YOU ARE TERMINATED</code></strong>.
+- Why so fast? Because Caesar has only 25 nonzero keys, so <strong>exhaustive key search</strong> is enough.</p>
+<p><strong>General simple substitution</strong>: an arbitrary permutation of letters, key space <code>26!</code>.
+- <span class="mchip"><span class="arithmatex">\(26! = 403{,}291{,}461{,}126{,}605{,}635{,}584{,}000{,}000 \approx 4.03\times10^{26}\)</span></span>
+- <span class="mchip"><span class="arithmatex">\(\log_2(26!) \approx 88.4\)</span></span>, i.e. <strong>&gt; <span class="arithmatex">\(2^{88}\)</span></strong>, exhaustive search is infeasible.
+- But <strong>frequency analysis</strong> breaks it:
+  1. Count the ciphertext letter frequencies;
+  2. Align them with the English distribution (e/t/a are the most common; slide example: {h,l,r} → {t,a,e});
+  3. Verify with high-frequency words / pattern words (e.g. <code>gur</code> → <code>the</code>);
+  4. Iterate the substitution and expand step by step.</p>
+<blockquote>
+<p><strong>Core conclusion</strong>: <strong>a large key space ≠ security</strong>. As long as a "shortcut" attack exists, it is insecure.</p>
+</blockquote>
+<h3 id="23-an-operational-definition-of-secure">2.3 An operational definition of "secure"<a class="headerlink" href="#23-an-operational-definition-of-secure" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If <strong>the best known attack is exhaustive search</strong>, the system is called secure;</li>
+<li>If any shortcut smarter than exhaustive search exists, it is insecure;</li>
+<li>But "exhaustive search" itself must also be <strong>infeasible</strong> — DES's 56-bit is the counterexample (Chapter 2).</li>
+</ul>
+<h3 id="24-one-time-pad-otp">2.4 One-time pad (OTP)<a class="headerlink" href="#24-one-time-pad-otp" title="Permanent link">&para;</a></h3>
+<p><strong>Mechanism</strong>: <span class="arithmatex">\(C = P \oplus K\)</span>, <span class="arithmatex">\(P = C \oplus K\)</span> (XOR is self-inverse: XOR the same value twice and you get the original back).</p>
+<p><strong>Slide example</strong> (3-bit encoding e=000, h=001, i=010, k=011, l=100, r=101, s=110, t=111):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Plaintext</th>
+<th>Key</th>
+<th>Ciphertext</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Characters</td>
+<td>h e i l h i t l e r</td>
+<td>— (keystream)</td>
+<td>s r l h s s t h s r</td>
+</tr>
+<tr>
+<td>Bits</td>
+<td>001 000 010 100 001 010 111 100 000 101</td>
+<td>111 101 110 101 111 100 000 101 110 000</td>
+<td>110 101 100 001 110 110 111 001 110 101</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why it is provably secure</strong></p>
+<ul>
+<li>Every bit of the key is equally likely at random ⇒ for any plaintext, the ciphertext is uniformly distributed over the ciphertext space ⇒ <strong>the ciphertext carries no information about the plaintext</strong>.</li>
+<li>Formal statement: <span class="mchip"><span class="arithmatex">\(P(C=c \mid P=p_1) = P(C=c \mid P=p_2)\)</span></span> holds for any p1, p2.</li>
+</ul>
+<p><strong>The three required conditions (violating any one breaks it)</strong></p>
+<ol>
+<li>The key is <strong>truly random</strong>;</li>
+<li>The key is <strong>used only once</strong>;</li>
+<li>The key is <strong>as long as the message</strong>.</li>
+</ol>
+<p><strong>Fatal problem</strong>: the key is as long as the message and must be distributed securely — <strong>"so why not just transmit the key?"</strong> This is the key distribution problem, and it is exactly the problem public key cryptography has to solve.</p>
+<p><strong>Real-world case VENONA</strong>: Soviet spies used OTP, but the "one-time" pads were <strong>reused</strong>, so a large number of ciphertexts could be broken by correlation analysis.</p>
+<p><strong>Two-time pad attack (must know)</strong></p>
+<p>If <span class="arithmatex">\(C_{1} = P_{1} \oplus K\)</span>, <span class="arithmatex">\(C_{2} = P_{2} \oplus K\)</span>, then:</p>
+<div class="arithmatex">\[
+C_1 \oplus C_2 = P_1 \oplus P_2
+\]</div>
+<ul>
+<li>If P1 is known, then <span class="arithmatex">\(P_{2} = C_{1} \oplus C_{2} \oplus P_{1}\)</span>;</li>
+<li>If both P1 and P2 are English, then <span class="arithmatex">\(P_{1} \oplus P_{2}\)</span> can be guessed word by word with "crib-dragging".</li>
+</ul>
+<p><strong>4-bit mini example</strong>: P1=1010, K=0110 → C1=1100; P2=0011 → C2=0101.
+<span class="arithmatex">\(C_{1}\oplus C_{2} = 1001 = P_{1}\oplus P_{2}\)</span>; given P1=1010 ⇒ <span class="arithmatex">\(P_{2} = 1001\oplus 1010 = 0011\)</span>.</p>
+<h3 id="25-codebook-cipher">2.5 Codebook cipher<a class="headerlink" href="#25-codebook-cipher" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A codebook maps words/phrases to codewords (the Zimmerman Telegram).</li>
+<li><strong>Additive</strong>: stack another "book of random numbers" on top; send the ciphertext + the additive position (the position is not secret); the receiver subtracts the additives first, then looks up the codebook.</li>
+<li>Purpose: <strong>the same word is encoded differently each time</strong>, resisting frequency analysis.</li>
+<li>Modern connection: <strong>a block cipher is an electronic codebook</strong> (ECB mode), see Chapter 2.</li>
+</ul>
+<h3 id="26-the-three-legacies-of-classical-cryptography">2.6 The three legacies of classical cryptography<a class="headerlink" href="#26-the-three-legacies-of-classical-cryptography" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Kerckhoffs's principle</strong>: the algorithm is public, the key is secret.</li>
+<li><strong>Security = resistance to the strongest known attack</strong>, not "it looks random".</li>
+<li><strong>OTP is the theoretical upper bound</strong>: provably secure, but key distribution is infeasible → all the cryptography that follows is "approximating the effect of OTP with a short key".</li>
+</ol>
+<hr />
+<h2 id="3-worked-examples">3. Worked examples<a class="headerlink" href="#3-worked-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-caesar-decryption-5-points">Example 1: Caesar decryption (5 points)<a class="headerlink" href="#example-1-caesar-decryption-5-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: the ciphertext <code>CSYEVIXIVQMREXIH</code> was produced by a Caesar cipher; find the plaintext and the key.</p>
+<p><strong>Solution</strong>:
+- Try all 25 keys, or observe the high frequencies: <code>I</code> and <code>V</code> appear several times, so guess <code>I→E</code> (shift by 4).
+- Solve with <span class="mchip"><span class="arithmatex">\(P = C-4\)</span></span>: <code>YOU ARE TERMINATED</code>.
+- Key k=4 (+4 when encrypting).</p>
+<p><strong>Scoring points</strong>: write the formula <span class="arithmatex">\(P=(C-k) \bmod 26\)</span>; state that "Caesar has only 25 keys, so it can be exhaustively searched".</p>
+<h3 id="example-2-key-space-and-security-5-points">Example 2: Key space and security (5 points)<a class="headerlink" href="#example-2-key-space-and-security-5-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: a general simple substitution has 26! keys, why is it still insecure?</p>
+<p><strong>Solution</strong>:
+- 26! ≈ <span class="arithmatex">\(2^{88}\)</span>·⁴, exhaustive search really is infeasible;
+- but a simple substitution <strong>preserves the letter frequency distribution</strong>, so frequency analysis + pattern words can recover the mapping step by step;
+- therefore the "best attack" is not exhaustive search but frequency analysis → by definition it is <strong>insecure</strong>.</p>
+<p><strong>Scoring points</strong>: distinguish "a large key space" from "a strong ability to resist attack".</p>
+<h3 id="example-3-otp-reuse-10-points">Example 3: OTP reuse (10 points)<a class="headerlink" href="#example-3-otp-reuse-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: two messages are encrypted with the same OTP key, giving C1 and C2. The attacker knows P1; how is P2 recovered? State what condition is required.</p>
+<p><strong>Solution</strong>:
+- <span class="arithmatex">\(C_{1}\oplus C_{2} = (P_{1}\oplus K)\oplus (P_{2}\oplus K) = P_{1}\oplus P_{2}\)</span>;
+- <span class="arithmatex">\(P_{2} = C_{1}\oplus C_{2}\oplus P_{1}\)</span>;
+- Condition: <strong>the same key was used twice</strong> (violating OTP condition 2); if P1 is unknown but is natural language, crib-dragging can be used to guess it.</p>
+<h3 id="example-4-threat-modeling-10-points">Example 4: Threat modeling (10 points)<a class="headerlink" href="#example-4-threat-modeling-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: a "cloud photo backup app" encrypts the user's photos in the app before uploading. Build a threat model and point out the two attacks that most need defending against.</p>
+<p><strong>Reference answer</strong>:
+- Attacker: ① the cloud service provider (can control the VM, take snapshots, read memory); ② a co-tenant (shared CPU cache); ③ the person who has the user's phone; ④ a network man-in-the-middle.
+- Capability: the service provider can read VM memory/disk; a co-tenant can measure cache timing; the phone holder can unlock / install a malicious app; the man-in-the-middle can tamper with the traffic.
+- Asset: the photo contents, the encryption key, the account credentials.
+- Most in need of defense: ① the service provider/co-tenant obtaining the key through a <strong>side channel</strong> (corresponding to confidentiality); ② the client key being stolen by a malicious app / the phone holder (corresponding to confidentiality + authentication).
+- Defense direction: end-to-end encryption, the key never leaves the secure area, constant-time implementation, device authentication.</p>
+<p><strong>Scoring points</strong>: all three elements present; attacks correspond to assets; defenses correspond to attacks.</p>
+<hr />
+<h2 id="4-common-mistakes-where-marks-are-most-easily-lost-in-the-exam">4. Common mistakes (where marks are most easily lost in the exam)<a class="headerlink" href="#4-common-mistakes-where-marks-are-most-easily-lost-in-the-exam" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Wrong statement</th>
+<th>Correct understanding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"CIA is three parallel security goals, and every system must satisfy all of them 100%"</td>
+<td>the three need trade-offs; different systems have different priorities (an ATM weights integrity more, a video site weights availability more)</td>
+</tr>
+<tr>
+<td>"A large key space means secure"</td>
+<td>you also have to check whether a shortcut attack exists; the 26! simple substitution is broken by frequency analysis</td>
+</tr>
+<tr>
+<td>"OTP is secure as long as the key is random"</td>
+<td>it must also be <strong>used only once</strong> and <strong>as long as the message</strong></td>
+</tr>
+<tr>
+<td>"Kerckhoffs's principle requires the algorithm to be public"</td>
+<td>it says "security should not depend on keeping the algorithm secret"; open design is a recommended practice, not a mathematical requirement</td>
+</tr>
+<tr>
+<td>"A threat model = risk analysis"</td>
+<td>a threat model answers "who, with what capability, steals what"; risk analysis answers "how important the assets are, who to defend against first"</td>
+</tr>
+<tr>
+<td>"Design flaws and implementation flaws can both be patched"</td>
+<td>design flaws usually require changing the protocol/architecture and may be incompatible; implementation flaws can be patched but the machines already in the field are still at risk</td>
+</tr>
+<tr>
+<td>"A white hat can test whatever they like"</td>
+<td>authorization is required; unauthorized testing is an attack</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-self-test-do-it-first-then-look-at-the-answers">5. Self-test (do it first, then look at the answers)<a class="headerlink" href="#5-self-test-do-it-first-then-look-at-the-answers" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Define CIA in one sentence each, and give one attack from later in this course for each.</li>
+<li>Give three examples each of the "design causes" and the "implementation causes" of vulnerabilities.</li>
+<li>What are the three elements of a threat model? Write one out for a "campus course registration system".</li>
+<li>What problem does each of Saltzer &amp; Schroeder's open design, economy of mechanism, and least privilege solve?</li>
+<li>Why is "open design" actually more secure? Give a counterexample.</li>
+<li>How large is the Caesar cipher's key space? Why is it insecure?</li>
+<li>Roughly how many bits is 26!? What does this number show, and what does it not show?</li>
+<li>What are the three conditions for OTP? What happens if any one of them is violated?</li>
+<li>Two ciphertexts C1 and C2 are encrypted with the same OTP key; write the quantity the attacker can compute directly.</li>
+<li>Why is OTP said to be "provably secure but unusable"? What is its relation to modern stream ciphers?</li>
+</ol>
+<h3 id="answers">Answers<a class="headerlink" href="#answers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Confidentiality (side channel stealing the key), integrity (ECB cut-and-paste), availability (SYN flood).</li>
+<li>Design: OTP key distribution, protocol without authentication, wrong threat model; implementation: buffer overflow, UAF, format string.</li>
+<li>Attacker (student / outside hacker / internal administrator), Capability (has a student ID and can log in / can access the intranet / can touch the database), Asset (grades, personal information, course registration records).</li>
+<li>Open design: avoids "the whole system collapsing the moment a secret algorithm leaks"; Economy: lowers the cost of audit and verification; Least privilege: limits the impact scope after a vulnerability is exploited.</li>
+<li>Openness lets more people review and find weaknesses beforehand; counterexample: a home-grown private encryption algorithm — once it is reversed there is no security left, and nobody helps you find vulnerabilities.</li>
+<li>25 nonzero keys (or 26 including 0); it can be exhaustively searched, and the frequency distribution is preserved.</li>
+<li>≈ <span class="arithmatex">\(2^{88}\)</span>·⁴; it shows that exhaustive search is infeasible; it does not show resistance to shortcut attacks such as frequency analysis.</li>
+<li>Truly random, used only once, as long as the message; violating them leads respectively to predictability, a two-time pad, and infeasible key distribution.</li>
+<li><span class="arithmatex">\(C_{1}\oplus C_{2} = P_{1}\oplus P_{2}\)</span>.</li>
+<li>Because information-theoretically the ciphertext leaks nothing about the plaintext, but the key must be as long as the message and be distributed securely; a stream cipher uses a short key to generate a pseudorandom keystream to "simulate" OTP.</li>
+</ol>
+<hr />
+<h2 id="6-pre-exam-quick-reference-card">6. Pre-exam quick-reference card<a class="headerlink" href="#6-pre-exam-quick-reference-card" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CIA</td>
+<td>Confidentiality / Integrity / Availability</td>
+</tr>
+<tr>
+<td>Source of vulnerabilities</td>
+<td>design (theoretical limitations, missing features, side channels, wrong threat/user model) / implementation (coding, hardware, injected, non-compliant)</td>
+</tr>
+<tr>
+<td>The defender's three things</td>
+<td>policy → risk assessment → threat model</td>
+</tr>
+<tr>
+<td>The threat model's three questions</td>
+<td>who / capability / what asset</td>
+</tr>
+<tr>
+<td>The three principles</td>
+<td>open design, economy of mechanism, least privilege</td>
+</tr>
+<tr>
+<td>Kerckhoffs</td>
+<td>security depends only on the key, not on keeping the algorithm secret</td>
+</tr>
+<tr>
+<td>Caesar</td>
+<td>25 keys, exhaustively searchable; <span class="arithmatex">\(P=(C-k) \bmod 26\)</span></td>
+</tr>
+<tr>
+<td>Simple substitution</td>
+<td>26! ≈ <span class="arithmatex">\(2^{88}\)</span>·⁴, but frequency analysis breaks it</td>
+</tr>
+<tr>
+<td>OTP</td>
+<td><span class="arithmatex">\(C=P\oplus K\)</span>; random, once, same length; two-time pad → <span class="arithmatex">\(C_{1}\oplus C_{2}=P_{1}\oplus P_{2}\)</span></td>
+</tr>
+<tr>
+<td>Definition of security</td>
+<td>best attack = exhaustive search → secure; a shortcut exists → insecure</td>
+</tr>
+<tr>
+<td>Classical legacy</td>
+<td>Kerckhoffs, resistance to the strongest attack, OTP as the theoretical upper bound</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: All chapters">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                All chapters
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch2-symmetric/" class="md-footer__link md-footer__link--next" aria-label="Next: Chapter 2 · Symmetric Key Cryptography">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Chapter 2 · Symmetric Key Cryptography
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

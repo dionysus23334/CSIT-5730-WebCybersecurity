@@ -1,0 +1,2418 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/review/ch5-buffer-obfuscation/">
+      
+      
+        <link rel="prev" href="../ch4-malware-re/">
+      
+      
+        <link rel="next" href="../ch6-exploit-sidechannel/">
+      
+      
+        
+          <link rel="alternate" href="../../../review/ch5-buffer-obfuscation/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 5 · Buffer Overflow & Obfuscation - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-5-buffer-overflow-obfuscation-review-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 5 · Buffer Overflow & Obfuscation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../review/ch5-buffer-obfuscation/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3-public-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Buffer overflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Buffer overflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-vulnerability-spectrum-and-exploitability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The vulnerability spectrum and "exploitability"★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-process-memory-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Process memory layout ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-two-kinds-of-out-of-bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Two kinds of "out-of-bounds" ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-how-the-overflow-attack-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 How the overflow attack works ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-unsafe-c-library-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Unsafe C library functions ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-exploitation-steps-the-serial-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Exploitation steps (the serial case) ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-defenses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Defenses ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-why-the-buffer-growing-forwardly-is-not-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Why "the buffer growing forwardly" is not the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-software-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software obfuscation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Software obfuscation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-motivation-and-threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Motivation and threat model ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-existing-protection-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why existing protection is not enough ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-goal-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Goal and limits ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-the-three-kinds-of-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 The three kinds of obfuscation ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 The three kinds of obfuscation ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-layout-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Layout obfuscation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Data obfuscation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-control-flow-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Control-flow obfuscation ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-evaluating-obfuscation-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Evaluating obfuscation effectiveness ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-why-good-obfuscation-is-hard-to-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Why "good" obfuscation is hard to design ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-ret-offset-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: ret offset (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-little-endian-payload-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: little-endian payload (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-canary-principle-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: canary principle (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-the-limits-of-aslr-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: the limits of ASLR (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-control-flow-flattening-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: control flow flattening (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-opaque-predicates-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: opaque predicates (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-evaluating-obfuscation-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: evaluating obfuscation (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-mistakes-where-points-are-lost-most-easily" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common mistakes (where points are lost most easily)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-look-at-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then look at the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then look at the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Buffer overflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Buffer overflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-vulnerability-spectrum-and-exploitability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The vulnerability spectrum and "exploitability"★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-process-memory-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Process memory layout ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-two-kinds-of-out-of-bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Two kinds of "out-of-bounds" ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-how-the-overflow-attack-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 How the overflow attack works ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-unsafe-c-library-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Unsafe C library functions ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-exploitation-steps-the-serial-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Exploitation steps (the serial case) ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-defenses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Defenses ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-why-the-buffer-growing-forwardly-is-not-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Why "the buffer growing forwardly" is not the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-software-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software obfuscation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Software obfuscation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-motivation-and-threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Motivation and threat model ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-existing-protection-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why existing protection is not enough ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-goal-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Goal and limits ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-the-three-kinds-of-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 The three kinds of obfuscation ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 The three kinds of obfuscation ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-layout-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) Layout obfuscation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) Data obfuscation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-control-flow-obfuscation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) Control-flow obfuscation ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-evaluating-obfuscation-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Evaluating obfuscation effectiveness ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-why-good-obfuscation-is-hard-to-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Why "good" obfuscation is hard to design ⚠
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-ret-offset-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: ret offset (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-little-endian-payload-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: little-endian payload (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-canary-principle-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: canary principle (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-the-limits-of-aslr-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: the limits of ASLR (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-control-flow-flattening-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: control flow flattening (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-opaque-predicates-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: opaque predicates (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-evaluating-obfuscation-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: evaluating obfuscation (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-common-mistakes-where-points-are-lost-most-easily" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Common mistakes (where points are lost most easily)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-self-test-do-it-first-then-look-at-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Self-test (do it first, then look at the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Self-test (do it first, then look at the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-5-buffer-overflow-obfuscation-review-notes">Chapter 5 · Buffer Overflow &amp; Obfuscation · Review Notes<a class="headerlink" href="#chapter-5-buffer-overflow-obfuscation-review-notes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Matching slides</strong>: <code>w5/buffer-overflow.pdf</code>, <code>w5/obfuscation.pdf</code></p>
+<p><strong>Suggested time</strong>: first pass 80 minutes + worked examples 40 minutes + self-test 30 minutes</p>
+<p><strong>Companion</strong>: Outline §2.7, §2.8</p>
+<p><strong>Weight of this chapter</strong>: the stack frame diagram + the overflow exploitation steps + the limitations of the three defenses are guaranteed exam focuses; obfuscation is more conceptual, and the "three kinds + four evaluation dimensions" is the usual question.</p>
+</blockquote>
+<hr />
+<h2 id="0-chapter-thread-memorize-these-three-sentences-first">0. Chapter thread (memorize these three sentences first)<a class="headerlink" href="#0-chapter-thread-memorize-these-three-sentences-first" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>C/C++ does no bounds checking + the stack grows toward low addresses</strong> → an over-long input overwrites the return address → a crash or <strong>control-flow hijacking</strong> (executing arbitrary code).</li>
+<li>Defense is "layered": <strong>W^X makes the stack non-executable, the canary detects the overrun, ASLR makes the address unguessable</strong>; every layer has a bypass, there is no silver bullet.</li>
+<li><strong>Obfuscation is not encryption</strong>: it only changes the form of the code (layout/data/control flow), and the goal is to make the resources required for reversing it more expensive than the payoff; evaluation looks at <strong>potency / stealth / resilience / cost</strong>.</li>
+</ol>
+<p><strong>Common question types in this chapter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question type</th>
+<th>Typical phrasing</th>
+<th>What to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagram</td>
+<td>Draw the stack frame and label buf/EBP/ret</td>
+<td>Memorize the "high address → low address" order</td>
+</tr>
+<tr>
+<td>Computation</td>
+<td>The offset for buf[64] to overwrite ret, the payload bytes</td>
+<td>Be able to compute 64+4 and to write an address in little-endian</td>
+</tr>
+<tr>
+<td>Defense analysis</td>
+<td>What NX/canary/ASLR each prevents, and how to bypass each</td>
+<td>Memorize the table</td>
+</tr>
+<tr>
+<td>Concepts</td>
+<td>The three kinds of obfuscation, the four evaluation dimensions</td>
+<td>Give 2 examples for each kind</td>
+</tr>
+<tr>
+<td>Design</td>
+<td>Why obfuscation cannot completely prevent RE</td>
+<td>Answer "cost + Kerckhoffs + limited search space"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-buffer-overflow">1. Buffer overflow<a class="headerlink" href="#1-buffer-overflow" title="Permanent link">&para;</a></h2>
+<h3 id="11-the-vulnerability-spectrum-and-exploitability">1.1 The vulnerability spectrum and "exploitability"★<a class="headerlink" href="#11-the-vulnerability-spectrum-and-exploitability" title="Permanent link">&para;</a></h3>
+<p>Bugs that can be potentially exploited (as listed in the slides):</p>
+<ul>
+<li>Null pointer dereference, UAF, double free, array indexing errors, stack/heap overflow;</li>
+<li>Return pointers to local variables, uninitialized variables, invalid use of negative values;</li>
+<li>Passing large parameters by value, underallocations of dynamic data;</li>
+<li>Memory/file handle/network resource leaks, unhandled return codes, use of invalid iterators.</li>
+</ul>
+<blockquote>
+<p>⚠ <strong>Not all bugs are exploitable</strong>; logic bugs that are not exploitable do not constitute a vulnerability. Common high-risk ones: <strong>buffer overflow, format string, integer overflow, UAF, type confusion, race condition</strong>.</p>
+</blockquote>
+<h3 id="12-process-memory-layout">1.2 Process memory layout ★★<a class="headerlink" href="#12-process-memory-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos"> 1</span></a>High address
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos"> 2</span></a>┌──────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos"> 3</span></a>│ stack        │ ← grows toward low addresses
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos"> 4</span></a>├──────────────┤
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos"> 5</span></a>│              │
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos"> 6</span></a>├──────────────┤
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos"> 7</span></a>│ heap         │ ← grows toward high addresses
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos"> 8</span></a>├──────────────┤
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos"> 9</span></a>│ bss          │ uninitialized globals/statics
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos">10</span></a>├──────────────┤
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos">11</span></a>│ data         │ initialized globals/statics
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos">12</span></a>├──────────────┤
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos">13</span></a>│ text         │ code
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos">14</span></a>└──────────────┘
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos">15</span></a>Low address
+</code></pre></div>
+<ul>
+<li>Mac/Windows are very similar; the concrete addresses are randomized (ASLR), which changes the base addresses.</li>
+<li>A stack frame (32-bit, simplified, alignment padding ignored):</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos"> 1</span></a>High address
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos"> 2</span></a>┌─────────────────┐
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos"> 3</span></a>│ parameters a, b │
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos"> 4</span></a>├─────────────────┤
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos"> 5</span></a>│ return address  │ ← overflow target (4 bytes)
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos"> 6</span></a>├─────────────────┤
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos"> 7</span></a>│ saved EBP       │ ← 4 bytes
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos"> 8</span></a>├─────────────────┤
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos"> 9</span></a>│ local variables │
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos">10</span></a>│ char buf[64]    │ ← write start, written toward high addresses
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos">11</span></a>└─────────────────┘
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos">12</span></a>Low address         ESP
+</code></pre></div>
+<ul>
+<li>When a function is called, the return address, the stack frame pointer, and the variables are pushed on the stack; <strong>the stack grows toward low addresses while the buffer is written toward high addresses</strong> → the overflow overwrites saved EBP first, then <strong>ret</strong>.</li>
+</ul>
+<h3 id="13-two-kinds-of-out-of-bounds">1.3 Two kinds of "out-of-bounds" ★<a class="headerlink" href="#13-two-kinds-of-out-of-bounds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Behavior</th>
+<th>Consequence</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buffer overread</strong></td>
+<td>Read beyond the buffer</td>
+<td>Leaks adjacent memory (can bypass ASLR)</td>
+<td><strong>Heartbleed</strong> (OpenSSL overread)</td>
+</tr>
+<tr>
+<td><strong>Buffer overwrite</strong></td>
+<td>Write beyond the buffer</td>
+<td>Tampering with adjacent data/return address</td>
+<td>Stack overflow, heap overflow</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-how-the-overflow-attack-works">1.4 How the overflow attack works ★★<a class="headerlink" href="#14-how-the-overflow-attack-works" title="Permanent link">&para;</a></h3>
+<p><strong>The simplest scenario</strong>: next to <code>char buffer[N]</code> there is a <code>boolean flag</code> (the password-correct flag); an over-long input overwrites the flag → any password is accepted.</p>
+<p><strong>Stack overflow</strong>:</p>
+<ol>
+<li>Overwrite ret → the program "returns" to the wrong location → a crash (DoS);</li>
+<li>Worse: make ret point to <strong>injected malicious code</strong> (shellcode) → arbitrary code execution;</li>
+<li>Also known as: stack smashing, buffer overrun, <strong>code injection</strong>, <strong>control-flow hijacking</strong>.</li>
+</ol>
+<p><strong>Preconditions</strong>:
+- A buffer overflow must actually exist in the code;
+- <strong>Not all buffer overflows are exploitable</strong>;
+- Trial and error is usually needed to guess the address, but "one success is enough".</p>
+<blockquote>
+<p>⚠ "What if buffer grows forwardly?" does not solve the problem (the slides say "see my notes") — because ret is still "above" the buffer; only the direction of the overwrite has changed, and the attacker can still construct a layout.</p>
+</blockquote>
+<h3 id="15-unsafe-c-library-functions">1.5 Unsafe C library functions ★<a class="headerlink" href="#15-unsafe-c-library-functions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>strcpy(dest, src)</code></td>
+<td>Does not check the length of dest</td>
+</tr>
+<tr>
+<td><code>gets(s)</code></td>
+<td>Has no idea of the buffer size</td>
+</tr>
+<tr>
+<td><code>strcat(dest, src)</code></td>
+<td>May overrun when appending</td>
+</tr>
+<tr>
+<td><code>scanf("%s", ...)</code></td>
+<td>Does not limit the width</td>
+</tr>
+<tr>
+<td><code>sprintf(buf, ...)</code></td>
+<td>The formatted output may be over-long</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The common problem: <strong>the length of the destination buffer is not checked</strong>; use the length-taking versions such as <code>strncpy</code>/<code>snprintf</code>/<code>fgets</code>, and check the return values.</p>
+</blockquote>
+<h3 id="16-exploitation-steps-the-serial-case">1.6 Exploitation steps (the serial case) ★★<a class="headerlink" href="#16-exploitation-steps-the-serial-case" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: the program asks for a serial number that you do not know, and you only have the executable (exe); it quits on an incorrect serial number.</p>
+<ol>
+<li><strong>Discover the offset</strong>: by trial and error, feed <code>A</code> (0x41) with increasing length and observe whether ret is overwritten with <code>0x41414141</code> when it crashes → pin down the offset.</li>
+<li><strong>Find the target address</strong>: disassemble the code and find the address that "skips the check" (e.g., <code>0x401034</code>).</li>
+<li><strong>Write the address in little-endian</strong>: <code>0x401034</code> → bytes <code>34 10 40 00</code> → ASCII <code>4^P@</code>.</li>
+<li><strong>Construct the payload</strong>: <code>padding + target address</code> (plus a NOP sled + shellcode if necessary).</li>
+<li><strong>Trigger</strong>: when the program returns it jumps to the target address and bypasses the check.</li>
+</ol>
+<p><strong>Offset computation (32-bit, simplified)</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos">1</span></a><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos">2</span></a><span class="n">offset</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">(</span><span class="n">saved</span><span class="w"> </span><span class="n">EBP</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">68</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos">3</span></a><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="s">"A"</span><span class="o">*</span><span class="mi">68</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p32</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</code></pre></div>
+<blockquote>
+<p>If the target address contains <code>0x00</code>, <code>strcpy</code> truncates it → a practical exploit must choose an address free of null bytes (e.g., <code>0x0804a080</code> → <code>\x80\xa0\x04\x08</code>), or use another way of writing.</p>
+</blockquote>
+<p><strong>NOP sled</strong>: put a large number of <code>0x90</code> bytes in front of the shellcode; as long as ret lands anywhere in the sled it slides into the shellcode, which lowers the difficulty of "guessing the address exactly".</p>
+<h3 id="17-defenses">1.7 Defenses ★★<a class="headerlink" href="#17-defenses" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Defense</th>
+<th>Mechanism</th>
+<th>What it prevents</th>
+<th>Limitation/bypass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W^X / DEP</strong></td>
+<td>Stack/heap marked as non-executable (write XOR execute)</td>
+<td>Direct execution of shellcode on the stack</td>
+<td><strong>ROP/return-to-libc</strong> reuses existing code; JIT/self-modifying code needs writable and executable memory</td>
+</tr>
+<tr>
+<td><strong>Canary</strong></td>
+<td>A random value placed between the local variables and saved EBP; checked before the function returns</td>
+<td>Contiguous stack overflows (the canary must be destroyed to reach ret)</td>
+<td>The canary can be <strong>leaked</strong> (format string/info leak); an arbitrary write may leave the canary untouched; not fool-proof; about 8% performance penalty</td>
+</tr>
+<tr>
+<td><strong>ASLR</strong></td>
+<td>Randomizes the base addresses of the stack, heap, libraries, and executable</td>
+<td>Makes the attacker's address guess miss</td>
+<td>32-bit entropy is low, so it can be brute-forced; <strong>spraying</strong> works; needs an info leak; does not prevent attacks that do not rely on a fixed address</td>
+</tr>
+<tr>
+<td><strong>Safe languages</strong></td>
+<td>Automatic bounds checking in Java/C#/Rust, etc.</td>
+<td>Removes out-of-bounds access at the root</td>
+<td>Requires rewriting/migration; performance, compatibility, FFI</td>
+</tr>
+<tr>
+<td><strong>Safe functions</strong></td>
+<td>Library functions with a length parameter + checks</td>
+<td>Reduces common mistakes</td>
+<td>Depends on the developer using them correctly; logic errors remain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Canary details</strong></p>
+<ul>
+<li>The classic constant <code>0x000aff0d</code> (contains <code>\x00</code>, <code>\x0a</code>, <code>\xff</code>, <code>\x0d</code>, which prevents string functions from copying it by accident); a random value decided during runtime also works.</li>
+<li>Pushed in the function prologue and compared in the epilogue; a mismatch → <code>__stack_chk_fail</code> → termination.</li>
+<li>Bypass: leak the canary first and write it back unchanged; or use a write primitive that does not go through the stack.</li>
+</ul>
+<p><strong>ASLR details</strong></p>
+<ul>
+<li>The attacker can <strong>repetitively guess the randomized address</strong> (especially since the 32-bit address space is small); they can <strong>spray</strong> a large amount of attack code to raise the hit rate.</li>
+<li>Combined with NX, attackers turn to ROP: stitching attack logic out of existing code fragments (gadgets).</li>
+</ul>
+<blockquote>
+<p>The modern combination: <strong>ASLR + canary + NX + PIE + CFI</strong>; no single defense is enough.</p>
+</blockquote>
+<h3 id="18-why-the-buffer-growing-forwardly-is-not-the-solution">1.8 Why "the buffer growing forwardly" is not the solution<a class="headerlink" href="#18-why-the-buffer-growing-forwardly-is-not-the-solution" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If the buffer grows toward high addresses, ret is on the low-address side and seems safe from being overwritten;</li>
+<li>but the attacker can overwrite other critical data (function pointers, saved EBP, parameters), or use the heap/other structures;</li>
+<li>the root problem is the <strong>lack of bounds checking</strong>, not the direction of growth.</li>
+</ul>
+<hr />
+<h2 id="2-software-obfuscation">2. Software obfuscation<a class="headerlink" href="#2-software-obfuscation" title="Permanent link">&para;</a></h2>
+<h3 id="21-motivation-and-threat-model">2.1 Motivation and threat model ★<a class="headerlink" href="#21-motivation-and-threat-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Software contains code that is highly informative: MSIL for .NET, bytecode for Java/JS/Python, binary code for C/C++.</li>
+<li>Code can be exploited:</li>
+<li>Non-malicious RE: for testing, integration, extending;</li>
+<li>Malicious RE: for security attacking, piracy, plagiarism;</li>
+<li>malware authors also want to evade <strong>malware clustering/similarity analysis</strong>.</li>
+<li><strong>Mobile code + "malicious" hosts</strong>: the code runs on someone else's machine and the host is not trustworthy → "software protection" is needed.</li>
+</ul>
+<h3 id="22-why-existing-protection-is-not-enough">2.2 Why existing protection is not enough ⚠<a class="headerlink" href="#22-why-existing-protection-is-not-enough" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardware isolation</td>
+<td>Retrofit hardware is needed; not viable</td>
+</tr>
+<tr>
+<td>Server-side execution</td>
+<td>Requires always-on high bandwidth; authentication and other network security problems also need to be taken care of</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td><strong>Chicken-egg problem</strong>: the decryption routine itself is visible, so the attacker always ends up with the decrypted code</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-goal-and-limits">2.3 Goal and limits ★<a class="headerlink" href="#23-goal-and-limits" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Obfuscation: making protected software "look" dissimilar to its original version; <strong>determining the "similarity" of two pieces of code</strong> is the building block of many software security analyses.</li>
+<li>It <strong>can never completely</strong> protect an application from malicious RE: given sufficient time and resources, any obfuscated code can be reversed (exhaustive search).</li>
+<li>The right goal: <strong>make the resources required for undoing the transforms too expensive for attackers</strong> (raise the cost instead of pursuing absolute security).</li>
+</ul>
+<h3 id="24-the-three-kinds-of-obfuscation">2.4 The three kinds of obfuscation ★★<a class="headerlink" href="#24-the-three-kinds-of-obfuscation" title="Permanent link">&para;</a></h3>
+<h4 id="1-layout-obfuscation">(1) Layout obfuscation<a class="headerlink" href="#1-layout-obfuscation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Comment stripping and identifier renaming (classes/methods/variables → meaningless names).</li>
+<li>Tools: DashO (Java), Dotfuscator (MSIL).</li>
+<li>Characteristics: <strong>very lightweight</strong>, does not change semantics; in the real world plenty of popular apps are not even layout obfuscated.</li>
+</ul>
+<h4 id="2-data-obfuscation">(2) Data obfuscation<a class="headerlink" href="#2-data-obfuscation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Variable splitting, merging, and encoding.</li>
+<li>Arrays split into several sub-arrays, two or more arrays merged into one bigger array, arrays folded so as to increase the number of dimensions, arrays flattened to decrease the number of dimensions.</li>
+<li>Data encryption (e.g., string encryption, very common in mobile apps).</li>
+<li>Goal: make it harder to infer "what the data is and how it is used".</li>
+</ul>
+<h4 id="3-control-flow-obfuscation">(3) Control-flow obfuscation ★<a class="headerlink" href="#3-control-flow-obfuscation" title="Permanent link">&para;</a></h4>
+<p><strong>Premise</strong>: layout/data obfuscation does not change the control structure of the program → the control structure can still be leveraged as a code signature.</p>
+<p><strong>Method 1: instruction insertion (garbage code insertion)</strong></p>
+<ul>
+<li>Insert meaningless instructions or sequences of instructions: <code>nop</code>; or a semantically canceling sequence: <code>add → sub</code>, <code>xor → xor</code>.</li>
+<li>Advantages: easy to implement, and can easily break known patterns/signatures.</li>
+</ul>
+<p><strong>Method 2: instruction replacement/substitution</strong></p>
+<ul>
+<li>Replace the original instructions with an equivalent sequence of instructions.</li>
+<li>Extreme case: <strong>M/o/Vfuscator</strong> compiles C/C++ programs into <code>mov</code> instructions, and only "mov" instructions.</li>
+</ul>
+<p><strong>Method 3: control flow flattening</strong></p>
+<ul>
+<li>Put all the basic blocks of the function into a single <code>switch(x)</code> dispatcher, driven by the state variable x.</li>
+<li>The original CFG is "flattened" and loses its obvious branch/loop structure.</li>
+</ul>
+<p>Example: function <code>f(i,j)</code>: <code>a=1; if(i&lt;j) a=j; do { a*=i--; } while(i&gt;0); return a;</code></p>
+<table>
+<thead>
+<tr>
+<th>Original basic block</th>
+<th>State after flattening</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A: <code>a=1</code></td>
+<td><code>x=0</code> → case 0: A; <code>x = (i&lt;j) ? 1 : 2</code></td>
+</tr>
+<tr>
+<td>B: <code>a=j</code></td>
+<td>case 1: B; <code>x=3</code></td>
+</tr>
+<tr>
+<td>C: <code>a=a*i; i=i-1</code></td>
+<td>case 2: C; <code>x = (i&gt;0) ? 2 : 3</code></td>
+</tr>
+<tr>
+<td>D: <code>return a</code></td>
+<td>case 3: D</td>
+</tr>
+</tbody>
+</table>
+<p>The outer layer keeps only a single <code>while(true) switch(x)</code>.</p>
+<p><strong>Method 4: opaque predicates</strong></p>
+<ul>
+<li>The value of the conditional expression is <strong>known</strong> at runtime, but difficult for the adversary to deduce by statically analyzing the code.</li>
+<li>Example: <code>if (x*x + y*y &gt;= 2*x*y)</code> is always true, because <span class="arithmatex">\((x-y)^{2} \ge 0\)</span>; in assembly it is even less obvious.</li>
+<li>Types:</li>
+<li><strong>Invariant</strong>: always true/always false, independent of the input;</li>
+<li><strong>Context</strong>: holds only in a specific context;</li>
+<li><strong>Multi-threading</strong>: one thread puts random numbers <code>&gt;n</code> into a global data structure, another thread takes one of these numbers and assigns it to x → <code>if (x&lt;n)</code> is always false.</li>
+<li>The opacity property of predicates determines the <strong>resilience</strong> of control-flow transformations.</li>
+</ul>
+<p><strong>Advanced</strong></p>
+<ul>
+<li><strong>VM-based obfuscation</strong>: invent new instruction sets with secret encodings + a virtual CPU/dispatcher; it has been commercialized; not a fool-proof technique, but it makes analysis significantly more difficult.</li>
+<li><strong>Multilingual obfuscation</strong>: "mixing" different computation models (imperative = Turing machine, functional = lambda calculus, logic = Horn logic); after translation and compilation the machine code is harder to understand.</li>
+</ul>
+<h3 id="25-evaluating-obfuscation-effectiveness">2.5 Evaluating obfuscation effectiveness ★★<a class="headerlink" href="#25-evaluating-obfuscation-effectiveness" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Meaning</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Potency</strong></td>
+<td>How much complexity the obfuscation introduces</td>
+<td>Number of call graph edges, basic blocks, CFG edges, etc.</td>
+</tr>
+<tr>
+<td><strong>Stealth</strong></td>
+<td>How well obfuscated code blends in with the rest of the program</td>
+<td>Instruction distribution anomaly test</td>
+</tr>
+<tr>
+<td><strong>Resilience</strong></td>
+<td>How difficult it is to undo the obfuscation</td>
+<td>Diffing techniques to test similarity between obfuscated and original binaries</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Performance penalty caused by obfuscation</td>
+<td>Size, execution slowdown</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The four need to be traded off: high potency may mean high cost; good stealth may mean low resilience.</p>
+</blockquote>
+<h3 id="26-why-good-obfuscation-is-hard-to-design">2.6 Why "good" obfuscation is hard to design ⚠<a class="headerlink" href="#26-why-good-obfuscation-is-hard-to-design" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Coming up with "interesting" obfuscation mutations is not too difficult, it requires some creativity; coming up with "secure" obfuscation mutations is very difficult.</li>
+<li>Especially when people are aware of your obfuscation method (<strong>an extension of Kerckhoffs</strong>).</li>
+<li>Open design with no real secret and a limited search space is not good in principle.</li>
+</ul>
+<hr />
+<h2 id="3-worked-examples">3. Worked examples<a class="headerlink" href="#3-worked-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-ret-offset-8-points">Example 1: ret offset (8 points)<a class="headerlink" href="#example-1-ret-offset-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: In a 32-bit program, a function contains <code>char buf[64]</code>, with no alignment padding; saved EBP is 4 bytes, ret is 4 bytes. How many bytes of padding are needed to overwrite ret?</p>
+<p><strong>Answer</strong>:
+- buf is 64 bytes;
+- saved EBP is 4 bytes;
+- therefore ret begins at byte <strong>68</strong> from the start of buf;
+- payload = <code>b"A"*68 + p32(target)</code>.</p>
+<p><strong>Scoring points</strong>: state that "saved EBP is overwritten first, then ret"; mention that a real compiler may add alignment padding, which must be confirmed dynamically.</p>
+<h3 id="example-2-little-endian-payload-8-points">Example 2: little-endian payload (8 points)<a class="headerlink" href="#example-2-little-endian-payload-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: The target address is <code>0x0804a080</code>; write out the address bytes in the payload.</p>
+<p><strong>Answer</strong>:
+- little-endian: the low byte comes first → <code>80 a0 04 08</code>;
+- Python: <code>p32(0x0804a080)</code> = <code>b"\x80\xa0\x04\x08"</code>.
+- If the address contains <code>\x00</code> (e.g., <code>0x08048400</code>), <code>strcpy</code> truncates it; change the address or change the way of writing.</p>
+<h3 id="example-3-canary-principle-8-points">Example 3: canary principle (8 points)<a class="headerlink" href="#example-3-canary-principle-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: How does the canary detect a stack overflow? How does the attacker bypass it?</p>
+<p><strong>Answer</strong>:
+- The compiler places a random value between the local variables and saved EBP; before the function returns it compares whether that value has been changed; a mismatch calls <code>__stack_chk_fail</code> and terminates.
+- A contiguous overflow must pass through the canary to reach ret, so it is detected.
+- Bypass: ① leak the canary and write it back unchanged (format string/info leak); ② use an arbitrary write that does not go through that stack frame; ③ overwrite a path that does not trigger the check.</p>
+<h3 id="example-4-the-limits-of-aslr-8-points">Example 4: the limits of ASLR (8 points)<a class="headerlink" href="#example-4-the-limits-of-aslr-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: ASLR randomizes addresses, so why can a 32-bit program still be bypassed?</p>
+<p><strong>Answer</strong>:
+- The entropy of the 32-bit address space is limited, so the attacker can <strong>brute-force the guess</strong> (retry repeatedly, restarting after a crash);
+- <strong>heap/stack spraying</strong> can lay out a large amount of attack code/ROP gadgets to raise the hit rate;
+- an info leak is needed to disclose the base address; or the attacker turns to an attack that does not need a fixed address (e.g., partial overwrite).
+- Therefore ASLR must be combined with NX, canary, CFI, etc.</p>
+<h3 id="example-5-control-flow-flattening-10-points">Example 5: control flow flattening (10 points)<a class="headerlink" href="#example-5-control-flow-flattening-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: Flatten <code>a=1; if(i&lt;j) a=j; do{a*=i--;}while(i&gt;0); return a;</code> with a switch dispatcher.</p>
+<p><strong>Answer</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos">1</span></a><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos">2</span></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos">3</span></a><span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos">4</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos">5</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos">6</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos">7</span></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos">8</span></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos">9</span></a><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>The branches/loops of the original CFG are "hidden" in the assignments to the state variable x; static analysis must first recover the values of x before it can rebuild the CFG.</li>
+</ul>
+<h3 id="example-6-opaque-predicates-6-points">Example 6: opaque predicates (6 points)<a class="headerlink" href="#example-6-opaque-predicates-6-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: Why is <code>if (x*x + y*y &gt;= 2*x*y)</code> always true? What is the precondition?</p>
+<p><strong>Answer</strong>:
+- <span class="arithmatex">\(x^{2} + y^{2} - 2xy = (x-y)^{2} \ge 0\)</span>;
+- therefore it is always true for any real numbers x and y; in assembly it is not easy to see.
+- Precondition: the integer arithmetic does not overflow; if it overflows the predicate may be false (this must be considered at design time).</p>
+<h3 id="example-7-evaluating-obfuscation-8-points">Example 7: evaluating obfuscation (8 points)<a class="headerlink" href="#example-7-evaluating-obfuscation-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: An obfuscator makes a program 3× larger and 40% slower to run, but its instruction distribution differs clearly from normal code. Evaluate it with the four dimensions.</p>
+<p><strong>Answer</strong>:
+- <strong>Cost</strong>: poor (3× size, 40% slower);
+- <strong>Stealth</strong>: poor (the instruction distribution is anomalous and easily caught by statistical detection);
+- <strong>Potency</strong>: need to see whether the CFG/basic block complexity really increases;
+- <strong>Resilience</strong>: need diffing/similarity analysis to see how hard it is to undo.
+- Conclusion: this obfuscation is "visually complex", but stealth and cost are unsatisfactory, so the overall effect is limited.</p>
+<hr />
+<h2 id="4-common-mistakes-where-points-are-lost-most-easily">4. Common mistakes (where points are lost most easily)<a class="headerlink" href="#4-common-mistakes-where-points-are-lost-most-easily" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The stack grows toward high addresses</td>
+<td>The stack grows toward <strong>low addresses</strong>; the buffer is written toward high addresses</td>
+</tr>
+<tr>
+<td>An overflow always overwrites ret</td>
+<td>It may only overwrite local variables/EBP; it depends on the layout and the length</td>
+</tr>
+<tr>
+<td>All overflows are exploitable</td>
+<td>Many only cause a crash; exploitability depends on the layout, the address, and the protections</td>
+</tr>
+<tr>
+<td>NX prevents all code execution</td>
+<td>It prevents "execution on the stack"; ROP/return-to-libc bypasses it</td>
+</tr>
+<tr>
+<td>The canary is fool-proof</td>
+<td>It can be leaked/bypassed; it does not protect non-contiguous writes</td>
+</tr>
+<tr>
+<td>ASLR makes attacks impossible</td>
+<td>32-bit can be brute-forced; spraying works; an info leak is needed</td>
+</tr>
+<tr>
+<td>Using safe functions makes you safe</td>
+<td>Logic errors and length-computation errors remain</td>
+</tr>
+<tr>
+<td>Obfuscation = encryption</td>
+<td>Obfuscation does not keep secrets, it only raises the cost of understanding; encryption has a key</td>
+</tr>
+<tr>
+<td>Obfuscation can completely prevent RE</td>
+<td>It cannot; it can only raise the cost</td>
+</tr>
+<tr>
+<td>The higher the potency the better</td>
+<td>The trade-off with stealth/resilience/cost also matters</td>
+</tr>
+<tr>
+<td>Control flow flattening changes the program semantics</td>
+<td>It does not; it only hides the CFG in the state variable</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-self-test-do-it-first-then-look-at-the-answers">5. Self-test (do it first, then look at the answers)<a class="headerlink" href="#5-self-test-do-it-first-then-look-at-the-answers" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Draw a 32-bit stack frame and label the order of the parameters, ret, saved EBP, and buf.</li>
+<li>Why can an overflow overwrite the return address? In which direction does the stack grow?</li>
+<li>What is the difference between overread and overwrite? Which one is Heartbleed?</li>
+<li>List 5 unsafe C library functions and explain their common problem.</li>
+<li>Describe the complete exploitation steps of a stack overflow; what is the role of the NOP sled?</li>
+<li>What does each of W^X, canary, and ASLR prevent? What is each one's limitation?</li>
+<li>Why does "letting the buffer grow toward high addresses" not solve the problem?</li>
+<li>What are the three kinds of obfuscation? Give two concrete methods for each.</li>
+<li>What is the principle of control flow flattening? What is the essence of an opaque predicate?</li>
+<li>On which four dimensions is obfuscation effectiveness evaluated? Why is "secure obfuscation" hard?</li>
+<li>What are VM-based obfuscation and multilingual obfuscation?</li>
+</ol>
+<h3 id="answers">Answers<a class="headerlink" href="#answers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>High → low: parameters, ret, saved EBP, local variables (buf is at the low-address end, closest to ESP).</li>
+<li>The stack grows toward low addresses and buf is written toward high addresses; ret is above buf, so an over-long write passes saved EBP first and then reaches ret.</li>
+<li>overread reads out of bounds (leak), overwrite writes out of bounds (tampering); Heartbleed is an overread.</li>
+<li><code>strcpy</code>, <code>gets</code>, <code>strcat</code>, <code>scanf("%s")</code>, <code>sprintf</code>; none of them checks the length of the destination buffer.</li>
+<li>Discover the offset → find the target address → write the address in little-endian → construct the payload (padding + address, optionally with a NOP sled/shellcode) → trigger the return. The NOP sled lowers the precision required of the address guess.</li>
+<li>W^X: the stack is non-executable, preventing shellcode; it can be bypassed by ROP. canary: detects contiguous overflows; it can be leaked/bypassed. ASLR: randomizes addresses; 32-bit can be brute-forced and sprayed.</li>
+<li>The root problem is the lack of bounds checking; ret can still be overwritten through another layout/structure, or function pointers/parameters can be changed.</li>
+<li>Layout (renaming, comment stripping); data (array splitting/merging, string encryption); control flow (garbage instructions, instruction substitution, flattening, opaque predicates).</li>
+<li>Put all basic blocks into a switch dispatcher driven by a state variable; an opaque predicate is a conditional whose "value is known at runtime but difficult to deduce statically".</li>
+<li>Potency, Stealth, Resilience, Cost; because the method is open (Kerckhoffs), there is no real secret and the search space is limited, so an attacker can reverse it in a targeted way.</li>
+<li>VM-based: a custom instruction set + a virtual CPU interpreting it; multilingual: mixing different computation models such as imperative/functional/logic.</li>
+</ol>
+<hr />
+<h2 id="6-pre-exam-quick-reference-card">6. Pre-exam quick-reference card<a class="headerlink" href="#6-pre-exam-quick-reference-card" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stack direction</td>
+<td>The stack grows toward low addresses; buf is written toward high addresses</td>
+</tr>
+<tr>
+<td>32-bit stack frame</td>
+<td>parameters / ret / saved EBP / buf (low address)</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td><code>buf[64]</code> → ret offset 68 (64+4)</td>
+</tr>
+<tr>
+<td>Little-endian</td>
+<td>The low byte comes first; <code>0x0804a080</code> → <code>80 a0 04 08</code></td>
+</tr>
+<tr>
+<td>Dangerous functions</td>
+<td>strcpy, gets, strcat, scanf, sprintf</td>
+</tr>
+<tr>
+<td>Aliases</td>
+<td>stack smashing, code injection, control-flow hijacking</td>
+</tr>
+<tr>
+<td>W^X</td>
+<td>The stack is non-executable; bypass: ROP/return-to-libc</td>
+</tr>
+<tr>
+<td>Canary</td>
+<td><code>0x000aff0d</code> or random; about 8% overhead; can be leaked</td>
+</tr>
+<tr>
+<td>ASLR</td>
+<td>Randomizes base addresses; low 32-bit entropy; can be sprayed/brute-forced</td>
+</tr>
+<tr>
+<td>Three kinds of obfuscation</td>
+<td>layout / data / control-flow</td>
+</tr>
+<tr>
+<td>Control-flow methods</td>
+<td>garbage instructions, instruction substitution (mov-only), flattening, opaque predicates</td>
+</tr>
+<tr>
+<td>Opaque predicates</td>
+<td><span class="arithmatex">\((x-y)^{2}\ge 0\)</span>; invariant/context/multi-threading</td>
+</tr>
+<tr>
+<td>Evaluation</td>
+<td>potency / stealth / resilience / cost</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td>Obfuscation only raises the cost; it cannot completely prevent RE</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ch4-malware-re/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Chapter 4 · Malware &amp; Reverse Engineering">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Chapter 4 · Malware & Reverse Engineering
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch6-exploit-sidechannel/" class="md-footer__link md-footer__link--next" aria-label="Next: Chapter 6 · Software Exploitation II &amp; Side Channels">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Chapter 6 · Software Exploitation II & Side Channels
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

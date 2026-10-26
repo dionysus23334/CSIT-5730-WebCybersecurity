@@ -1,0 +1,2767 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="HKUST CSIT5730 Principles of Cybersecurity — review notes">
+      
+      
+        <meta name="author" content="dionysus23334">
+      
+      
+        <link rel="canonical" href="https://dionysus23334.github.io/CSIT-5730-WebCybersecurity/en/en/review/ch3-public-key/">
+      
+      
+        <link rel="prev" href="../ch2-symmetric/">
+      
+      
+        <link rel="next" href="../ch4-malware-re/">
+      
+      
+        
+          <link rel="alternate" href="../../../review/ch3-public-key/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 3 · Public Key Cryptography - CSIT5730 Review Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-3-public-key-cryptography-review-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-header__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CSIT5730 Review Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 3 · Public Key Cryptography
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../review/ch3-public-key/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CSIT5730 Review Notes" class="md-nav__button md-logo" aria-label="CSIT5730 Review Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CSIT5730 Review Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dionysus23334/CSIT-5730-WebCybersecurity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dionysus23334/CSIT-5730-WebCybersecurity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://dionysus23334.github.io/study-blogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ← Study archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapters
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All chapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1 · Introduction & Classical Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2-symmetric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2 · Symmetric Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 · Public Key Cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core idea
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Core idea">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-trapdoor-one-way-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Trapdoor one-way function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-two-uses-must-be-distinguished" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Two uses (must be distinguished)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. RSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. RSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-key-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Key generation ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-encryption-and-decryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Encryption and decryption ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-security-factoring-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Security = factoring N ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-efficiency-repeated-squaring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Efficiency: repeated squaring ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-message-length-and-hybrid-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Message length and hybrid encryption ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-rsa-numbers-for-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 RSA numbers (for awareness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-pitfalls-of-textbook-rsa-supplementary-but-why-is-padding-needed-is-often-examined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Pitfalls of textbook RSA (supplementary, but "why is padding needed" is often examined)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diffie-hellman-key-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diffie-Hellman key exchange ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Diffie-Hellman key exchange ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-security-discrete-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Security = discrete log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-man-in-the-middle-mim-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Man-in-the-middle (MiM) attack ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-small-example-p23-g5-a6-b15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Small example (p=23, g=5, a=6, b=15)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Digital signatures ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Digital signatures ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-why-it-gives-non-repudiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Why it gives non-repudiation ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-hash-then-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hash-then-sign ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-the-direction-of-signature-vs-encryption-easy-to-get-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 The "direction" of signature vs encryption (easy to get wrong)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pki-and-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. PKI and certificates ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. PKI and certificates ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 The problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-digital-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Digital certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-certificate-life-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Certificate life cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-why-trust-a-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Why trust a CA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-three-trust-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Three trust models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hash-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hash functions ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Hash functions ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-the-five-properties-must-memorize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 The five properties (must memorize)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-birthday-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Birthday problems ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-common-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Common algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-clever-uses-of-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Clever uses of hashing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-quantum-computing-shor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Quantum computing: Shor ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-rsa-full-flow-12-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: RSA full flow (12 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-dh-key-exchange-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: DH key exchange (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-dh-man-in-the-middle-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: DH man-in-the-middle (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-birthday-attack-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Birthday attack (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-hash-chain-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Hash chain (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-why-rsa-needs-padding-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Why RSA needs padding (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-common-mistakes-where-marks-are-most-easily-lost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common mistakes (where marks are most easily lost)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4-malware-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4 · Malware & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5-buffer-obfuscation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5 · Buffer Overflow & Obfuscation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6-exploit-sidechannel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6 · Software Exploitation II & Side Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7-auth-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7 · Authentication & Network Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Homework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 1 · Cryptography Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/hw2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homework 2 · Reverse Engineering & Memory Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-chapter-thread-memorize-these-three-sentences-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Chapter thread (memorize these three sentences first)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core idea
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Core idea">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-trapdoor-one-way-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Trapdoor one-way function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-two-uses-must-be-distinguished" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Two uses (must be distinguished)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. RSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. RSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-key-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Key generation ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-encryption-and-decryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Encryption and decryption ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-security-factoring-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Security = factoring N ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-efficiency-repeated-squaring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Efficiency: repeated squaring ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-message-length-and-hybrid-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Message length and hybrid encryption ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-rsa-numbers-for-awareness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 RSA numbers (for awareness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-pitfalls-of-textbook-rsa-supplementary-but-why-is-padding-needed-is-often-examined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Pitfalls of textbook RSA (supplementary, but "why is padding needed" is often examined)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diffie-hellman-key-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diffie-Hellman key exchange ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Diffie-Hellman key exchange ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-security-discrete-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Security = discrete log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-man-in-the-middle-mim-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Man-in-the-middle (MiM) attack ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-small-example-p23-g5-a6-b15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Small example (p=23, g=5, a=6, b=15)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-digital-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Digital signatures ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Digital signatures ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-why-it-gives-non-repudiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Why it gives non-repudiation ★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-hash-then-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hash-then-sign ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-the-direction-of-signature-vs-encryption-easy-to-get-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 The "direction" of signature vs encryption (easy to get wrong)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pki-and-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. PKI and certificates ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. PKI and certificates ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 The problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-digital-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Digital certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-certificate-life-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Certificate life cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-why-trust-a-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Why trust a CA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-three-trust-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Three trust models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-hash-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Hash functions ★★
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Hash functions ★★">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-the-five-properties-must-memorize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 The five properties (must memorize)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-birthday-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Birthday problems ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-common-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Common algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-clever-uses-of-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Clever uses of hashing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-quantum-computing-shor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Quantum computing: Shor ★★
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-worked-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Worked examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Worked examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-rsa-full-flow-12-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: RSA full flow (12 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-dh-key-exchange-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: DH key exchange (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-dh-man-in-the-middle-10-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: DH man-in-the-middle (10 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-birthday-attack-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Birthday attack (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-hash-chain-8-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Hash chain (8 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-why-rsa-needs-padding-6-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Why RSA needs padding (6 points)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-common-mistakes-where-marks-are-most-easily-lost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common mistakes (where marks are most easily lost)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-self-test-do-it-first-then-check-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Self-test (do it first, then check the answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Self-test (do it first, then check the answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pre-exam-quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pre-exam quick-reference card
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-3-public-key-cryptography-review-notes">Chapter 3 · Public Key Cryptography · Review Notes<a class="headerlink" href="#chapter-3-public-key-cryptography-review-notes" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Matching slides</strong>: <code>w3/public-key-cryptography.pdf</code></p>
+<p><strong>Suggested time</strong>: first pass 80 minutes + worked examples 40 minutes + self-test 30 minutes</p>
+<p><strong>Companion</strong>: Outline §2.4</p>
+<p><strong>Weight of this chapter</strong>: RSA computation, DH key exchange, signatures/certificates, and the hash birthday bound are high-frequency sources of computation and short-answer questions; Shor's algorithm is often examined in comparison with Grover from Chapter 2.</p>
+</blockquote>
+<hr />
+<h2 id="0-chapter-thread-memorize-these-three-sentences-first">0. Chapter thread (memorize these three sentences first)<a class="headerlink" href="#0-chapter-thread-memorize-these-three-sentences-first" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Public key cryptography uses a <strong>trapdoor one-way function</strong> to solve "how do we distribute keys securely": encrypt with the public key, decrypt with the private key; for signatures it is the other way round.</li>
+<li><strong>RSA's security = integer factorization; DH's security = discrete log</strong>; both fear Shor's algorithm, while symmetric ciphers are only affected by Grover.</li>
+<li>Public key algorithms are <strong>slow and have a message length limit</strong>, so real systems are a <strong>hybrid</strong> of "public key to establish a key + symmetric to encrypt the data"; binding a public key to an identity relies on <strong>PKI/certificates</strong>, and signing a large message relies on <strong>hashing first</strong>.</li>
+</ol>
+<p><strong>Common question types in this chapter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question type</th>
+<th>Typical phrasing</th>
+<th>What to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSA computation</td>
+<td>Given small p, q, e, find d, encrypt, decrypt, sign</td>
+<td>Be able to do extended Euclid/trial and error; be able to do repeated squaring</td>
+</tr>
+<tr>
+<td>Protocol analysis</td>
+<td>Why does DH fear man-in-the-middle? How do you prevent it?</td>
+<td>Draw the three-party key table</td>
+</tr>
+<tr>
+<td>Concept discrimination</td>
+<td>Signature vs MAC; encryption vs signature</td>
+<td>Grab "is the key shared?"</td>
+</tr>
+<tr>
+<td>Hash computation</td>
+<td>Cost of the birthday attack, the value at the d-th step of a hash chain</td>
+<td>Remember <span class="arithmatex">\(2^{N/2}\)</span> and the index</td>
+</tr>
+<tr>
+<td>PKI</td>
+<td>What is in a certificate? Why is a CA trusted?</td>
+<td>Memorize the X.509 fields + the chain of trust</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-core-idea">1. Core idea<a class="headerlink" href="#1-core-idea" title="Permanent link">&para;</a></h2>
+<h3 id="11-trapdoor-one-way-function">1.1 Trapdoor one-way function<a class="headerlink" href="#11-trapdoor-one-way-function" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>One-way</strong>: easy in the forward direction, extremely hard in the reverse direction.</li>
+<li><strong>Trapdoor</strong>: once you hold a certain secret (the private key), the reverse direction becomes easy.</li>
+<li>Typical: <span class="arithmatex">\(N = p\cdot q\)</span> is easy; factoring p and q out of N is extremely hard. The trapdoor is p and q.</li>
+</ul>
+<h3 id="12-two-uses-must-be-distinguished">1.2 Two uses (must be distinguished)<a class="headerlink" href="#12-two-uses-must-be-distinguished" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>What the sender uses</th>
+<th>What the receiver uses</th>
+<th>Provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Encryption</strong> (secrecy)</td>
+<td>Bob's <strong>public key</strong></td>
+<td>Bob's <strong>private key</strong></td>
+<td>Confidentiality</td>
+</tr>
+<tr>
+<td><strong>Signature</strong> (authentication)</td>
+<td>Alice's <strong>private key</strong></td>
+<td>Alice's <strong>public key</strong></td>
+<td>Integrity + authentication + <strong>non-repudiation</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Mnemonic: <strong>encryption is "locking with the other party's public key", a signature is "stamping with your own private key"</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="2-rsa">2. RSA<a class="headerlink" href="#2-rsa" title="Permanent link">&para;</a></h2>
+<h3 id="21-key-generation">2.1 Key generation ★★<a class="headerlink" href="#21-key-generation" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Choose two large primes p and q.</li>
+<li><span class="arithmatex">\(N = p\cdot q\)</span> (the modulus).</li>
+<li>Compute <span class="arithmatex">\(\varphi (N) = (p-1)(q-1)\)</span>.</li>
+<li>Choose <code>e</code> such that <span class="arithmatex">\(\gcd(e, \varphi (N)) = 1\)</span> (usually e=65537).</li>
+<li>Find <code>d</code> such that <span class="arithmatex">\(e\cdot d \equiv 1 \pmod{\varphi (N})\)</span> (extended Euclid).</li>
+<li><strong>Public key <code>(N, e)</code>; private key <code>d</code></strong> (p and q must be kept secret/destroyed).</li>
+</ol>
+<h3 id="22-encryption-and-decryption">2.2 Encryption and decryption ★★<a class="headerlink" href="#22-encryption-and-decryption" title="Permanent link">&para;</a></h3>
+<p>Encryption: <span class="arithmatex">\(C = M^e \bmod N\)</span>; decryption: <span class="arithmatex">\(M = C^d \bmod N\)</span>.</p>
+<p><strong>Correctness intuition</strong>: <span class="arithmatex">\(C^d = M^{ed} = M^{1+k\varphi (N)} \equiv M \pmod{N}\)</span>; when <span class="mchip"><span class="arithmatex">\(\gcd(M,N)=1\)</span></span> this follows directly from Euler's theorem, and when they are not coprime it can also be proved with CRT (since N is the product of two primes). In practice the probability that M is not coprime to N is negligible.</p>
+<h3 id="23-security-factoring-n">2.3 Security = factoring N ★★<a class="headerlink" href="#23-security-factoring-n" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If an attacker can factor <span class="arithmatex">\(N = p\cdot q\)</span>, they can compute <span class="arithmatex">\(\varphi (N)\)</span> and then derive <code>d</code> from <code>e</code>.</li>
+<li>Therefore: <strong>factoring the modulus breaks RSA</strong>.</li>
+<li>But "RSA hard ≠ factoring hard" is an unproven equivalence; currently there is no general attack faster than factoring.</li>
+</ul>
+<h3 id="24-efficiency-repeated-squaring">2.4 Efficiency: repeated squaring ★<a class="headerlink" href="#24-efficiency-repeated-squaring" title="Permanent link">&para;</a></h3>
+<p>Computing <span class="arithmatex">\(M^e\)</span> directly produces astronomically large numbers; you must <strong>take the modulus at each step</strong>.</p>
+<p><strong>Example</strong>: compute <span class="arithmatex">\(5^{20} \bmod 35\)</span>.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+5^1 &amp;= 5\\
+5^2 &amp;= 25\\
+5^4 &amp;= 25^2 = 625 \equiv 30 \pmod{35}\\
+5^5 &amp;= 5^4\cdot 5 = 30\cdot 5 = 150 \equiv 10 \pmod{35}\\
+5^{10} &amp;= 10^2 = 100 \equiv 30 \pmod{35}\\
+5^{20} &amp;= 30^2 = 900 \equiv 25 \pmod{35}
+\end{aligned}
+\]</div>
+<ul>
+<li>First write the exponent in binary, then go bit by bit: "square, and multiply by the base when the bit is 1".</li>
+<li>Intermediate values always stay &lt; N², so nothing blows up.</li>
+<li>You can precompute a table of the commonly used powers.</li>
+</ul>
+<h3 id="25-message-length-and-hybrid-encryption">2.5 Message length and hybrid encryption ★★<a class="headerlink" href="#25-message-length-and-hybrid-encryption" title="Permanent link">&para;</a></h3>
+<ul>
+<li>RSA can only encrypt numbers <strong>smaller than N</strong>; a 2048-bit modulus = 256 bytes.</li>
+<li>Real padding (e.g., PKCS#1 v1.5) takes another 11 bytes → <strong>at most about 245 bytes of plaintext</strong>.</li>
+<li>Do not "cut the message into chunks and RSA each one": ciphertext expansion, slow, plus padding/mode problems.</li>
+<li><strong>Hybrid cryptosystem</strong>:</li>
+<li>Use RSA to encrypt a random symmetric key (or establish a key);</li>
+<li>Use a symmetric cipher such as AES to encrypt the actual data.</li>
+<li>SSL/TLS and OpenPGP both do this.</li>
+<li>But "how does Bob confirm that the public key really belongs to Alice?" → certificates are needed (§5).</li>
+</ul>
+<h3 id="26-rsa-numbers-for-awareness">2.6 RSA numbers (for awareness)<a class="headerlink" href="#26-rsa-numbers-for-awareness" title="Permanent link">&para;</a></h3>
+<ul>
+<li>RSA Labs published semiprimes (exactly two prime factors) with 100–617 decimal digits.</li>
+<li>As of 2018-08, 20 of the 54 have been factored.</li>
+<li>RSA-100 (330 bit) is the easiest; <strong>no one can break RSA-2048 so far</strong>.</li>
+<li><strong>Key collisions</strong>: the probability that two independently generated RSA key pairs happen to be identical is extremely low (the slides only give an informal explanation; no need to dig deeper).</li>
+<li>Conclusion: real deployments use at least 2048-bit and are gradually migrating to 3072/4096.</li>
+</ul>
+<h3 id="27-pitfalls-of-textbook-rsa-supplementary-but-why-is-padding-needed-is-often-examined">2.7 Pitfalls of textbook RSA (supplementary, but "why is padding needed" is often examined)<a class="headerlink" href="#27-pitfalls-of-textbook-rsa-supplementary-but-why-is-padding-needed-is-often-examined" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Deterministic</strong>: the same M always gives the same C → dictionary/replay attacks work; randomized padding is needed (OAEP).</li>
+<li><strong>Malleable</strong>: <span class="arithmatex">\(C_{1}\cdot C_{2} = (M_{1}\cdot M_{2})^e\)</span> → an attacker can construct related plaintexts.</li>
+<li><strong>Signatures are forgeable</strong>: <span class="arithmatex">\(S(M_{1})\cdot S(M_{2}) = S(M_{1}\cdot M_{2})\)</span> → an attacker can obtain a signature on <span class="arithmatex">\(M_{1}\cdot M_{2}\)</span> without asking for it; <strong>hash + padding</strong> is needed.</li>
+<li><strong>Small e / common modulus / low-entropy plaintext</strong>: all have classic attacks (not covered in this course).</li>
+</ul>
+<hr />
+<h2 id="3-diffie-hellman-key-exchange">3. Diffie-Hellman key exchange ★★<a class="headerlink" href="#3-diffie-hellman-key-exchange" title="Permanent link">&para;</a></h2>
+<h3 id="31-protocol">3.1 Protocol<a class="headerlink" href="#31-protocol" title="Permanent link">&para;</a></h3>
+<p>Public parameters: a large prime p, a generator g.</p>
+<ol>
+<li>Alice picks a secret a, computes <span class="arithmatex">\(A = g^a \bmod p\)</span>, and sends it to Bob.</li>
+<li>Bob picks a secret b, computes <span class="arithmatex">\(B = g^b \bmod p\)</span>, and sends it to Alice.</li>
+<li>Alice computes <span class="arithmatex">\(K = B^a = g^{ab} \bmod p\)</span>.</li>
+<li>Bob computes <span class="arithmatex">\(K = A^b = g^{ab} \bmod p\)</span>.</li>
+<li>Both sides obtain the same symmetric key K.</li>
+</ol>
+<p><strong>DH is not used for encrypting/signing</strong>, only for <strong>establishing a key</strong>.</p>
+<h3 id="32-security-discrete-log">3.2 Security = discrete log<a class="headerlink" href="#32-security-discrete-log" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The attacker can see <span class="arithmatex">\(g, p, A=g^a, B=g^b\)</span>.</li>
+<li>If they can find a from <span class="arithmatex">\(g^a\)</span> (the discrete log problem), they can compute <span class="arithmatex">\(K = B^a\)</span>.</li>
+<li>Note: <span class="arithmatex">\(A\cdot B = g^{a+b} \neq g^{ab}\)</span> — you cannot get the key by multiplying directly.</li>
+</ul>
+<h3 id="33-man-in-the-middle-mim-attack">3.3 Man-in-the-middle (MiM) attack ★<a class="headerlink" href="#33-man-in-the-middle-mim-attack" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Trudy intercepts Alice's <span class="arithmatex">\(g^a\)</span>, picks her own t, and sends <span class="arithmatex">\(g^t\)</span> to Bob.</li>
+<li>Trudy intercepts Bob's <span class="arithmatex">\(g^b\)</span> and sends <span class="arithmatex">\(g^t\)</span> to Alice.</li>
+<li>Alice computes <span class="arithmatex">\(K_AT = g^{at}\)</span>; Bob computes <span class="arithmatex">\(K_BT = g^{bt}\)</span>; Trudy can compute both.</li>
+<li>After that Trudy talks to Alice with <code>K_AT</code> and to Bob with <code>K_BT</code>, and neither side has any idea.</li>
+</ol>
+<p><strong>Root cause</strong>: DH itself has <strong>no authentication</strong> — Alice cannot confirm that <span class="arithmatex">\(g^t\)</span> came from Bob.
+<strong>Defense</strong>: authenticate DH's public values with certificates/signatures/pre-shared keys (e.g., TLS's signed key exchange, Signal's X3DH, etc.).</p>
+<h3 id="34-small-example-p23-g5-a6-b15">3.4 Small example (p=23, g=5, a=6, b=15)<a class="headerlink" href="#34-small-example-p23-g5-a6-b15" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+A &amp;= 5^6 \bmod 23 = 8\\
+B &amp;= 5^{15} \bmod 23 = 19\\
+\text{Alice: } K &amp;= 19^6 \bmod 23 = 2\\
+\text{Bob: } K &amp;= 8^{15} \bmod 23 = 2
+\end{aligned}
+\]</div>
+<hr />
+<h2 id="4-digital-signatures">4. Digital signatures ★★<a class="headerlink" href="#4-digital-signatures" title="Permanent link">&para;</a></h2>
+<h3 id="41-mechanism">4.1 Mechanism<a class="headerlink" href="#41-mechanism" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sign: <span class="arithmatex">\(S = [M]_{\\text{Alice}} = M^d \bmod N\)</span> ("encrypt" with the private key).</li>
+<li>Verify: <span class="arithmatex">\(M = S^e \bmod N\)</span> ("decrypt" with the public key).</li>
+<li>Only Alice knows d, so only she can produce S; anyone can verify.</li>
+</ul>
+<h3 id="42-why-it-gives-non-repudiation">4.2 Why it gives non-repudiation ★<a class="headerlink" href="#42-why-it-gives-non-repudiation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MAC</th>
+<th>Digital signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key</td>
+<td>Both sides share K</td>
+<td>The signer alone holds the private key</td>
+</tr>
+<tr>
+<td>Can Bob forge it</td>
+<td><strong>Yes</strong> (he also knows K)</td>
+<td>No (he does not have d)</td>
+</tr>
+<tr>
+<td>Can it be proved to a third party</td>
+<td><strong>No</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Non-repudiation</td>
+<td>None</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scenario</strong>: Alice orders 100 shares from Bob.
+- With a MAC: after the stock drops Alice denies it; Bob cannot prove that he did not forge it himself (he also has K).
+- With a signature: only Alice has the private key; Bob can verify the signature to a judge → Alice cannot repudiate.
+- Precondition: <strong>the private key has not been stolen/leaked</strong>.</p>
+<h3 id="43-hash-then-sign">4.3 Hash-then-sign ★★<a class="headerlink" href="#43-hash-then-sign" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signing a large message directly: RSA is slow, and the signature length = the message length (impractical).</li>
+<li>Instead sign <code>h(M)</code>: <span class="mchip"><span class="arithmatex">\(S = [h(M)]_{\text{Alice}}\)</span></span>, and send <code>(M, S)</code>.</li>
+<li>Verify: compute <code>h(M)</code> and compare it with <span class="arithmatex">\(S^e\)</span>.</li>
+<li>Precondition: the hash must be <strong>collision resistant</strong>; otherwise an attacker finds <code>M'</code> with <span class="mchip"><span class="arithmatex">\(h(M')=h(M)\)</span></span> and can replace <code>(M,S)</code> with <code>(M',S)</code>.</li>
+<li>This explains why broken collisions in MD5/SHA-1 directly threaten signature security.</li>
+</ul>
+<h3 id="44-the-direction-of-signature-vs-encryption-easy-to-get-wrong">4.4 The "direction" of signature vs encryption (easy to get wrong)<a class="headerlink" href="#44-the-direction-of-signature-vs-encryption-easy-to-get-wrong" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Encryption: <strong>public key</strong> encrypts → <strong>private key</strong> decrypts.</li>
+<li>Signature: <strong>private key</strong> "encrypts" → <strong>public key</strong> "decrypts".</li>
+<li>Do not treat "encrypting a message with the private key" as "keeping the message secret" — anyone can open it with the public key, it <strong>provides no confidentiality</strong>.</li>
+</ul>
+<hr />
+<h2 id="5-pki-and-certificates">5. PKI and certificates ★★<a class="headerlink" href="#5-pki-and-certificates" title="Permanent link">&para;</a></h2>
+<h3 id="51-the-problem">5.1 The problem<a class="headerlink" href="#51-the-problem" title="Permanent link">&para;</a></h3>
+<ul>
+<li>You receive <code>(M, S)</code> — how do you know that this "Alice's public key" really belongs to Alice?</li>
+<li>An attacker can forge "Alice's public key" and then sign with their own private key.</li>
+<li>Solution: a <strong>trusted third party, the CA</strong>, vouches for "identity + public key".</li>
+</ul>
+<h3 id="52-digital-certificate">5.2 Digital certificate<a class="headerlink" href="#52-digital-certificate" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Contents: user name, public key, validity period, issuer, etc.</li>
+<li>Signed by the CA with the <strong>CA's private key</strong>.</li>
+<li>Verify: use the <strong>CA's public key</strong> to verify the certificate signature → trust the public key in the certificate.</li>
+<li>Common format: <strong>X.509</strong>.</li>
+</ul>
+<p><strong>Main X.509 fields</strong> (being able to list 5 is enough):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos"> 1</span></a>Version
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos"> 2</span></a>Serial Number
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos"> 3</span></a>Signature Algorithm
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos"> 4</span></a>Issuer Name
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos"> 5</span></a>Validity Period
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos"> 6</span></a>Subject Name
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos"> 7</span></a>Subject Public Key
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos"> 8</span></a>Issuer Unique ID
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos"> 9</span></a>Subject Unique ID
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos">10</span></a>Extensions
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos">11</span></a>Digital Signature
+</code></pre></div>
+<h3 id="53-certificate-life-cycle">5.3 Certificate life cycle<a class="headerlink" href="#53-certificate-life-cycle" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos">1</span></a>Key pair generated → Certificate issued → Key pair in use → Certificate expires / private key compromised → Certificate revoked (CRL) → Re-certify / new key pair
+</code></pre></div>
+<ul>
+<li><strong>CRL (Certificate Revocation List)</strong>: the CA publishes a list of "revoked certificates".</li>
+<li>Revocation checking is the practical difficulty of PKI (CRLs too large; OCSP privacy/availability problems).</li>
+</ul>
+<h3 id="54-why-trust-a-ca">5.4 Why trust a CA?<a class="headerlink" href="#54-why-trust-a-ca" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Root CA certificates are preinstalled</strong> in the OS/browser/application since installation time, and updated with normal system updates.</li>
+<li>The CA verifies identity by <strong>real-world measures</strong> (business license, domain control, phone callback), not by cryptography.</li>
+<li>Trust is <strong>transitive</strong>: root CA → intermediate CA → site certificate.</li>
+<li>Risk: a CA is compromised/acts maliciously → it can issue arbitrary certificates (this has happened historically).</li>
+</ul>
+<h3 id="55-three-trust-models">5.5 Three trust models<a class="headerlink" href="#55-three-trust-models" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Structure</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monopoly</strong></td>
+<td>A single/very few root CAs</td>
+<td>Early browser vendor roots</td>
+</tr>
+<tr>
+<td><strong>Oligarchy</strong></td>
+<td>A few trusted CAs (most common)</td>
+<td>The modern TLS ecosystem</td>
+</tr>
+<tr>
+<td><strong>Anarchy</strong></td>
+<td>Anyone can be a CA, relying on self-certification/reputation</td>
+<td>PGP web of trust</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-hash-functions">6. Hash functions ★★<a class="headerlink" href="#6-hash-functions" title="Permanent link">&para;</a></h2>
+<h3 id="61-the-five-properties-must-memorize">6.1 The five properties (must memorize)<a class="headerlink" href="#61-the-five-properties-must-memorize" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Meaning</th>
+<th>Attack it resists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compression</strong></td>
+<td>any length → fixed n-bit</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Efficiency</strong></td>
+<td>easy to compute</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>One-way (preimage)</strong></td>
+<td>given y, cannot find x with H(x)=y</td>
+<td>reversing plaintext/passwords</td>
+</tr>
+<tr>
+<td><strong>Weak collision (second preimage)</strong></td>
+<td>given x, cannot find y≠x with H(y)=H(x)</td>
+<td>tampering with a single message</td>
+</tr>
+<tr>
+<td><strong>Strong collision</strong></td>
+<td>cannot find any pair y≠x with H(y)=H(x)</td>
+<td>forging an arbitrary message</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-birthday-problems">6.2 Birthday problems ★★<a class="headerlink" href="#62-birthday-problems" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Pre-birthday problem</strong> (weak collision): finding someone with the same birthday as me takes <strong>253</strong> people.</li>
+<li><strong>Birthday problem</strong> (strong collision): any two people sharing a birthday needs only <strong>23</strong> people.</li>
+<li>Generalization: for an N-bit hash, about <span class="arithmatex">\(2^{N/2}\)</span> tries are enough to find a collision.</li>
+<li>Corollaries:</li>
+<li><strong>An N-bit hash has only N/2 bits of security strength</strong>;</li>
+<li>128-bit (MD5) → <span class="arithmatex">\(2^{64}\)</span>; 160-bit (SHA-1) → <span class="arithmatex">\(2^{80}\)</span>;</li>
+<li>whereas an N-bit symmetric key has about N bits of strength.</li>
+</ul>
+<h3 id="63-common-algorithms">6.3 Common algorithms<a class="headerlink" href="#63-common-algorithms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Output</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD5</td>
+<td>128 bit</td>
+<td>collisions easy to construct, <strong>broken</strong></td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>160 bit</td>
+<td>crackable since 2005, <strong>no longer recommended</strong></td>
+</tr>
+<tr>
+<td>SHA-256/384/512</td>
+<td>256/384/512</td>
+<td>currently secure</td>
+</tr>
+<tr>
+<td>SHA-3</td>
+<td>224/256/384/512</td>
+<td>different structure (sponge), secure</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Structure: <strong>Merkle–Damgård</strong>: a fixed compression function + block-by-block iteration, where the previous block's output takes part in the next block; no key involved, similar to a block cipher.</li>
+<li>Avalanche effect: <code>MD5("...dog")</code> and <code>MD5("...dog.")</code> give completely different outputs.</li>
+</ul>
+<h3 id="64-clever-uses-of-hashing">6.4 Clever uses of hashing<a class="headerlink" href="#64-clever-uses-of-hashing" title="Permanent link">&para;</a></h3>
+<p><strong>(1) Password storage (detailed in Chapter 7)</strong></p>
+<ul>
+<li>Store <code>h(password)</code>; an attacker precomputes a dictionary → cracked in seconds.</li>
+<li>Add a <strong>salt</strong>: store <code>(s, h(password, s))</code>; the attacker must recompute for every user.</li>
+</ul>
+<p><strong>(2) Hash chains / one-time passwords</strong></p>
+<ul>
+<li>24 classes, secret t:</li>
+<li>class 1 gets <code>H²³(t)</code>;</li>
+<li>class d gets <span class="arithmatex">\(H^{24-d}(t)\)</span>;</li>
+<li>class 24 gets <code>t</code>.</li>
+<li>Verify: hash the received value once more; it should equal the previous value.</li>
+<li>Security: from the current value you <strong>cannot derive the next value</strong> (that requires inverting); also each value corresponds to exactly one class, so a replay is rejected by the index check.</li>
+</ul>
+<p><strong>(3) Anti-spam PoW</strong></p>
+<ul>
+<li>Require the first N bits of <code>h(M, R, T)</code> to be zero.</li>
+<li>The sender tries <strong><span class="arithmatex">\(2^N\)</span></strong> times on average; the receiver needs only <strong>1</strong> verification.</li>
+<li>N is adjustable: acceptable for normal email, while the cost for spam rises exponentially.</li>
+<li>Blockchain PoW has the same origin.</li>
+</ul>
+<h3 id="65-quantum-computing-shor">6.5 Quantum computing: Shor ★★<a class="headerlink" href="#65-quantum-computing-shor" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Shor's algorithm</strong> (1994) can factor large integers and solve discrete logs in polynomial time.</li>
+<li>For a 2048-bit modulus:</li>
+<li>the number field sieve (best classic) ≈ 125-bit symmetric key strength;</li>
+<li>Shor ≈ <strong>30-bit</strong> symmetric key strength.</li>
+<li>Conclusion: <strong>RSA, DH, and DSA/ECDSA all fail</strong>; symmetric ciphers with long keys survive.</li>
+<li>Countermeasure: <strong>post-quantum cryptography</strong> (e.g., NTRU, lattice-based cryptography) — the slides only name NTRU.</li>
+</ul>
+<hr />
+<h2 id="7-worked-examples">7. Worked examples<a class="headerlink" href="#7-worked-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-rsa-full-flow-12-points">Example 1: RSA full flow (12 points)<a class="headerlink" href="#example-1-rsa-full-flow-12-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: p=11, q=3, e=3, M=8. Find N, φ(N), d, the ciphertext C, and verify the decryption.</p>
+<p><strong>Solution</strong>:
+- <span class="arithmatex">\(N = 11\times 3 = 33\)</span>
+- <span class="arithmatex">\(\varphi (N) = 10\times 2 = 20\)</span>
+- <span class="mchip"><span class="arithmatex">\(e=3\)</span></span>, <span class="arithmatex">\(3d \equiv 1 \pmod{20}\)</span> → <span class="mchip"><span class="arithmatex">\(d=7\)</span></span> (3×7=21≡1)
+- <span class="arithmatex">\(C = 8^{3} \bmod 33 = 512 \bmod 33 = 17\)</span>
+- Verify: <span class="arithmatex">\(17^{7} \bmod 33\)</span>
+  - <span class="arithmatex">\(17^{2} = 289 \equiv 25\)</span>
+  - <span class="arithmatex">\(17^{4} = 25^{2} = 625 \equiv 31\)</span>
+  - <span class="arithmatex">\(17^{7} = 17^{4}\cdot 17^{2}\cdot 17 = 31\cdot 25\cdot 17 \equiv 16\cdot 17 = 272 \equiv 8\)</span> ✓</p>
+<p><strong>Marking points</strong>: φ computed correctly; d satisfies <span class="arithmatex">\(ed\equiv 1\)</span>; decryption uses repeated squaring rather than brute force.</p>
+<h3 id="example-2-dh-key-exchange-10-points">Example 2: DH key exchange (10 points)<a class="headerlink" href="#example-2-dh-key-exchange-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: p=23, g=5, Alice's a=6, Bob's b=15. Find A, B, and the shared key K.</p>
+<p><strong>Solution</strong>:
+- <span class="arithmatex">\(A = 5^{6} \bmod 23 = 8\)</span>
+- <span class="arithmatex">\(B = 5^{15} \bmod 23 = 19\)</span>
+- Alice: <span class="arithmatex">\(K = B^a = 19^{6} \bmod 23 = 2\)</span>
+- Bob: <span class="arithmatex">\(K = A^b = 8^{15} \bmod 23 = 2\)</span></p>
+<p><strong>Marking points</strong>: both sides compute the same K; state that security depends on the discrete log.</p>
+<h3 id="example-3-dh-man-in-the-middle-10-points">Example 3: DH man-in-the-middle (10 points)<a class="headerlink" href="#example-3-dh-man-in-the-middle-10-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: describe how Trudy, without breaking the discrete log, makes Alice and Bob each believe they are communicating with the other.</p>
+<p><strong>Solution</strong>:
+1. Trudy picks t, intercepts <span class="arithmatex">\(g^a\)</span>, and sends <span class="arithmatex">\(g^t\)</span> to Bob;
+2. intercepts <span class="arithmatex">\(g^b\)</span> and sends <span class="arithmatex">\(g^t\)</span> to Alice;
+3. Alice gets <span class="arithmatex">\(g^{at}\)</span>, Bob gets <span class="arithmatex">\(g^{bt}\)</span>, and Trudy can compute both;
+4. Trudy decrypts/forwards with the two keys respectively, and neither side notices.</p>
+<p><strong>Defense</strong>: <strong>authenticate</strong> DH's exchanged values (certificates/signatures/pre-shared keys).</p>
+<h3 id="example-4-birthday-attack-8-points">Example 4: Birthday attack (8 points)<a class="headerlink" href="#example-4-birthday-attack-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: a system uses a 128-bit hash for integrity checking. How many tries does an attacker need to forge a second preimage? How many to find an arbitrary collision?</p>
+<p><strong>Solution</strong>:
+- Second preimage (given x, find y): about <strong><span class="arithmatex">\(2^{128}\)</span></strong>;
+- Arbitrary collision (birthday): about <strong><span class="arithmatex">\(2^{64}\)</span></strong>;
+- So a 128-bit hash has only 64 bits of "collision resistance", which is no longer enough; at least 256-bit should be used.</p>
+<h3 id="example-5-hash-chain-8-points">Example 5: Hash chain (8 points)<a class="headerlink" href="#example-5-hash-chain-8-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: 24 classes, secret t, class 1 sends <code>H²³(t)</code>. What should class 5 send? How does the verifier verify it?</p>
+<p><strong>Solution</strong>:
+- Class d sends <span class="arithmatex">\(H^{24-d}(t)\)</span>; d=5 → <strong><code>H¹⁹(t)</code></strong>.
+- Verify: hash the previous value once more; it should equal the value received in class 4 (<span class="mchip"><span class="arithmatex">\(H(H^{19})=H^{20}\)</span></span>).
+- An attacker holding <code>H¹⁹(t)</code> cannot derive <code>H¹⁸(t)</code> (that requires inverting the hash), so they cannot forge the next value in advance.</p>
+<h3 id="example-6-why-rsa-needs-padding-6-points">Example 6: Why RSA needs padding (6 points)<a class="headerlink" href="#example-6-why-rsa-needs-padding-6-points" title="Permanent link">&para;</a></h3>
+<p><strong>Question</strong>: what is the problem with using <span class="arithmatex">\(C=M^e\)</span> directly in textbook RSA?</p>
+<p><strong>Solution</strong>:
+- Deterministic: the same M produces the same C, so dictionary/replay attacks work;
+- Malleable: <span class="arithmatex">\(C_{1}\cdot C_{2} = (M_{1}M2)^e\)</span>;
+- Signatures are forgeable: <span class="arithmatex">\(S(M_{1})\cdot S(M_{2}) = S(M_{1}M2)\)</span>.
+- Fix: use randomized padding such as OAEP for encryption; use hash + PSS/PKCS#1 v1.5 for signatures.</p>
+<hr />
+<h2 id="8-common-mistakes-where-marks-are-most-easily-lost">8. Common mistakes (where marks are most easily lost)<a class="headerlink" href="#8-common-mistakes-where-marks-are-most-easily-lost" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The RSA private key is (N,d) and the public key is (N,e)</td>
+<td>Correct; but p, q, and φ(N) must be kept secret/destroyed</td>
+</tr>
+<tr>
+<td>A signature = encrypting with the private key, so it also keeps things secret</td>
+<td>Wrong; anyone can open it with the public key, it <strong>provides no confidentiality</strong></td>
+</tr>
+<tr>
+<td>Sign the message directly, no hash needed</td>
+<td>Not feasible for large messages; textbook RSA signatures are also malleable; you must hash-then-sign</td>
+</tr>
+<tr>
+<td>A MAC gives non-repudiation</td>
+<td>It does not; both sides share the key</td>
+</tr>
+<tr>
+<td>DH can encrypt data</td>
+<td>DH only establishes a key, it does not encrypt/sign</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(g^a\cdot g^b\)</span> in DH is the shared key</td>
+<td>Wrong; it is <span class="arithmatex">\(g^{a+b}\)</span>, the shared key is <span class="arithmatex">\(g^{ab}\)</span></td>
+</tr>
+<tr>
+<td>A certificate contains only the public key</td>
+<td>It also has the identity, validity period, issuer, signature, etc.</td>
+</tr>
+<tr>
+<td>A root CA is trusted because of cryptography</td>
+<td>It is because of <strong>preinstallation + real-world identity verification</strong>; cryptography only guarantees signature integrity</td>
+</tr>
+<tr>
+<td>An N-bit hash = N-bit security</td>
+<td>Collision resistance is only <strong>N/2</strong> bit</td>
+</tr>
+<tr>
+<td>Shor breaks AES</td>
+<td>Shor breaks RSA/DH; AES only fears Grover (strength halved)</td>
+</tr>
+<tr>
+<td>Multiplying two large primes is hard to factor, so RSA must be secure</td>
+<td>There is currently no general attack faster than factoring, but "RSA hard ⇔ factoring hard" is unproven</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-self-test-do-it-first-then-check-the-answers">9. Self-test (do it first, then check the answers)<a class="headerlink" href="#9-self-test-do-it-first-then-check-the-answers" title="Permanent link">&para;</a></h2>
+<ol>
+<li>What do "one-way" and "trapdoor" each refer to in a trapdoor one-way function? Give an example.</li>
+<li>Write out RSA key generation, encryption, and decryption; why does factoring N break RSA?</li>
+<li>Why does RSA need "mod at each step + repeated squaring"? How many bytes can a 2048-bit RSA encrypt at most?</li>
+<li>What is hybrid encryption? Why do real systems not encrypt data directly with RSA?</li>
+<li>Write out the DH protocol flow; why can an attacker who sees <span class="arithmatex">\(g^a\)</span> and <span class="arithmatex">\(g^b\)</span> not obtain <span class="arithmatex">\(g^{ab}\)</span> directly?</li>
+<li>How does the DH man-in-the-middle attack happen? How do you defend against it?</li>
+<li>Why do digital signatures give non-repudiation while a MAC does not?</li>
+<li>Why must you hash before signing? What happens if the hash is collidable?</li>
+<li>Which fields does a certificate contain? How is the CA's signature verified? Why is a root CA trusted?</li>
+<li>What are the five properties of a hash? Why is the birthday attack <span class="arithmatex">\(2^{N/2}\)</span>?</li>
+<li>How does a hash chain implement one-time passwords? Why can an attacker not compute the next value in advance?</li>
+<li>What does Shor's algorithm mean for RSA/DH? Why are symmetric ciphers not affected the same way?</li>
+</ol>
+<h3 id="answers">Answers<a class="headerlink" href="#answers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Easy to compute forward, hard to compute in reverse; once you have the trapdoor (private key), the reverse becomes easy. Example: N=pq is easy to compute, factoring N is hard, and p and q are the trapdoor.</li>
+<li>Choose <span class="arithmatex">\(p,q\)</span>; <span class="arithmatex">\(N=pq\)</span>; <span class="arithmatex">\(\varphi=(p-1)(q-1)\)</span>; choose <span class="arithmatex">\(e\)</span> coprime to <span class="arithmatex">\(\varphi\)</span>; find <span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(ed\equiv 1 \pmod{\varphi}\)</span>; public key <span class="arithmatex">\((N,e)\)</span>, private key <span class="arithmatex">\(d\)</span>. Encrypt <span class="arithmatex">\(C=M^e\)</span>, decrypt <span class="arithmatex">\(M=C^d\)</span>. Factor <span class="arithmatex">\(N\)</span> to get <span class="arithmatex">\(p,q\)</span> → compute <span class="arithmatex">\(\varphi\)</span> → use <span class="arithmatex">\(e\)</span> to find <span class="arithmatex">\(d\)</span>.</li>
+<li>Computing <span class="arithmatex">\(M^e\)</span> directly produces huge integers; taking the modulus at each step keeps values <span class="arithmatex">\(&lt;N^2\)</span>, and repeated squaring cuts the number of multiplications to <span class="arithmatex">\(O(\log e)\)</span>. 2048-bit → 256 bytes, about 245 bytes after padding.</li>
+<li>The public key only encrypts/wraps one symmetric key, and the data is encrypted with AES. RSA is slow, limited in message length, and expands the ciphertext; it is unsuitable for transmitting large amounts of data.</li>
+<li>Alice sends <span class="arithmatex">\(g^a\)</span>, Bob sends <span class="arithmatex">\(g^b\)</span>; both sides compute <span class="arithmatex">\(g^{ab}\)</span>. The attacker only has <span class="arithmatex">\(g^a\)</span> and <span class="arithmatex">\(g^b\)</span>, whose product is <span class="arithmatex">\(g^{a+b}\)</span>; obtaining <span class="arithmatex">\(g^{ab}\)</span> requires solving CDH/discrete log.</li>
+<li>Trudy establishes a key with each side using <span class="arithmatex">\(g^t\)</span>, holds both keys, and forwards traffic. Defense: authenticated DH (certificates/signatures/pre-shared keys).</li>
+<li>Only Alice has the signing private key, Bob cannot forge it, and it can be verified to a third party; for a MAC both sides have K, so Bob can generate it too.</li>
+<li>Signing a large message directly is slow and the signature is too long; hashing compresses the message into a fixed-length fingerprint. If the hash is collidable, an attacker can replace (M,S) with (M',S) and verification still passes.</li>
+<li>Version, serial number, signature algorithm, issuer, validity period, subject, subject public key, extensions, signature, etc. Verify the signature with the CA's public key. Root CAs are preinstalled in the system/browser, and their identity rests on real-world verification.</li>
+<li>Compression, efficiency, one-way, weak collision, strong collision. Birthday paradox: comparing all pairs, about <span class="arithmatex">\(\sqrt{2^N}=2^{N/2}\)</span> tries give an expected collision.</li>
+<li>Class d gets <span class="arithmatex">\(H^{24-d}(t)\)</span>; the verifier hashes the current value once more and compares it with the previous one. Going from <span class="arithmatex">\(H^k(t)\)</span> to <span class="arithmatex">\(H^{k-1}(t)\)</span> requires inverting the hash.</li>
+<li>Shor can factor/solve discrete logs in polynomial time → RSA, DH, and ECDSA fail; symmetric ciphers only get a square-root speedup from Grover, so doubling the key is enough.</li>
+</ol>
+<hr />
+<h2 id="10-pre-exam-quick-reference-card">10. Pre-exam quick-reference card<a class="headerlink" href="#10-pre-exam-quick-reference-card" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trapdoor one-way</td>
+<td>easy forward, hard reverse, easy with the trapdoor</td>
+</tr>
+<tr>
+<td>RSA key</td>
+<td>N=pq; φ=(p−1)(q−1); ed≡1 mod φ; public key (N,e), private key d</td>
+</tr>
+<tr>
+<td>RSA encryption/decryption</td>
+<td><span class="arithmatex">\(C=M^e \bmod N\)</span>; <span class="arithmatex">\(M=C^d \bmod N\)</span></td>
+</tr>
+<tr>
+<td>RSA security</td>
+<td>factoring N</td>
+</tr>
+<tr>
+<td>RSA length</td>
+<td>2048-bit ≈ 245 bytes of plaintext</td>
+</tr>
+<tr>
+<td>Repeated squaring</td>
+<td>square + multiply on a 1; mod at each step</td>
+</tr>
+<tr>
+<td>Hybrid encryption</td>
+<td>RSA wraps the symmetric key + AES encrypts the data</td>
+</tr>
+<tr>
+<td>DH</td>
+<td>public <span class="arithmatex">\(g,p\)</span>; private <span class="arithmatex">\(a,b\)</span>; exchange <span class="arithmatex">\(g^a,g^b\)</span>; <span class="arithmatex">\(K=g^{ab}\)</span></td>
+</tr>
+<tr>
+<td>DH security</td>
+<td>discrete log; fears MiM; needs authentication</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>private key signs, public key verifies; non-repudiation; hash first</td>
+</tr>
+<tr>
+<td>Signature vs MAC</td>
+<td>a signature is asymmetric and gives non-repudiation; a MAC is symmetric and does not</td>
+</tr>
+<tr>
+<td>Certificate</td>
+<td>identity+public key+validity period+CA signature; X.509</td>
+</tr>
+<tr>
+<td>Chain of trust</td>
+<td>root CA preinstalled → intermediate CA → site</td>
+</tr>
+<tr>
+<td>Five hash properties</td>
+<td>compression, efficiency, one-way, weak collision, strong collision</td>
+</tr>
+<tr>
+<td>Birthday bound</td>
+<td>N-bit → <span class="arithmatex">\(2^{N/2}\)</span>; 23 people / 253 people</td>
+</tr>
+<tr>
+<td>Hash chain</td>
+<td>class d gets <span class="arithmatex">\(H^{24-d}(t)\)</span>; verify by hashing once more</td>
+</tr>
+<tr>
+<td>PoW</td>
+<td>first N bits are zero; sender <span class="arithmatex">\(2^N\)</span>, receiver 1</td>
+</tr>
+<tr>
+<td>Shor</td>
+<td>RSA/DH fail; symmetric only fears Grover</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ch2-symmetric/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Chapter 2 · Symmetric Key Cryptography">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Chapter 2 · Symmetric Key Cryptography
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ch4-malware-re/" class="md-footer__link md-footer__link--next" aria-label="Next: Chapter 4 · Malware &amp; Reverse Engineering">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Chapter 4 · Malware & Reverse Engineering
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Personal study notes · Unofficial · Course materials remain the property of the instructor.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/table-wrap.js"></script>
+      
+        <script src="../../../javascripts/lang-switch.js"></script>
+      
+        <script src="../../../javascripts/glossary.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
